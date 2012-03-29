@@ -1,6 +1,4 @@
 
-
-
 \documentclass[10pt,A4]{book}
 \usepackage{url, palatino, color}
 \usepackage[colorlinks, linkcolor=black, urlcolor=black]{hyperref}
@@ -9,6 +7,8 @@
 
 
 \begin{document}
+
+
 
 \author{Erik H\"ulsmann}
 \title{Running your business with LedgerSMB - 1.3}
@@ -22,7 +22,7 @@
 
 % \includegraphics[width=\linewidth]{Openingschreen}
 
-
+\chapter*{Preface}
 
 \part{Overview}
 
@@ -447,6 +447,10 @@ temlates are global, however, set is selectable per company.
 
 
 \section{System menu settings}
+
+This section enumerates the ``System'' menu's immediate children. In some cases the
+functionality is too complex and is referred to a chapter of its own.
+
 \subsection{Audit control}
 
 \subsubsection{Enforce transaction reversal for all dates}
@@ -480,6 +484,28 @@ user actions (creation/adjustments/reversals/etc...) executed on financial trans
 
 @@@ Once activated, where can we see it the audit trail??
 
+
+\subsection{Taxes}
+
+This page lists all accounts which have the ``Tax'' account option enabled as discussed in section \ref{sec:AccountOptions}.
+
+Each account is listed at least once, but can be listed many times, if it has had different
+settings applied over different time periods. E.g. if one of the current VAT rates is 19\%,
+today but it used to be 17.5\% until last month, there will be 2 rows for the applicable
+VAT account. See chapter \ref{cha:Taxes} for further discussion of how taxes work in
+LedgerSMB and the choices involved when being required to handle changes in tax rates.
+
+Each row lists the following fields:
+
+\begin{description}
+\item [Rate (\%)] The tax rate to be applied when calculating VAT to be posted on this account.
+\item [Number] @@@ No idea? VAT number??
+\item [Valid To] The ending date of the settings in this row. This can apply to the rate as well as the ordering or the tax rules (but usually applies to the rate).
+\item [Ordering] @@@ Has to do with multiple tax rows being applicable, but what exactly is the effect of this setting?
+\item [Tax rules] LedgerSMB features an extendable structure to facilitate complex tax
+calculations (see section \ref{sec:TaxRulePlugins}). By default the ``Simple'' module
+is the only one installed.
+\end{description}
 
 \subsection{Defaults}
 
@@ -530,7 +556,7 @@ This setting indicates which set of templates - stored in the
    lists two items:
    \begin{itemize}
    \item [demo] which contains templates based on \LaTeX, which is more commonly installed but has issues dealing with accented characters
-   \item [xedemo] which contains the same templates based on TeTeX, which handles UTF-8 input (and thus accented characters) much better than \LaTeX and is broadly available, but not usually preinstalled.
+   \item [xedemo] which contains the same templates based on TeTeX, which handles UTF-8 input (and thus accented characters) much better than \LaTeX and is broadly available, but not usually pre-installed.
    \end{itemize}
 
 
@@ -596,12 +622,78 @@ from this sequence.
 checks can be created outside the application as well, meaning the numbers can
 get out of sync.
 
+\subsection{Year end}
+
+@@@ Rename ``Yearend'' in menu interface to ``Year end''.
+
+
+@@@ IMO this section doesn't belong here, because it's a process, not config, but does it belong in this menu then? IMO it doesn't...
+
+
+\subsection{Admin users}
+
+@@@ Same as Year end; doesn't belong here...
+
+\subsection{Chart of accounts}
+
+@@@ Chart of accounts isn't exactly a ``process'', but it doesn't feel like being pure
+config either. At any rate it's a fact that the CoA discussion is a full chapter in and
+of itself - so discussion here isn't necessary anymore.
+
 \subsection{Warehouses}
+
+Warehouses are stocking locations. They don't have any properties (in the system)
+other than that they have a name. Warehouses can be added, modified and deleted from
+the System $\rightarrow$ Warehouses menu item.
+
 \subsection{Departments}
+
+Departments can be used to divide a company in smaller pieces. LedgerSMB distinguishes two
+types of departments:
+
+\begin{itemize}
+\item [Profit centers] which can be associated with any type of transaction, including AR transactions.
+\item [Cost centers] which can be associated with all types of transactions, except AR transactions.
+\end{itemize}
+
+Departments can be created (added), modified or deleted through the System $\rightarrow$ Departments menu item.
+
+\subsection{Type of business}
+
+Types of business are used in sales operations where customers can be assigned a type
+of business. Based on the type of business assignment, quotations, sales orders and
+invoices will automatically apply discount rates. For each type of business you enter a description and a discount rate to be applied.
+
 \subsection{Languages}
-\subsection{Standard Industry Code}
+
+The language table is the table users can select languages from, both to present
+the UI of the application as well as the setting for customers to be used to generate
+documents.
+
+This listing should correspond to the actual translations of the application being
+available in the program installation directory.
+
+Languages can be added, modified or deleted through the System $\rightarrow$ Language menu item.
+
+\subsection{Standard Industry Code (SIC)}
+
+SI codes feature these three fields:
+
+\begin{description}
+\item [Code]
+\item [Heading]
+\item [Description]
+\end{description}
+
+When creating a company (irrespective of whether that company will be assigned a customer
+or vendor role) you can assign that company an SI code.
+
+@@@ These SI codes may affect Tax and regulatory reports?? What do they ``do''?
+
 \subsection{HTML templates}
+
 \subsection{LaTeX templates}
+
 \subsection{Text templates}
 
 
@@ -669,7 +761,7 @@ have a number and description, but require additional configuration for the appl
 correctly. The settings are described in the sections that follow.
 
 \subsection{Account options}
-
+\label{sec:AccountOptions}
 \begin{itemize}
 \item Contra This checkmark identifies the account as a contra account, which means
    that the account is going to hold the opposite of an account it's associated with.
@@ -697,7 +789,7 @@ There are currently three types of summary accounts:
 
 \subsection{Account inclusion in drop down lists}
 
-
+@@@ Add summary
 
 \subsubsection{Receivables \& payables UI}
 
@@ -784,6 +876,13 @@ description adjusted.
 
 \chapter{Taxes}
 \label{cha:Taxes}
+
+\section{Overview}
+
+
+
+\section{Tax calculation plug-ins}
+\label{sec:TaxRulePlugins}
 
 \chapter{Pricing}
 
