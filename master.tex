@@ -444,6 +444,8 @@ temlates are global, however, set is selectable per company.
 \item 5 other special purpose accounts, see ``Defaults'' screen discussion
 \item sales tax accounts
 \end{itemize}
+
+
 \section{System menu settings}
 \subsection{Audit control}
 
@@ -480,53 +482,84 @@ user actions (creation/adjustments/reversals/etc...) executed on financial trans
 
 
 \subsection{Defaults}
-\begin{description}
-\item [Business number]
+
+\subsubsection{Business number}
    @@@ No idea what this should do...
-\item [Weight unit]
+   
+\subsubsection{Weight unit}
    The unit of measurement for weights. @@@ why don't we have a unit of measurement for distance as well??? And maybe a unit of measurement for content?
    
-\item [Separation of duties]
+\subsubsection{Separation of duties}
    Set this field to 1 if you want to activate separation of duties or to 0 if you don't
    want to enforce it. Separation of duties is explained in section \ref{sec:SeparationOfDuties}. @@@ Should this config option not be in the ``Audit Control'' section???
 
-\item [Default accounts] This setting will be used to pre-select an account in
+\subsubsection{Default accounts}
+
+ This setting will be used to pre-select an account in
 the account listings of the three categories listed below:
 \begin{itemize}
 \item Inventory
 \item Income
 \item Expense
 \end{itemize}
-\item [Foreign exchange gain and loss accounts] When working with foreign currencies,
+
+
+\subsubsection{Foreign exchange gain and loss accounts}
+
+When working with foreign currencies,
 the system needs two special purpose accounts. One to post the gains onto which are
 caused by foreign currencies increasing in value; the other to post the losses onto
 which are caused by foreign currencies decreasing in value.
-\item [Default country] This setting indicates which country needs to be pre-selected
+
+
+\subsubsection{Default country}
+
+This setting indicates which country needs to be pre-selected
    in country selection lists.
-\item [Default language] The language to be used when no other language has been selected. Several parts of the
+
+
+\subsubsection{Default language}
+
+The language to be used when no other language has been selected. Several parts of the
 application require language selection, such as customer, vendor and employee entry screens.
 
-\item [Templates directory] This setting indicates which set of templates - stored in the
+\subsubsection{Templates directory}
+
+This setting indicates which set of templates - stored in the
    \texttt{templates/} directory - should be used. In a standard installation, the drop down
    lists two items:
    \begin{itemize}
-   \item demo which contains templates based on \LaTeX, which is more commonly installed but has issues dealing with accented characters
-   \item xedemo which contains the same templates based on TeTeX, which handles UTF-8 input (and thus accented characters) much better than \LaTeX and is broadly available, but not usually preinstalled.
+   \item [demo] which contains templates based on \LaTeX, which is more commonly installed but has issues dealing with accented characters
+   \item [xedemo] which contains the same templates based on TeTeX, which handles UTF-8 input (and thus accented characters) much better than \LaTeX and is broadly available, but not usually preinstalled.
    \end{itemize}
-\item [List of currencies \& default currency] Enter a list of all currencies you want
+
+
+\subsubsection{List of currencies \& default currency}
+
+Enter a list of all currencies you want
 to use in your company, identified by their 3-letter codes separated by a colon; i.e.
 ``USD:EUR:CHF''. To ensure correct operation of the application, at least one currency
 (the company default currency) must be listed. In case of multiple currencies the first
 is used as the company default currency.
-\item [Company data (name /address)] The fields ``Company Name'', ``Company Address'',
+\subsubsection{Company data (name /address)}
+
+The fields ``Company Name'', ``Company Address'',
 ``Company Phone'' and ``Company Fax'' will be used on printed/e-mailed invoices.
-\item [Password duration] This field indicates the duration passwords will be considered valid. Freshly set passwords will expire after this period.\footnote{If this value isn't set, passwords will expire after 1 year by default.} Note that passwords for freshly
+
+\subsubsection{Password duration} This field indicates the duration passwords will be considered valid. Freshly set passwords will expire after this period.\footnote{If this value isn't set, passwords will expire after 1 year by default.} Note that passwords for freshly
 created users expire within 24 hours after creation. @@@ What's the input here? A number? Would that number be days, weeks, years?
-\item [Default Email addresses] These addresses will be used to send e-mails from the system.
+
+
+\subsubsection{Default Email addresses}
+
+These addresses will be used to send e-mails from the system.
 Note that the ``Default Email From'' address should be configured in order to make sure
 e-mail doesn't look like it's coming from your webserver. The format to be used is \texttt{``Name'' <e-mail address>} where the e-mail address should be inserted between the
 ``$\langle$'' and ``$\rangle$''.
-\item [Max per dropdown] Some elements in the screens may present a drop down. However, drop downs are
+
+\subsubsection{Max per dropdown}
+
+Some elements in the screens may present a drop down. However, drop downs are
 relatively unwieldy to work with when used to present a large number of values
 to choose from.
 
@@ -534,7 +567,9 @@ This configuration option sets an upper limit on the number of records to be
 presented as drop down.  When the number is exceeded, no drop down is used.  Instead,
 a multi-step selection procedure will be used.
 
-\item [Item numbering] Many items in the system have sequence numbers: invoices, transactions, parts, etc. These sequence numbers can be just a number (i.e. 1 or 37),
+\subsubsection{Item numbering}
+
+Many items in the system have sequence numbers: invoices, transactions, parts, etc. These sequence numbers can be just a number (i.e. 1 or 37),
 but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for employees.
 The numbers shown in the input boxes will be used to generate the next number in the
 numbering sequence.
@@ -557,11 +592,9 @@ from this sequence.
 \item [Vendor number] @@@ same question as customer number
 \end{itemize}
 
-\item [Check prefix] The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
+\subsubsection{Check prefix} The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
 checks can be created outside the application as well, meaning the numbers can
 get out of sync.
-
-\end{description}
 
 \subsection{Warehouses}
 \subsection{Departments}
