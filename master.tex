@@ -426,7 +426,7 @@ Individual config keys; full discussion of possible values in reference appendix
 
 \subsection{pos.pl.conf}
 
-no idea what should go in here. to be investigated.
+@@@ no idea what should go in here. to be investigated.
 
 \subsection{templates}
 
@@ -445,7 +445,40 @@ temlates are global, however, set is selectable per company.
 \item sales tax accounts
 \end{itemize}
 \section{System menu settings}
-\subsection{Audit control / audit trail}
+\subsection{Audit control}
+
+\subsubsection{Enforce transaction reversal for all dates}
+
+This is a Yes/No value which affects the actions which can be performed on posted financial transactions.
+\begin{itemize}
+\item No means transactions can be altered or deleted, even after posting them. Note that
+if a transaction has been posted before the latest closing date, it can never be altered,
+not even when this value is in effect.
+\item Yes means transactions can't be altered after posting. This setting is highly preferred and considered the only correct approach to accounting as it assures visible
+audit trails and thereby supports fraud detection.
+\end{itemize}
+
+\subsubsection{Close books up to}
+
+@@@ This item isn't a system setting; shouldn't it move to ``Transaction approval''?? That way system settings (config) and processes are separated.
+
+It's advisable to regularly close the books after review. This prevents user error changing
+reviewed numbers: after closing the books, it's no longer possible to post in the closed
+period.
+
+There are also performance benefits to closing the books, because LedgerSMB uses the
+fact that the figures are known-stable as a performance optimization when calculating
+account balances.
+
+\subsubsection{Activate audit trail}
+
+This is a Yes/No value which - when Yes - causes the system to install triggers to register
+user actions (creation/adjustments/reversals/etc...) executed on financial transactions.
+
+
+@@@ Once activated, where can we see it the audit trail??
+
+
 \subsection{Defaults}
 \begin{description}
 \item [Business number]
@@ -482,7 +515,9 @@ application require language selection, such as customer, vendor and employee en
    \end{itemize}
 \item [List of currencies \& default currency] Enter a list of all currencies you want
 to use in your company, identified by their 3-letter codes separated by a colon; i.e.
-``USD:EUR:CHF''.
+``USD:EUR:CHF''. To ensure correct operation of the application, at least one currency
+(the company default currency) must be listed. In case of multiple currencies the first
+is used as the company default currency.
 \item [Company data (name /address)] The fields ``Company Name'', ``Company Address'',
 ``Company Phone'' and ``Company Fax'' will be used on printed/e-mailed invoices.
 \item [Password duration] This field indicates the duration passwords will be considered valid. Freshly set passwords will expire after this period.\footnote{If this value isn't set, passwords will expire after 1 year by default.} Note that passwords for freshly
@@ -491,8 +526,41 @@ created users expire within 24 hours after creation. @@@ What's the input here? 
 Note that the ``Default Email From'' address should be configured in order to make sure
 e-mail doesn't look like it's coming from your webserver. The format to be used is \texttt{``Name'' <e-mail address>} where the e-mail address should be inserted between the
 ``$\langle$'' and ``$\rangle$''.
-\item [Max per dropdown]
-\item Document numbering (sales quotations, orders etc)
+\item [Max per dropdown] Some elements in the screens may present a drop down. However, drop downs are
+relatively unwieldy to work with when used to present a large number of values
+to choose from.
+
+This configuration option sets an upper limit on the number of records to be
+presented as drop down.  When the number is exceeded, no drop down is used.  Instead,
+a multi-step selection procedure will be used.
+
+\item [Item numbering] Many items in the system have sequence numbers: invoices, transactions, parts, etc. These sequence numbers can be just a number (i.e. 1 or 37),
+but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for employees.
+The numbers shown in the input boxes will be used to generate the next number in the
+numbering sequence.
+\begin{itemize}
+\item [GL Reference number] @@@ where is this number being used??
+\item [Sales invoice/ AR Transaction number] This number is used to generate an invoice
+number when none is being filled out by the user.
+\item [Sales order number] Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page
+\item [Vendor invoice/ AP Transaction number] Same as Sales invoice, except that the number
+is used for accounts payable transactions. @@@ layout issue: the label is too big to fit on the page
+\item [Sales quotation number] Same as sales order number, except that it's used for quotations.
+\item [RFQ number] Request for quotation number is like the sales quotation number, except
+that it is used to track which vendors have been asked for quotes.
+\item [Part number] All parts, services and assemblies are identified by a unique number.
+When an item is created and no number is entered by the user, a number is generated
+from this sequence.
+\item [Job/project number] Used when creating new projects.
+\item [Employee number] Same as the sales invoice number, used by new employee entry.
+\item [Customer number] @@@ is this the control code number? or is this meta\_number??
+\item [Vendor number] @@@ same question as customer number
+\end{itemize}
+
+\item [Check prefix] The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
+checks can be created outside the application as well, meaning the numbers can
+get out of sync.
+
 \end{description}
 
 \subsection{Warehouses}
@@ -502,18 +570,6 @@ e-mail doesn't look like it's coming from your webserver. The format to be used 
 \subsection{HTML templates}
 \subsection{LaTeX templates}
 \subsection{Text templates}
-
-
-
-\subsection{Max per dropdown}
-
-Some elements in the screens may present a drop down. However, drop downs are
-relatively unwieldy to work with when used to present a large number of values
-to choose from.
-
-This configuration option sets an upper limit on the number of records to be
-presented as drop down.  When the number is exceeded, no drop down is used.  Instead,
-a multi-step selection procedure will be used.
 
 
 
