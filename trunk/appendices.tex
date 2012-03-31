@@ -9,11 +9,60 @@
 \section{Users}
 \label{sec:DifferencesUsers}
 
+The way users are defined and used differs greatly between LedgerSMB 1.3 and
+older versions. In version 1.3 user access to the database is enforced by the
+database itself. This means that users logging in to the LedgerSMB web application
+are in reality logging into the PostgreSQL database. In older versions, the web
+app would verify the user's credentials (using a common database connection used
+for all users).
+
+The difference between these approaches is that security is no longer (solely)
+maintained by the web application - with all inherent risks. Instead, the database
+now plays an important role as well. The effect is that the LedgerSMB team now
+leverages the experience of the PostgreSQL community - a highly respected community
+well known for its security focus - to make sure your data stays secure.
+
+This structure also enables LedgerSMB 1.3 to offer separation of duties and
+authorizations throughout the application without being required to do a full
+rewrite of the application.
+
+It's this shift in paradigm that makes it impossible to meaningfully migrate
+users from older LedgerSMB and SQL-Ledger versions to LedgerSMB 1.3.
+
+
 \chapter{Migration}
+
+\section{Introduction}
+
+There are plenty of reasons to want to migrate to LedgerSMB 1.3:
+
+\begin{enumerate}
+\item Separation of duties
+\item Security better integrated into the application
+\item Better, more strict data model
+\label{item:StricterDataModel}
+\item @@@ others?
+\end{enumerate}
+
+Yet, while item \ref{item:StricterDataModel} is a good reason to want to switch, it's
+also a reason why migration from older versions to 1.3 can be harder than earlier
+migrations: when the data
+in your older version is not consistent, it won't fit into the new data model and
+will need to be fixed first.
+
+Especially if your database has a very long line of history, being migrated trough
+lots of SQL-Ledger and LedgerSMB versions, you may want to consider asking for help
+from a professional party. It could save you a lot of time.
+
+However, don't be discouraged and have a go yourself first. Just be sure to run
+your upgrade on a backup database: the migration process is non-destructive, but
+in case accounting data is involved: better safe than sorry!
 
 \section{From older LedgerSMB versions}
 
-\section{From SQL-Ledger}
+\section{From SQL-Ledger 2.8}
+
+\section{From older SQL-Ledger versions}
 
 \section{From other accounting packages}
 
