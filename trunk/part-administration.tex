@@ -199,6 +199,7 @@ correctly. The settings are described in the sections that follow.
 \item Tax This checkmark identifies the account as a Tax (VAT) account. Tax accounts need
    to be further configured. See chapter \ref{cha:Taxes} for further discussion of the
    subject.
+   \label{item:AccountOptionsTax}
 \end{itemize}
 
 \subsection{Summary accounts}
@@ -306,20 +307,68 @@ description adjusted.
 
 \section{Overview}
 
+When an account has been marked as a Tax account (see \ref{sec:AccountOptions}, item
+\ref{item:AccountOptionsTax}) several things happen:
 
+\begin{itemize}
+\item The account will be shown in the customer and vendor account screens with
+   a check mark to mark it ``relevant for the customer''
+\item The account will be shown in the part and service configuration screens
+   with a check mark to mark it ``relevant for the part/service item''
+\item The account will be shown in the tax configuration screen in order to set
+   a tax percentage on the account
+\end{itemize}
+
+By marking an account relevant for a customer, taxes will be calculated when
+creating a sales invoice for the given customer which includes parts which also
+have the specific account marked as relevant.
+
+\section{Tax account configuration}
+
+@@@ What does the ``order'' field do again??
 
 \section{Tax calculation plug-ins}
 \label{sec:TaxRulePlugins}
+
+The tax calculation system has been designed to handle the most complex tax system
+thinkable. Because the tax calculation rules for most set ups aren't really all that
+complex, LedgerSMB comes with a single tax calculation plug in out of the box: the
+``Simple'' tax calculation rule.
+
+For more complex needs, more complex routines can be developed and plugged into
+LedgerSMB side-by-side with the simple rule.
 
 \chapter{Pricing}
 
 \section{Introduction}
 
+In the application there are four reasons for an invoice to include a discount:
+
+\begin{enumerate}
+\item Because a discount is entered by the sales person creating the quotation,
+  sales order or sales invoice
+\item Because the customer's payment terms include a discount for paying early
+\item Because the customer belongs to a type of business which is entitled to discounts
+\label{item:PricingBusinessType}
+\item Because the customer has been assigned a price matrix leading to discounts
+\label{item:PricingPriceMatrix}
+\end{enumerate}
+
+This section deals with items \ref{item:PricingBusinessType} and \ref{item:PricingPriceMatrix} only.
+
 @@@ types of business are 'old school'; price groups have been introduced to replace types of business with a more fine-grained structure.
 
 \section{Definition of types of business}
 
-\section{Definition of price groups}
+Types of business are really straight forward: they feature a description
+which allows them to be identified in the customer account screen and a discount
+percentage which is applied across the board. I.e. all invoices to the customer
+will have that discount applied.
+
+\section{Definition of price groups / price matrix}
+
+
+
 
 \chapter{Contingency planning}
 
