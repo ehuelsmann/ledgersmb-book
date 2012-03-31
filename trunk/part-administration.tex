@@ -43,8 +43,6 @@ Maintenance may require different types of system access for different types of 
 
 \chapter{User management}
 
-
-
 \section{User creation}
 
 Users experienced with LedgerSMB 1.2 or before or SQL-Ledger (any version) are
@@ -146,7 +144,15 @@ All other fields are still applicable: the data entered for other companies isn'
 copied to the current company.
 
 
-\section{Database superuser creation (for setup.pl)}
+\section{setup.pl users}
+
+Users created through the process documented above don't have enough rights to
+execute actions through the setup.pl database administration tool. Note that this
+is on purpose. You will need access to the server to create such users, or request
+one from your application service provider (ASP) if you use a hosted solution.
+
+During the set up process such a user is normally being created. This user can later
+be used to manage the database from the database administration tool setup.pl.
 
 
 \chapter{Definition of products and services}
@@ -305,6 +311,10 @@ description adjusted.
 \label{sec:TaxRulePlugins}
 
 \chapter{Pricing}
+
+\section{Introduction}
+
+@@@ types of business are 'old school'; price groups have been introduced to replace types of business with a more fine-grained structure.
 
 \section{Definition of types of business}
 
