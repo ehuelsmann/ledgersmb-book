@@ -1,0 +1,270 @@
+
+\part{Overview}
+
+\chapter{What is LedgerSMB}
+
+\section{Introduction}
+LedgerSMB is an open source, web based ERP system. This means it aspires to be
+\textit{the} integrated administration system for your business.
+The software is being developed by the LedgerSMB project.
+
+The homepage of the project is hosted at \textit{http://ledgersmb.org/}.
+However, the actual project activity can be witnessed at the SourceForge
+project site hosted at \textit{http://sf.net/projects/ledger-smb/}.  The project
+employs the Freenode.net IRC network's \#ledgersmb chat channel to discuss development
+and to help out users.
+
+Its open source nature allows you to download it and use it with any
+infrastructure you like. So there's no room for vendor lock-in: you can
+always take your data and set up your system with another hardware vendor
+or set up your own hardware.
+
+\section{Overview of modules}
+\label{sec:ModuleOverview}
+As with most ERPs LedgerSMB is built up from multiple modules.  Many modules are
+available as part of the base application.  Newer modules aren't being integrated
+into the base application immediately, but are kept separate for some time to allow
+wide spread evaluation of the feature set.  This separation allows these modules
+to have their own release schedule.  These separate modules are called \textit{add-on}s.
+
+LedgerSMB 1.3 features the following integrated modules:
+
+\begin{itemize}
+\item General ledger
+\item Payment and Accounts payable
+\item Invoicing and Accounts receivable
+\item Fixed asset accounting
+\item Time registration and invoicing
+\item Point of Sale
+\item Quotation and Order management
+\item Manufacturing
+\item Inventory (warehousing) and shipping management
+\item VAT reporting (cash based)
+\item Controlling
+\begin{itemize}
+\item Project accounting
+\item Department accounting
+\item Budgeting (as an add-on)
+\end{itemize}
+\item Application administration
+\end{itemize}
+
+And add-ons:
+\begin{itemize}
+\item Enhanced AR and AP support
+\item VAT reporting (accrual based)
+\item Enhanced trial-balance report
+\item Enhanced recurring transactions
+\item Payroll (to be created - under discussion at the time of writing)
+\end{itemize}
+
+With this list of modules and add-ons LedgerSMB has succesfully been implemented
+in shops, manufacturing companies and service oriented companies such as internet
+service providers and self-employment situations.
+
+\section{Feature comparison with alternatives}
+
+Packages to compare to:
+
+\begin{itemize}
+\item GNUcash
+\item OSfinancials
+\item ERP5
+\item OpenERP
+\item xTuple
+\end{itemize}
+
+\section{Release history}
+
+The project started out as a fork of SQL-Ledger - the open source ERP
+developed by Dieter Simader - somewhere between SQL-Ledger versions 2.6
+and 2.8.  A fork happens when a group of developers can't - for whatever
+reason - continue to work as one group on a project.  At that time, the
+project splits into two or more projects and the fork is in effect.
+
+LedgerSMB split off from the SQL-Ledger project (i.e. forked) because
+there was disagreement between developers about how to go forward both with
+respect to handling of security vulnerability reports as well as the general
+state of the code base.
+
+After the fork, between versions 1.0 and 1.2 a lot of energy was spent on
+making LedgerSMB more secure (i.e. less vulnerable).  In technical terms,
+measures were taken to fend off (amongst other things):
+
+\begin{itemize}
+\item Cross site scripting attacks
+\item Replay attacks
+\item SQL injection attacks
+\end{itemize}
+
+Come version 1.3 the development directed toward improvement of the overall
+quality of the code base as the old SQL-Ledger code was in very poor state:
+looking very much like webscripts as they were written in 1998, the code had
+grown largely outdated in style and was no longer maintainable by 2007.
+
+The 1.3 effort focussed on bringing relief on that front by introducing
+modern structure into the application.  With the new application structure
+modern and important features were realized: separation of duties (for the
+accounting part of the application) and authorizations to allow distinguishing
+different roles in your company.
+
+Unfortunately, by the beginning of 2011 the project looked mostly dead from
+an outside perspective: the team had not brought forward any releases since
+\#\#\#(since when?)\#\#\#, there were no signs of development activity and the
+mailing lists (activity of which is a measure for community activity) were
+completely silent.
+
+Fortunately development activity was restarted in the first half year of 2011,
+leading to the release of version 1.3 by September.  Between September and the
+year end in total 10 small bug fixes were released, showing active commitment
+of the developers to maintain the application.  New committers showed up, indicating
+revived community interest.
+
+
+
+\section{System requirements}
+
+The INSTALL file which comes with every LedgerSMB software release should be
+considered the authorative source of system requirements.  For the reader's
+convenience, the system requirements for the 1.3.9 release have been included
+below:
+
+\begin{itemize}
+\item Webserver; one of:
+\begin{itemize}
+\item Apache HTTPD ???(2.0?) or higher
+\item LigHTTPd ???
+\end{itemize}
+\item Perl 5.10 or higher, with these modules:
+\begin{itemize}
+\item ??
+\end{itemize}
+\item PostgreSQL 8.4 or higher, with these contribs:
+\begin{itemize}
+\item tablefunc
+\item 
+\end{itemize}
+\item \LaTeX or TeTeX (for PDF output)
+\end{itemize}
+
+Other system requirements such as required RAM and number of CPUs and their speed
+largely depend on the expected system activity.
+
+\section{License}
+
+LedgerSMB is being made available under the terms of the
+\textit{GNU Public License version 2}, or shorter \textit{GPLv2}.
+
+The project attaches this meaning to the license:
+The copyright holders grant you the right to copy and
+redistribute the software.  In case you make any modifications to the sofware
+you're obligated to make public those changes.  You are however, free to use
+the APIs from your own software without being required to publish your own software.
+
+The project considers the following to be APIs:
+\begin{itemize}
+\item Database tables
+\item URLs with their input and output
+\item Webservices of any kind
+\item Function and object calls
+\end{itemize}
+
+The effect of this interpretation is that changes directly to the code base as
+well as inheritance of classes defined in the software constitute 'making modifications'.
+
+
+\chapter{Overview}
+
+\section{Introduction}
+This section of the book describes functionalities of the modules listed in section \ref{sec:ModuleOverview}.  The information provided should be enough to get a clear
+understanding of what the application can do for you as well as being a sound basis
+for parts \ref{part:Configuration} and \ref{part:Administration}.
+
+For in-depth instruction for actual day to day use of LedgerSMB the reader is referred
+to part \ref{part:Workflows}.
+
+\section{Technical overview}
+
+
+% Users: database vs company users
+% Companies: companies as databases
+
+
+The main technical building blocks of LedgerSMB are
+
+\begin{description}
+\item[Apache HTTPD] In a standard setup, the role of the http server is very limited. It
+may be used to perform some security checks such as
+\begin{itemize}
+\item restrict the range of IP addresses from which connections are allowed
+\item run the LedgerSMB application in an
+suEXEC\footnote{http://en.wikipedia.org/wiki/suEXEC} restricted environment
+\end{itemize}
+\item[PostgreSQL] The database component has multiple functions:
+\begin{itemize}
+\item Authentication (checking user credentials)
+\item Authorization (limiting user access in accordance with roles assigned)
+\item Data storage and retrieval
+\item Data consistency enforcement
+\end{itemize}
+This is achieved by creating databases with a large number of LedgerSMB specific
+functions and roles.
+\item[Intermediate layer] This layer contains the code to mediate between the web
+and the database.  For one thing, it forwards authentication requests from the web
+to the database.  Additionally, it interprets web requests, reading, updating and
+writing to the database, generating the appropriate responses to be shown in the
+user's browser.
+\end{description}
+
+Due to the architecture described above, where the authentication and authorization
+are handed off to PostgreSQL, the development team is able to prevent writing their
+own - error prone - authentication code, leveraging widely used and tested code instead.
+
+\section{Layout of the distribution}
+
+
+\begin{tabular}{|c|p{9cm}|}
+\hline Directory &  Description \\
+\hline
+./ & The root project directory holding documentation files such as
+  README, INSTALL and UPDATING  \\ 
+LedgerSMB/ & Supporting Perl library code \\
+bin/ & Inherited SQL-Ledger application code \\
+scripts/ & Post-fork rewritten application code \\
+UI/ & Post-fork HTML and CSV application templates with supporting Javascript code \\
+templates/ & User templates, used for invoices, quotations, etc. \\
+locale/ & Files holding translations for localized application output \\
+sql/ & Files required for initialization of the database: chart of accounts,
+ table structure, stored procedures, etc \\
+\hline 
+\end{tabular} 
+
+
+\section{Functional overview}
+
+One of the main things to remember when working in an ERP is that nearly everything is
+linked to the ledger in one way or another.  This relation is much stronger in ERP
+systems than others, where accounting information is much more often an after-thought,
+if a subject at all.  Since an ERP includes accounting, being able to post to the
+ledger is part of the design from the beginning.
+
+% others?
+
+
+
+
+\section{Technical components}
+
+The intermediate layer itself consists of several parts and - as far as code written
+after 2007 is concerned - is modelled after the Model-View-Controller design paradigm.
+Most of the model has been implemented in the database and its stored procedures, meaning
+that the intermediate layer itself implements the view and the controller.
+
+The view - meaning the output as sent in response to the web requests - is generated
+using templates.  These templates use the highly respected and often-used Perl templating
+library Template Toolkit\footnote{http://template-toolkit.org}.
+
+Code written before 2007 is to be replaced in due course and will follow the same
+pattern.
+
+
