@@ -1,0 +1,208 @@
+
+
+\part{Administration}
+\label{part:Administration}
+
+%\section{Introduction}
+%This section of the book describes which tasks and processes might need to be carried out
+%on a regular basis in order to keep the application in good health and in line with
+%end-users requirements.  As a result this part is more related to the functional rather
+%than technical parts of the application.
+%
+%The fact that the tasks described in this part of the book may be recurring during the
+%lifetime of the application does not exclude them from being part of the setup phase
+%of LedgerSMB.  In other words: you're likely to have to dig into this section when
+%creating a company as well as when maintaining it.
+
+\chapter{Overview}
+
+
+(Within-application tasks)
+
+(DBA tasks from setup.pl)
+
+(Outside-application tasks)
+
+\chapter{User management}
+
+\section{User creation}
+
+\section{User authorization}
+
+\section{Same user in multiple companies}
+
+\chapter{Definition of products and services}
+
+\section{Definition of products}
+Structure of products in the system.
+
+\subsection{Definition of parts}
+\label{sec:DefinitionOfParts}
+
+\subsection{Definition of partgroups}
+\subsection{Definition of assemblies}
+\subsection{Definition of overhead}
+
+\section{Definition of services}
+
+\chapter{Chart of accounts}
+
+\section{Accounts and headers}
+
+The system allows ordering accounts into groups by assigning accounts to headers. Headers
+can themselves be assigned to other headers resulting in trees of account groups.\footnote{Although the database structure supports this type of account hierarchy
+doesn't the 1.3 user take advantage of it yet: in 1.3 accounts can be assigned a header,
+but headers can't be assigned to headers themselves.}
+
+
+
+\section{Account configuration}
+
+Headers don't have any configuration, other than their number and description. Accounts also
+have a number and description, but require additional configuration for the application to work
+correctly. The settings are described in the sections that follow.
+
+\subsection{Account options}
+\label{sec:AccountOptions}
+\begin{itemize}
+\item Contra This checkmark identifies the account as a contra account, which means
+   that the account is going to hold the opposite of an account it's associated with.
+   A good example of this kind would be the depreciation account associated with a fixed
+   asset account where the depreciation account contains the credit amount to be added to
+   the original asset (debit) value to get the current asset value.
+\item Recon This checkmark identifies the account as one which needs reconciliation as
+   described in section \ref{sec:Reconciliation}.
+\item Tax This checkmark identifies the account as a Tax (VAT) account. Tax accounts need
+   to be further configured. See chapter \ref{cha:Taxes} for further discussion of the
+   subject.
+\end{itemize}
+
+\subsection{Summary accounts}
+
+There are currently three types of summary accounts:
+
+\begin{enumerate}
+\item AR Marking an account as a summary account for AR means that all outstanding
+   receivable amounts will be posted to this account. The Accounts Receivable administration
+   will contain the details of which amount is owed by which customer.
+\item AP Same as the AR account, except for amounts owed to vendors.
+\item Inventory This account holds the monetary value equal to the items on stock.
+\end{enumerate}
+
+\subsection{Account inclusion in drop down lists}
+
+@@@ Add summary
+
+\subsubsection{Receivables \& payables UI}
+
+\begin{itemize}
+\item[Income (AR\_amount)] ...
+\item[Payment (AR\_paid)] This check mark adds the account to the list of accounts
+   to choose from in the Receipts (AR) and Payments (AP) screens. Additionally, it
+   adds the account to the part entry screen as described in section \ref{sec:DefinitionOfParts}.
+\item[Tax (AR\_tax)] This check mark makes the account show up as a check mark on the
+   customer (AR) or vendor (AP) entry screen. See chapter \ref{cha:Taxes} for further discussion.
+\item[Overpayment (AR\_overpayment)] Adds the account to the receipts screen as discussed
+   in section \ref{sec:UsingOverpayments}.
+\item[Discount (AR\_discount)] Adds the account to the customer entry screen's selection
+   list for accounts to post 
+\end{itemize}
+
+The payables UI works the same way as does the receivables UI. The difference is
+that the technical names of the configuration identifiers are prefixed by AP\_ instead
+of AR\_.
+
+\subsubsection{Tracking Items}
+
+The items on this line relate to stocked items, i.e. those tracked for inventory: parts and
+assemblies.
+
+\begin{enumerate}
+\item[Income (IC\_sale)] Adds the account to the selection list of income accounts on the
+   part and assembly definition screens.
+\item[COGS (IC\_cogs)] Adds the account to the selection list of COGS @@@ accounts on the
+   part, assembly and overhead definition screen.
+\item[Tax (IC\_taxpart)] Adds a check mark to the part and assembly definition screen
+   for the applicable account. See \ref{cha:Taxes} for more details on how taxes
+   work in LedgerSMB.
+\end{enumerate}
+
+@@@ Question: Labor/Overhead accounts == inventory accounts??
+
+\subsubsection{Non-tracking items}
+
+The items on this line relate to untracked (non stocked) items, i.e. services.
+
+\begin{enumerate}
+\item[Income (IC\_income)] Adds the account to the income account selection list in
+   the service definition screen.
+\item[Expense (IC\_expense)] Adds the account to the expense account selection list in
+   the service definition screen.
+\item[Tax (IC\_taxservice)] Adds a check mark to the service definition screen for the
+   applicable account. See \ref{cha:Taxes} for more details on how taxes work in LedgerSMB.
+\end{enumerate}
+
+\subsubsection{Fixed assets}
+
+\begin{enumerate}
+\item[Fixed asset (Fixed\_Asset)] Marks the account as holding the original asset value for the fixed
+   assets module, for some classes of fixed assets.
+\item[Depreciation (Asset\_Dep)] Marks the account as holding the cumulative depreciation amount
+   for the fixed assets module, for some classes of fixed assets.
+\item[Expense (asset\_expense)] Adds the expense account to the selection list of the fixed assets
+   accounting module. See section \ref{sec:FixedAssetAccounting} for more details.
+\item[Gain (asset\_gain)] Account to hold book value gain upon disposal of a fixed asset.
+\item[Loss (asset\_loss)] Account to hold book value loss upon disposal of a fixed asset.
+\end{enumerate}
+
+
+\section{Alternative accounts (GIFI)}
+
+Next to the regular account numbering scheme, LedgerSMB supports a second numbering scheme: GIFI numbering. The GIFI accounts are a kind of secondary numbering scheme to support legal requirements.
+
+Some jurisdictions require a specific numbering scheme, which can be supported using GIFI. If you
+use GIFI account numbers, each account is associated with a GIFI account. Multiple accounts may map
+to a single GIFI account.
+
+Many General Ledger reports exist in two variants: a variant using the normal G/L accounts and
+one with the GIFI numbering scheme. In the GIFI variant, when a single GIFI has multiple accounts,
+the total reported under GIFI is the sum of the mapped accounts.
+
+
+\subsection{Maintaining GIFI}
+
+GIFI accounts should be created before being assigned to a standard G/L account. GIFI accounts
+can be maintained through the System $\rightarrow$ Chart of accounts $\rightarrow$ Add GIFI and List GIFI menu items. Existing accounts can be edited by selecting them from the List GIFI menu, which opens a page where individual GIFI items can have their number or
+description adjusted.
+
+
+\chapter{Taxes}
+\label{cha:Taxes}
+
+\section{Overview}
+
+
+
+\section{Tax calculation plug-ins}
+\label{sec:TaxRulePlugins}
+
+\chapter{Pricing}
+
+\section{Definition of types of business}
+
+\section{Definition of price groups}
+
+\chapter{contingency planning}
+
+\section{Backup and restore}
+
+\section{Advanced PostgreSQL: replication}
+
+\chapter{Software updates}
+
+\section{LedgerSMB patch release roll out}
+
+
+
+
+

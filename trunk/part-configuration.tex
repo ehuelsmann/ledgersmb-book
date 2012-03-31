@@ -1,0 +1,373 @@
+
+
+\part{Configuration}
+\label{part:Configuration}
+
+
+\chapter{Overview}
+
+\section{Introduction}
+This section of the book describes how to set up LedgerSMB and its components.
+Configuration is assumed to be mostly one-off and rather technical in nature.  To find
+out which tasks might need to be performed in order to keep the application in good
+health the reader is referred to the section ``Administration''. 
+
+\chapter{Global configuration}
+
+\section{Apache}
+
+Section about installing on Apache 2+
+
+items to be discussed:
+
+Forwarding of authentication \\
+cgi configuration \\
+performance: cgiD configuration: don't (yet) [but will be supported once all legacy code is gone] \\
+security: suEXEC environment \\
+
+\subsection{Differences between Apache 1.3 and 2+}
+
+Explain how to use lsmb with 1.3 instead of 2+.
+
+\section{PostgreSQL}
+
+pg\_hba.conf: authentication \\
+security: local vs IP connections \\
+
+
+
+
+\section{LedgerSMB}
+
+\subsection{ledgersmb.conf}
+
+to be discussed:
+
+Individual config keys; full discussion of possible values in reference appendix?
+
+\subsubsection{General section}
+
+\begin{description}
+\item[auth]
+\item[logging]
+\item[tempdir]
+\item[language]
+\item[log\_level]
+\item[DBI\_TRACE]
+\item[pathsep]
+\item[latex]
+\item[check\_max\_invoices]
+\item[max\_post\_size]
+\item[decimal\_places]
+\item[cookie\_name]
+\item[no\_db\_str]
+
+\end{description}
+
+\subsubsection{'environment' section}
+
+\begin{description}
+\item[PATH]
+\end{description}
+
+
+\subsubsection{'paths' section}
+
+\begin{description}
+\item [spool]
+\item [userspath]
+\item [templates]
+\item [images]
+\item [memberfile]
+\item [localepath]
+\end{description}
+
+\subsubsection{'programs' section}
+
+\begin{description}
+\item [gzip]
+\end{description}
+
+
+\subsubsection{'mail' section}
+
+\subsubsection{'printers' section}
+
+\subsubsection{'database' section}
+
+
+
+\subsection{pos.pl.conf}
+
+@@@ no idea what should go in here. to be investigated.
+
+\subsection{templates}
+
+temlates are global, however, set is selectable per company.
+
+\subsection{ledgersmb.css}
+
+\chapter{Per company configuration}
+
+\section{Administrative user}
+\section{Chart of accounts}
+\subsection{Special accounts}
+\begin{itemize}
+\item AR/AP summary accounts
+\item 5 other special purpose accounts, see ``Defaults'' screen discussion
+\item sales tax accounts
+\end{itemize}
+
+
+\section{System menu settings}
+
+This section enumerates the ``System'' menu's immediate children. In some cases the
+functionality is too complex and is referred to a chapter of its own.
+
+\subsection{Audit control}
+
+\subsubsection{Enforce transaction reversal for all dates}
+
+This is a Yes/No value which affects the actions which can be performed on posted financial transactions.
+\begin{itemize}
+\item No means transactions can be altered or deleted, even after posting them. Note that
+if a transaction has been posted before the latest closing date, it can never be altered,
+not even when this value is in effect.
+\item Yes means transactions can't be altered after posting. This setting is highly preferred and considered the only correct approach to accounting as it assures visible
+audit trails and thereby supports fraud detection.
+\end{itemize}
+
+\subsubsection{Close books up to}
+
+@@@ This item isn't a system setting; shouldn't it move to ``Transaction approval''?? That way system settings (config) and processes are separated.
+
+It's advisable to regularly close the books after review. This prevents user error changing
+reviewed numbers: after closing the books, it's no longer possible to post in the closed
+period.
+
+There are also performance benefits to closing the books, because LedgerSMB uses the
+fact that the figures are known-stable as a performance optimization when calculating
+account balances.
+
+\subsubsection{Activate audit trail}
+
+This is a Yes/No value which - when Yes - causes the system to install triggers to register
+user actions (creation/adjustments/reversals/etc...) executed on financial transactions.
+
+
+@@@ Once activated, where can we see it the audit trail??
+
+
+\subsection{Taxes}
+
+This page lists all accounts which have the ``Tax'' account option enabled as discussed in section \ref{sec:AccountOptions}.
+
+Each account is listed at least once, but can be listed many times, if it has had different
+settings applied over different time periods. E.g. if one of the current VAT rates is 19\%,
+today but it used to be 17.5\% until last month, there will be 2 rows for the applicable
+VAT account. See chapter \ref{cha:Taxes} for further discussion of how taxes work in
+LedgerSMB and the choices involved when being required to handle changes in tax rates.
+
+Each row lists the following fields:
+
+\begin{description}
+\item [Rate (\%)] The tax rate to be applied when calculating VAT to be posted on this account.
+\item [Number] @@@ No idea? VAT number??
+\item [Valid To] The ending date of the settings in this row. This can apply to the rate as well as the ordering or the tax rules (but usually applies to the rate).
+\item [Ordering] @@@ Has to do with multiple tax rows being applicable, but what exactly is the effect of this setting?
+\item [Tax rules] LedgerSMB features an extendable structure to facilitate complex tax
+calculations (see section \ref{sec:TaxRulePlugins}). By default the ``Simple'' module
+is the only one installed.
+\end{description}
+
+\subsection{Defaults}
+
+\subsubsection{Business number}
+   @@@ No idea what this should do...
+   
+\subsubsection{Weight unit}
+   The unit of measurement for weights. @@@ why don't we have a unit of measurement for distance as well??? And maybe a unit of measurement for content?
+   
+\subsubsection{Separation of duties}
+   Set this field to 1 if you want to activate separation of duties or to 0 if you don't
+   want to enforce it. Separation of duties is explained in section \ref{sec:SeparationOfDuties}. @@@ Should this config option not be in the ``Audit Control'' section???
+
+\subsubsection{Default accounts}
+
+ This setting will be used to pre-select an account in
+the account listings of the three categories listed below:
+\begin{itemize}
+\item Inventory
+\item Income
+\item Expense
+\end{itemize}
+
+
+\subsubsection{Foreign exchange gain and loss accounts}
+
+When working with foreign currencies,
+the system needs two special purpose accounts. One to post the gains onto which are
+caused by foreign currencies increasing in value; the other to post the losses onto
+which are caused by foreign currencies decreasing in value.
+
+
+\subsubsection{Default country}
+
+This setting indicates which country needs to be pre-selected
+   in country selection lists.
+
+
+\subsubsection{Default language}
+
+The language to be used when no other language has been selected. Several parts of the
+application require language selection, such as customer, vendor and employee entry screens.
+
+\subsubsection{Templates directory}
+
+This setting indicates which set of templates - stored in the
+   \texttt{templates/} directory - should be used. In a standard installation, the drop down
+   lists two items:
+   \begin{itemize}
+   \item [demo] which contains templates based on \LaTeX, which is more commonly installed but has issues dealing with accented characters
+   \item [xedemo] which contains the same templates based on TeTeX, which handles UTF-8 input (and thus accented characters) much better than \LaTeX and is broadly available, but not usually pre-installed.
+   \end{itemize}
+
+
+\subsubsection{List of currencies \& default currency}
+
+Enter a list of all currencies you want
+to use in your company, identified by their 3-letter codes separated by a colon; i.e.
+``USD:EUR:CHF''. To ensure correct operation of the application, at least one currency
+(the company default currency) must be listed. In case of multiple currencies the first
+is used as the company default currency.
+\subsubsection{Company data (name /address)}
+
+The fields ``Company Name'', ``Company Address'',
+``Company Phone'' and ``Company Fax'' will be used on printed/e-mailed invoices.
+
+\subsubsection{Password duration} This field indicates the duration passwords will be considered valid. Freshly set passwords will expire after this period.\footnote{If this value isn't set, passwords will expire after 1 year by default.} Note that passwords for freshly
+created users expire within 24 hours after creation. @@@ What's the input here? A number? Would that number be days, weeks, years?
+
+
+\subsubsection{Default Email addresses}
+
+These addresses will be used to send e-mails from the system.
+Note that the ``Default Email From'' address should be configured in order to make sure
+e-mail doesn't look like it's coming from your webserver. The format to be used is \texttt{``Name'' <e-mail address>} where the e-mail address should be inserted between the
+``$\langle$'' and ``$\rangle$''.
+
+\subsubsection{Max per dropdown}
+
+Some elements in the screens may present a drop down. However, drop downs are
+relatively unwieldy to work with when used to present a large number of values
+to choose from.
+
+This configuration option sets an upper limit on the number of records to be
+presented as drop down.  When the number is exceeded, no drop down is used.  Instead,
+a multi-step selection procedure will be used.
+
+\subsubsection{Item numbering}
+
+Many items in the system have sequence numbers: invoices, transactions, parts, etc. These sequence numbers can be just a number (i.e. 1 or 37),
+but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for employees.
+The numbers shown in the input boxes will be used to generate the next number in the
+numbering sequence.
+\begin{itemize}
+\item [GL Reference number] @@@ where is this number being used??
+\item [Sales invoice/ AR Transaction number] This number is used to generate an invoice
+number when none is being filled out by the user.
+\item [Sales order number] Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page
+\item [Vendor invoice/ AP Transaction number] Same as Sales invoice, except that the number
+is used for accounts payable transactions. @@@ layout issue: the label is too big to fit on the page
+\item [Sales quotation number] Same as sales order number, except that it's used for quotations.
+\item [RFQ number] Request for quotation number is like the sales quotation number, except
+that it is used to track which vendors have been asked for quotes.
+\item [Part number] All parts, services and assemblies are identified by a unique number.
+When an item is created and no number is entered by the user, a number is generated
+from this sequence.
+\item [Job/project number] Used when creating new projects.
+\item [Employee number] Same as the sales invoice number, used by new employee entry.
+\item [Customer number] @@@ is this the control code number? or is this meta\_number??
+\item [Vendor number] @@@ same question as customer number
+\end{itemize}
+
+\subsubsection{Check prefix} The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
+checks can be created outside the application as well, meaning the numbers can
+get out of sync.
+
+\subsection{Year end}
+
+@@@ Rename ``Yearend'' in menu interface to ``Year end''.
+
+
+@@@ IMO this section doesn't belong here, because it's a process, not config, but does it belong in this menu then? IMO it doesn't...
+
+
+\subsection{Admin users}
+
+@@@ Same as Year end; doesn't belong here...
+
+\subsection{Chart of accounts}
+
+@@@ Chart of accounts isn't exactly a ``process'', but it doesn't feel like being pure
+config either. At any rate it's a fact that the CoA discussion is a full chapter in and
+of itself - so discussion here isn't necessary anymore.
+
+\subsection{Warehouses}
+
+Warehouses are stocking locations. They don't have any properties (in the system)
+other than that they have a name. Warehouses can be added, modified and deleted from
+the System $\rightarrow$ Warehouses menu item.
+
+\subsection{Departments}
+
+Departments can be used to divide a company in smaller pieces. LedgerSMB distinguishes two
+types of departments:
+
+\begin{itemize}
+\item [Profit centers] which can be associated with any type of transaction, including AR transactions.
+\item [Cost centers] which can be associated with all types of transactions, except AR transactions.
+\end{itemize}
+
+Departments can be created (added), modified or deleted through the System $\rightarrow$ Departments menu item.
+
+\subsection{Type of business}
+
+Types of business are used in sales operations where customers can be assigned a type
+of business. Based on the type of business assignment, quotations, sales orders and
+invoices will automatically apply discount rates. For each type of business you enter a description and a discount rate to be applied.
+
+\subsection{Languages}
+
+The language table is the table users can select languages from, both to present
+the UI of the application as well as the setting for customers to be used to generate
+documents.
+
+This listing should correspond to the actual translations of the application being
+available in the program installation directory.
+
+Languages can be added, modified or deleted through the System $\rightarrow$ Language menu item.
+
+\subsection{Standard Industry Code (SIC)}
+
+SI codes feature these three fields:
+
+\begin{description}
+\item [Code]
+\item [Heading]
+\item [Description]
+\end{description}
+
+When creating a company (irrespective of whether that company will be assigned a customer
+or vendor role) you can assign that company an SI code.
+
+@@@ These SI codes may affect Tax and regulatory reports?? What do they ``do''?
+
+\subsection{HTML templates}
+
+\subsection{LaTeX templates}
+
+\subsection{Text templates}
+
+
+
