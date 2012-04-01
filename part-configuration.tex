@@ -186,12 +186,12 @@ user actions (creation/adjustments/reversals/etc...) executed on financial trans
 
 \subsection{Taxes}
 
-This page lists all accounts which have the ``Tax'' account option enabled as discussed in section \ref{sec:AccountOptions}.
+This page lists all accounts which have the ``Tax'' account option enabled as discussed in \secref{sec:AccountOptions}.
 
 Each account is listed at least once, but can be listed many times, if it has had different
 settings applied over different time periods. E.g. if one of the current VAT rates is 19\%,
 today but it used to be 17.5\% until last month, there will be 2 rows for the applicable
-VAT account. See chapter \ref{cha:Taxes} for further discussion of how taxes work in
+VAT account. See \charef{cha:Taxes} for further discussion of how taxes work in
 LedgerSMB and the choices involved when being required to handle changes in tax rates.
 
 Each row lists the following fields:
@@ -202,7 +202,7 @@ Each row lists the following fields:
 \item [Valid To] The ending date of the settings in this row. This can apply to the rate as well as the ordering or the tax rules (but usually applies to the rate).
 \item [Ordering] @@@ Has to do with multiple tax rows being applicable, but what exactly is the effect of this setting?
 \item [Tax rules] LedgerSMB features an extendable structure to facilitate complex tax
-calculations (see section \ref{sec:TaxRulePlugins}). By default the ``Simple'' module
+calculations (see \secref{sec:TaxRulePlugins}). By default the ``Simple'' module
 is the only one installed.
 \end{description}
 
@@ -216,7 +216,7 @@ is the only one installed.
    
 \subsubsection{Separation of duties}
    Set this field to 1 if you want to activate separation of duties or to 0 if you don't
-   want to enforce it. Separation of duties is explained in section \ref{sec:SeparationOfDuties}. @@@ Should this config option not be in the ``Audit Control'' section???
+   want to enforce it. Separation of duties is explained in \secref{sec:SeparationOfDuties}. @@@ Should this config option not be in the ``Audit Control'' section???
 
 \subsubsection{Default accounts}
 
@@ -392,8 +392,8 @@ or vendor role) you can assign that company an SI code.
 
 \subsection{HTML templates}
 
-Through this menu, the user is being offered to manipulate a global resource. See section
-\ref{subsec:GlobalConfigTemplates} for more details.
+Through this menu, the user is being offered to manipulate a global resource. See
+\secref{subsec:GlobalConfigTemplates} for more details.
 
 \subsection{LaTeX templates}
 
