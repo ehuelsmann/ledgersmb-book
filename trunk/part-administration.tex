@@ -52,7 +52,7 @@ with version 1.3.
 In order to create users, the current user must be sufficiently authorized. The user
 created at application set up time is such a user.
 
-Go to the System $\rightarrow$ Admin Users $\rightarrow$ Add User. You'll be presented the page as shown in figure \ref{fig:create-user-step1}.
+Go to the System $\rightarrow$ Admin Users $\rightarrow$ Add User. You'll be presented the page as shown in figure \figref{fig:create-user-step1}.
 
 \begin{figure}[h]
 \includegraphics{create-user-step1.png}
@@ -62,20 +62,20 @@ Go to the System $\rightarrow$ Admin Users $\rightarrow$ Add User. You'll be pre
 
 The value entered in the 'Username' field will cause a database user by that name
 to be created. Database users are a global resource, meaning that a collision will
-occur if multiple people try to define the same user in multiple companies. Section
-\ref{sec:UserImports} describes how to use the same user across multiple companies.
+occur if multiple people try to define the same user in multiple companies.
+\secref{sec:UserImports} describes how to use the same user across multiple companies.
 
 Enter the password to be used for this user into the ``Password'' field. If you're
 importing a user, please leave the field empty -- that will prevent the password
 from being changed.
 
-The ``Import'' field is discussed in section \ref{sec:UserImports}. To create a new
+The ``Import'' field is discussed in \secref{sec:UserImports}. To create a new
 user, leave the setting at ``No''.
 
 All of the ``First Name'', ``Last Name'' and ``Employee No.'' fields are required.
 However, when no employee number is specified, the system will generate one using
-the sequence specified in the Defaults screen as documented in section
-\ref{sec:DefaultsItemNumbering}.
+the sequence specified in the Defaults screen as documented in
+\secref{sec:DefaultsItemNumbering}.
 
 The ``Country'' field speaks for itself and is required as well.
 
@@ -86,7 +86,7 @@ The ``Country'' field speaks for itself and is required as well.
 After filling out all the fields as described in the previous section and
 clicking ``Save user'', you'll be presented
 a second screen in the user creation process: the user authorization screen.
-See figure \ref{fig:create-user-step2} for a screenshot of the top of that screen.
+See \figref{fig:create-user-step2} for a screenshot of the top of that screen.
 
 \begin{figure}[h]
 \includegraphics{create-user-step2.png}
@@ -106,7 +106,7 @@ rights. Checking all check marks makes the user an application ``super user'', i
 gives the user all available application rights.
 
 For a description of the roles a user can be assigned and their effects, the
-reader is referred to appendix \ref{cha:RolesListing}.
+reader is referred to \appref{cha:RolesListing}.
 
 
 \section{Maintaining users}
@@ -116,7 +116,7 @@ reader is referred to appendix \ref{cha:RolesListing}.
 When the role of a user in the company changes, it may be necessary to assign
 that user new roles and possibly revoke some other roles. This can be done through
 user search: System $\rightarrow$ Admin Users $\rightarrow$ Search Users $\rightarrow$ Search $\rightarrow$ {[}edit] which brings you to the same screen as presented in
-figure \ref{fig:create-user-step2}.
+\figref{fig:create-user-step2}.
 
 Similarly, there may be reasons to change the user information, such as a last name
 (e.g. upon marriage).
@@ -195,9 +195,9 @@ correctly. The settings are described in the sections that follow.
    asset account where the depreciation account contains the credit amount to be added to
    the original asset (debit) value to get the current asset value.
 \item Recon This checkmark identifies the account as one which needs reconciliation as
-   described in section \ref{sec:Reconciliation}.
+   described in \secref{sec:Reconciliation}.
 \item Tax This checkmark identifies the account as a Tax (VAT) account. Tax accounts need
-   to be further configured. See chapter \ref{cha:Taxes} for further discussion of the
+   to be further configured. See \charef{cha:Taxes} for further discussion of the
    subject.
    \label{item:AccountOptionsTax}
 \end{itemize}
@@ -225,11 +225,11 @@ There are currently three types of summary accounts:
    in the transaction and invoice screens which are used to post income on.
 \item[Payment (AR\_paid)] This check mark adds the account to the list of accounts
    to choose from in the Receipts (AR) and Payments (AP) screens. Additionally, it
-   adds the account to the part entry screen as described in section \ref{sec:DefinitionOfParts}.
+   adds the account to the part entry screen as described in \secref{sec:DefinitionOfParts}.
 \item[Tax (AR\_tax)] This check mark makes the account show up as a check mark on the
-   customer (AR) or vendor (AP) entry screen. See chapter \ref{cha:Taxes} for further discussion.
+   customer (AR) or vendor (AP) entry screen. See \charef{cha:Taxes} for further discussion.
 \item[Overpayment (AR\_overpayment)] Adds the account to the receipts screen as discussed
-   in section \ref{sec:UsingOverpayments}.
+   in \secref{sec:UsingOverpayments}.
 \item[Discount (AR\_discount)] Adds the account to the customer entry screen's selection
    list for accounts to post 
 \end{itemize}
@@ -249,7 +249,7 @@ assemblies.
 \item[COGS (IC\_cogs)] Adds the account to the selection list of COGS @@@ accounts on the
    part, assembly and overhead definition screen.
 \item[Tax (IC\_taxpart)] Adds a check mark to the part and assembly definition screen
-   for the applicable account. See \ref{cha:Taxes} for more details on how taxes
+   for the applicable account. See \charef{cha:Taxes} for more details on how taxes
    work in LedgerSMB.
 \end{enumerate}
 
@@ -265,7 +265,7 @@ The items on this line relate to untracked (non stocked) items, i.e. services.
 \item[Expense (IC\_expense)] Adds the account to the expense account selection list in
    the service definition screen.
 \item[Tax (IC\_taxservice)] Adds a check mark to the service definition screen for the
-   applicable account. See \ref{cha:Taxes} for more details on how taxes work in LedgerSMB.
+   applicable account. See \charef{cha:Taxes} for more details on how taxes work in LedgerSMB.
 \end{enumerate}
 
 \subsubsection{Fixed assets}
@@ -276,7 +276,7 @@ The items on this line relate to untracked (non stocked) items, i.e. services.
 \item[Depreciation (Asset\_Dep)] Marks the account as holding the cumulative depreciation amount
    for the fixed assets module, for some classes of fixed assets.
 \item[Expense (asset\_expense)] Adds the expense account to the selection list of the fixed assets
-   accounting module. See section \ref{sec:FixedAssetAccounting} for more details.
+   accounting module. See \secref{sec:FixedAssetAccounting} for more details.
 \item[Gain (asset\_gain)] Account to hold book value gain upon disposal of a fixed asset.
 \item[Loss (asset\_loss)] Account to hold book value loss upon disposal of a fixed asset.
 \end{enumerate}
@@ -307,7 +307,7 @@ description adjusted.
 
 \section{Overview}
 
-When an account has been marked as a Tax account (see \ref{sec:AccountOptions}, item
+When an account has been marked as a Tax account (see \secref{sec:AccountOptions}, item
 \ref{item:AccountOptionsTax}) several things happen:
 
 \begin{itemize}
@@ -374,9 +374,11 @@ will have that discount applied.
 
 \section{Backup and restore}
 
-\subsection{Using setup.pl}
+\subsection{Backup using setup.pl}
 
-\subsection{Using PostgreSQL administration tools}
+\subsection{Backup using PostgreSQL administration tools}
+
+\subsection{Restore}
 
 \section{Advanced PostgreSQL: replication}
 

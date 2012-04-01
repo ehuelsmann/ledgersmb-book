@@ -1,9 +1,18 @@
 
 \documentclass[10pt,A4]{book}
+
 \usepackage{url, palatino, color}
 \usepackage[colorlinks, linkcolor=black, urlcolor=black]{hyperref}
 \usepackage{graphicx}
 \graphicspath{{images/}}
+
+
+\newcommand{\figref}[1]{Figure~\ref{#1} on page~\pageref{#1}}
+\newcommand{\tabref}[1]{Table~\ref{#1} on page~\pageref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1} on page~\pageref{#1}}
+\newcommand{\charef}[1]{Chapter~\ref{#1} on page~\pageref{#1}}
+\newcommand{\appref}[1]{Appendix~\ref{#1} on page~\pageref{#1}}
+
 
 
 \begin{document}
