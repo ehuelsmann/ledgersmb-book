@@ -72,10 +72,15 @@ in case accounting data is involved: better safe than sorry!
 \chapter{Listing of application roles}
 \label{cha:RolesListing}
 
+Application roles specify the right to execute one or more tasks in the application.
+LedgerSMB enforces these roles by allowing a user to select (list, read) data from or to
+insert (create), update (edit) or delete (delete) data in the tables holding the data
+related to the execution of these tasks.
+
 \begin{description}
-\item[account\_all]
-\item [account\_create]
-\item [account\_edit]
+\item [account\_all] Allows the user to both create new and edit existing GL accounts.
+\item [account\_create] Allows the user to create (but not edit) new GL accounts.
+\item [account\_edit] Allows the user to edit (but not create) GL accounts.
 \item [ap\_all]
 \item [ap\_all\_transactions]
 \item [ap\_all\_vouchers]
@@ -85,8 +90,10 @@ in case accounting data is involved: better safe than sorry!
 \item [ap\_transaction\_create\_voucher]
 \item [ap\_transaction\_list]
 \item [ar\_all]
-\item [ar\_invoice\_create]
-\item [ar\_transaction\_all]
+\item [ar\_invoice\_create] Allows the user to create and update sales invoices. If the
+   user needs to be able to enter invoices in foreign currencies, the
+   \emph{exchangerate\_edit} role must be assigned as well.
+\item [ar\_transaction\_all] @@@ I miss the symmetry with AP here??
 \item [ar\_transaction\_create]
 \item [ar\_transaction\_create\_voucher]
 \item [ar\_transaction\_list]
@@ -97,10 +104,12 @@ in case accounting data is involved: better safe than sorry!
 \item [assets\_enter]
 \item [auditor]
 \item [audit\_trail\_maintenance]
-\item [backup]
-\item [batch\_create]
+\item [backup] \emph{Superseeded}. This role has been replaced by backup functionality
+   in setup.pl
+\item [batch\_create] Allows the user to create new batches.
 \item [batch\_list]
-\item [batch\_post]
+\item [batch\_post] Allows the user to post batches; this authorization includes the
+   right to search for batches (and therefore includes \emph{batch\_list})
 \item [business\_type\_all]
 \item [business\_type\_create]
 \item [business\_type\_edit]
@@ -115,7 +124,7 @@ in case accounting data is involved: better safe than sorry!
 \item [department\_edit]
 \item [draft\_edit]
 \item [employees\_manage]
-\item [exchangerate\_edit]
+\item [exchangerate\_edit] @@@ Where in the application can one \textbf{edit!} exchange rates??
 \item [file\_attach\_order]
 \item [file\_attach\_part]
 \item [file\_attach\_tx]
@@ -203,7 +212,7 @@ Copyright (c) 2011, 2012 Erik H\"ulsmann.
 
 
 This work is licensed under the Creative Commons Attribution License.
-To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+To view a copy of this license, visit \url{http://creativecommons.org/licenses/by/3.0/}
 or send a letter to Creative Commons, 559 Nathan Abbott Way,
 Stanford, California 94305, USA.
 
