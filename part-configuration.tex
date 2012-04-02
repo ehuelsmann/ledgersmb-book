@@ -167,6 +167,10 @@ audit trails and thereby supports fraud detection.
 
 @@@ This item isn't a system setting; shouldn't it move to ``Transaction approval''?? That way system settings (config) and processes are separated.
 
+@@@ My preference is to remove the setting entirely and rely on year-end 
+workflow.  We might add an account checkpoint interface as well at some point
+--Chris T
+
 It's advisable to regularly close the books after review. This prevents user error changing
 reviewed numbers: after closing the books, it's no longer possible to post in the closed
 period.
@@ -183,6 +187,8 @@ user actions (creation/adjustments/reversals/etc...) executed on financial trans
 
 @@@ Once activated, where can we see it the audit trail??
 
+@@@ This setting should go.  In 1.3 the audit trails are always enforced via
+triggers so this setting does nothing.  --CT
 
 \subsection{Taxes}
 
@@ -198,9 +204,12 @@ Each row lists the following fields:
 
 \begin{description}
 \item [Rate (\%)] The tax rate to be applied when calculating VAT to be posted on this account.
-\item [Number] @@@ No idea? VAT number??
+\item [Number] Account number
 \item [Valid To] The ending date of the settings in this row. This can apply to the rate as well as the ordering or the tax rules (but usually applies to the rate).
-\item [Ordering] @@@ Has to do with multiple tax rows being applicable, but what exactly is the effect of this setting?
+\item [Ordering] This has to do with cumulative taxes.  For example if two taxes
+exist and one has an ordering of 0 and one of 1, then the second tax will be
+calculated on a basis that includes the first.  One place where this used to be
+used was in Quebec, where GST was taxable under PST.
 \item [Tax rules] LedgerSMB features an extendable structure to facilitate complex tax
 calculations (see \secref{sec:TaxRulePlugins}). By default the ``Simple'' module
 is the only one installed.
@@ -209,7 +218,8 @@ is the only one installed.
 \subsection{Defaults}
 
 \subsubsection{Business number}
-   @@@ No idea what this should do...
+   This is used to store an abitrary identification number for the business.  It
+coul dbe used to store a business license number or anything similar.
    
 \subsubsection{Weight unit}
    The unit of measurement for weights. @@@ why don't we have a unit of measurement for distance as well??? And maybe a unit of measurement for content?
@@ -300,7 +310,8 @@ but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for 
 The numbers shown in the input boxes will be used to generate the next number in the
 numbering sequence.
 \begin{itemize}
-\item [GL Reference number] @@@ where is this number being used??
+\item [GL Reference number] The default reference number for the next GL
+transaction.
 \item [Sales invoice/ AR Transaction number] This number is used to generate an invoice
 number when none is being filled out by the user.
 \item [Sales order number] Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page
@@ -314,7 +325,8 @@ When an item is created and no number is entered by the user, a number is genera
 from this sequence.
 \item [Job/project number] Used when creating new projects.
 \item [Employee number] Same as the sales invoice number, used by new employee entry.
-\item [Customer number] @@@ is this the control code number? or is this meta\_number??
+\item [Customer number] @@@ is this the control code number? or is this
+meta\_number?? -- Meta-number (CT)
 \item [Vendor number] @@@ same question as customer number
 \end{itemize}
 
