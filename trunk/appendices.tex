@@ -41,6 +41,8 @@ There are plenty of reasons to want to migrate to LedgerSMB 1.3:
 \item Security better integrated into the application
 \item Better, more strict data model
 \label{item:StricterDataModel}
+\item Some important sources of user error eliminated
+\item Better workflows for cash reconciliation
 \item @@@ others?
 \end{enumerate}
 
@@ -57,6 +59,12 @@ from a professional party. It could save you a lot of time.
 However, don't be discouraged and have a go yourself first. Just be sure to run
 your upgrade on a backup database: the migration process is non-destructive, but
 in case accounting data is involved: better safe than sorry!
+
+Also it is worth noting that a number of automatic checks are performed on your
+data prior to migration, and to the extent possible, you are given an
+opportunity to fix those issues identified.  Because these checks are
+pre-migration checks, they are written to your old data and will persist after
+backing out of a migration to 1.3.
 
 \section{From older LedgerSMB versions}
 
@@ -124,7 +132,8 @@ related to the execution of these tasks.
 \item [department\_edit]
 \item [draft\_edit]
 \item [employees\_manage]
-\item [exchangerate\_edit] @@@ Where in the application can one \textbf{edit!} exchange rates??
+\item [exchangerate\_edit] @@@ Where in the application can one \textbf{edit!} exchange rates?? % Good catch! I will remove this from the Roles.sql file. 
+% --Chris T
 \item [file\_attach\_order]
 \item [file\_attach\_part]
 \item [file\_attach\_tx]
