@@ -63,15 +63,45 @@ the open invoice overview, use the cash receipt process as described in
 \secref{sec:SinglePayments} to make a zero amount payment.
 \end{quotation}
 
-\section{Correcting invoices}
+\section{Correcting and deleting invoices}
 \label{sec:CorrectingInvoices}
 
 There's only one way to persist an invoice in LedgerSMB: posting it. This means
-the invoice gets added to the accounts. Because one of the primary properties of
-an accounting system @@@ continue here
+the invoice becomes part of the accounting information. One of the primary
+properties of an accounting system is to record full audit trails and help enforce
+internal controls as detailed in \secref{sec:AccountingSystemRequirements}. Because
+of that fact there's no way to delete or edit invoices after they have been posted
+\footnote{LedgerSMB currently does not support saving an invoice without posting
+it. This functionality is on the roadmap for addition when the AR/AP functionality
+is being rewritten - currently 1.5 or 1.6.}.
 
-@@@ There's no saved form for invoices, meaning that invoices can only
-be required to be corrected *after* being posted.
+The only way to ``undo'' an invoice is by voiding it. This is important for several
+reasons:
+
+\begin{enumerate}
+\item Invoices can't be deleted (because they're accounting data)
+\item Invoices pose a claim on the assets of a customer
+\label{item:InvoicesAsClaims}
+\item @@@ others?
+\end{enumerate}
+
+Specifically item \ref{item:InvoicesAsClaims} is important: when you sent the invoice
+to your customer, you effectively sent them a claim. When you decide to refrain from
+pursuing that claim, you should notify them of that fact so they have the documentation
+to update their accounting system to reflect that fact: they need your documentation
+to void their vendor invoice, instead of paying it.
+
+For the same reason it's ill-advised (and no longer supported) to edit invoices:
+when a customer has multiple invoices, each stating a different amount, all
+using the same invoice number; how is that customer supposed to document (verifiably)
+that the claim has been settled satisfactorily by paying the one he did?
+
+\subsection{Credit and debit notes}
+
+
+
+\subsection{Credit and debit invoices}
+
 
 
 \chapter{Shop sales}
