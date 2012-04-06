@@ -199,6 +199,61 @@ for parts \ref{part:Configuration} and \ref{part:Administration}.
 For in-depth instruction for actual day to day use of LedgerSMB the reader is referred
 to part \ref{part:Workflows}.
 
+
+\section{Accounting principles}
+
+The IFRS (International Financial Reporting Standards) describe requirements
+to financial statements (reports) and the accounting process leading to such
+reports \footnote{See also \url{http://en.wikipedia.org/wiki/International\_Financial\_Reporting\_Standards}}.
+Said requirements include qualitative characteristics:
+
+\begin{enumerate}
+\item Relevance
+\item Faithful representation
+\item Comparability
+\item Verifiability
+\item Timeliness
+\item Understandability
+\end{enumerate}
+
+While some - if not most - of these characteristics relate to the process of accounting,
+the ``Verifiability'' item clearly has an impact on the underlaying accounting systems:
+In order to be verifiable, there must be a clear audit trail to show the origin of the
+figures.
+
+\section{Internal control}
+
+Internal control\footnote{See also \url{http://en.wikipedia.org/wiki/Internal\_control}}
+helps organizations to prevent and detect fraud by introducing checks and balances
+to assess effectiveness and validity of transactions in the organization and thereby
+in its ERP and accounting system(s).
+
+
+\section{Relation to accounting software}
+
+While both the qualitative characteristics from IFRS and the checks and balances
+from the internal controls are pose restrictions on the accounting process,
+sometimes these restrictions require support from the underlying accounting
+software.
+
+One example is the support for creating reliable accounting audit trails
+by protecting accounting data from deletion. It's important to realize the scope
+of accounting data in this respect: because invoices are being registered in the
+accounts receivable administration - which is summarized in the general ledger -
+they are part of the data for which the audit trail needs to be recorded.
+
+Another example is separation of duties (also known as the ``four eye principle''),
+where one accountant enters financial transactions and another is responsible for
+posting them. This procedure protects the company from an accountant single-handedly
+faking transactions and possibly masking fraud.
+
+The requirements for good accounting processes and internal control have impact
+on the work flows supported by LedgerSMB. As a consequence some of the work flows
+described in part \ref{part:Workflows} may seem unwieldy; an example being the
+lack of functionality to delete or correct incorrect invoices (See \secref{sec:CorrectingInvoices} for more details).
+
+
+
 \section{Technical overview}
 
 
