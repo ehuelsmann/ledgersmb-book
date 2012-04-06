@@ -15,8 +15,6 @@
 
 \section{Maintaining contact information}
 
-\section{Credit management}
-
 
 \chapter{Quotations from Vendors and for Customers}
 
@@ -41,15 +39,44 @@
 
 \section{Creating new invoices}
 
---> this section is about Sales and Vendor Invoices
+-- this section is about Sales and Vendor Invoices
 
 \section{Creating invoices from orders}
+
+
+
+\section{Invalidating invoices}
+
+Sometimes, it's necessary to invalidate an invoice. When an invoice has been
+posted, this also means derived administrations have been updated, such as
+inventory for the items on the invoice.
+
+To undo the effects of an invoice, i.e. to reduce the amount outstanding with a
+customer, use the \texttt{VOID} button on the invoice screen as shown in @@@figref .
+This creates a new invoice by the same number as the original, except that the new
+invoice has a suffix \texttt{-VOID}.
+
+\begin{quotation}
+Unfortunately, in LedgerSMB 1.3 - the earlier versions - voiding an invoice did not
+automatically close the original and voiding invoices.  To close both invoices from
+the open invoice overview, use the cash receipt process as described in
+\secref{sec:SinglePayments} to make a zero amount payment.
+\end{quotation}
+
+\section{Correcting invoices}
+
+\subsection{Before posting}
+
+\subsection{After posting}
+
+
 
 \chapter{Shop sales}
 
 \section{Opening and closing the cash register}
 
 \section{Shop sales invoices}
+
 
 \chapter{Manufacturing management}
 
@@ -87,7 +114,91 @@
 
 --> this bit is about credit (sales) and debit (vendor) invoices
 
+\chapter{Credit risk management}
+
+\section{Introduction}
+
+A company runs credit risk when it gives credit: it runs the risk of the
+creditor not paying off its debts.  LedgerSMB features two ways to manage
+the risks involved:
+
+\begin{enumerate}
+\item Limit management
+\item Arrears management
+\end{enumerate}
+
+The former tries to limit the risk involved by making sure no customer
+receives more credit than a certain limit while the latter tries to
+make sure any over due payments get cashed.
+
+\section{Limit management}
+
+Limit management should prevent a company on one hand from delivering too much
+to its customers at once and on the other from taking (and delivering) new orders
+to customers with too high amount of unpaid invoices.
+
+@@@ Where to set up limits
+
+@@@ How to monitor limits
+
+
 \section{Managing arrears}
+
+As mentioned before, the process of managing arrears is directed toward
+detecting arrears positions with customers early and taking appropriate
+action.
+
+
+\subsection{Monitoring AR aging}
+
+In order to find out about over due invoices, a company should run the AR
+aging report available under AR $\rightarrow$ Reports $\rightarrow$ AR Aging.
+The initial screen presents parameters for the aging report to be generated.
+
+@@@ discuss parameters
+
+This report shows customers and their outstanding invoices categorised as:
+
+\begin{description}
+\item [Current] Invoices not over due
+\item [30] Invoice amounts over due by 30 days or less
+\item [60] Invoice amounts over due by 60 days or less (but more than 30)
+\item [90] Invoice amounts over due by 90 days or less (but more than 60)
+\end{description}
+
+
+@@@ Printing / mailing aging reports to customers
+
+
+\subsection{Tracking invoice history}
+
+After an invoice becomes over due a process will be started to remind
+the customer of the outstanding amount requiring payment.
+
+In order to keep records of actions taken to chase customer payment,
+the invoice screen has an ``Internal Notes'' field which can be edited
+after the invoice has been posted.
+
+In order to save any edits to that field, hit the ``Save Info'' button.
+
+\begin{quotation}
+Note that the ``Save Info'' button also saves any changes to the ``TaxForm'' column or
+rather, any information that's not accounting information (posted to the books and
+thereby fixed) nor information which appears on the invoice - which also should remain
+unedited in order to be able to generate an exact copy at a later date.
+\end{quotation}
+
+
+\subsection{Special treatment of invoices}
+
+There may be good reasons to treat some over due invoices differently. E.g. in case
+payment arrangements have been made with the customer and further standard arrears
+management would not be appropriate any more.
+
+In this case, you can put an invoice ``On Hold''. The opposite of being on hold is
+being active. The AR Aging report allows selection of all invoices, only active
+invoices (those not on hold) or only invoices on hold.
+
 
 \section{Interest on arrears}
 
@@ -102,11 +213,15 @@
 
 \chapter{Receipts and payment processing}
 
-\section{Check payments}
 
 \section{Single receipts and payments}
+\label{sec:SinglePayments}
 
 \section{Batch receipts and payments}
+
+
+\section{Check payments}
+
 
 \section{Using overpayments}
 \label{sec:UsingOverpayments}
