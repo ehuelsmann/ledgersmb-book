@@ -11,7 +11,7 @@
 
 \section{Creating vendors from customers}
 
-\section{}
+% \section{}
 
 \section{Maintaining contact information}
 
@@ -37,12 +37,66 @@
 
 \chapter{Sales and vendor invoices}
 
-\section{Creating new invoices}
+Invoices can come from multiple sources. When the quotation and order
+management functionalities in LedgerSMB aren't used, they will usually
+be entered manually. This work flow is covered in Section
+\ref{sec:ManuallyCreatingInvoices}.
+When order management \emph{is} being used they mostly originate from orders
+which is covered in Section \ref{sec:InvoicesFromOrders}.
 
--- this section is about Sales and Vendor Invoices
+
+\section{Creating new invoices}
+\label{sec:ManuallyCreatingInvoices}
+
+
+%% this section is about Sales and Vendor Invoices
+
+When creating a transaction to record that the company owes another
+entity (a vendor invoice) or that it has outstanding receivables,
+LedgerSMB offers two options:
+
+\begin{enumerate}
+\item Invoices
+\item Transactions
+\end{enumerate}
+
+Transactions have very limited functionality: they allow a user to enter
+a debt owed or owned into the AR and AP subsystems. They also require the
+user to think how the other side of the transaction should be registered;
+i.e. which cost account the AP transaction should be posted against, or
+which income account the AR transaction should be posted against. If there
+are sales taxes applicable, the user is required to manually calculate and
+enter them.
+
+Invoices offer a much more clever set of functionalities. First of all, it
+allows the user to create a document to be sent to the vendor or customer.
+Second, invoices take advantage of parts and services
+to automate calculation of sales taxes. Third, invoices update inventory
+for items held in stock (parts, assemblies). Transactions offer none of this.
+
+\subsection{Invoices}
+
+
+
+\subsection{Transactions}
+
+Transactions serve an important purpose not handled by invoices: payroll
+calculations are often too difficult to fit in the simple ``amount times price''
+model offered by invoices. In order to still be able to track which ``vendor''
+was paid which amount such payment obligations can be recorded in the AP subsystem
+with a transaction.
+
+Likewise it's often more hassle than it's worth to create the parts and services
+required to correctly calculate the utility bill. In such cases the transaction
+(possibly with a linked document as supporting evidence) offers good per-vendor
+trackable history records.
+
+% @@@ Transaction creation screen shot(s)
+
+
 
 \section{Creating invoices from orders}
-
+\label{sec:InvoicesFromOrders}
 
 
 \section{Invalidating invoices}
@@ -96,13 +150,46 @@ when a customer has multiple invoices, each stating a different amount, all
 using the same invoice number; how is that customer supposed to document (verifiably)
 that the claim has been settled satisfactorily by paying the one he did?
 
-\subsection{Credit and debit notes}
+\section{Handling invoice disputes}
 
-
-
-\subsection{Credit and debit invoices}
-
-
+%When an invoice has been sent to a customer it could happen that the customer disagrees
+%with the invoice due to incorrect amounts, discounts, products, etc.
+%
+%Depending on whether the customer has already paid the invoice there are several
+%options to handle this situation:
+%
+%@@@ AR Invoices have nothing to do with it! They parallel AR Transactions!!
+%
+%\begin{description}
+%\item [Credit invoices] The customer has not paid the invoice yet
+%\item [Credit notes] The customer has paid the invoice and allows offsetting against
+%   other (possibly future) invoices
+%\item[AR vouchers] The customer has paid the invoice and demands repayment
+%\end{description}
+%
+%Note that the naming in the listing above applies to AR items but could equally apply
+%to AP items by replacing the word ``Credit'' by ``Debit'' and ``AR'' by ``AP''.
+%
+%
+%
+%\subsection{Credit and debit invoices}
+%
+%@@@ produce an accounting document to exchange with the customer/vendor
+%@@@ restock credited parts
+%@@@ reverse taxes
+%
+%\subsection{Credit and debit notes}
+%
+%@@@ generic transaction, not related to orders, inventory or anything else
+%@@@ amount taken out of an income account, which is to be selected
+%@@@ i.e. based on the account on which the original income was posted.
+%
+%\subsection{AR and AP Vouchers}
+%
+%@@@ like a credit note or debit note, meant to initiate
+%@@@ a repayment to the customer
+%
+%@@@ exists as a batch workflow only -- to support separation of duties
 
 \chapter{Shop sales}
 
