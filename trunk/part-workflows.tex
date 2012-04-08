@@ -34,7 +34,9 @@
 \section{Combining orders}
 
 \section{Recurring orders}
+\label{sec:RecurringOrders}
 
+% @@@ ### Not getting these to work in the test system. Need to check with Chris.
 
 \chapter{Sales and vendor invoices}
 
@@ -114,6 +116,8 @@ required to correctly calculate the utility bill. In such cases the transaction
 traceable history records.
 
 % @@@ Transaction creation screen shot(s)
+
+\section{Recurring invoices}
 
 
 
@@ -390,12 +394,66 @@ invoices (those not on hold) or only invoices on hold.
 \section{Separation of duties: Transaction approval}
 \label{sec:SeparationOfDuties}
 
-\section{Period closing}
-
 \section{Bank reconciliation}
 \label{sec:Reconciliation}
 
+\section{Period closing}
+
+Period closing is a concept used by accountants to ensure that audited and
+known-correct accounting data stays correct by ``freezing'' it: by closing
+an accounting period no modifications can be made to the accounting data
+before a certain date.
+
+LedgerSMB supports this concept through the System $\rightarrow$ Audit Control
+menu, where you'll find the ``Close Books up to'' item. By filling out a date
+in the input field and hitting Continue posting to dates before the entered
+date will be disallowed.
+
+% @@@ screenshot
+
+\begin{quotation}
+Note that due to a design limitation in LedgerSMB 1.3 - to be lifted with the
+general AR/AP redesign - invoices in foreign currencies can't be reversed on
+other dates than their original posting date. That is: they can, but their
+reversal will result in P\&L and balance sheet effects which presumably isn't
+desirable. Since period closing disables posting before a certain date this
+functionality may have negative side effects in some set ups.
+
+Also note that this pertains exclusively to invoices and transactions in foreign
+currencies and has no effect in case of invoices and transactions in the default
+currency.
+\end{quotation}
+
 \section{Year-end processing}
+\label{sec:YearEndProcessing}
+
+Year end closing is a concept which prepares the accounting books for the next
+accounting year. Note that this is unrelated to the calendar year but to the
+accounting year of the company instead. To muddy the waters even more: there's
+no inherent requirement for this process to be run at least once a year. If the
+first book year of the company spans more than a year, then this procedure will
+be run more than a year after starting up the company.
+
+This procedure freezes the accounting data in the year to be closed as described
+in the previous section. Additionally it clears out the profit and loss accounts:
+setting all the account
+balances to zero by posting their balance to the retained earnings account. Some
+businesses prefer to create a retained earnings account for each book year they
+close. LedgerSMB supports that use-case by allowing the user to select which
+retained earnings account the balance should be posted to.
+
+Some companies want may to include additional transactions related to dividend
+payment regarding the current year: reduce the equity by the amount paid as
+dividends in transactions marked as ``year-end transaction''. Support
+for this use case isn't available in LedgerSMB 1.3.
+
+% @@@ screenshot
+
+\section{Entering general accounting documents}
+
+\section{Fixed asset accounting}
+\label{sec:FixedAssetAccounting}
+
 
 \section{Tax (VAT) reporting}
 
@@ -404,10 +462,6 @@ invoices (those not on hold) or only invoices on hold.
 \item EU VAT
 \end{itemize}
 
-\section{Entering general accounting documents}
-
-\section{Fixed asset accounting}
-\label{sec:FixedAssetAccounting}
 
 \section{Reporting}
 \subsection{Income statement}
