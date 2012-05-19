@@ -74,8 +74,42 @@ backing out of a migration to 1.3.
 
 \section{From other accounting packages}
 
+While accounting and ERP solution have wildly differing structures to record their
+data, this sections uses data with a relatively simple structure as a show case of
+how this problem may be dealt with.
 
+\begin{quote}
+Note that the encoding you use to transfer to the database depends on the settings
+used to create the PostgreSQL database with.  A migration is a good moment to think
+about encodings an solve older encoding issues.  Now would be a good moment to
+anticipate the requirement for accented characters and non-western alphabets: set up
+a UTF-8 encoded database and recode your data accordingly.
+\end{quote}
 
+\subsection{Migrating customers}
+
+The source system for this section uses a structure where every company has one
+contact person, one address, one phone number and e-mail.
+
+In order to understand how to migrate this data structure to LedgerSMB, it's
+important to understand that:
+
+\begin{enumerate}
+\item The company from the source maps to the \emph{Company} and \emph{Entity} entities
+\item The contact person maps to the \emph{Entity Credit Account} entity
+\item The address maps to the \emph{Location} entity - and requires a location class: Sales, Billing or Shipping
+\item The phone number, fax number and e-mail map to \emph{Contact items}
+\end{enumerate}
+
+The reason behind the separation between the \emph{Company} and \emph{Entity} entities
+is that every customer is an \emph{Entity}, but not all entities are companies, since
+some entities are \emph{Person}s - natural persons.
+
+@@@ How to
+
+\subsection{Migrating parts, services, ...}
+\subsection{Migrating open items}
+\subsection{Migrating your ledger}
 
 \chapter{Listing of application roles}
 \label{cha:RolesListing}
