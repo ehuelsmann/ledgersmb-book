@@ -369,9 +369,6 @@ will have that discount applied.
 
 \section{Definition of price groups / price matrix}
 
-
-
-
 \chapter{Contingency planning}
 
 \section{Backup and restore}
@@ -388,7 +385,56 @@ will have that discount applied.
 
 \section{LedgerSMB patch release roll out}
 
+\chapter{Optional Features}
 
+As business requirements change sometimes it may be necessary to add or remove
+some of the optional features of LedgerSMB.  This chapter describes how these
+optional features work, how to troubleshoot them of things go wrong, and how to
+enable or disable them.
 
+\section{PDF and Postscript Documents}
+
+LedgerSMB can create PDF and Postscript documents for orders, invoices, and
+more.  This is an optional feature and requires some additional software not
+included with LedgerSMB, including a \LaTeX\ distribution and extensions to 
+Perl's TemplateToolkit framework.
+
+The PDF and PS invoices are generated using a program called \LaTeX\
+which handles the layout and typesetting.  The actual \LaTeX\ files are
+creating using Template Toolkit with extensions for \LaTeX.  These
+extensions are in the Template::Latex package available from CPAN.
+The software then generates a \LaTeX\ file which is then processed to
+create a PDF or PS.
+
+Typically the first thing to do is to install a \LaTeX\ distribution
+like TexLive (distributed with many Linux distributions and available
+for OSX and Windows).  This provides \LaTeX\ and many of the modules
+needed.   In general I recommend that if your distro has a
+texlive-extras package that you install this too.
+
+After this is installed, you must then install Template::Latex.  This
+can be done by typing on the command line:
+
+\# cpan Template::Latex
+
+This will also install a number of dependencies including
+LaTeX::Driver, which will need to know where your LaTeX binaries are.
+It is usually pretty good at finding them.
+
+If things go wrong and you can't get it to work, the following
+commands may provide useful diagnostic information when requesting
+help:
+
+From the LedgerSMB application directory:
+\$ perl -MLedgerSMB::Template::Latex -e print
+
+From the doc/manual directory in the LedgerSMB application directory:
+\# pdflatex LedgerSMB-manual
+
+\section{Attaching Uploaded Files to PDF Invoices}
+
+\section{OpenDocument Spreadsheet Output}
+
+\section{Microsoft Excep Output}
 
 
