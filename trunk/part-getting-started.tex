@@ -20,7 +20,7 @@ to get LedgerSMB up and running for Example, as well as the steps he has to take
 keep LedgerSMB in good health.
 
 Due to its success Example will grow, posing new challenges to LedgerSMB and we'll show
-you how Jack can change the configuration to allow LedgerSMB to grow with his business.
+you how Jack can change the configuration to adapt to his growing business's needs.
 
 It's outside the scope of this part to explain how to install the application. See
 Part \ref{part:Configuration} for information on installation. \charef{cha:CompanyCreation}
@@ -49,13 +49,58 @@ He'll be running LedgerSMB using the domain he acquired for his business:
 
 \section{Using setup.pl}
 
+% some introduction
+
+Please note that while executing the steps described in this section, presentation of
+the next screen may take a while after clicking on each button. Some buttons involve
+a large amount of processing on the server before the next screen can be presented.
+
 \subsection{Step 1: setup.pl login}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{dmc-create-step1.png}
+\caption{setup.pl login screen}
+\end{figure}
+\label{fig:setup-step1}
 
 \subsection{Step 2: Company creation}
 
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{dmc-create-step2.png}
+\caption{setup.pl company creation screen}
+\end{figure}
+\label{fig:setup-step2}
+
+
 \subsection{Step 3: Selection of a Chart of Accounts}
 
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{dmc-create-step3.png}
+\caption{Chart of accounts - Country selection}
+\end{figure}
+\label{fig:setup-step3}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{dmc-create-step4.png}
+\caption{Chart of accounts - Chart selection}
+\end{figure}
+\label{fig:setup-step4}
+
+
 \subsection{Step 4: First user}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{dmc-create-step5.png}
+\caption{setup.pl initial user creation screen}
+\end{figure}
+\label{fig:setup-step5}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{dmc-create-step6.png}
+\caption{setup.pl succesfull completion screen}
+\end{figure}
+\label{fig:setup-step6}
+
 
 \chapter{The first login}
 
@@ -102,6 +147,29 @@ Jack enters the values mentioned between the square brackets in the list above.
 He used one of the charts of accounts (CoA) that came with LedgerSMB and therefore
 checks the Taxes page in the System menu to see if the percentages that were delivered
 with it are still current.
+
+\section{Setting up a bank account or credit card}
+
+As part of the start up activities of his company, Jack comes to an agreement with the
+bank for three products:
+
+\begin{itemize}
+\item A current account with number C54769
+\item Deposit account with number D54990
+\item Credit card with a number ending with .7734
+\end{itemize}
+
+Most accounting systems - LedgerSMB included - use separate GL accounts to represent
+each bank account. This allows easy reconciliation of the ending balance on the bank
+account with the balance in the books.
+
+Knowing this, Jack looks up the example bank account from his preconfigured US chart of
+accounts using the System $\rightarrow$ Chart of Accounts $\rightarrow$ List Accounts menu as
+shown in % ###figref:
+
+\begin{itemize}
+\item Renames the original item into ``Bank account C54769''
+\end{itemize}
 
 
 \chapter{Building up stock}
