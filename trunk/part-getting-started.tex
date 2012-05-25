@@ -49,7 +49,10 @@ He'll be running LedgerSMB using the domain he acquired for his business:
 
 \section{Using setup.pl}
 
-% some introduction
+LedgerSMB comes with a tool called 'setup.pl'. It's the beginning of a web-based
+database administration interface to LedgerSMB. This tool can be used to create
+company databases as well as backups of existing ones. There's also a command line based
+Unix-only setup tool - this tool is covered in the next section.
 
 Please note that while executing the steps described in this section, presentation of
 the next screen may take a while after clicking on each button. Some buttons involve
@@ -60,16 +63,16 @@ a large amount of processing on the server before the next screen can be present
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step1.png}
 \caption{setup.pl login screen}
-\end{figure}
 \label{fig:setup-step1}
+\end{figure}
 
 \subsection{Step 2: Company creation}
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step2.png}
 \caption{setup.pl company creation screen}
-\end{figure}
 \label{fig:setup-step2}
+\end{figure}
 
 
 \subsection{Step 3: Selection of a Chart of Accounts}
@@ -77,14 +80,14 @@ a large amount of processing on the server before the next screen can be present
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step3.png}
 \caption{Chart of accounts - Country selection}
-\end{figure}
 \label{fig:setup-step3}
+\end{figure}
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step4.png}
 \caption{Chart of accounts - Chart selection}
-\end{figure}
 \label{fig:setup-step4}
+\end{figure}
 
 
 \subsection{Step 4: First user}
@@ -92,14 +95,14 @@ a large amount of processing on the server before the next screen can be present
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step5.png}
 \caption{setup.pl initial user creation screen}
-\end{figure}
 \label{fig:setup-step5}
+\end{figure}
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step6.png}
 \caption{setup.pl succesfull completion screen}
-\end{figure}
 \label{fig:setup-step6}
+\end{figure}
 
 
 \chapter{The first login}
@@ -109,9 +112,16 @@ a large amount of processing on the server before the next screen can be present
 Upon first login it's best to set up the system configuration parameters. This
 prevents running into errors due to partial configuration later on.
 
-This chapter assumes you've loaded a chart of accounts in \charef{cha:CompanyCreation}.
+This chapter assumes you've did not skip loading a chart of accounts in \charef{cha:CompanyCreation}.
 
 \section{Steps to the first login}
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{dmc-create-final.png}
+\caption{login.pl opening screen}
+\label{fig:login-screen}
+\end{figure}
+
 
 \subsection{Login screen}
 
@@ -154,9 +164,9 @@ As part of the start up activities of his company, Jack comes to an agreement wi
 bank for three products:
 
 \begin{itemize}
-\item A current account with number C54769
-\item Deposit account with number D54990
-\item Credit card with a number ending with .7734
+\item A current account with number ``C54769''
+\item Deposit account with number ``D54990''
+\item Credit card with a number ending with ``.7734''
 \end{itemize}
 
 Most accounting systems - LedgerSMB included - use separate GL accounts to represent
@@ -165,12 +175,43 @@ account with the balance in the books.
 
 Knowing this, Jack looks up the example bank account from his preconfigured US chart of
 accounts using the System $\rightarrow$ Chart of Accounts $\rightarrow$ List Accounts menu as
-shown in % ###figref:
+shown in \figref{fig:bank-setup1}.
 
-\begin{itemize}
-\item Renames the original item into ``Bank account C54769''
-\end{itemize}
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{setup-bank-account1.png}
+\caption{Bank account setup - menu items}
+\label{fig:bank-setup1}
+\end{figure}
 
+
+
+\begin{enumerate}
+\item Renames the original account 1060 ``Checking account'' into ``Checking account C54769''
+\item Click ``Save''
+\item Open the 1060 account again
+\label{itm:bank-setup-steps-start}
+\item Change the number to 1061
+\item Change the description to ``Cash deposit account D54990''
+\item Click ``Save as''
+\label{itm:bank-setup-steps-end}
+\end{enumerate}
+
+Then Jack repeats the steps \ref{itm:bank-setup-steps-start} to \ref{itm:bank-setup-steps-end}
+for the credit card with the account number 1062 and description ``Credit card xxxx.xxxx.7734'' to set
+up the credit card. \figref{fig:bank-setup2} shows the screen in which to enter the account
+details. \secref{sec:AccountOptions} discusses the options in detail - for now using the
+settings as configured for the sample checking account will do.
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{setup-bank-account2.png}
+\caption{Bank account setup - account setup screen}
+\label{fig:bank-setup2}
+\end{figure}
+
+
+
+
+\section{Using create-company-database.sh}
 
 \chapter{Building up stock}
 
