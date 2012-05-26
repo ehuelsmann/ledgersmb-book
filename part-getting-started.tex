@@ -83,7 +83,8 @@ name of the company to be logged into later on through the login page shown in \
 in-depth.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth]{dmc-create-step1.png}
+\centering
+\includegraphics[width=7cm]{dmc-create-step1.png}
 \caption{setup.pl login screen}
 \label{fig:setup-step1}
 \end{figure}
@@ -106,7 +107,8 @@ stage - they have value if the database exists and setup.pl is being used to upg
 the database; one of its other functionalities.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth]{dmc-create-step2.png}
+\centering
+\includegraphics[width=7cm]{dmc-create-step2.png}
 \caption{setup.pl company creation screen}
 \label{fig:setup-step2}
 \end{figure}
@@ -128,15 +130,29 @@ Note that you need to define a chart of accounts before you can meaningfully do 
 inside LedgerSMB.
 \end{quote}
 
+\figref{fig:setup-step3} shows the first screen in the chart of accounts selection procedure.
+In this screen you select the country for which you want to use the chart of accounts. Note
+that charts of accounts are highly country dependent and you may want to consult
+an accountant if no default chart of accounts is included for your country.
+
+As Jack runs his company in the US, that's what he selects.
 
 \begin{figure}[h]
-\includegraphics[width=\linewidth]{dmc-create-step3.png}
+\centering
+\includegraphics[width=7cm]{dmc-create-step3.png}
 \caption{Chart of accounts - Country selection}
 \label{fig:setup-step3}
 \end{figure}
 
+\figref{fig:setup-step4} shows the second screen in the chart of accounts selection procedure.
+The drop down contains a list of all charts of accounts defined for the selected country.
+
+Jack selects the General.sql chart of accounts: that will leave him enough room to specialize
+the setup later if he has to, but for the time being offers a broadly useable setup.
+
 \begin{figure}[h]
-\includegraphics[width=\linewidth]{dmc-create-step4.png}
+\centering
+\includegraphics[width=7cm]{dmc-create-step4.png}
 \caption{Chart of accounts - Chart selection}
 \label{fig:setup-step4}
 \end{figure}
@@ -144,14 +160,42 @@ inside LedgerSMB.
 
 \subsection{Step 4: First user}
 
+In the last paragraph, the technical part of the company creation procedure was completed.
+However, it's not possible to log in to the company yet. This paragraph describes how to
+create a first user.
+\figref{fig:setup-step5} shows the user creation screen. The fields in this screen have
+the same meaning as those discussed in \secref{sec:user-creation}.
+
 \begin{figure}[h]
-\includegraphics[width=\linewidth]{dmc-create-step5.png}
+\centering
+\includegraphics[width=7cm]{dmc-create-step5.png}
 \caption{setup.pl initial user creation screen}
 \label{fig:setup-step5}
 \end{figure}
 
+Jack chooses to create an administrative user called \texttt{admin} who will be authorized
+to do everything in the application. Later on he will also create a user \texttt{jack}
+who will be authorized to do everything but changing the configuration and doing administration.
+He'll use the latter user to log in for day to day operations. This will help him prevent
+changing things by accident.
+
+Note that none of the fields in this screen are optional. If the name of the user being created
+isn't already used with other companies, leave the \texttt{Import} option set to \texttt{No},
+otherwise please read the chapter on user creation mentioned above.
+
+The setup.pl program offers the user to be created to be one of two types:
+
+\begin{itemize}
+\item Manage Users
+\item All permissions
+\end{itemize}
+
+Jack's choice for a fully authorized \texttt{admin} user leads him to select the
+\texttt{All permissions} option.
+
 \begin{figure}[h]
-\includegraphics[width=\linewidth]{dmc-create-step6.png}
+\centering
+\includegraphics[width=7cm]{dmc-create-step6.png}
 \caption{setup.pl succesfull completion screen}
 \label{fig:setup-step6}
 \end{figure}
