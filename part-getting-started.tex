@@ -60,6 +60,28 @@ a large amount of processing on the server before the next screen can be present
 
 \subsection{Step 1: setup.pl login}
 
+Jack installed LedgerSMB using the default installation instructions, which means
+that the url for his setup.pl is \url{https://example.com/ledgersmb/setup.pl}.
+\figref{fig:setup-step1} shows the login screen for the tool.
+
+\begin{quotation}
+Please note that you can't be logged into the administration tool (setup.pl) and the webapp
+through the same browser at the same time in this version of LedgerSMB - due to technicalities.
+\end{quotation}
+
+The login screen shows three fields: (a) a user, (b) a password and (c) a database name.
+
+The user name you use to log in needs to be a PostgreSQL super user: a user you can use
+to log into the database using the ``psql'' command as well.
+
+The password must be the same as the one used to log in from the command line using the
+``psql'' tool or the password you used upon creation using the ``createdb'' tool. Both
+``psql'' and ``createdb'' are PostgreSQL tools (not LedgerSMB tools).
+
+The third field is the name of the database to be created, which is the same as the
+name of the company to be logged into later on through the login page shown in \figref{fig:login-screen}. The next paragraph discusses this field and its meaning more
+in-depth.
+
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step1.png}
 \caption{setup.pl login screen}
@@ -68,14 +90,44 @@ a large amount of processing on the server before the next screen can be present
 
 \subsection{Step 2: Company creation}
 
+When creating a company database, there are a few things that are of importance:
+
+\begin{itemize}
+\item The name of the database is the same as the name used at login time
+\item The name of the database entered (and hence the company name) is case-sensitive
+\item The name can't be more than 63 characters long
+% \item ### others?
+\end{itemize}
+
+After choosing ``example\_inc'' as his company name, Jack clicks the Login button at which
+time he's being presented \figref{fig:setup-step2}. The screen says the database doesn't
+yet exist and offers its creation. The backup buttons being offered are not useful at this
+stage - they have value if the database exists and setup.pl is being used to upgrade
+the database; one of its other functionalities.
+
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step2.png}
 \caption{setup.pl company creation screen}
 \label{fig:setup-step2}
 \end{figure}
 
+Jack clicks ``Yes'' to create the database and load it with LedgerSMB's database
+schema, authorization rules and stored
+procedures\footnote{Parts of the program inside the database.}. It may
+take a while (30 seconds or more) for the next screen to appear.
 
 \subsection{Step 3: Selection of a Chart of Accounts}
+
+LedgerSMB comes with numerous predefined charts of accounts. These have been grouped
+per country, making the selection of a chart a two-step procedure. setup.pl allows for
+users wanting to define their own charts by offering a ``Skip'' button. This button
+skips the process of loading a chart.
+
+\begin{quote}
+Note that you need to define a chart of accounts before you can meaningfully do anything
+inside LedgerSMB.
+\end{quote}
+
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-step3.png}
