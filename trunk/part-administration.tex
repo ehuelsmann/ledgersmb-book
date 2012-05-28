@@ -68,7 +68,8 @@ occur if multiple people try to define the same user in multiple companies.
 
 Enter the password to be used for this user into the ``Password'' field. If you're
 importing a user, please leave the field empty -- that will prevent the password
-from being changed.
+from being changed.  Note that initial passwords (and password resets) are only 
+valid for one day unless the user logs in and changes his/her password.
 
 The ``Import'' field is discussed in \secref{sec:UserImports}. To create a new
 user, leave the setting at ``No''.
@@ -121,6 +122,11 @@ user search: System $\rightarrow$ Admin Users $\rightarrow$ Search Users $\right
 
 Similarly, there may be reasons to change the user information, such as a last name
 (e.g. upon marriage).
+
+Note that if you reset a password, the new password is valid for one day unless
+changed.  The preferred workflow is for the individual with permissions to reset
+the password, give the new password to the user, they then log in and
+immediately change it.
 
 \subsection{Deleting users}
 
