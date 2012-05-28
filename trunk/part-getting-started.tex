@@ -44,7 +44,7 @@ After evaluation of his options he decides to use LedgerSMB for the following re
 He'll be running LedgerSMB using the domain he acquired for his business:
 \url{http://example.com/}.
 
-\chapter{Creating a company administration}
+\chapter{Creating a company}
 \label{cha:CompanyCreation}
 
 \section{Using setup.pl}
@@ -207,6 +207,10 @@ Jack's choice for a fully authorized \texttt{admin} user leads him to select the
 \end{figure}
 
 
+\section{Using create-company-database.sh}
+
+
+
 \chapter{The first login}
 
 \section{Introduction}
@@ -232,7 +236,6 @@ After Jack finishes the last chapter, he clicks the \texttt{Start using LedgerSM
 shown in \figref{fig:setup-step6}.
 
 
-
 \subsection{Login screen}
 
 \begin{figure}[h]
@@ -241,7 +244,23 @@ shown in \figref{fig:setup-step6}.
 \label{fig:login-screen}
 \end{figure}
 
+The login screen shows three fields which need to be filled out as follows:
+
+\begin{description}
+\item[Name] The user name created during database setup; Jack uses \texttt{admin}
+\item[Password] The password used with the initial user creation
+\item[Company] The name of the database created; Jack uses \texttt{example\_inc}
+\end{description}
+
 \subsection{Selecting a password}
+
+After successful login, the system shows a password reset screen as depicted in
+\figref{fig:first-login-password}. The initial password has a 24-hour validity limit
+to prevent unused user accounts remaining around. It's a security measure.
+
+The password Jack chooses may be either the same as the one he used before, however,
+not clicking the \texttt{Save} button means the password remains unchanged and the
+24-hour limit remains in effect.
 
 \begin{figure}[h]
 \centering
@@ -250,13 +269,18 @@ shown in \figref{fig:setup-step6}.
 \label{fig:first-login-password}
 \end{figure}
 
+The new password has a validity of 1 year but may be changed any time before that by
+the user himself. User management is discussed is detail in \charef{cha:user-management}.
 
-\subsection{Subsequent logins}
+The password reset dialog won't show on subsequent logins until % XXX
+days before expiry. Login will be denied to users with expired passwords; they can request
+password resets through user admins.
 
 
 \section{Setting up the system defaults}
 
-This section can only be completely filled out when a chart of accounts has been loaded.
+With the password selection out of the way, Jack can start to set up the company for first
+use. This section can only be completely filled out when a chart of accounts has been loaded.
 
 A more elaborate description of the parameters in this section is provided in subsection
 \ref{subsec:Defaults}. However, when setting up a new company, it's probably good enough
@@ -332,10 +356,6 @@ settings as configured for the sample checking account will do.
 \label{fig:bank-setup2}
 \end{figure}
 
-
-
-
-\section{Using create-company-database.sh}
 
 \chapter{Building up stock}
 
