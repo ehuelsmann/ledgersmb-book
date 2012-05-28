@@ -205,12 +205,24 @@ Jack's choice for a fully authorized \texttt{admin} user leads him to select the
 
 \section{Introduction}
 
-Upon first login it's best to set up the system configuration parameters. This
-prevents running into errors due to partial configuration later on.
+After the company has been created by executing the procedure described in the last
+chapter it is still an empty shell which needs to be populated. The correct data
+needs to be entered for things like bank accounts and company contact data to be used
+on invoices.
 
-This chapter assumes you've did not skip loading a chart of accounts in \charef{cha:CompanyCreation}.
+These steps have to be completed before LedgerSMB can be used meaningfully: these
+settings have to be present for many workflows. A major reason is that with LedgerSMB
+- as most ERP systems - financial
+consequences of events in many workflows are directly reflected in the company's books.
+Some accounting related settings have to be completed before LedgerSMB can do so.
+
+This chapter documents the steps to this configuration. It assumes you've did not skip
+loading a chart of accounts in \charef{cha:CompanyCreation}.
 
 \section{Steps to the first login}
+
+After Jack finishes the last chapter, he clicks the \texttt{Start using LedgerSMB} link
+shown in \figref{fig:setup-step6}.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-final.png}
