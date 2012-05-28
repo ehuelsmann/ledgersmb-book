@@ -307,6 +307,7 @@ checks the Taxes page in the System menu to see if the percentages that were del
 with it are still current.
 
 \section{Setting up a bank account or credit card}
+\label{sec:setup-bank-account}
 
 As part of the start up activities of his company, Jack comes to an agreement with the
 bank for three products:
@@ -356,6 +357,41 @@ settings as configured for the sample checking account will do.
 \label{fig:bank-setup2}
 \end{figure}
 
+
+\section{Checking and adjusting the chart of accounts}
+
+Jack wants to make sure his chart of accounts fits his purposes. For now, he finds
+the ledger to be in order. Although the single Sales account stands out a bit against
+the numerous expense accounts, it turns out that there is also a single Purchases
+account on which all the expenses for parts purchases are going to be booked.
+
+He decides that if this isn't enough, he can add accounts later.
+
+\section{Checking sales tax (VAT) rates}
+
+First off, Jack asserts that a sales tax account has been provisioned. He finds it
+in the Current Liabilities section of his chart of accounts. In his jurisdiction there
+is only one sales tax rate applicable at any one time, which means this single account
+will suit his needs just fine. If he had been in a jurisdiction with multiple tax rates
+applicable, e.g. different rates for different types of goods, he would have been
+required to create more accounts.
+
+The procedure to create more sales tax accounts is the same as the one used in
+\secref{sec:setup-bank-account}, with the notable difference that this time the base account
+to be used is the sales tax account.
+
+With the accounts in place, the tax rates have to be checked and possibly adjusted.
+To do so, go to the System $\rightarrow$ Taxes page as shown in \figref{fig:setup-tax-rates}.
+
+\begin{figure}[h]
+\includegraphics[width=\linewidth]{setup-tax-rates.png}
+\caption{Tax rate adjustment screen}
+\label{fig:setup-tax-rates}
+\end{figure}
+
+The rate shown (5\%) is exactly what Jack needs. The procedure to set rates is a bit
+long to describe and hence has its own chapter. Please refer to \charef{cha:Taxes} for
+details on how to change taxes.
 
 \chapter{Building up stock}
 
