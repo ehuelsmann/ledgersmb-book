@@ -107,7 +107,8 @@ in-depth.
 When creating a company database, there are a few things that are of importance:
 
 \begin{itemize}
-\item The name of the database is the same as the name used at login time
+\item The name of the database is the same as the name used at login time and hence
+   will be used by all users - a choice of a suitable, recognizable value is important
 \item The name of the database entered (and hence the company name) is case-sensitive
 \item The name can't be more than 63 characters long
 % \item ### others?
@@ -134,13 +135,14 @@ take a while (30 seconds or more) for the next screen to appear.
 \subsection{Step 3: Selection of a Chart of Accounts}
 
 LedgerSMB comes with numerous predefined charts of accounts. These have been grouped
-per country, making the selection of a chart a two-step procedure. setup.pl allows for
+per country making the selection of a chart a two-step procedure. setup.pl allows for
 users wanting to define their own charts by offering a ``Skip'' button. This button
 skips the process of loading a chart.
 
 \begin{quote}
 Note that you need to define a chart of accounts before you can meaningfully do anything
-inside LedgerSMB.
+inside LedgerSMB. If you don't load a pre-defined one you'll need to create or import your
+own later.
 \end{quote}
 
 \figref{fig:setup-step3} shows the first screen in the chart of accounts selection procedure.
@@ -173,11 +175,11 @@ the setup later if he has to, but for the time being offers a broadly useable se
 
 \subsection{Step 4: First user}
 
-In the last paragraph, the technical part of the company creation procedure was completed.
+In the last paragraph the technical part of the company creation procedure was completed.
 However, it's not possible to log in to the company yet. This paragraph describes how to
 create a first user.
 \figref{fig:setup-step5} shows the user creation screen. The fields in this screen have
-the same meaning as those discussed in \secref{sec:user-creation}.
+the same meaning as those discussed as part of user management in \secref{sec:user-creation}.
 
 \begin{figure}[h]
 \centering
@@ -188,7 +190,7 @@ the same meaning as those discussed in \secref{sec:user-creation}.
 
 Jack chooses to create an administrative user called \texttt{admin} who will be authorized
 to do everything in the application. Later on he will also create a user \texttt{jack}
-who will be authorized to do everything but changing the configuration and doing administration.
+who will be authorized to do everything but changing the configuration and doing application administration.
 He'll use the latter user to log in for day to day operations. This will help him prevent
 changing things by accident.
 
@@ -206,7 +208,7 @@ The setup.pl program offers the user to be created to be one of two types:
 
 \begin{itemize}
 \item Manage Users
-\item All permissions
+\item All Permissions
 \end{itemize}
 
 Jack's choice for a fully authorized \texttt{admin} user leads him to select the
@@ -219,6 +221,8 @@ Jack's choice for a fully authorized \texttt{admin} user leads him to select the
 \label{fig:setup-step6}
 \end{figure}
 
+Jack succeeded to correctly create his company database. His story continues in
+the next chapter ``The first login''.
 
 \section{Using create-company-database.sh}
 
