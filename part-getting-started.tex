@@ -22,9 +22,19 @@ keep LedgerSMB in good health.
 Due to its success Example will grow, posing new challenges to LedgerSMB and we'll show
 you how Jack can change the configuration to adapt to his growing business's needs.
 
-It's outside the scope of this part to explain how to install the application. See
-Part \ref{part:Configuration} for information on installation. \charef{cha:CompanyCreation}
-starts when the software has been installed yet nothing more has been done.
+Jack chooses to use a hosted LedgerSMB, so he doesn't need to concern himself with the
+technical details of getting the application up and running. Instead he can start by setting
+up the company database immediately.
+
+In \charef{cha:CompanyCreation} and \charef{cha:the-first-login} Jack goes through the
+steps of setting up a basic company. The chapters after that may not apply to every
+business. \charef{cha:building-up-stock}, \charef{cha:ramping-up-to-the-first-sale} and
+\charef{cha:shipping-sales} apply to businesses dealing with physical goods: buying,
+selling and shipping. \charef{cha:invoicing} discusses how to handle invoicing from LedgerSMB.
+\charef{cha:customer-payments}, \charef{cha:vendor-payments} and \charef{cha:monitoring-arrears}
+discuss how to manage accounts receivable and payable including arrears monitoring.
+
+@@@ more chapters??
 
 \section{LedgerSMB, because...}
 
@@ -38,7 +48,10 @@ After evaluation of his options he decides to use LedgerSMB for the following re
 \item Access to the application requires only a web browser
 \item Integrated sales, shipping, invoicing, purchasing and accounting
 \item Open source solution, so no vendor lock in
-\item @@@ others?
+\item The roadmap appeals to him, because it has web services payrolling on it
+\item There are multiple vendors offering commercial support, including hosted options
+\item The developers envision building a platform out of it: creating the building blocks
+required to build a company on
 \end{itemize}
 
 He'll be running LedgerSMB using the domain he acquired for his business:
@@ -54,8 +67,8 @@ database administration interface to LedgerSMB. This tool can be used to create
 company databases as well as backups of existing ones. There's also a command line based
 Unix-only setup tool - this tool is covered in the next section.
 
-Please note that while executing the steps described in this section, presentation of
-the next screen may take a while after clicking on each button. Some buttons involve
+Please note that while executing the steps described in this section, it may take a while
+for the next screen to appear after clicking on each button: Some buttons involve
 a large amount of processing on the server before the next screen can be presented.
 
 \subsection{Step 1: setup.pl login}
@@ -101,7 +114,7 @@ When creating a company database, there are a few things that are of importance:
 \end{itemize}
 
 After choosing ``example\_inc'' as his company name, Jack clicks the Login button at which
-time he's being presented \figref{fig:setup-step2}. The screen says the database doesn't
+time the screen from \figref{fig:setup-step2} shows up. The screen says the database doesn't
 yet exist and offers its creation. The backup buttons being offered are not useful at this
 stage - they have value if the database exists and setup.pl is being used to upgrade
 the database; one of its other functionalities.
@@ -212,6 +225,7 @@ Jack's choice for a fully authorized \texttt{admin} user leads him to select the
 
 
 \chapter{The first login}
+\label{cha:the-first-login}
 
 \section{Introduction}
 
@@ -394,16 +408,30 @@ long to describe and hence has its own chapter. Please refer to \charef{cha:Taxe
 details on how to change taxes.
 
 \chapter{Building up stock}
+\label{cha:building-up-stock}
 
 \chapter{Ramping up to the first sale}
+\label{cha:ramping-up-to-the-first-sale}
 
 % sending out a quote followed by a sales order
 
 \chapter{Shipping sales}
+\label{cha:shipping-sales}
 
 \chapter{Invoicing}
+\label{cha:invoicing}
+
+\section{Handling sales taxes}
+
+% invoices with taxes included
+
+% invoices with explicit tax amounts
+
+% 
+
 
 \chapter{Collecting sales invoice payments}
+\label{cha:customer-payments}
 
 \section{Customer payments}
 
@@ -417,6 +445,7 @@ details on how to change taxes.
 
 
 \chapter{Paying vendor invoices}
+\label{cha:vendor-payments}
 
 % handling vendors who match amounts to exact invoices
 
@@ -426,27 +455,20 @@ details on how to change taxes.
 %   relating to bounced checks
 
 \chapter{Monitoring arrears}
+\label{cha:monitoring-arrears}
 
 % handling interest on arrears
-
-\chapter{Handling sales taxes}
-
-% invoices with taxes included
-
-% invoices with explicit tax amounts
-
-% 
 
 \chapter{Branching out: services}
 
 % including creation / assignment to different accounts
 
 
-\chapter{Recording service hours}
+\section{Recording service hours}
 
-\chapter{Customer approval on service hours}
+\section{Customer approval on service hours}
 
-\chapter{Invoicing services}
+\section{Invoicing services}
 
 \chapter{Branching out II: service subscriptions}
 
