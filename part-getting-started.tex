@@ -183,6 +183,12 @@ Note that none of the fields in this screen are optional. If the name of the use
 isn't already used with other companies, leave the \texttt{Import} option set to \texttt{No},
 otherwise please read the chapter on user creation mentioned above.
 
+\begin{quotation}
+Note: The password you enter here is a temporary one which will remain in effect for 24
+hours only. Be sure to execute the steps in \secref{sec:steps-to-the-first-login} before
+these 24 hours elapse, because the user will be disabled after that.
+\end{quotation}
+
 The setup.pl program offers the user to be created to be one of two types:
 
 \begin{itemize}
@@ -220,9 +226,14 @@ This chapter documents the steps to this configuration. It assumes you've did no
 loading a chart of accounts in \charef{cha:CompanyCreation}.
 
 \section{Steps to the first login}
+\label{sec:steps-to-the-first-login}
 
 After Jack finishes the last chapter, he clicks the \texttt{Start using LedgerSMB} link
 shown in \figref{fig:setup-step6}.
+
+
+
+\subsection{Login screen}
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{dmc-create-final.png}
@@ -230,10 +241,15 @@ shown in \figref{fig:setup-step6}.
 \label{fig:login-screen}
 \end{figure}
 
-
-\subsection{Login screen}
-
 \subsection{Selecting a password}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{first-login-password.png}
+\caption{First login password selection}
+\label{fig:first-login-password}
+\end{figure}
+
 
 \subsection{Subsequent logins}
 
