@@ -277,13 +277,31 @@ to use in your company, identified by their 3-letter codes separated by a colon;
 ``USD:EUR:CHF''. To ensure correct operation of the application, at least one currency
 (the company default currency) must be listed. In case of multiple currencies the first
 is used as the company default currency.
+
 \subsubsection{Company data (name /address)}
 
 The fields ``Company Name'', ``Company Address'',
 ``Company Phone'' and ``Company Fax'' will be used on printed/e-mailed invoices.
 
-\subsubsection{Password duration} This field indicates the duration passwords will be considered valid. Freshly set passwords will expire after this period.\footnote{If this value isn't set, passwords will expire after 1 year by default.} Note that passwords for freshly
-created users expire within 24 hours after creation. @@@ What's the input here? A number? Would that number be days, weeks, years?
+\subsubsection{Password duration}
+
+This is an integer value field measuring the validity period in days for passwords set through
+the user's \texttt{Preferences} screen. If this field is empty, passwords set through that method
+won't expire.
+
+A user will receive password expiration reminders upon logging starting a week before password
+expiry. When not acted upon, starting two days before expiry an hourly popup will appear
+requesting the user to change the password.
+
+The application behaves this way because users with expired passwords won't be able to log in:
+their password will need to be reset by a user admin.
+
+\begin{quotation}
+Note that passwords set by admins for other users expire within 24 hours after setting them.
+This value is hard coded and can't be overruled. This is a security measure taken to make
+sure as few unused accounts as possible exist: Existence of such accounts could open up security
+holes.
+\end{quotation}
 
 
 \subsubsection{Default Email addresses}
@@ -306,30 +324,32 @@ a multi-step selection procedure will be used.
 \subsubsection{Item numbering}
 \label{sec:DefaultsItemNumbering}
 
-Many items in the system have sequence numbers: invoices, transactions, parts, etc. These sequence numbers can be just a number (i.e. 1 or 37),
+Many items in the system have sequence numbers: invoices, parts, etc.
+ These sequence numbers can be just a number (i.e. 1 or 37),
 but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for employees.
 The numbers shown in the input boxes will be used to generate the next number in the
 numbering sequence.
-\begin{itemize}
-\item [GL Reference number] The default reference number for the next GL
-transaction.
-\item [Sales invoice/ AR Transaction number] This number is used to generate an invoice
-number when none is being filled out by the user.
-\item [Sales order number] Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page
-\item [Vendor invoice/ AP Transaction number] Same as Sales invoice, except that the number
-is used for accounts payable transactions. @@@ layout issue: the label is too big to fit on the page
-\item [Sales quotation number] Same as sales order number, except that it's used for quotations.
-\item [RFQ number] Request for quotation number is like the sales quotation number, except
-that it is used to track which vendors have been asked for quotes.
-\item [Part number] All parts, services and assemblies are identified by a unique number.
+
+\begin{longtable}{ p{3.4cm} p{6.7cm} }
+GL Reference number & The default reference number for the next GL
+transaction. \\
+Sales invoice/ AR Transaction number & This number is used to generate an invoice
+number when none is being filled out by the user. \\
+Sales order number & Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page \\
+Vendor invoice/ AP Transaction number & Same as Sales invoice, except that the number
+is used for accounts payable transactions. @@@ layout issue: the label is too big to fit on the page \\
+Sales quotation number & Same as sales order number, except that it's used for quotations. \\
+RFQ number & Request for quotation number is like the sales quotation number, except
+that it is used to track which vendors have been asked for quotes. \\
+Part number & All parts, services and assemblies are identified by a unique number.
 When an item is created and no number is entered by the user, a number is generated
-from this sequence.
-\item [Job/project number] Used when creating new projects.
-\item [Employee number] Same as the sales invoice number, used by new employee entry.
-\item [Customer number] @@@ is this the control code number? or is this
-meta\_number?? -- Meta-number (CT)
-\item [Vendor number] @@@ same question as customer number
-\end{itemize}
+from this sequence. \\
+Job/project number & Used when creating new projects. \\
+Employee number & Same as the sales invoice number, used by new employee entry. \\
+Customer number & @@@ is this the control code number? or is this
+meta\_number?? -- Meta-number (CT) \\
+Vendor number & @@@ same question as customer number \\
+\end{longtable}
 
 \subsubsection{Check prefix} The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
 checks can be created outside the application as well, meaning the numbers can

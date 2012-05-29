@@ -245,7 +245,8 @@ consequences of events in many workflows are directly reflected in the company's
 Some accounting related settings have to be completed before LedgerSMB can do so.
 
 This chapter documents the steps to this configuration. It assumes you've did not skip
-loading a chart of accounts in \charef{cha:CompanyCreation}.
+loading a chart of accounts in \charef{cha:CompanyCreation} or that - if you did -
+imported your own. Whatever your method, a chart of accounts should be available.
 
 \section{Steps to the first login}
 \label{sec:steps-to-the-first-login}
@@ -266,18 +267,19 @@ The login screen shows three fields which need to be filled out as follows:
 
 \begin{description}
 \item[Name] The user name created during database setup; Jack uses \texttt{admin}
-\item[Password] The password used with the initial user creation
+\item[Password] The password - in this case for Jack's \texttt{admin} user
 \item[Company] The name of the database created; Jack uses \texttt{example\_inc}
 \end{description}
 
 \subsection{Selecting a password}
 
-After successful login, the system shows a password reset screen as depicted in
-\figref{fig:first-login-password}. The initial password has a 24-hour validity limit
-to prevent unused user accounts remaining around. It's a security measure.
+After successful login, the system shows the user preferences screen as depicted in
+\figref{fig:first-login-password} to facilitate the required password change. The
+initial password has a 24-hour validity limit to prevent unused user accounts from posing
+a security risk.
 
-The password Jack chooses may be either the same as the one he used before, however,
-not clicking the \texttt{Save} button means the password remains unchanged and the
+The password Jack chooses may be either the same as the one he used before.
+Not clicking the \texttt{Save} button means the password remains unchanged and the
 24-hour limit remains in effect.
 
 \begin{figure}[h]
@@ -287,20 +289,20 @@ not clicking the \texttt{Save} button means the password remains unchanged and t
 \label{fig:first-login-password}
 \end{figure}
 
-The new password has a validity of 1 year but may be changed any time before that by
-the user himself. User management is discussed is detail in \charef{cha:user-management}.
+The new password has a validity of determined by the \texttt{Password Duration} setting
+from the System $\rightarrow$ Defaults screen. User management is discussed is detail in \charef{cha:user-management}.
 
-The password reset dialog won't show on subsequent logins until % XXX
-days before expiry. Login will be denied to users with expired passwords; they can request
+The password reset dialog won't show on subsequent logins until one week
+before expiry. Login will be denied to users with expired passwords; they can request
 password resets through user admins.
 
 
 \section{Setting up the system defaults}
 
-With the password selection out of the way, Jack can start to set up the company for first
-use. This section can only be completely filled out when a chart of accounts has been loaded.
+With the password renewal out of the way, Jack can start to set up the company for first
+use. To do so, Jack selects the System $\rightarrow$ Defaults menu item.
 
-A more elaborate description of the parameters in this section is provided in subsection
+A more elaborate description of the parameters in this screen is provided in subsection
 \ref{subsec:Defaults}. However, when setting up a new company, it's probably good enough
 to fill out these parameters (and thus skip the rest):
 
@@ -312,6 +314,7 @@ to fill out these parameters (and thus skip the rest):
 \item Default country [US]
 \item Templates directory [demo]
 \item Currencies [USD:CAD]
+\item Password Duration [180]
 \item Default Email From [info@example.com]
 \item Company Name [Example Inc.]
 \item Company Address [215 Example street - Whereitsat]
