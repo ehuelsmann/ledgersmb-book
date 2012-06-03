@@ -297,33 +297,6 @@ before expiry. Login will be denied to users with expired passwords; they can re
 password resets through user admins.
 
 
-\section{Setting up the system defaults}
-
-With the password renewal out of the way, Jack can start to set up the company for first
-use. To do so, Jack selects the System $\rightarrow$ Defaults menu item.
-
-A more elaborate description of the parameters in this screen is provided in subsection
-\ref{subsec:Defaults}. However, when setting up a new company, it's probably good enough
-to fill out these parameters (and thus skip the rest):
-
-\begin{itemize}
-\item Business number (e.g. Chamber of commerce number) [12345]
-\item Default language [English]
-\item Default accounts (Inventory, Expense, Income) [@@@]
-\item Foreign exchange result accounts (Foreign exchange gain/loss) [@@@]
-\item Default country [US]
-\item Templates directory [demo]
-\item Currencies [USD:CAD]
-\item Password Duration [180]
-\item Default Email From [info@example.com]
-\item Company Name [Example Inc.]
-\item Company Address [215 Example street - Whereitsat]
-\item Company Phone [555 836 22 55]
-\item Company Fax (optional) [N/A]
-\end{itemize}
-
-Jack enters the values mentioned between the square brackets in the list above.
-
 \section{Setting up a bank account or credit card}
 \label{sec:setup-bank-account}
 
@@ -378,12 +351,88 @@ settings as configured for the sample checking account will do.
 
 \section{Checking and adjusting the chart of accounts}
 
-Jack wants to make sure his chart of accounts fits his purposes. For now, he finds
+First and foremost the chart of accounts serves to register income, expenses,
+assets and liabilities in categories which support financial decision making or
+regulatory requirements. When checking his chart of accounts, this is the first
+thing Jack checks for.
+
+Many business events in LedgerSMB trigger the creation of financial transactions.
+If the configuration required for these transactions to be created isn't in place,
+users won't be able to complete their workflows. 
+
+\subsection{Accounts list}
+
+Jack wants to make sure his chart of accounts fits his purposes. To perform these
+checks Jack goes into the System $\rightarrow$ Chart of Accounts $\rightarrow$
+List Accounts page. For now, he finds
 the ledger to be in order. Although the single Sales account stands out a bit against
 the numerous expense accounts, it turns out that there is also a single Purchases
 account on which all the expenses for parts purchases are going to be booked.
 
 He decides that if this isn't enough, he can add accounts later.
+
+\subsection{Technical accounts identified by Links}
+
+For LedgerSMB to operate correctly, a number of accounts have to be configured for
+their specific purpose. He continues on the same screen as the previous section. His
+checks concern the values in the \texttt{Link} column of the screen. These values have
+to be present:
+
+\begin{longtable}{ lp{8cm} }
+Purpose & Description \\ \hline
+AR  & The summary account for accounts receivables; most example charts of accounts have one. \\
+AR\_overpayment & Receivables overpayments; if a customer pays too much or gets a credit
+                  invoice for an invoice already paid, this is where his credit gets
+                  recorded if it's not refunded immediately \\
+AP  & Same as AR, except for payables. \\
+AP\_overpayment  & Same as AR\_overpayment, except that this registers credits others owe you \\
+IC  & Summary account for inventory; this account doesn't apply to companies which sell
+      services only. \\
+
+\caption{List of special purpose account types by link}
+\label{tbl:special-purpose-account-types-links}
+\end{longtable}
+
+
+Jack's chart (the US General.sql standard chart) misses the AR and AP\_overpayment links as
+well as the overpayment accounts. He'll need to create them by going to the Add Accounts under
+the same submenu as the List Accounts option. The table below shows the settings required for
+the account types listed in Table \ref{tbl:special-purpose-account-types-links}.
+
+\begin{longtable}{lll}
+Purpose & Account type & Overpayment checkmark line \\ \hline
+AR & Asset &  \\
+\textit{AR\_overpayment} & \textit{Liability} & \textit{Receivables} \\
+AP & Liability &  \\
+\textit{AP\_overpayment} & \textit{Asset} & \textit{Payables} \\
+IC & Asset &  \\
+\caption{Special purpose account configuration summary}
+\label{tbl:special-purpose-account-config-summary}
+\end{longtable}
+
+Jack creates two accounts, one for each line marked in italics in Table \ref{tbl:special-purpose-account-config-summary}:
+\begin{itemize}
+\item [1202] Advance payments
+\item [2105] Advance receipts
+\end{itemize}
+
+
+\subsection{Technical accounts from System Defaults}
+\label{subsec:technical-accounts-system-defaults}
+
+Two special purpose accounts are currently not assigned their special purpose through
+the Links column in the Chart of Accounts menu. Instead, their special purpose is indicated
+in the defaults screen as discussed in \secref{sec:setting-up-system-defaults}.
+
+Each chart of accounts should have
+\begin{itemize}
+\item a foreign exchange gain account in the Income part
+\item a foreign exchange loss account in the Expense part
+\end{itemize}
+
+This restriction applies even for companies which don't expect to be using foreign currencies
+since the accounts \textbf{have} to be selected in the defaults screen: there's no option
+to leave them blank.
 
 \section{Checking sales tax (VAT) rates}
 
@@ -411,8 +460,55 @@ The rate shown (5\%) is exactly what Jack needs. The procedure to set rates is a
 long to describe and hence has its own chapter. Please refer to \charef{cha:Taxes} for
 details on how to change taxes.
 
+\section{Setting up the system defaults}
+\label{sec:setting-up-system-defaults}
+
+With the password renewal out of the way, Jack can start to set up the company for first
+use. To do so, Jack selects the System $\rightarrow$ Defaults menu item.
+
+A more elaborate description of the parameters in this screen is provided in subsection
+\ref{subsec:Defaults}. However, when setting up a new company, it's probably good enough
+to fill out these parameters (and thus skip the rest):
+
+\begin{itemize}
+\item Business number (e.g. Chamber of commerce number) [12345]
+\item Default language [English]
+\item Default accounts (Inventory, Expense, Income) [1510 Inventory / 4010 Sales / 5010 Purchases]
+\item Foreign exchange result accounts (Foreign exchange gain/ loss) [4450 Gain / 5810 Loss]
+\item Default country [US]
+\item Templates directory [demo]
+\item Currencies [USD:CAD]
+\item Password Duration [180]
+\item Default Email From [info@example.com]
+\item Company Name [Example Inc.]
+\item Company Address [215 Example street - Whereitsat]
+\item Company Phone [555 836 22 55]
+\item Company Fax (optional) [N/A]
+\end{itemize}
+
+Jack enters the values mentioned between the square brackets in the list above.
+
+
+
 \chapter{Building up stock}
 \label{cha:building-up-stock}
+
+\section{Overview}
+
+\section{Defining parts}
+
+\section{Defining vendors}
+
+\section{Requesting Quotations}
+
+\section{Ordering from a quotation}
+
+\section{Receiving an order}
+
+\section{Receiving an invoice}
+
+\section{Paying an invoice}
+
 
 \chapter{Ramping up to the first sale}
 \label{cha:ramping-up-to-the-first-sale}
