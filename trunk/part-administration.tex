@@ -217,6 +217,12 @@ Every part requires the following fields to be entered:
 \item [Sell price] The default selling price used on sales invoices
 \end{itemize}
 
+Right below the accounts selection section, there is the Tax section, which lists
+all tax accounts with a check mark. Each account corresponds with a certain tax type
+and rate. E.g. in the Netherlands, there's one VAT tax type (BTW) which has two rates,
+one of which applies to every product. This setup requires two accounts. There's more
+on the subject of sales taxes in \charef{cha:Taxes}.
+
 The other fields in this section of the screen are optional:
 
 \begin{itemize}
@@ -225,7 +231,14 @@ The other fields in this section of the screen are optional:
 \item [Markup percentage] Markup on Last cost to calculate the Sell price
 \item [Image]
 \item [Drawing]
+\item [Microfiche]
+\item [Unit] A five-character field shown on the invoice
+\item [Weight] Informational; can be used by add-ons or customizations
+\item [On hand - ROP] Reorder point - when the inventory drops below this number,
+     the part will show up in ``Short parts'' reports
+\item [On hand - Bin] The storage location in the warehouse
 \end{itemize}
+
 
 Apart from these fields, there are also the Make and Model paired fields. Every part
 can have as many Make/Model lines as required. They are informational, but can be used
