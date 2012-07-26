@@ -177,17 +177,101 @@ During the set up process such a user is normally being created. This user can l
 be used to manage the database from the database administration tool setup.pl.
 
 
-\chapter{Definition of products and services}
+\chapter{Definition of goods and services}
 \label{cha:ProductsDefinition}
 
 
-\section{Definition of products}
+\section{Definition of goods}
 Structure of products in the system.
 
 \subsection{Definition of parts}
 \label{sec:DefinitionOfParts}
 
-\subsection{Definition of partgroups}
+The part entry screen consists of four parts:
+
+\begin{enumerate}
+\item Part information
+\item Vendor information
+\item Customer information
+\item File attachments
+\end{enumerate}
+
+
+The paragraphs below discuss each of the four sections. The part definition section
+contains both required and optional fields. The information in the remaining
+three sections is entirely optional.
+
+\subsubsection{Part information}
+
+Every part requires the following fields to be entered:
+
+\begin{itemize}
+\item [Number] The (alphanumeric) code the company uses to identify the item
+\item [Description] The (native language) description of the item, used as the default
+	description on sales invoices
+\item [Inventory account] The asset account used to maintain the monetary equivalent
+	of the inventory amount
+\item [Income account] The P\&L (income) account to post the sales revenues on
+\item [COGS account] The P\&L (expense) Cost of Goods Sold (COGS) account to use
+	to post cost of sold items on
+\item [Sell price] The default selling price used on sales invoices
+\end{itemize}
+
+The other fields in this section of the screen are optional:
+
+\begin{itemize}
+\item [List price] Informational; can be used for any (monetary) purpose
+\item [Last cost] Last buying price (@@@ updated when creating new vendor invoices???)
+\item [Markup percentage] Markup on Last cost to calculate the Sell price
+\item [Image]
+\item [Drawing]
+\end{itemize}
+
+Apart from these fields, there are also the Make and Model paired fields. Every part
+can have as many Make/Model lines as required. They are informational, but can be used
+in customizations of the software.
+
+
+\subsubsection{Vendor information}
+
+This section of the screen lists one or more vendors from which the part can be
+purchased, with purchasing information for the given vendor:
+
+\begin{itemize}
+\item [Vendor code] Code used by the vendor to identify the good
+\item [Lead time] Lead time of the part from the vendor in days
+\item [Last cost] Last price at which the good was purchased from the vendor
+\item [Currency] The currency belonging to the Last cost field
+\end{itemize}
+
+\subsubsection{Customer information}
+
+The customer information section specifies sell prices per customer or price group
+where those are required to deviate from the default sell price. This mechanism exists
+to support the marketing principle of categorizing customers.
+
+\begin{itemize}
+\item [Sell price]
+\item [From] (@@@ inclusive or exclusive?)
+\item [To] (@@@ inclusive or exclusive?)
+\end{itemize}
+
+\subsubsection{File attachments}
+
+The process of attaching files to parts is very similar to that of
+attaching files to quotations, which is covered in \secref{sec:FileAttachments}.
+
+\subsection{Definition of part groups}
+
+All goods and services can be categorized in 'part groups'. Upon lookup, these can
+help to limit the number of matches when searching for a partial part number.
+
+As long as no part groups have been defined, the part group assignment field doesn't
+show up on the goods entry screens.
+
+There's no requirement that a good be assigned to any specific part group if part
+groups have been configured, however, a good can be assigned to more than one part group.
+
 \subsection{Definition of assemblies}
 \subsection{Definition of overhead}
 
