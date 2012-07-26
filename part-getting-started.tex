@@ -226,6 +226,7 @@ the next chapter ``The first login''.
 
 \section{Using create-company-database.sh}
 
+To be done.
 
 
 \chapter{The first login}
@@ -495,9 +496,60 @@ Jack enters the values mentioned between the square brackets in the list above.
 
 \section{Overview}
 
+In this chapter Jack goes through the process of setting up LedgerSMB for his
+trade activities in computer parts, which includes deciding which parts he wants to
+resell. From there on he goes to contact a vendor to request a quotation, convert that
+to an order and receive goods and invoices.
+
+To configure LedgerSMB for his parts sales and purchases, Jack needs to create Parts
+in the LedgerSMB system. The other items - next to Parts - for which LedgerSMB records
+inventory are Assemblies. There's more about assemblies in @@@.
+
 \section{Defining parts}
 
+Jack chooses a 5TB hard drive by Samsung to be entered into the system as the first item.
+To do so, he goes to the {\tt Goods and Services $\rightarrow$ Add part} page from the menu
+as shown in @@@ (figure to be inserted).
+
+Based on his reading from \secref{sec:DefinitionOfParts}, Jack decides to enter the hard
+drive with the following data:
+
+\begin{tabular}{ll}
+Number & SAM5TB \\
+Description & Samsung Hard drive 5TB / 7200rpm \\
+Inventory account & @@@ \\
+Income account & @@@ \\
+COGS account & @@@ \\
+Sell price & 75.00
+\end{tabular}
+
+He decides not to include make/model information, drawings or images yet and since
+he hasn't entered vendors or customers in his system yet, he decides to leave
+those sections blank as well.
+
+\section{Defining part groups}
+
+As Jack continues to enter more parts into the system, he wonders how he's going to
+look up the parts efficiently later on. Returning his reading to \secref{sec:DefinitionOfParts},
+he understands that 'part groups' are the solution to that problem. He decides to create
+the following list of part groups:
+
+\begin{itemize}
+\item Storage
+\item Monitors
+\item Input devices
+\item Printers and MFPs
+\end{itemize}
+
+After creating these part groups, the ``Group'' drop down appears on the parts entry screen,
+allowing him to assign each of his parts to one of these groups.
+
+Since he doesn't expect to be running more than one or two types of CPUs, he decides
+not to create a separate group for those and leaves these two parts unassigned.
+
 \section{Defining vendors}
+
+
 
 \section{Requesting Quotations}
 
