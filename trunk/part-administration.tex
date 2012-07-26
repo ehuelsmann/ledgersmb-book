@@ -286,7 +286,53 @@ There's no requirement that a good be assigned to any specific part group if par
 groups have been configured, however, a good can be assigned to more than one part group.
 
 \subsection{Definition of assemblies}
-\subsection{Definition of overhead}
+
+
+
+\subsection{Definition of overhead or labour}
+
+
+\subsection{The use of parts versus assemblies for multi-item-package sales}
+\label{subsec:parts-vs-assemblies-for-package-sales}
+
+Often times, one may want to sell pre-packaged multiples of a single item, such as Jack
+in \charef{cha:building-up-stock} who wants to sell memory modules in pairs as well as
+single items, with the price for the pair set separately from the single-item price.
+
+There are basically two use-cases
+
+\begin{enumerate}
+\item Pre-packaged sales which are separately stocked
+\item Single item sales which are achieved by unwrapping the multi-item packages
+\end{enumerate}
+
+The former case would be that of a supermarket selling packages of coffee in
+singles and shrink-wrapped in pairs. These items get stocked, sold and produced separately.
+Handling these is straight forward: as they are basically separate products from the point
+of administration and inventory management, they're handled as separate parts.
+
+The latter case would be Jack's case where single-item sales is achieved by unwrapping
+a multi-item package. Basically, there's a single inventory for both types of packaging.
+This situation can be handled (a) by creating separate parts or (b) by creating a part and an
+assembly.
+To reiterate: The fact that one wants to be able to separately set a pricing strategy
+for the bundled items is the driver to go look for other solutions than just sell a
+multiple of the original item.
+
+There is no option which matches the actual practice: one inventory for two parts. The solution
+always will keeps two separate stocks for the two items, but one may work better in practice
+than the other.
+
+Option a (separate parts) keeps the inventory of both items strictly separate,
+meaning there's no way to convert between the two, other than selling and buying.
+
+Option b (a part and an assembly) mismatches reality in so far that it will require one
+to stock the single items and update the assembly stock regularly while in practice the
+multi-item packages are stocked and unwrapped upon single-item sales. This procedure works
+to have the assembly stock go negative on sales and restock regularly (e.g. daily) to
+update assembly stock back to 0 (zero). This removes inventory from the single-item stock,
+allowing for a semi-automated way to convert stock from one type of inventory to another.
+
 
 \section{Definition of services}
 
