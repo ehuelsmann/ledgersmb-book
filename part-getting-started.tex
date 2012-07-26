@@ -507,6 +507,11 @@ inventory are Assemblies. There's more about assemblies in @@@.
 
 \section{Defining parts}
 
+Jack needs to enter a large number of items he'll be offering in his new shop. Just to
+get started, he starts out with the easy ones: the ones which will be sold as single items.
+
+\subsection{Single items}
+
 Jack chooses a 5TB hard drive by Samsung to be entered into the system as the first item.
 To do so, he goes to the {\tt Goods and Services $\rightarrow$ Add part} page from the menu
 as shown in @@@ (figure to be inserted).
@@ -526,6 +531,19 @@ Sell price & 75.00
 He decides not to include make/model information, drawings or images yet and since
 he hasn't entered vendors or customers in his system yet, he decides to leave
 those sections blank as well.
+
+\subsection{Combining single-item and ``multi-item pre-packaged'' sales}
+
+After having finished setting up the easy parts, Jack now wants to enter
+the memory modules he's going to sell. The problem is that they usually go in pairs,
+since that's what the systems consuming them need. However, he expects them to be sold
+as single items as well and he wants to be able to set a separate price for those occasions.
+
+From his reading of \secref{subsec:parts-vs-assemblies-for-package-sales}, it should be
+possible to support this scenario with a small work around\footnote{It's planned to directly
+support this use-case in some version higher than 1.3}. From the two solutions available,
+he chooses option (b): to create a part and an assembly and regularly restock the assembly
+to 0 (zero) in order to remove the stock from the single item.
 
 \section{Defining part groups}
 
