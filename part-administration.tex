@@ -148,7 +148,8 @@ top level menu. See \figref{fig:user-preferences}.
 From the ``User search'' result screen, users can be ``deleted'' from the company:
 they have their access to the current company revoked.
 
-@@@ Does the delete button delete the user from the cluster as well as from the application?
+@@@ Does the delete button delete the user from the cluster as well as from the application? % It looks like the API supports this but currently it is not told
+             % to do so --Chris T
 
 
 \section{User imports}
@@ -227,7 +228,7 @@ The other fields in this section of the screen are optional:
 
 \begin{itemize}
 \item [List price] Informational; can be used for any (monetary) purpose
-\item [Last cost] Last buying price (@@@ updated when creating new vendor invoices???)
+\item [Last cost] Last buying price (@@@ updated when creating new vendor invoices???) % It is supposed to be.  Not sure how well it works in practice.
 \item [Markup percentage] Markup on Last cost to calculate the Sell price
 \item [Image]
 \item [Drawing]
@@ -265,8 +266,8 @@ to support the marketing principle of categorizing customers.
 
 \begin{itemize}
 \item [Sell price]
-\item [From] (@@@ inclusive or exclusive?)
-\item [To] (@@@ inclusive or exclusive?)
+\item [From] (inclusive)
+\item [To] (inclusive)
 \end{itemize}
 
 \subsubsection{File attachments}
@@ -423,6 +424,8 @@ assemblies.
 \end{enumerate}
 
 @@@ Question: Labor/Overhead accounts == inventory accounts??
+  % Labor/Overhead has an inventory and expense account but no income account.
+  % Chris T
 
 \subsubsection{Non-tracking items}
 
@@ -495,6 +498,13 @@ have the specific account marked as relevant.
 \section{Tax account configuration}
 
 @@@ What does the ``order'' field do again??
+% The order field is used only in cases where taxes are componding, for example
+% where a province, such as Quebec is taxing the taxes collected by another tax
+% authority, such as the national authority.  Taxes of a lower order are
+% taxed by taxes on a higher order.
+% For example:  order 0, rate 10%, and order 1, rate 5% would make:
+% The first rate 10% of the total, and the second rate 5% of 110% of the total.
+% -- Chris T
 
 \section{Tax calculation plug-ins}
 \label{sec:TaxRulePlugins}
