@@ -34,6 +34,11 @@ selling and shipping. \charef{cha:invoicing} discusses how to handle invoicing f
 \charef{cha:customer-payments}, \charef{cha:vendor-payments} and \charef{cha:monitoring-arrears}
 discuss how to manage accounts receivable and payable including arrears monitoring.
 
+Not all chapters may be relevant to the reader, e.g. when he or she is starting up or
+running a services company in which case the chapter ``Building up stock'' doesn't apply.
+Chapters can be skipped based on relevance both to the type of business and its growth
+phase.
+
 @@@ more chapters??
 
 \section{LedgerSMB, because...}
@@ -351,6 +356,7 @@ settings as configured for the sample checking account will do.
 
 
 \section{Checking and adjusting the chart of accounts}
+\label{sec:checking-the-coa}
 
 First and foremost the chart of accounts serves to register income, expenses,
 assets and liabilities in categories which support financial decision making or
@@ -371,6 +377,9 @@ the numerous expense accounts, it turns out that there is also a single Purchase
 account on which all the expenses for parts purchases are going to be booked.
 
 He decides that if this isn't enough, he can add accounts later.
+\footnote{Note that Jack will discover in \secref{sec:defining-vendors} that
+he does indeed need to create additional accounts to support sales and
+purchase discounts.}
 
 \subsection{Technical accounts identified by Links}
 
@@ -381,12 +390,18 @@ to be present:
 
 \begin{longtable}{ lp{8cm} }
 Purpose & Description \\ \hline
+\endhead
 AR  & The summary account for accounts receivables; most example charts of accounts have one. \\
 AR\_overpayment & Receivables overpayments; if a customer pays too much or gets a credit
                   invoice for an invoice already paid, this is where his credit gets
                   recorded if it's not refunded immediately \\
+AR\_discount & Sales discounts; if a customer pays within the specified terms, a discount
+                  is applied.
+                  In order to monitor effectiveness of the discount offered, one probably
+                  wants it posted on its own account. \\
 AP  & Same as AR, except for payables. \\
 AP\_overpayment  & Same as AR\_overpayment, except that this registers credits others owe you \\
+AP\_discount &  Same as AR\_discount, except that it applies to payables \\
 IC  & Summary account for inventory; this account doesn't apply to companies which sell
       services only. \\
 
@@ -402,10 +417,13 @@ the account types listed in Table \ref{tbl:special-purpose-account-types-links}.
 
 \begin{longtable}{lll}
 Purpose & Account type & Overpayment checkmark line \\ \hline
+\endhead
 AR & Asset &  \\
 \textit{AR\_overpayment} & \textit{Liability} & \textit{Receivables} \\
+AR\_discount & Income (Contra) &  \\
 AP & Liability &  \\
 \textit{AP\_overpayment} & \textit{Asset} & \textit{Payables} \\
+AP\_discount & Expense (Contra) & \\
 IC & Asset &  \\
 \caption{Special purpose account configuration summary}
 \label{tbl:special-purpose-account-config-summary}
@@ -566,8 +584,58 @@ Since he doesn't expect to be running more than one or two types of CPUs, he dec
 not to create a separate group for those and leaves these two parts unassigned.
 
 \section{Defining vendors}
+\label{sec:defining-vendors}
 
+Jack selects ``ABC Parts'' to sell him the inventory he needs to run his company. In
+order to start buying inventory, ABC Parts needs to be added as a Vendor to LedgerSMB.
 
+Jack starts to do so by going through the menu {\tt AP $\rightarrow$ Vendors $\rightarrow$
+Add Vendor}. He fills out the Company creation form by clicking the {\tt Generate control code}
+button and adding the data as shown in \figref{fig:vendor-create-1}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{bus-vendor-create-2.png}
+\caption{Company entry screen}
+\label{fig:vendor-create-1}
+\end{figure}
+
+After saving the company data, Jack is presented the account data screen which he fills out
+as shown in \figref{fig:vendor-create-2}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{bus-vendor-create-3.png}
+\caption{Vendor account screen}
+\label{fig:vendor-create-2}
+\end{figure}
+
+When he's done filling out and saving the form,
+he notices the empty ``Discount'' drop down. Reading more about account configuration
+check marks in \secref{subsec:AR-AP-checkmarks} and going back to the checks on his
+chart of accounts (\secref{sec:checking-the-coa}), he finds he's missing the purchase and
+sales discount accounts. He adds two accounts as listed in \tabref{tbl:special-purpose-account-config-summary}:
+
+\begin{itemize}
+\item [4020] Sales discount
+\item [5020] Purchase discount
+\end{itemize}
+
+After which the page looks like \figref{fig:vendor-create-3}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{bus-vendor-create-4.png}
+\caption{Vendor account screen - with purchase discount account}
+\label{fig:vendor-create-3}
+\end{figure}
+
+Note the top-left corner stating ``Company: ABC Parts'' and ``Account: 2''. The information
+entered on the ``Addresses'', ``Contact Info'' and ``Bank Accounts'' tabs will be attached
+to the account listed, i.e. account number 2 in this case.
+
+The reader is referred to \secref{sec:creating-customers-and-vendors} for a more in-depth
+description of the vendor data screens.
 
 \section{Requesting Quotations}
 
