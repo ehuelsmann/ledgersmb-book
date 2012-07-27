@@ -228,22 +228,27 @@ The other fields in this section of the screen are optional:
 
 \begin{itemize}
 \item [List price] Informational; can be used for any (monetary) purpose
-\item [Last cost] Last buying price (@@@ updated when creating new vendor invoices???) % It is supposed to be.  Not sure how well it works in practice.
+\item [Last cost] Last buying price, updated when a vendor invoice listing the current part
+    is posted
 \item [Markup percentage] Markup on Last cost to calculate the Sell price
 \item [Image]
 \item [Drawing]
 \item [Microfiche]
 \item [Unit] A five-character field shown on the invoice
 \item [Weight] Informational; can be used by add-ons or customizations
-\item [On hand - ROP] Reorder point - when the inventory drops below this number,
+\item [ROP] Reorder point - when the inventory drops below this number,
      the part will show up in ``Short parts'' reports
-\item [On hand - Bin] The storage location in the warehouse
+\item [Bin] The storage location in the warehouse
 \end{itemize}
 
 
 Apart from these fields, there are also the Make and Model paired fields. Every part
 can have as many Make/Model lines as required. They are informational, but can be used
 in customizations of the software.
+
+The Average Cost and On Hand fields are output-only calculated fields. Average Cost is
+calculated from the historic buying prices. On Hand is the current inventory, which is
+updated when posting a vendor invoice (increased) or sales invoice (decreased).
 
 
 \subsubsection{Vendor information}
