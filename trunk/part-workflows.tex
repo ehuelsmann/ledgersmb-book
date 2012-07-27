@@ -5,6 +5,30 @@
 
 \chapter{Customers and vendors}
 
+\section{Introduction}
+
+In order to understand how to use customers and vendors, this section describes
+how LedgerSMB implements these concepts.
+
+When creating a customer or vendor in LedgerSMB, you have to create a company
+\footnote{The LedgerSMB database model allows much more flexible constructs
+involving humans as well as companies or legal entities, but this chapter discusses
+the web interface exposed functionality only.}. However,
+this company can't itself be used as a one. Instead, you have to create an ``account''
+\footnote{These ``accounts'' are referred to as (entity) credit accounts as well as
+customers or vendors.}
+which is linked to the company. An account can have either role of vendor or customer.
+Due to this construct, a single company can both be vendor and customer which is
+sometimes desirable.
+
+One company can have multiple customer and/or vendor type accounts. Each account has its
+own language settings, shipping address, contact data and payment conditions.
+Basically, you will create multiple accounts when you have to record different data
+for any of the items listed above.
+
+The company is still used - albeit not as customer or vendor - in the context of
+credit risk management (See \charef{cha:credit-risk-management}).
+
 \section{Creating customers and vendors}
 
 \section{Multiple customers within one company}
@@ -278,6 +302,7 @@ into an invoice with a click of a button.
 --> this bit is about credit (sales) and debit (vendor) invoices
 
 \chapter{Credit risk management}
+\label{cha:credit-risk-management}
 
 \section{Introduction}
 
