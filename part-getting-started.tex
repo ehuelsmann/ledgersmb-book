@@ -135,7 +135,11 @@ the database; one of its other functionalities.
 Jack clicks ``Yes'' to create the database and load it with LedgerSMB's database
 schema, authorization rules and stored
 procedures\footnote{Parts of the program inside the database.}. It may
-take a while (30 seconds or more) for the next screen to appear.
+take a while (30 seconds or more) for the next screen to appear\footnote{Note 
+that during the creation of the database, logs are kept so that if there are
+errors these can be reviewed either by the person installing the software or by
+support personnel.  On Linux/Unix systems these are stored, by default, in
+/tmp/ledgersmb/ and named dblog, dblog\_stderr and dblog\_stdout.}.
 
 \subsection{Step 3: Selection of a Chart of Accounts}
 
