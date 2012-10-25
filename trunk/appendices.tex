@@ -111,6 +111,45 @@ some entities are \emph{Person}s - natural persons.
 \subsection{Migrating open items}
 \subsection{Migrating your ledger}
 
+\subsection{Migrating between PostgreSQL versions}
+
+If you're migrating between PostgreSQL versions, there are a few things to take
+into account.
+
+% pg_dump: use the NEW pg_dump utility against the old database
+% pg_upgrade: <TODO>
+% pg_<migratecluster>: <TODO>; in case of unclean extension upgrade,
+%              possible need to issue ``CREATE EXTENSION tablefunc FROM UNPACKAGED''
+
+\subsubsection{Notes on migration from 8.3 (or earlier) to 8.4 (or later)}
+
+% Performance benefit due to built in support for recursive queries only available
+% after the next setup.pl run
+% Also, after next setup.pl run, one should uninstall the tablefunc extension
+
+% 9.1+ DROP EXTENSION tablefunc;
+% 8.4, 9.0: use uninstall_tablefunc.sql from the contrib directory
+
+LedgerSMB 1.3 uses some extension modules for versions 8.3 and before for functionality
+that has been built into 8.4 and later. To make use of the (faster) built in version
+of that functionality, the following restore procedure should be used.
+
+\begin{enumerate}
+\item Migrate the database to the new function as described in section @@@ TODO
+\item If you're using 9.1 and up, issue the command ``CREATE EXTENSION tablefunc FROM UNPACKAGED''
+   from a psql prompt when connected to the company database
+\item Run 'setup.pl' from your browser to upgrade the database's routines; this command will
+   install routines optimized for your version of PostgreSQL
+\item Run the command
+	\begin{description}
+	\item [8.4 or 9.0] \$ psql ... -f uninstall\_tablefunc.sql
+	\item [9.1 and up] ``DROP EXTENSION tablefunc;'' from a psql session connected
+		to the company database
+	\end{description}
+	to clean up functions and procedures in the database which are no longer used
+\end{enumerate}
+
+
 \chapter{Listing of application roles}
 \label{cha:RolesListing}
 
