@@ -17,7 +17,7 @@ the web interface exposed functionality only.}. However,
 this company can't itself be used as a one. Instead, you have to create an ``account''
 \footnote{These ``accounts'' are referred to as (entity) credit accounts as well as
 customers or vendors.}
-which is linked to the company. An account can have either role of vendor or customer.
+which is linked to the company. An account can have either the role of vendor or customer.
 Due to this construct, a single company can both be vendor and customer which is
 sometimes desirable.
 
@@ -26,15 +26,75 @@ own language settings, shipping address, contact data and payment conditions.
 Basically, you will create multiple accounts when you have to record different data
 for any of the items listed above.
 
-The company is still used - albeit not as customer or vendor - in the context of
+The company itself is used - albeit not as customer or vendor - in the context of
 credit risk management (See \charef{cha:credit-risk-management}).
 
 \section{Creating customers and vendors}
 \label{sec:creating-customers-and-vendors}
 
+The procedure to create customers and vendors works exactly alike:
+
+\begin{enumerate}
+\item Creation of a company
+\item Creation of a credit entity account (''account'')
+\item Attaching addresses, contact info and notes to the account 
+\end{enumerate}
+
+\subsection{Creation of a company}
+
+A company has the following fields:
+
+\begin{description}
+\item [Control code] Code to uniquely identify the company
+\item [Name] Legal name of the company
+\item [Country] Country of incorporation
+\item [Tax number] Tax (VAT/Sales tax) number of the company
+\item [SIC (Standized Industry Code)] Code used to identify
+    the type of business of the company
+\end{description}
+
+The ``Generate Control code'' button generates a new control code upon
+user request when the user is entering a company which isn't yet known
+in the system in any other role.
+
+The ``Retrieve'' button is discussed in \secref{sec:VendorsFromCustomers}.
+
+
+\subsection{Creation of an account}
+
+When a company of class ``Customer'' or ``Vendor'' has been created,
+accounts of that type can be added. The account entry screen lists the
+following fields:
+
+\begin{description}
+\item [Customer number] Number to identify this account among all other accounts in the company;
+     when left empty, the system will generate one when you click ``Save New''
+\item [Description] Textual representation of the account, usually a name
+\item [Pay To] % @@@ ### What's this?
+\item [Starting Date] Date from which the account is valid
+\item [End date] Date until which the account is valid
+\item [Credit limit] Maximum amount of open invoices allowed for the account, see
+    \charef{cha:credit-risk-management}
+\item [Terms]
+\item [Discount (conditions)] Percentage discount the account is entitled to when payment
+         is within the given number of days
+\item [Subcontract GIFI] % @@@ ### What's this??
+\item [AR (account)] Account to post created invoices on
+\item [Payment (account)] Account used as default to accept payments on
+\item [Discount (account)] Account used to post discounts as calculated based on discount conditions
+\item [Business Type] Deprecated. Should not be used anymore.
+\item [Threshold] % @@@ ### What's this??
+\item [Pricegroup] Deprecated. Replaced by price matrix functionality.
+% ### TODO: Aren't pricegroups part of the price matrix functionality??
+\item [Taxforms] % @@@ ### What's this??
+\item [Language] The language parameter is used to select templates for communication with the customer
+\item [Currency] The (default) currency to be used with the customer
+\end{description}
+
 \section{Multiple customers within one company}
 
 \section{Creating vendors from customers}
+\label{sec:VendorsFromCustomers}
 
 % \section{}
 
