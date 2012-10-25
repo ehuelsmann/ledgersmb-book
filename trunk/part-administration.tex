@@ -257,7 +257,8 @@ This section of the screen lists one or more vendors from which the part can be
 purchased, with purchasing information for the given vendor:
 
 \begin{itemize}
-\item [Vendor code] Code used by the vendor to identify the good
+\item [Vendor code] Code used by the vendor to identify the good, to be used by
+    customizations and future enhancements (currently informational only)
 \item [Lead time] Lead time of the part from the vendor in days
 \item [Last cost] Last price at which the good was purchased from the vendor
 \item [Currency] The currency belonging to the Last cost field
@@ -270,9 +271,9 @@ where those are required to deviate from the default sell price. This mechanism 
 to support the marketing principle of categorizing customers.
 
 \begin{itemize}
-\item [Sell price]
-\item [From] (inclusive)
-\item [To] (inclusive)
+\item [Sell price] Price for this part to be used for this customer
+\item [From] Start of the applicability window of the price (inclusive)
+\item [To] End of the applicability window of the price (inclusive)
 \end{itemize}
 
 \subsubsection{File attachments}
@@ -494,7 +495,7 @@ When an account has been marked as a Tax account (see \secref{sec:AccountOptions
 \item The account will be shown in the part and service configuration screens
    with a check mark to mark it ``relevant for the part/service item''
 \item The account will be shown in the tax configuration screen in order to set
-   a tax percentage on the account
+   a tax percentage on the account as discussed in the next section
 \end{itemize}
 
 By marking an account relevant for a customer, taxes will be calculated when
@@ -503,14 +504,33 @@ have the specific account marked as relevant.
 
 \section{Tax account configuration}
 
-@@@ What does the ``order'' field do again??
-% The order field is used only in cases where taxes are componding, for example
-% where a province, such as Quebec is taxing the taxes collected by another tax
-% authority, such as the national authority.  Taxes of a lower order are
-% taxed by taxes on a higher order.
-% For example:  order 0, rate 10%, and order 1, rate 5% would make:
-% The first rate 10% of the total, and the second rate 5% of 110% of the total.
-% -- Chris T
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{tax-account-config-screen.png}
+\caption{Tax account configuration screen}
+\end{figure}
+\label{fig:tax-account-config-screen}
+
+The screen presents a table with the full history of the percentage rates,
+their dates of applicability and the tax accounts they apply to.
+
+\begin{description}
+\item [Account name] The first column; not an input field
+\item [Rate (\%)] The rate to be applied to the sales amount
+\item [Min Taxable] The minimum amount for which the tax is applicable
+\item [Number] The tax reporting number to be used for this tax
+\item [Valid To] Date until which the tax rate is applicable
+\item [Ordering] The meaning of this field is described below
+\item [Tax Rules] The selection list presents a list of available 'tax rules engines'. By
+   default the list consists of the 'Simple' module only, which is the engine which comes
+   with LedgerSMB
+\end{description}
+
+The order field is used to layer taxes, e.g. Canada where the province of Quebec taxes
+the taxes collected by the national authority, which works like this numerically:
+
+National tax with order 0 and rate 10\% and Quebec tax with order 1 and rate 5\%
+applied to a 10\$ amount charges 1\$ of national tax and 0.55\$ of Quebec tax (5\% of 11\$).
 
 \section{Tax calculation plug-ins}
 \label{sec:TaxRulePlugins}
