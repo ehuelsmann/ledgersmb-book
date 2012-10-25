@@ -203,6 +203,7 @@ contains both required and optional fields. The information in the remaining
 three sections is entirely optional.
 
 \subsubsection{Part information}
+\label{subsec:PartInformation}
 
 Every part requires the following fields to be entered:
 
@@ -218,11 +219,6 @@ Every part requires the following fields to be entered:
 \item [Sell price] The default selling price used on sales invoices
 \end{itemize}
 
-Right below the accounts selection section, there is the Tax section, which lists
-all tax accounts with a check mark. Each account corresponds with a certain tax type
-and rate. E.g. in the Netherlands, there's one VAT tax type (BTW) which has two rates,
-one of which applies to every product. This setup requires two accounts. There's more
-on the subject of sales taxes in \charef{cha:Taxes}.
 
 The other fields in this section of the screen are optional:
 
@@ -249,6 +245,21 @@ in customizations of the software.
 The Average Cost and On Hand fields are output-only calculated fields. Average Cost is
 calculated from the historic buying prices. On Hand is the current inventory, which is
 updated when posting a vendor invoice (increased) or sales invoice (decreased).
+
+
+
+\subsubsection{Taxation of parts}
+\label{subsec:PartTaxation}
+
+Right below the accounts selection section, there is the Tax section, which lists
+all tax accounts with a check mark. Each account corresponds with a certain tax type
+and rate. E.g. in the Netherlands, there's one VAT tax type (BTW) which has two rates,
+one of which applies to every product. This setup requires two accounts. There's more
+on the subject of sales taxes in \charef{cha:Taxes}.
+
+By checking the checkmark on an account, the system is signalled to calculate that
+kind of tax for the part {\it if the customer (or vendor) has the appropriate setup}
+as described in section
 
 
 \subsubsection{Vendor information}
@@ -342,6 +353,12 @@ allowing for a semi-automated way to convert stock from one type of inventory to
 
 
 \section{Definition of services}
+
+
+\subsection{Taxation of services}
+\label{subsec:ServiceTaxation}
+
+
 
 \chapter{Chart of accounts}
 \label{cha:chart-of-accounts}
@@ -511,8 +528,10 @@ have the specific account marked as relevant.
 \end{figure}
 \label{fig:tax-account-config-screen}
 
-The screen presents a table with the full history of the percentage rates,
-their dates of applicability and the tax accounts they apply to.
+The screen (shown in \figref{fig:tax-account-config-screen}) presents a table with
+the full history of the percentage rates, their dates of applicability and the tax
+accounts they apply to. An account can show up any number of times, with different
+Valid To dates.
 
 \begin{description}
 \item [Account name] The first column; not an input field
@@ -523,14 +542,34 @@ their dates of applicability and the tax accounts they apply to.
 \item [Ordering] The meaning of this field is described below
 \item [Tax Rules] The selection list presents a list of available 'tax rules engines'. By
    default the list consists of the 'Simple' module only, which is the engine which comes
-   with LedgerSMB
+   with LedgerSMB; the reader is referred to \secref{sec:TaxRulePlugins} for a more detailed
+   description of this subject
 \end{description}
+
+To determine which line is applicable at any time, order the lines by their validity date and
+select the first one for which the validity date is later than the date being checked for. E.g.
+if you have two lines - one with a Valid To date of 2010-01-01 and one with a Valid To date of
+``infinity'' - the 2010 line would be selected when checking for a date in 2009 while the ``infinity''
+line would be selected for any date later than Jan 1st, 2010. This facilitates advance entry of a new
+tax rate in case of a rate change if a tax rate changes: the new rate will automatically be selected
+beyond the validity date of the old rate.
 
 The order field is used to layer taxes, e.g. Canada where the province of Quebec taxes
 the taxes collected by the national authority, which works like this numerically:
-
 National tax with order 0 and rate 10\% and Quebec tax with order 1 and rate 5\%
 applied to a 10\$ amount charges 1\$ of national tax and 0.55\$ of Quebec tax (5\% of 11\$).
+
+\begin{quotation}
+Note that - as pointed out in the Overview section of this chapter - the customer related
+tax calculation on invoices is triggered by the settings in this chapter as well as
+the customer/vendor settings described in \secref{sec:creating-customers-and-vendors}
+and part settings and service settings described in \secref{subsec:PartTaxation} and
+\secref{subsec:ServiceTaxation} respectively.
+\end{quotation}
+
+\section{Tax calculation example}
+
+% ### TODO
 
 \section{Tax calculation plug-ins}
 \label{sec:TaxRulePlugins}
@@ -578,9 +617,19 @@ will have that discount applied.
 
 \subsection{Backup using setup.pl}
 
+
+
 \subsection{Backup using PostgreSQL administration tools}
 
 \subsection{Restore}
+
+\begin{quotation}
+Note that if the database being restored is a backup from a different (earlier) PostgreSQL version,
+additional steps described in \appref{sec:MigrationBetweenPostgreSQLVersions} will be required.
+\end{quotation}
+
+
+
 
 \section{Advanced PostgreSQL: replication}
 
