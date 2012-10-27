@@ -3,6 +3,10 @@
 \part{Workflows}
 \label{part:Workflows}
 
+\chapter{Overview}
+
+
+
 \chapter{Customers and vendors}
 
 \section{Introduction}
@@ -104,6 +108,66 @@ following fields:
 \chapter{Quotations from Vendors and for Customers}
 
 \section{Creating Quotations and RFQs}
+\label{sec:creating-quotations}
+
+% ### Proze with explanation missing
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{rfq-entry-screen.png}
+\caption{RFQ entry screen}
+\label{fig:rfq-entry-screen}
+\end{figure}
+
+\begin{quotation}
+\textbf{Remark} Note that the \gls{rfq} entry screen contains prices; this is misleading
+at least: the printed output to be sent to the vendor does not. The fact that this screen
+allows entry of prices could be considered a bug.
+\end{quotation}
+
+The listing below describes the meaning of the per \gls{rfq} fields presented in the screen.
+
+\begin{description}
+\item [Vendor (Customer)] Name of the company the quotation is requested from
+\item [Currency] Currency for the intended transaction
+\item [Shipping point] Address to ship to ??? % ### TODO check with Chris
+\item [Ship via] Shipping method ???  % ### TODO check with Chris
+\item [RFQ number] The number of the document (automatically generated when left empty)
+\item [Quotation date] Date the document is issued
+\item [Required by] Date of the intended delivery of the goods and services requested ??? % ###
+\item [Notes] Notes to be included on the printed RFQ document sent to the vendor
+\item [Internal notes] Notes to be kept internal to the company - not disclosed through the RFQ document
+\end{description}
+
+The following per item fields are listed.
+
+\begin{description}
+\item [Item] Order number of the item
+\item [Number] Part number of the item to be ordered
+\item [Description] Description or name of the item to be ordered
+\item [Qty] The number of items to be ordered
+\item [Unit] The unit in which the quantity is measured; e.g. 'each' or '6pack'
+\item [OH] Number of items currently on hand (i.e. in stock)
+\item [Price] Item price
+\item [\%] Discount percentage rate
+\item [Extended] Item price after discount
+\item [TaxForm] % ### ???
+\item [SKU] Stocking unit - code used to track stock
+\item [Required by] Required date of delivery; can be used to specify a different date
+   than the date in the header
+\item [Remarks] Item specific remarks
+\item [Group] (Not shown in the screen shot) Part group for the item
+\end{description}
+
+Note that the quotation entry screen offers a number of extra buttons after the data has
+been saved.
+
+\section{Expediting quotations}
+
+\subsection{Printing}
+
+\subsection{Sending by e-mail}
+\label{subsec:sending-quotation-by-email}
 
 \section{Attaching files to quotations}
 \label{sec:FileAttachments}
@@ -484,6 +548,7 @@ to customers with too high amount of unpaid invoices.
 
 @@@ How to monitor limits
 
+\section{Granting payment terms}
 
 \section{Managing arrears}
 

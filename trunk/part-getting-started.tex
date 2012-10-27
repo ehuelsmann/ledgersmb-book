@@ -532,7 +532,7 @@ is described here from a purchasing perspective this process works exactly the s
 when executed from a sales perspective with the notable difference that the roles have
 been reversed.
 
-To start his purchasing, Jack creates a ``RFQ'' (Request For Quotation) document which
+To start his purchasing, Jack creates a \gls{rfq} document which
 he sends one or multiple vendors to let them know he's interested in their products.
 
 The vendor responds to Jack's request by issuing Jack a Quotation. From a legal perspective
@@ -671,9 +671,29 @@ to the account listed, i.e. account number 2 in this case.
 The reader is referred to \secref{sec:creating-customers-and-vendors} for a more in-depth
 description of the vendor data screens.
 
-\section{Requesting Quotations}
+\section{Requesting quotations}
 
+After Jack finishes setting up the part and vendor information, he decides to use LedgerSMB to draw
+up a list of items he wants to order from this company. To do so he follows the menu path
+Quotations $\rightarrow$ RFQ which opens up a screen to allow entering a new \gls{rfq} as shown
+in \figref{fig:rfq-entry-screen}.
 
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{rfq-entry-screen.png}
+\caption{RFQ entry screen}
+\label{fig:bus-rfq-entry-screen}
+\end{figure}
+
+\begin{quotation}
+\textbf{Remark} Note that the \gls{rfq} entry screen contains prices; this is misleading
+at least: the printed output to be sent to the vendor does not. The fact that this screen
+allows entry of prices could be considered a bug.
+\end{quotation}
+
+After filling out the form in accordance with the description in \secref{sec:creating-quotations},
+Jack expedites his \gls{rfq} to his vendor through e-mail by clicking the ``E-mail'' button and
+following the instructions \secref{subsec:sending-quotation-by-email}
 
 \section{Ordering from a quotation}
 
