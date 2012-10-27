@@ -112,6 +112,13 @@ following fields:
 \chapter{Sales and vendor orders}
 \label{cha:OrderManagement}
 
+In this chapter the options for creating orders will be discussed.
+After successful order creation, there are two possible next steps.
+The first applies to cases where actual goods have to be handled
+and goes through shipping and receiving as discussed in
+\charef{cha:InventoryManagement}. The other skips handling of goods
+and directly proceeds to invoicing in \charef{cha:Invoicing}.
+
 \section{Creating new orders}
 
 \section{Creating orders from quotations}
@@ -127,7 +134,108 @@ following fields:
 
 % @@@ ### Not getting these to work in the test system. Need to check with Chris.
 
+\section{Incomplete orders}
+
+Orders fully shipped and invoiced are automatically closed. However, this isn't always an option.
+
+In case an order ends up being partially shipped and parties agree not to ship the remaining
+items in the order, the order stays open and incomplete. In situations like these, the order
+needs to be marked ``Closed'' in the order entry screen. A note stating why the order was manually
+closed can be put in the ``Internal Notes'' input box. Clicking the ``Save'' button stores the
+changes in the application database.
+
+
+\chapter{Inventory management}
+\label{cha:InventoryManagement}
+
+\section{Shipping}
+
+\subsection{Pick lists}
+
+\subsection{Packing list}
+
+\section{Receiving}
+\label{sec:Receiving}
+
+% ### TODO the role of shipping points in receipts??
+
+Reception of goods into inventory assumes having at least one
+saved and incomplete purchase order such as shown in
+\figref{fig:purchase-order-screen} stored in the system.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{purchase-order-screen.png}
+\caption{Saved purchase order}
+\label{fig:purchase-order-screen}
+\end{figure}
+
+The reception process starts by going through the menu to the
+``Receive'' order lookup screen (Shipping $\rightarrow$ Receive).
+This will show the order search screen which will help finding
+any orders which have items available for reception, see \figref{fig:shipping-receive-search-screen}.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{shipping-receive-search-screen.png}
+\caption{Search screen for purchase order item receipts}
+\label{fig:shipping-receive-search-screen}
+\end{figure}
+
+After filling order selection criteria and hitting the ``Continue'' button (or doing so
+immediately to see all orders with outstanding items in the system), the system will return
+a listing of orders with matching the selection criteria as in \figref{fig:shipping-receive-search-result-screen}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{shipping-receive-search-result-screen.png}
+\caption{Search results screen for purchase order item receipts}
+\label{fig:shipping-receive-search-result-screen}
+\end{figure}
+
+Upon selection of one of the orders by clicking the order number the next screen is loaded
+as shown in \figref{fig:shipping-receive-screen}. In this screen you can enter the amounts
+received in the current lot. The entered data is to be confirmed with the ``Done'' button.
+After confirmation of the receipt screen, items will be added to inventory.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{shipping-receive-screen.png}
+\caption{Purchase order receipt screen}
+\label{fig:shipping-receive-screen}
+\end{figure}
+
+LedgerSMB supports warehouse management on the Receipt screen by offering the ability to
+print a ``Bin List''. This list contains the bin (storage) locations configured for each part.
+
+
+\section{Partial shipments}
+
+Both shipping and receiving support partial shipments and per-lot invoicing. If the vendor
+ships multiple lots to a single order (and charges a single invoice), you can simply call
+up the order and enter items into inventory on the same order. The outstanding items
+are automatically decremented by the amounts entered before.
+
+To create an invoice for a received lot simply follow the process as detailed in
+\secref{sec:InvoicesFromOrders}. If the lot is a partial shipment, the invoice will be
+for the current receipt by default.
+
+
+
+\section{Transferring between warehouses}
+
+\section{Inventory reporting}
+
+\subsection{Inventory quantities}
+
+\subsection{Inventory activity}
+
+
+
+
 \chapter{Sales and vendor invoices}
+\label{cha:Invoicing}
 
 Invoices can come from multiple sources. When the quotation and order
 management functionalities in LedgerSMB aren't used, they will usually
@@ -143,6 +251,8 @@ which is covered in Section \ref{sec:InvoicesFromOrders}.
 
 % This section first because the previous chapter is about orders,
 % which seems like a natural flow for the book
+
+
 
 
 \section{Creating new invoices}
@@ -331,22 +441,6 @@ into an invoice with a click of a button.
 \section{Producing sales orders}
 
 \subsection{Work orders}
-
-
-\chapter{Inventory management}
-
-\section{Shipping}
-
-\subsection{Pick lists}
-\subsection{Packing list}
-
-\section{Receiving}
-
-\section{Partial shipments}
-
-\section{Transferring between warehouses}
-
-\section{Inventory reporting}
 
 
 
