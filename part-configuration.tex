@@ -43,7 +43,7 @@ security: local vs IP connections \\
 
 to be discussed:
 
-Individual config keys; full discussion of possible values in reference appendix?
+Individual configuration keys; full discussion of possible values in reference appendix?
 
 \subsubsection{General section}
 
@@ -100,7 +100,15 @@ Individual config keys; full discussion of possible values in reference appendix
 
 \subsubsection{'printers' section}
 
-@@@ A list of ``Printer-name'' = \textless command \textgreater
+This section contains a list of printers and the commands
+to be executed in order for the output to be sent to the given printer with
+the document to be printed fed to the program through standard input.
+The example below shows how to send standard input data to a printer called ``laser''
+when selecting the item ``Laser'' in the LedgerSMB printer selection drop down.
+
+\texttt{
+Laser    = lpr -Plaser
+}
 
 
 \subsubsection{'database' section}
