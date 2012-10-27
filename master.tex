@@ -1,5 +1,5 @@
 
-\documentclass[10pt,A4]{book}
+\documentclass[10pt,a4paper]{book}
 
 \usepackage{url, palatino, color}
 \usepackage[colorlinks, linkcolor=black, urlcolor=black]{hyperref}
@@ -7,6 +7,9 @@
 \usepackage{longtable}
 \graphicspath{{images/}}
 
+% glossaries must be loaded *after* hyperref
+\usepackage[acronym]{glossaries}
+\makeglossaries
 
 \newcommand{\figref}[1]{Figure~\ref{#1} on page~\pageref{#1}}
 \newcommand{\tabref}[1]{Table~\ref{#1} on page~\pageref{#1}}
@@ -17,7 +20,7 @@
 
 
 \begin{document}
-
+\include{acronyms}
 
 
 \author{Erik H\"ulsmann, Chris Travers}
@@ -38,7 +41,11 @@ LedgerSMB 1.3 \\
 
 \listoftables
 
+\printglossary[type=acronym]
+
+
 \chapter*{Preface}
+
 
 \section*{Intended audience}
 
