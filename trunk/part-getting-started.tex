@@ -527,6 +527,36 @@ To configure LedgerSMB for his parts sales and purchases, Jack needs to create P
 in the LedgerSMB system. The other items - next to Parts - for which LedgerSMB records
 inventory are Assemblies. There's more about assemblies in @@@.
 
+Once set up, Jack is ready to execute the ordering process. Even though the process
+is described here from a purchasing perspective this process works exactly the same way
+when executed from a sales perspective with the notable difference that the roles have
+been reversed.
+
+To start his purchasing, Jack creates a ``RFQ'' (Request For Quotation) document which
+he sends one or multiple vendors to let them know he's interested in their products.
+
+The vendor responds to Jack's request by issuing Jack a Quotation. From a legal perspective
+a quotation is a document which promises to deliver the requested goods or services at a
+certain rate - subject to conditions specifically mentioned. If Jack accepts the quotation
+and meets the conditions the vendor is obligated to deliver.
+
+In response to the quotation, Jack will place an order with the vendor (or he can let the
+quotation expire). In case he places the order that legally means he agrees to the terms
+and conditions in the quotation. If the vendor delivers the goods or services as per the
+order, Jack has accepted the legal obligation to pay.
+
+The vendor again responds to Jack. This time by shipping the goods and services as well
+as an invoice. The invoice legally means the vendor considers to have a claim on the assets
+of Jack's company. Jack creates a vendor invoice in his system to record the claim on his
+company by the vendor and the vendor creates a sales invoice in their system to do the same.
+
+As a result of the above it's considered bad practice to delete or change invoices once
+created. The accepted process is to generate a debit invoice (for purchases) or a credit
+invoice (for sales) to ``undo'' the effects of the invoice and letting the other party
+know about it. Then a new invoice can be generated with the appropriate designations. However,
+when the order process is correctly followed from order to invoice chances of sending the wrong
+invoice are greatly reduced.
+
 \section{Defining parts}
 
 Jack needs to enter a large number of items he'll be offering in his new shop. Just to
@@ -643,9 +673,11 @@ description of the vendor data screens.
 
 \section{Requesting Quotations}
 
+
+
 \section{Ordering from a quotation}
 
-\section{Receiving an order}
+\section{Receiving ordered items}
 
 \section{Receiving an invoice}
 
