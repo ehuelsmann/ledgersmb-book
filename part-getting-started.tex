@@ -695,7 +695,30 @@ After filling out the form in accordance with the description in \secref{sec:cre
 Jack expedites his \gls{rfq} to his vendor through e-mail by clicking the ``E-mail'' button and
 following the instructions \secref{subsec:sending-quotation-by-email}
 
-\section{Ordering from a quotation}
+\section{Following up on a quotation}
+
+Jack's vendor (ABC Parts) sends him a quotation in response to his \gls{rfq}. Jack and his vendor
+can go back and forth a few times until Jack likes the offer he's getting, but for the sake of
+argument let's assume this is the final quotation.
+
+Since Jack likes the offer, he wants to place an order with his vendor. To do so he looks up the
+\gls{rfq} stored in LedgerSMB. The screen shows additional buttons now that it shows a saved RFQ.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{rfq-edit-screen.png}
+\caption{RFQ entry screen}
+\label{fig:bus-rfq-edit-screen}
+\end{figure}
+
+Jack clicks the ``Purchase Order'' button which copies the data into a new order. He completes it
+by entering the prices his vendor has quoted. See \secref{sec:QuotationsFromOrders} for more
+detail on the order entry screen. When finished he saves the order and mails it to
+ABC Parts just like he mailed the \gls{rfq}.
+
+\figref{fig:purchase-order-screen} shows the screen of a saved purchase order. The ``E-mail''
+button is at the bottom, just like on the saved RFQ screen.
 
 \section{Receiving ordered items}
 
