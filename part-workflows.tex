@@ -64,7 +64,8 @@ in the system in any other role.
 The ``Retrieve'' button is discussed in \secref{sec:VendorsFromCustomers}.
 
 
-\subsection{Creation of an account}
+\subsection{Creating an account}
+\label{subsec:customers-creating-account}
 
 When a company of class ``Customer'' or ``Vendor'' has been created,
 accounts of that type can be added. The account entry screen lists the
@@ -128,7 +129,7 @@ allows entry of prices could be considered a bug.
 The listing below describes the meaning of the per \gls{rfq} fields presented in the screen.
 
 \begin{description}
-\item [Vendor (Customer)] Name of the company the quotation is requested from
+\item [Vendor (Customer)] Name of the company the quotation is requested from (issued to)
 \item [Currency] Currency for the intended transaction
 \item [Shipping point] Address to ship to ??? % ### TODO check with Chris
 \item [Ship via] Shipping method ???  % ### TODO check with Chris
@@ -354,7 +355,7 @@ to automate calculation of sales taxes. Third, invoices update inventory
 for items held in stock (parts, assemblies). Transactions offer none of this.
 
 \subsection{Invoices}
-
+\label{subsec:creating-invoices}
 As mentioned in the previous paragraph, invoices can perform automatic
 sales tax calculations, maintain inventory and post income (or expense)
 to the correct GL accounts.
@@ -734,10 +735,21 @@ at the end of the book year.
 
 \section{Tax (VAT) reporting}
 
+
+
 \begin{itemize}
 \item 1099
 \item EU VAT
 \end{itemize}
+
+
+\section{Linking companies to tax forms}
+
+
+\section{Collecting taxes in tax forms}
+
+
+\section{Running tax form reports}
 
 
 \section{Reporting}

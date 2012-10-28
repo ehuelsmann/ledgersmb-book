@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_US
 
 
 \part{Administration}
@@ -581,6 +582,52 @@ complex, LedgerSMB comes with a single tax calculation plug in out of the box: t
 
 For more complex needs, more complex routines can be developed and plugged into
 LedgerSMB side-by-side with the simple rule.
+
+
+\section{Tax forms}
+
+The tax forms facility exists to help file sales tax forms. It's primarily modelled
+after the 1099 US tax reporting forms functionality, which means that it's cash based.
+The fact that it's cash based means that invoices will be included in the tax report
+as soon as cash for the invoice is received. Accrual based reporting means that the
+tax is reported based on the invoice date instead of the payment date.
+
+This system can only be used in some EU countries and by some companies at that: the
+country needs to allow cash based reporting and the company needs to have filed
+for cash based reporting as well.
+
+Before using this functionality be sure to check with an accountant or the tax
+authorities if cash based reporting is appropriate.
+
+\subsection{Overview}
+Tax forms are meant to support tax reporting requirements in the countries
+where the company has tax reporting obligations. This means that tax forms
+are country specific: each country for which reporting obligations exist
+needs to have its own form associated.
+
+In order to be able to collect taxes in a tax form companies need to be
+linked to it. \secref{subsec:customers-creating-account} describes how to do this.
+
+When associations have been set up between companies and
+tax forms, the ``Tax form'' check mark can be used in invoices to include
+(or exclude) invoice lines from the tax form. See \secref{subsec:creating-invoices}
+for entry of invoices.
+
+
+\subsection{Creating tax forms}
+
+Tax forms can be created (or edited) using the menu options available under the
+``Taxforms'' main menu item.
+
+Tax forms have three fields.
+
+\begin{description}
+\item [Country] Country to which the tax form applies
+\item [Description] Name of the tax form to be displayed in drop down lists
+\item [Select by Default] % ### TODO verify: Determines if the tax form check mark on invoices is checked  or unchecked by default
+\end{description}
+
+
 
 \chapter{Pricing}
 
