@@ -30,6 +30,49 @@ It's this shift in paradigm that makes it impossible to meaningfully migrate
 users from older LedgerSMB and SQL-Ledger versions to LedgerSMB 1.3.
 
 
+\chapter{Why deleting invoices is not supported}
+
+
+\section{Invoices are debt claims}
+
+\section{Cost Of Goods Sold become ambiguous}
+
+From a mail by Chris Travers on the LedgerSMB mailing list:
+
+\begin{quote}
+Suppose I buy 10 widgets for \$1 each and then 1 more widget for \$10 each.  My FIFO cost queue looks like this:
+
+\$1 \$1 \$1 \$1 \$1 \$1 \$1 \$1 \$1 \$1 \$10
+
+My inventory account shows \$20 in debits and I have credited my AP account to compensate.
+
+I then sell the 11 parts to 11 different people.
+
+The first 10 invoice show a \$1 credit against inventory and a \$1 debit against COGS
+
+The 11th invoice shows a \$10 credit against inventory and a \$10 credit against COGS 
+
+and now inventory is down to 0.
+
+Now the 5th customer invoice turns out to be in error. We never shipped this one. The customer never ordered it.  it was a data entry error.  Translation, we now have one in stock.
+
+If we void the invoice properly, we will reverse the last sale, and put \$10 back in inventory. 
+
+If we delete the invoice, we will just remove the \$1 removed.  But we don't really know which one was sold and so we de-allocate the \$10 sale.
+
+So now our books are \$9 off of what they should be. They show a balance of \$1 in inventory, and \$19 in cogs. They should show \$10 in each.  The worse is still to come however.
+
+Now we sell the item we had in stock.  This brings our (empty!) inventory value to -\$9 and our COGS value to \$29.  Our books are still \$9 off and we now have impossible, nonsensical values.  Delete and re-enter a few more invoices and you can inflate the COGS as far as you'd like.   This doesn't work.
+
+Worse, this can't be fixed.  You can't make a deletion behave just like a reversal and still keep your books transparent auditability-wise.  Even if it could be fixed mathematically (which it can't), there isn't any agreement as to what the proper behavior should be (except 'don't do that').  So it isn't possible to support the workflow "properly" because "properly" can't be defined.
+
+So unless someone can show that the above issues are incorrect, I don't see how we can support deleting invoices after they are posted to the books.
+
+The alternative is the draft/voucher system which is supported in 1.3 for all non-inventory transactions and will be supported for inventory transactions in 1.4.  In this system, in the paper world, the clerk fills out a piece of paper with the information that will be entered as an invoice, and this is eventually gets entered and checked by someone else.  Both papers are kept in paper systems for reconciliation purposes but typically we tend to assume they are the same (this may be changing and we may be keeping both copies if they are changed in the future).  In this model, the voucher is not an invoice.  It is simply a piece of paper that represents what will be on the invoice.  It is subject to review, and may ultimately be denied.
+
+So in this system we do *not* calculate extrinsic financial movements for documents until they post.  This includes COGS.  If a draft invoice or invoice voucher is deleted before it is approved it has none of the problems above.  Once approved though, it is a part of the permanent record.  This guards against data entry errors because a second person can review the data  before it is posted (either in bulk or individually).   Additionally this guards against theft by ensuring that a single individual cannot individually enter everything necessary to cover for theft, etc.
+\end{quote}
+
 \chapter{Migration}
 
 \section{Introduction}
@@ -287,6 +330,11 @@ related to the execution of these tasks.
 \section{An open source application}
 
 \section{An open source book}
+
+\chapter{Glossaries}
+
+\addcontentsline{toc}{section}{Acronyms}
+\printglossary[type=acronym]
 
 
 \chapter{Copyright and license}
