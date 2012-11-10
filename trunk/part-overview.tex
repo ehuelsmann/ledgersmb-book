@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_US
 
 \part{Overview}
 
@@ -13,15 +14,17 @@
 \chapter{What is LedgerSMB}
 
 \section{Introduction}
-LedgerSMB is an open source, web based ERP system. This means it aspires to be
-\textit{the} integrated administration system for your business.
-The software is being developed by the LedgerSMB project.
+LedgerSMB is an open source, web based \gls{erp}. This means it aspires to be
+\textit{the} integrated administration system for your business. It includes a
+powerful framework which supports businesses to build their own extensions or
+integrations with other applications.
 
-The homepage of the project is hosted at \url{http://ledgersmb.org/}.
+The software is being developed by the LedgerSMB project with its homepage at \url{http://ledgersmb.org/}.
 However, the actual project activity can be witnessed at the SourceForge
-project site hosted at \url{http://sf.net/projects/ledger-smb/}.  The project
-employs the Freenode.net IRC network's \#ledgersmb chat channel to discuss development
-and to help out users.
+project site hosted at \url{http://sf.net/projects/ledger-smb/} and the mailing list archive
+hosted at \url{http://archive.ledgersmb.org/}.  The project
+employs the Freenode.net IRC network's \#ledgersmb chat channel to help out users and to discuss
+development.
 
 Its open source nature allows you to download it and use it with any
 infrastructure you like. So there's no room for vendor lock-in: you can
@@ -31,10 +34,14 @@ or set up your own hardware.
 \section{Overview of modules}
 \label{sec:ModuleOverview}
 As with most ERPs LedgerSMB is built up from multiple modules.  Many modules are
-available as part of the base application.  Newer modules aren't being integrated
-into the base application immediately, but are kept separate for some time to allow
-wide spread evaluation of the feature set.  This separation allows these modules
-to have their own release schedule.  These separate modules are called \textit{add-on}s.
+integrated parts of the base application.  New features are implemented in new
+modules which are kept separate at first to allow
+evaluation of the feature set before becoming part of the base system. These separate
+modules - which are called \glspl{add-on} - have to be installed separately. After installation
+these modules become seamless parts of LedgerSMB with no user visible difference from the base
+application. This separation allows for different release schedules
+and separate code maturity levels.
+
 
 LedgerSMB 1.3 features the following integrated modules:
 
@@ -58,7 +65,7 @@ LedgerSMB 1.3 features the following integrated modules:
 \item Application administration
 \end{itemize}
 
-And add-ons:
+These add-ons can be installed:
 \begin{itemize}
 \item Enhanced AR and AP support
 \item VAT reporting (accrual based)
@@ -73,6 +80,8 @@ service providers and self-employment situations.
 
 \section{Feature comparison with alternatives}
 
+@@@ TODO
+
 Packages to compare to:
 
 \begin{itemize}
@@ -85,7 +94,7 @@ Packages to compare to:
 
 \section{Release history}
 
-The project started out as a fork of SQL-Ledger - the open source ERP
+The project started out as a fork of SQL-Ledger - the open source \gls{erp}
 developed by Dieter Simader - somewhere between SQL-Ledger versions 2.6
 and 2.8.  A fork happens when a group of developers can't - for whatever
 reason - continue to work as one group on a project.  At that time, the
@@ -128,8 +137,12 @@ Fortunately development activity was showing again in the first half
 year of 2011,
 leading to the release of version 1.3 by September.  Between September and the
 year end in total 10 small bug fixes were released, showing active commitment
-of the developers to maintain the application.  New committers showed up, indicating
-revived community interest.
+of the developers to maintain the application.
+
+New committers showed up, indicating revived community interest. Other signs of
+increased interest are the higher number of bug reports and the creation of the
+linux package for Debian 7, which has been included in Ubuntu 12.04 as of
+October 2012.
 
 
 
@@ -137,7 +150,7 @@ revived community interest.
 
 The INSTALL file which comes with every LedgerSMB software release should be
 considered the authorative source of system requirements.  For the reader's
-convenience, the system requirements for the 1.3.9 release have been included
+convenience, the system requirements for the 1.3.23 release have been included
 below:
 
 \begin{itemize}
@@ -147,16 +160,29 @@ below:
 % work.  --Chris T
 \item LigHTTPd ???
 \end{itemize}
-\item Perl 5.10 or higher, with these modules: 
+\item Perl 5.10 or higher, with these (non-Core) modules:
 \begin{itemize}
-\item ??
+\item   Data::Dumper
+\item   Log::Log4perl
+\item   DateTime
+\item   Locale::Maketext::Lexicon
+\item   DBI
+\item   MIME::Base64
+\item   Digest::MD5
+\item   HTML::Entities
+\item   DBD::Pg
+\item   Config::Std
+\item   Template
+\item   Error
+\item   CGI::Simple
+\item   File::MimeInfo
 \end{itemize}
 \item PostgreSQL 8.3 or higher, with these contribs:
 \begin{itemize}
 \item tablefunc
-\item 
+\item tsearch2
 \end{itemize}
-\item \LaTeX or TeTeX (for PDF output)
+\item \LaTeX or XeLaTeX with TeTeX or TexLive (for PDF and Postscript output)
 \end{itemize}
 
 Other system requirements such as required RAM and number of CPUs and their speed
@@ -186,6 +212,7 @@ The effect of this interpretation is that changes directly to the code base as
 well as inheritance of classes defined in the software constitute ''making modifications''.
 
 \chapter{Reasons to use LedgerSMB}
+\label{cha:Advocacy}
 
 \begin{itemize}
 \item Own your own data
@@ -200,13 +227,15 @@ well as inheritance of classes defined in the software constitute ''making modif
 
 \chapter{Overview}
 
+@@@ Role of accounting (software) in the system? verifiability and ``being in control'' as well as ``internal controls''
+
 \section{Introduction}
 This section of the book describes functionalities of the modules listed in section \secref{sec:ModuleOverview}.  The information provided should be enough to get a clear
 understanding of what the application can do for you as well as being a sound basis
-for parts \ref{part:Configuration} and \ref{part:Administration}.
+for parts \ref{part:Configuration} Configuration and \ref{part:Administration} Administration.
 
 For in-depth instruction for actual day to day use of LedgerSMB the reader is referred
-to part \ref{part:Workflows}.
+to part \ref{part:Workflows} Workflows.
 
 
 \section{Accounting principles}
@@ -235,7 +264,7 @@ figures.
 Internal control\footnote{See also \url{http://en.wikipedia.org/wiki/Internal\_control}}
 helps organizations to prevent and detect fraud by introducing checks and balances
 to assess effectiveness and validity of transactions in the organization and thereby
-in its ERP and accounting system(s).
+in its \gls{erp} and accounting system(s).
 
 
 \section{Relation to accounting software}
@@ -265,6 +294,9 @@ lack of functionality to delete or correct incorrect invoices (See \secref{sec:C
 
 \section{Concepts}
 
+@@@ This section looks like it would fit great with the glossary, but it probably needs
+to be elsewhere to provide some context as well...
+
 \begin{description}
 \item [Posting date]
 \item [Book year]
@@ -277,6 +309,10 @@ lack of functionality to delete or correct incorrect invoices (See \secref{sec:C
 \item [Fixed assets accounting]
 \item [@@@ Others?]
 \end{description}
+
+\section{Valuation of inventory}
+
+
 
 
 \section{Technical overview}
@@ -316,32 +352,13 @@ Due to the architecture described above, where the authentication and authorizat
 are handed off to PostgreSQL, the development team is able to prevent writing their
 own - error prone - authentication code, leveraging widely used and tested code instead.
 
-\section{Layout of the distribution}
-
-
-\begin{tabular}{|c|p{9cm}|}
-\hline Directory &  Description \\
-\hline
-./ & The root project directory holding documentation files such as
-  README, INSTALL and UPDATING  \\ 
-LedgerSMB/ & Supporting Perl library code \\
-bin/ & Inherited SQL-Ledger application code \\
-scripts/ & Post-fork rewritten application code \\
-UI/ & Post-fork HTML and CSV application templates with supporting Javascript code \\
-templates/ & User templates, used for invoices, quotations, etc. \\
-locale/ & Files holding translations for localized application output \\
-sql/ & Files required for initialization of the database: chart of accounts,
- table structure, stored procedures, etc \\
-\hline 
-\end{tabular} 
-
 
 \section{Functional overview}
 
-One of the main things to remember when working in an ERP is that nearly everything is
-linked to the ledger in one way or another.  This relation is much stronger in ERP
+One of the main things to remember when working in an \gls{erp} is that nearly everything is
+linked to the ledger in one way or another.  This relation is much stronger in \gls{erp}
 systems than others, where accounting information is much more often an after-thought,
-if a subject at all.  Since an ERP includes accounting, being able to post to the
+if a subject at all.  Since an \gls{erp} includes accounting, being able to post to the
 ledger is part of the design from the beginning.
 
 % others?
@@ -364,3 +381,5 @@ Code written before 2007 is to be replaced in due course and will follow the sam
 pattern.
 
 
+\chapter{Introduction to accounting}
+\label{cha:AccountingIntroduction}

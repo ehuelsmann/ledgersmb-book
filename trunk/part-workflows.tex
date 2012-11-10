@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_US
 
 
 \part{Workflows}
@@ -83,15 +84,15 @@ following fields:
 \item [Terms] Number of days within which invoices have to be paid
 \item [Discount (conditions)] Percentage discount the account is entitled to when payment
          is within the given number of days
-\item [Subcontract GIFI] % @@@ ### What's this??
+\item [Subcontract GIFI] Unused.
 \item [AR (account)] Account to post created invoices on
 \item [Payment (account)] Account used as default to accept payments on
 \item [Discount (account)] Account used to post discounts as calculated based on discount conditions
 \item [Business Type] Deprecated. Should not be used anymore.
-\item [Threshold] % @@@ ### What's this??
-\item [Pricegroup] Deprecated. Replaced by price matrix functionality.
-% ### TODO: Aren't pricegroups part of the price matrix functionality??
-\item [Taxforms] % @@@ ### What's this??
+\item [Threshold] Minimum amount for invoices to be sent out
+\item [Pricegroup] This field classifies a company for the right 
+\item [Taxform] The applicable tax form for this vendor; tax forms are discussed in more detail in
+   \charef{cha:Taxes}
 \item [Language] The language parameter is used to select templates for communication with the customer
 \item [Currency] The (default) currency to be used with the customer
 \end{description}
@@ -546,9 +547,13 @@ Limit management should prevent a company on one hand from delivering too much
 to its customers at once and on the other from taking (and delivering) new orders
 to customers with too high amount of unpaid invoices.
 
+
+
 @@@ Where to set up limits
 
 @@@ How to monitor limits
+
+
 
 \section{Granting payment terms}
 
