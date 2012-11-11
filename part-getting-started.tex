@@ -525,46 +525,46 @@ Jack enters the values mentioned between the square brackets in the list above.
 In this chapter Jack goes through the process of setting up LedgerSMB for his
 trade activities in computer parts, which includes deciding which parts he wants to
 resell. From there on he goes to contact a vendor to request a quotation, convert that
-to an order and receive goods and invoices.
+to an order and receive goods into inventory and invoices into accounts payable.
 
-To configure LedgerSMB for his parts sales and purchases, Jack needs to create Parts
-in the LedgerSMB system. The other items - next to Parts - for which LedgerSMB records
-inventory are Assemblies. There's more about assemblies in @@@.
+To prepare LedgerSMB for his parts sales and purchases, Jack needs to configure Parts.
+The system records inventory for parts and assemblies. Jack won't use them for his
+business. There's more on assemblies in @@@.
 
 Once set up, Jack is ready to execute the ordering process. Even though the process
-is described here from a purchasing perspective this process works exactly the same way
-when executed from a sales perspective with the notable difference that the roles have
-been reversed.
+is described here from a purchasing perspective sales work the same way with the roles
+reversed (Jack will act as a vendor in the sales process).
 
-To start his purchasing, Jack creates a \gls{rfq} document which
+To start his purchase, Jack creates a \gls{rfq} document which
 he sends one or multiple vendors to let them know he's interested in their products.
 
-The vendor responds to Jack's request by issuing Jack a Quotation. From a legal perspective
+The vendor responds to Jack's request by issuing a Quotation. From a legal perspective
 a quotation is a document which promises to deliver the requested goods or services at a
 certain rate - subject to conditions specifically mentioned. If Jack accepts the quotation
-and meets the conditions the vendor is obligated to deliver.
+and meets the conditions, the vendor is obligated to deliver.
 
-In response to the quotation, Jack will place an order with the vendor (or he can let the
-quotation expire). In case he places the order that legally means he agrees to the terms
+In response to the quotation, Jack will place an order with the vendor to indicate
+acceptance quotation (or he can let the
+it expire). When he places the order, that legally means he agrees to the terms
 and conditions in the quotation. If the vendor delivers the goods or services as per the
 order, Jack has accepted the legal obligation to pay.
 
-The vendor again responds to Jack. This time by shipping the goods and services as well
-as an invoice. The invoice legally means the vendor considers to have a claim on the assets
+The vendor responds to the order by shipping the goods and services as well
+as sending an invoice. The invoice legally means the vendor considers to have a claim on the assets
 of Jack's company. Jack creates a vendor invoice in his system to record the claim on his
 company by the vendor and the vendor creates a sales invoice in their system to do the same.
 
 As a result of the above it's considered bad practice to delete or change invoices once
-created. The accepted process is to generate a debit invoice (for purchases) or a credit
-invoice (for sales) to ``undo'' the effects of the invoice and letting the other party
-know about it. Then a new invoice can be generated with the appropriate designations. However,
+created. The accepted process to adjust invoices is to generate a debit invoice (for purchases)
+or a credit invoice (for sales) to ``undo'' the effects of the invoice and letting the other party
+know about it. Then a new invoice can be generated with the appropriate content. However,
 when the order process is correctly followed from order to invoice chances of sending the wrong
 invoice are greatly reduced.
 
 \section{Defining parts}
 
-Jack needs to enter a large number of items he'll be offering in his new shop. Just to
-get started, he starts out with the easy ones: the ones which will be sold as single items.
+Jack needs to enter a large number of items he'll be offering in his new shop. He starts out
+with the easy ones: the ones which will be sold as single items.
 
 \subsection{Single items}
 
@@ -578,9 +578,9 @@ drive with the following data:
 \begin{tabular}{ll}
 Number & SAM5TB \\
 Description & Samsung Hard drive 5TB / 7200rpm \\
-Inventory account & @@@ \\
-Income account & @@@ \\
-COGS account & @@@ \\
+Inventory account & 1510 - Inventory\\
+Income account & 4010 - Sales\\
+COGS account & 5010 - Purchases\\
 Sell price & 75.00
 \end{tabular}
 
@@ -624,11 +624,11 @@ not to create a separate group for those and leaves these two parts unassigned.
 \section{Defining vendors}
 \label{sec:defining-vendors}
 
-Jack selects ``ABC Parts'' to sell him the inventory he needs to run his company. In
-order to start buying inventory, ABC Parts needs to be added as a Vendor to LedgerSMB.
+Jack selects ``ABC Parts'' to purchase the inventory he needs to run his company. In
+order to start buying inventory, ABC Parts needs to be entered as a Vendor to LedgerSMB.
 
-Jack starts to do so by going through the menu {\tt AP $\rightarrow$ Vendors $\rightarrow$
-Add Vendor}. He fills out the Company creation form by clicking the {\tt Generate control code}
+Using the work flow detailed in \secref{sec:creating-customers-and-vendors} Jack starts to do so by going through the menu \menupath{AP $\rightarrow$ Vendors $\rightarrow$ Add Vendor}.
+ He fills out the Company creation form by clicking the {\tt Generate control code}
 button and adding the data as shown in \figref{fig:vendor-create-1}.
 
 \begin{figure}[h]
@@ -677,10 +677,10 @@ description of the vendor data screens.
 
 \section{Requesting quotations}
 
-After Jack finishes setting up the part and vendor information, he decides to use LedgerSMB to draw
+After Jack finishes setting up the parts and vendor information, he decides to use LedgerSMB to draw
 up a list of items he wants to order from this company. To do so he follows the menu path
-Quotations $\rightarrow$ RFQ which opens up a screen to allow entering a new \gls{rfq} as shown
-in \figref{fig:rfq-entry-screen}.
+\menupath{Quotations $\rightarrow$ RFQ} which opens up a screen (shown
+in \figref{fig:rfq-entry-screen}) for entering a new \gls{rfq} .
 
 \begin{figure}[h]
 \centering
@@ -706,7 +706,8 @@ can go back and forth a few times until Jack likes the offer he's getting, but f
 argument let's assume this is the final quotation.
 
 Since Jack likes the offer, he wants to place an order with his vendor. To do so he looks up the
-\gls{rfq} stored in LedgerSMB. The screen shows additional buttons now that it shows a saved RFQ.
+\gls{rfq} he sent to the vendor using the menu path \menupath{Quotations $\rightarrow$ Reports $\rightarrow$
+ Search}. The screen shows additional buttons now that it shows a saved RFQ.
 
 
 \begin{figure}[h]
@@ -716,13 +717,14 @@ Since Jack likes the offer, he wants to place an order with his vendor. To do so
 \label{fig:bus-rfq-edit-screen}
 \end{figure}
 
-Jack clicks the ``Purchase Order'' button which copies the data into a new order. He completes it
-by entering the prices his vendor has quoted. See \secref{sec:QuotationsFromOrders} for more
+Jack clicks the ``Purchase Order'' button which creates a new order from the data in the RFQ.
+He completes it
+by entering the prices his vendor has quoted and by modifying it to be in accordance with the
+quotation. See \secref{sec:QuotationsFromOrders} for more
 detail on the order entry screen. When finished he saves the order and mails it to
-ABC Parts just like he mailed the \gls{rfq}.
+ABC Parts just like he mailed the \gls{rfq} in the previous section.
 
-\figref{fig:purchase-order-screen} shows the screen of a saved purchase order. The ``E-mail''
-button is at the bottom, just like on the saved RFQ screen.
+\figref{fig:purchase-order-screen} shows the screen of a saved purchase order.
 
 \section{Receiving ordered items}
 
