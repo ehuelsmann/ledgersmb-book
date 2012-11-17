@@ -70,7 +70,8 @@ The ``Retrieve'' button is discussed in \secref{sec:VendorsFromCustomers}.
 
 When a company of class ``Customer'' or ``Vendor'' has been created,
 accounts of that type can be added. The account entry screen lists the
-following fields:
+following fields\footnote{To simplify the interface if they're unused, some fields
+are not shown in case their selection lists are empty}:
 
 \begin{description}
 \item [Customer number] Number to identify this account among all other accounts in the company;
@@ -78,13 +79,13 @@ following fields:
 \item [Description] Textual representation of the account, usually a name
 \item [Pay To] % @@@ ### What's this?
 \item [Starting Date] Date from which the account is valid
-\item [End date] Date until which the account is valid
-\item [Credit limit] Maximum amount of open invoices allowed for the account, see
+\item [End date] Date until which the account is valid, or empty if there's no known end date
+\item [Credit limit] Maximum amount of open invoices and orders allowed for the account, see
     \charef{cha:credit-risk-management}
 \item [Terms] Number of days within which invoices have to be paid
 \item [Discount (conditions)] Percentage discount the account is entitled to when payment
          is within the given number of days
-\item [Subcontract GIFI] Unused.
+\item [Subcontract GIFI] Unused - deprecated and removed as of 1.3.24
 \item [AR (account)] Account to post created invoices on
 \item [Payment (account)] Account used as default to accept payments on
 \item [Discount (account)] Account used to post discounts as calculated based on discount conditions
@@ -568,6 +569,7 @@ action.
 
 
 \subsection{Monitoring AR aging}
+\label{subsec:MonitoringAging}
 
 In order to find out about over due invoices, a company should run the AR
 aging report available under AR $\rightarrow$ Reports $\rightarrow$ AR Aging.
@@ -633,9 +635,31 @@ invoices (those not on hold) or only invoices on hold.
 
 \chapter{Receipts and payment processing}
 
+\section{Introduction}
 
-\section{Single receipts and payments}
+Receipt (incoming payments for sales invoices) and payments (outgoing payments
+for purchase invoices) use the same process. This chapter describes the steps
+using receipts only for brevity but be equally applied to payments - except
+when explicitly stated.
+
+\section{Single receipts or payments}
 \label{sec:SinglePayments}
+
+LedgerSMB provides two ways to process receipts (and payments). One for single transactions,
+the other for batches. The next section discusses the steps to do batch processing.
+
+To record an amount received from a customer as an invoice payment, go through the menus
+\menupath{Cash \ma Receipt} and fill out the search criteria to find the customer from whom
+the payment has been received. After clicking ``Continue'' the application lists all matching
+customers.
+
+\begin{quotation}
+\textbf{Remark} The customers listed may not have open invoices. The list only serves to select
+the customer the user is looking for. To find customers with outstanding balances, please refer to
+\secref{subsec:MonitoringAging}.
+\end{quotation}
+
+@@@ Discuss the single receipt screen
 
 % The X column in the single payment interface deletes the checked invoice
 % from the payment list on the next screen update.
