@@ -28,13 +28,15 @@ Maintenance may require different types of system access for different types of 
 
 \begin{enumerate}
 \item Within application tasks, such as user management, require an appropriately authorized
-   normal application login
-\item Database administration tasks, such as backups and application upgrades,
- require
-   a database level login to be used with 'setup.pl'
+   application login
+\item Database administration tasks, such as creation of backups and application upgrades,
+   require a database level login to be used with (amongst others) 'setup.pl'
 \item Other system-level maintenance tasks, such as updating PostgreSQL or Apache, which
    require user accounts on the server hosting LedgerSMB
 \end{enumerate}
+
+Each of the above tasks requires its own type of user account. Creating and managing accounts
+for the first type of task is the subject of the next chapter.
 
 % @@@ (Within-application tasks)
 
@@ -45,10 +47,16 @@ Maintenance may require different types of system access for different types of 
 \chapter{User management}
 \label{cha:user-management}
 
+\section{Introduction}
+
+This chapter deals with management of application level user accounts. This is the first
+of the three types of system access required to do LedgerSMB administration described in
+the previous chapter.
+
 \section{User creation}
 \label{sec:user-creation}
 
-Users experienced with LedgerSMB 1.2 or before or SQL-Ledger (any version) are
+Users experienced with LedgerSMB 1.2 or before or SQL Ledger (any version) are
 referred to appendix \ref{sec:DifferencesUsers} to read about the differences
 with version 1.3.
 
@@ -149,8 +157,11 @@ top level menu. See \figref{fig:user-preferences}.
 From the ``User search'' result screen, users can be ``deleted'' from the company:
 they have their access to the current company revoked.
 
-@@@ Does the delete button delete the user from the cluster as well as from the application? % It looks like the API supports this but currently it is not told
-             % to do so --Chris T
+\begin{quotation}
+Note that the user is only revoked access to the current company; the login remains a valid
+login for the database cluster. Administrators wanting to remove user accounts at the database
+level need to take additional action.
+\end{quotation}
 
 
 \section{User imports}
@@ -170,8 +181,9 @@ copied to the current company.
 
 \section{setup.pl users}
 
-Users created through the process documented above don't have enough rights to
-execute actions through the setup.pl database administration tool. Note that this
+As mentioned in the introduction, users created through the process documented above
+don't have rights to execute work with the setup.pl database administration tool.
+Note that this
 is on purpose. You will need access to the server to create such users, or request
 one from your application service provider (ASP) if you use a hosted solution.
 
@@ -688,7 +700,31 @@ additional steps described in \appref{sec:MigrationBetweenPostgreSQLVersions} wi
 
 \chapter{Software updates}
 
-\section{LedgerSMB patch release roll out}
+\section{Introduction}
+
+This chapter describes patch release updates. Upgrades from older versions (e.g. 1.1 or 1.2)
+are covered in \appref{cha:Migration}. The same is true for upgrades from SQL Ledger 2.6 or 2.8.
+
+The remainder of the chapter discusses the steps to be executed. Please note that the instructions
+below mean a window where the application can't be used during the entire execution of the procedure.
+
+\section{Backups}
+
+\begin{itemize}
+\item Backup database roles (authorizations)
+\item Backup database content (structure and data)
+\item Backup software and settings files
+\end{itemize}
+
+
+
+\section{Software upgrade}
+
+@@@ Untar / use package manager
+
+\section{Database upgrade}
+
+@@@ go to setup.pl and ``Rebuild''
 
 \chapter{Optional Features}
 
