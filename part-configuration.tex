@@ -1,3 +1,4 @@
+% !TeX spellcheck = en_US
 
 
 \part{Configuration}
@@ -50,14 +51,22 @@ Individual configuration keys; full discussion of possible values in reference a
 \begin{description}
 \item[auth]
 \item[logging]
-\item[tempdir]
+\item[tempdir] Directory to store temporary artifacts. E.g. PDF files are stored here before
+    being sent to the browser. The default on unix variants is /tmp/ledgersmb.
+\item[cache\_templates] Determines if HTML templates used for the LedgerSMB UI will be stored
+    in precompiled form for improved performance. The value 0 (zero) means no caching; the value
+    1 means caching in the directory \$(tempdir)/lsmb\_templates; systems running multiple
+    LedgerSMB instances with customized UIs should use separate values for {\tt tempdir} for that
+    reason
 \item[language]
 \item[log\_level]
 \item[DBI\_TRACE]
 \item[pathsep]
-\item[latex]
+\item[latex] Identifies if the system has \LaTeX available: 0 means no \LaTeX, 1 means \LaTeX supported
 \item[check\_max\_invoices]
-\item[max\_post\_size]
+\item[max\_post\_size] States the maximum size in bytes of the body in case of a POST request; this
+    setting reduces the impact of DoS requests, if the system is under attack. The setting also limits the
+    maximum size of attachments (see \secref{sec:FileAttachments}) that can be uploaded
 \item[decimal\_places]
 \item[cookie\_name]
 \item[no\_db\_str]
@@ -114,12 +123,19 @@ Laser    = lpr -Plaser
 \subsubsection{'database' section}
 
 \begin{description}
-\item [host]
-\item [port]
-\item [default\_db]
-\item [db\_namespace]
-\item [contrib\_dir]
-\item [ssl\_mode]
+\item [host] Name of the host to connect to. See the documentation of the {\tt -h} command line option at 
+   \url{http://www.postgresql.org/docs/9.2/static/app-psql.html}
+   for more information (documentation unchanged since before 8.3, so applies to older versions as well)
+\item [port] Port number to be used to connect to. See the documentation of the {\tt -p} option at the
+   same URL as the previous item
+\item [default\_db] Database to connect to when the ``Company'' entry field in the login screen is left blank
+\item [db\_namespace] The name space the company resides in; expert setting -- should not be used (default is
+   ``public'')
+\item [contrib\_dir] Path of the directory in which the PostgreSQL contrib modules (extensions) are
+   located; this setting is used by setup.pl when creating new companies or rebuilding (upgrading)
+   existing ones
+\item [sslmode] Selects whether to use \gls{SSL} over TCP connections or not; can be ``require'', ``allow'',
+   ``prefer'' or ``disable''
 \end{description}
 
 \subsubsection{log4perl\_config\_modules\_loglevel}
@@ -136,7 +152,16 @@ This is an advanced setting not typically touched.
 \subsection{templates}
 \label{subsec:GlobalConfigTemplates}
 
-temlates are global, however, set is selectable per company.
+LedgerSMB uses templates mainly for two things:
+
+\begin{itemize}
+\item Output documents such as pick lists and invoices
+\item The HTML User Interface
+\end{itemize}
+
+This setting relates to the former, which are meant to be copied and customized by users. The system
+supports having multiple sets in a global setup, where companies can be configured to use different
+sets.
 
 
 
@@ -220,7 +245,7 @@ Each row lists the following fields:
 exist and one has an ordering of 0 and one of 1, then the second tax will be
 calculated on a basis that includes the first.  One place where this used to be
 used was in Quebec, where GST was taxable under PST.
-\item [Tax rules] LedgerSMB features an extendable structure to facilitate complex tax
+\item [Tax rules] LedgerSMB features a flexible structure to facilitate complex tax
 calculations (see \secref{sec:TaxRulePlugins}). By default the ``Simple'' module
 is the only one installed.
 \end{description}
@@ -236,13 +261,14 @@ could be used to store a business license number or anything similar.
    The unit of measurement for weights. @@@ why don't we have a unit of measurement for distance as well??? And maybe a unit of measurement for content?
    
 \subsubsection{Separation of duties}
-   Set this field to 1 if you want to activate separation of duties or to 0 if you don't
-   want to enforce it. Separation of duties is explained in \secref{sec:SeparationOfDuties}. @@@ Should this config option not be in the ``Audit Control'' section???
+
+Set this field to 1 if you want to activate separation of duties or to 0 if you don't
+want to enforce it. Separation of duties is explained in \secref{sec:SeparationOfDuties}.
 
 \subsubsection{Default accounts}
 
- This setting will be used to pre-select an account in
-the account listings of the three categories listed below:
+This setting will be used to preselect an account in
+the listings of the three categories listed below:
 \begin{itemize}
 \item Inventory
 \item Income
@@ -428,10 +454,16 @@ SI codes feature these three fields:
 \item [Description]
 \end{description}
 
-When creating a company (irrespective of whether that company will be assigned a customer
-or vendor role) you can assign that company an SI code.
+When creating a company you can assign that it an SI code, irrespective of its role (i.e. customer,
+vendor, lead or anything else). An example of an SI code system is the
+US's NAICS code\footnote{\url{http://www.census.gov/eos/www/naics/}}.
+Other countries have their own coding systems such
+as ANZSIC\footnote{\url{http://www.abs.gov.au/ausstats/abs@.nsf/mf/1292.0}} for Australia and New Zealand
+and NACE\footnote{\url{http://ec.europa.eu/competition/mergers/cases/index/nace\_all.html}} for Europe
 
-@@@ These SI codes may affect Tax and regulatory reports?? What do they ``do''?
+The SIC field currently doesn't support a specific function in the application and is there
+merely for informational purposes. However in the future its role could be extended to include
+impact on reports, taxes or other functionalities where type of industry could matter.
 
 \subsection{HTML templates}
 
