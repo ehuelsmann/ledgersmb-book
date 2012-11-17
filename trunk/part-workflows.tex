@@ -277,7 +277,7 @@ LedgerSMB supports warehouse management on the Receipt screen by offering the ab
 print a ``Bin List''. This list contains the bin (storage) locations configured for each part.
 
 
-\section{Partial shipments}
+\section{Partial shipments or receipts}
 
 Both shipping and receiving support partial shipments and per-lot invoicing. If the vendor
 ships multiple lots to a single order (and charges a single invoice), you can simply call
@@ -288,15 +288,16 @@ To create an invoice for a received lot simply follow the process as detailed in
 \secref{sec:InvoicesFromOrders}. If the lot is a partial shipment, the invoice will be
 for the current receipt by default.
 
+\section{Handling returns}
 
 
 \section{Transferring between warehouses}
 
 \section{Inventory reporting}
 
-\subsection{Inventory quantities}
+\subsection{Inventory status report}
 
-\subsection{Inventory activity}
+\subsection{Inventory activity report}
 
 
 
@@ -367,6 +368,8 @@ configured. See \charef{cha:ProductsDefinition} how to set up products
 and services.
 
 % @@@ Invoice entry screen screenshot(s)
+
+
 
 \subsection{Transactions}
 
@@ -664,6 +667,10 @@ invoices (those not on hold) or only invoices on hold.
 
 \section{Separation of duties: Transaction approval}
 \label{sec:SeparationOfDuties}
+@@@ Probably belongs into the Overview part of the book?
+
+Separation of duties is a method to help prevent fraud where one employee can't modify the
+ledger by himself - such access could be used to blur or erase tracks of fraud.
 
 \section{Bank reconciliation}
 \label{sec:Reconciliation}
