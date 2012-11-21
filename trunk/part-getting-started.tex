@@ -696,8 +696,28 @@ allows entry of prices could be considered a bug.
 \end{quotation}
 
 After filling out the form in accordance with the description in \secref{sec:creating-quotations},
-Jack expedites his \gls{rfq} to his vendor through e-mail by clicking the ``E-mail'' button and
-following the instructions \secref{subsec:sending-quotation-by-email}
+Jack expedites his \gls{rfq} to his vendor through e-mail by clicking the ``E-mail'' button. He finds
+himself in the screen shown in \figref{fig:rfq-email-screen}.
+
+The From field of the e-mail to be sent out will be filled using the ``Default From'' setting documented
+in \secref{subsec:Defaults}. The other address fields can be entered by the user and may be readily
+populated if the customer account has the right contact info items attached: if there are Email, Cc and/or
+Bcc contact items set up, those will be used to fill these fields.
+
+At the bottom there are three selection lists. The first allows selection of the format used to send the
+\gls{rfq}. Available options are HTML, CSV, Postscript (PS) and PDF. The last two require Postscript and PDF
+support to be correctly set up. The last selection list selects the language to be used for the
+\gls{rfq}. If no value is selected the system default language is used.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{rfq-email-screen.png}
+\caption{RFQ e-mail screen}
+\label{fig:rfq-email-screen}
+\end{figure}
+
+For more detail, the reader is referred to \secref{subsec:sending-quotation-by-email}.
+
 
 \section{Following up on a quotation}
 
