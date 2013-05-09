@@ -685,6 +685,51 @@ the customer the user is looking for. To find customers with outstanding balance
 % Cash/Vouchers/Reverse Payment
 % Batches/Approval
 
+\section{Overpayment reversal}
+
+Reversal of overpayments is a weak spot in LedgerSMB 1.3: there's no way
+to reverse or ``undo'' an overpayment incorrectly entered.  By consequence
+this section describes the workaround that's required to achieve the same
+effect.
+
+This workaround needs an account which can be used to temporarily book income on.
+
+Please note that the income will immediately be reversed, so
+technically any account can be used.  To be able to assert that the entire process
+has been executed correctly, it's advisable to create a separate account, however, since
+it can be checked to be zero at the end.
+
+With the prerequisites in place, you should execute the following steps - assuming the amount
+of the overpayment needs to be placed back into a cash account.
+
+\begin{enumerate}
+\item \label{itm:StartSetupOverpaymentCancelation} Create an AR transaction for the
+    company the overpayment has been entered on
+\item Add a single line to the transaction, with the selected account
+\item Put the overpayment amount to be canceled out in the Amount field for the line
+\item \label{itm:EndSetupOverpaymentCancelation} Save and post the transaction
+\item \label{itm:OverpaymentCancelation} Pay the transaction from the overpayment
+\item \label{itm:MoveToCashAccount} Create a ``General Journal'' transaction debiting the income account and crediting the
+    cash account the overpayment was entered from
+\end{enumerate}
+
+Steps \ref{itm:StartSetupOverpaymentCancelation} trough \ref{itm:EndSetupOverpaymentCancelation}
+prepare the Accounts Receivable module with a transaction which allows the overpayment to be used.
+After step \ref{itm:OverpaymentCancelation}, the overpayment has been cleared, but the
+amount is in the wrong place, since it sits in the income account instead of the cash account,
+which is what step \ref{itm:MoveToCashAccount} corrects.
+
+The side-effect from this workaround is an AR transaction registered against a customer which can't
+be reversed: doing so, would result in the reversed amount ending up in the AR summary account.  Using
+a dummy company isn't an option, because overpayments are registered to a specific customer.  An
+overpayment can only be used to clear open items on that specific customer.
+
+\begin{quotation}
+Note that the above procedure applies to an AR overpayment. However, the same steps apply to
+AP overpayments, replacing ``customer'' with ``vendor'', ``AR'' with ``AP'', ``Income'' with
+``Expense'' and ``debit'' with ``credit''.
+\end{quotation}
+
 \section{Receipts and payments in foreign currencies}
 
 \chapter{Accounting}
@@ -695,6 +740,26 @@ the customer the user is looking for. To find customers with outstanding balance
 
 Separation of duties is a method to help prevent fraud where one employee can't modify the
 ledger by himself - such access could be used to blur or erase tracks of fraud.
+
+\section{Entering non sales transactions}
+
+\subsection{Corrections}
+\subsection{Transfer of money between bank accounts}
+\subsection{Wages}
+
+\subsection{Entering other general accounting documents}
+
+Even though the application handles many general ledger postings as consequences
+from work flows elsewhere in the system - thus not requiring separate postings -
+sometimes the need may occur to create manual postings not resulting from
+AR or AP transactions or till and inventory adjustments.
+
+One example of a case like that is the calculation, and posting of
+corporate taxes presumably at the end of each accounting period but at least
+at the end of the book year.
+
+% @@@ screenshot
+
 
 \section{Bank reconciliation}
 \label{sec:Reconciliation}
@@ -753,18 +818,7 @@ for this use case isn't available in LedgerSMB 1.3.
 
 % @@@ screenshot
 
-\section{Entering general accounting documents}
 
-Even though the application handles many general ledger postings as consequences
-from work flows elsewhere in the system - thus not requiring separate postings -
-sometimes the need may occur to create manual postings not resulting from
-AR or AP transactions or till and inventory adjustments.
-
-One example of a case like that is the calculation, and posting of
-corporate taxes presumably at the end of each accounting period but at least
-at the end of the book year.
-
-% @@@ screenshot
 
 \section{Fixed asset accounting}
 \label{sec:FixedAssetAccounting}
