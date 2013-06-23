@@ -20,7 +20,7 @@ mkdir -p $tmp_path/split-book
 cp $dest_path/additional.css $tmp_path/additional.css
 latexmlpost --destination=$tmp_path/split-book/index.html \
             --split \
-            --splitnaming=labelrelative \
+            --splitnaming=label \
             --format=html \
             --css=$tmp_path/additional.css \
             --sitedirectory=$tmp_path/split-book/ \
