@@ -487,7 +487,7 @@ With the password renewal out of the way, Jack can start to set up the company f
 use. To do so, Jack selects the System $\rightarrow$ Defaults menu item.
 
 A more elaborate description of the parameters in this screen is provided in subsection
-\ref{subsec:Defaults}. However, when setting up a new company, it's probably good enough
+\ref{subsec-company-config-defaults}. However, when setting up a new company, it's probably good enough
 to fill out these parameters (and thus skip the rest):
 
 \begin{itemize}
@@ -514,6 +514,7 @@ Jack enters the values mentioned between the square brackets in the list above.
 \label{cha-building-up-stock}
 
 \section{Overview}
+\label{sec-stock-overview}
 
 In this chapter Jack goes through the process of setting up LedgerSMB for his
 trade activities in computer parts, which includes deciding which parts he wants to
@@ -555,11 +556,13 @@ when the order process is correctly followed from order to invoice chances of se
 invoice are greatly reduced.
 
 \section{Defining parts}
+\label{sec-stock-parts}
 
 Jack needs to enter a large number of items he'll be offering in his new shop. He starts out
 with the easy ones: the ones which will be sold as single items.
 
 \subsection{Single items}
+\label{subsec-stock-parts-single-item}
 
 Jack chooses a 5TB hard drive by Samsung to be entered into the system as the first item.
 To do so, he goes to the {\tt Goods and Services $\rightarrow$ Add part} page from the menu
@@ -582,6 +585,7 @@ he hasn't entered vendors or customers in his system yet, he decides to leave
 those sections blank as well.
 
 \subsection{Combining single-item and ``multi-item pre-packaged'' sales}
+\label{subsec-stock-parts-mulit-item}
 
 After having finished setting up the easy parts, Jack now wants to enter
 the memory modules he's going to sell. The problem is that they usually go in pairs,
@@ -595,6 +599,7 @@ he chooses option (b): to create a part and an assembly and regularly restock th
 to 0 (zero) in order to remove the stock from the single item.
 
 \section{Defining part groups}
+\label{sec-stock-part-groups}
 
 As Jack continues to enter more parts into the system, he wonders how he's going to
 look up the parts efficiently later on. Returning his reading to \secref{sec:DefinitionOfParts},
@@ -615,7 +620,7 @@ Since he doesn't expect to be running more than one or two types of CPUs, he dec
 not to create a separate group for those and leaves these two parts unassigned.
 
 \section{Defining vendors}
-\label{sec:defining-vendors}
+\label{sec-stock-defining-vendors}
 
 Jack selects ``ABC Parts'' to purchase the inventory he needs to run his company. In
 order to start buying inventory, ABC Parts needs to be entered as a Vendor to LedgerSMB.
@@ -669,6 +674,7 @@ The reader is referred to \secref{sec:creating-customers-and-vendors} for a more
 description of the vendor data screens.
 
 \section{Requesting quotations}
+\label{sec-stock-request-quotation}
 
 After Jack finishes setting up the parts and vendor information, he decides to use LedgerSMB to draw
 up a list of items he wants to order from this company. To do so he follows the menu path
@@ -693,7 +699,7 @@ Jack expedites his \gls{rfq} to his vendor through e-mail by clicking the ``E-ma
 himself in the screen shown in \figref{fig:rfq-email-screen}.
 
 The From field of the e-mail to be sent out will be filled using the ``Default From'' setting documented
-in \secref{subsec:Defaults}. The other address fields can be entered by the user and may be readily
+in \secref{subsec-company-config-defaults}. The other address fields can be entered by the user and may be readily
 populated if the customer account has the right contact info items attached: if there are Email, Cc and/or
 Bcc contact items set up, those will be used to fill these fields.
 
@@ -713,6 +719,7 @@ For more detail, the reader is referred to \secref{subsec:sending-quotation-by-e
 
 
 \section{Following up on a quotation}
+\label{sec-stock-quotation-followup}
 
 Jack's vendor (ABC Parts) sends him a quotation in response to his \gls{rfq}. Jack and his vendor
 can go back and forth a few times until Jack likes the offer he's getting, but for the sake of
@@ -740,6 +747,7 @@ ABC Parts just like he mailed the \gls{rfq} in the previous section.
 \figref{fig:purchase-order-screen} shows the screen of a saved purchase order.
 
 \section{Receiving ordered items}
+\label{sec-stock-receiving}
 
 Having ordered his inventory, the vendor starts shipping. There's too much to ship at once
 so the vendor ships the goods in batches: every week he ships what's available at the end
@@ -749,8 +757,12 @@ LedgerSMB helps Jack keep track to see if he has received everything he has orde
 that he's not receiving too much. Jack goes through the menus \menupath{Shipping \ma Receive}.
 In the search screen, he fills the vendor name (ABC Parts) and clicks ``Continue'' to be listed
 all open orders from ABC Parts. By clicking on the order number, the ``Receive Merchandise'' screen
-opens as presented in \figref{fig:order-receive-screen}. This allows Jack to handle the incoming shipment. LedgerSMB will automatically update inventory
-based on the amounts entered as received.
+opens as presented in \figref{fig:order-receive-screen}. This allows Jack to handle the incoming
+shipment. LedgerSMB will automatically update inventory based on the amounts entered as received
+\footnote{To resolve problems in the inventory tracking parts of LedgerSMB (inherited from
+before the fork), a significant change has been implemented in 1.3.31: inventory changes won't
+be recorded until invoices have been posted.
+}.
 
 \begin{figure}[h]
 \centering
@@ -759,11 +771,14 @@ based on the amounts entered as received.
 \label{fig:order-receive-screen}
 \end{figure}
 
-
-
 \section{Receiving an invoice}
+\label{sec-stock-invoice}
+
+
 
 \section{Paying an invoice}
+\label{sec-stock-payment}
+
 
 
 \chapter{Ramping up to the first sale}
@@ -775,10 +790,10 @@ based on the amounts entered as received.
 \label{cha-shipping-sales}
 
 \chapter{Invoicing}
-\label{cha-invoicing}
+\label{cha-starting-invoicing}
 
 \section{Handling sales taxes}
-
+\label{sec-invoicing-sales-tax}
 % invoices with taxes included
 
 % invoices with explicit tax amounts
@@ -787,11 +802,13 @@ based on the amounts entered as received.
 
 
 \chapter{Collecting sales invoice payments}
-\label{cha-customer-payments}
+\label{cha-starting-sales-customer-payments}
 
 \section{Customer payments}
+\label{sec-starting-sales-customer-payments}
 
 \section{Customer payment mismatch}
+\label{sec-starting-sales-payment-mismatch}
 
 % choosing between pardonning and registering underpayment
 
@@ -801,7 +818,7 @@ based on the amounts entered as received.
 
 
 \chapter{Paying vendor invoices}
-\label{cha-vendor-payments}
+\label{cha-starting-vendor-payments}
 
 % handling vendors who match amounts to exact invoices
 
@@ -811,21 +828,25 @@ based on the amounts entered as received.
 %   relating to bounced checks
 
 \chapter{Monitoring arrears}
-\label{cha-monitoring-arrears}
+\label{cha-starting-monitoring-arrears}
 
 % handling interest on arrears
 
 \chapter{Branching out: services}
+\label{cha-starting-branch-to-services}
 
 % including creation / assignment to different accounts
 
 
 \section{Recording service hours}
+\label{sec-starting-services-writing-hours}
 
 \section{Customer approval on service hours}
+\label{sec-starting-services-hours-customer-approval}
 
 \section{Invoicing services}
+\label{sec-starting-services-invoicing}
 
 \chapter{Branching out II: service subscriptions}
-
+\label{cha-starting-services-subscriptions}
 
