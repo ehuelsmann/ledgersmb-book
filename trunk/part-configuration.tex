@@ -7,16 +7,20 @@
 
 
 \chapter{Overview}
+\label{cha-configuration-overview}
 
 \section{Introduction}
+\label{sec-config-overview-introduction}
 This section of the book describes how to set up LedgerSMB and its components.
 Configuration is assumed to be mostly one-off and rather technical in nature.  To find
 out which tasks might need to be performed in order to keep the application in good
 health the reader is referred to the section ``Administration''. 
 
 \chapter{Global configuration}
+\label{cha-global-configuration}
 
 \section{Apache}
+\label{sec-global-config-apache}
 
 Section about installing on Apache 2+
 
@@ -28,10 +32,12 @@ performance: cgiD configuration: don't (yet) [but will be supported once all leg
 security: suEXEC environment \\
 
 \subsection{Differences between Apache 1.3 and 2+}
+\label{subsec-global-config-apache-13-vs-2}
 
 Explain how to use lsmb with 1.3 instead of 2+.
 
 \section{PostgreSQL}
+\label{sec-global-config-postgresql}
 
 pg\_hba.conf: authentication \\
 security: local vs IP connections \\
@@ -40,14 +46,18 @@ security: local vs IP connections \\
 
 
 \section{LedgerSMB}
+\label{sec-global-config-ledgersmb}
 
 \subsection{ledgersmb.conf}
+\label{subsec-global-config-ledgersmb-conf}
 
 to be discussed:
 
 Individual configuration keys; full discussion of possible values in reference appendix?
 
 \subsubsection{General section}
+\label{subsubsec-global-config-ledgersmb-conf-general}
+
 
 \begin{description}
 \item[auth]
@@ -75,6 +85,7 @@ Individual configuration keys; full discussion of possible values in reference a
 \end{description}
 
 \subsubsection{'environment' section}
+\label{subsubsec-global-config-ledgersmb-conf-environment}
 
 \begin{description}
 \item[PATH]
@@ -82,6 +93,7 @@ Individual configuration keys; full discussion of possible values in reference a
 
 
 \subsubsection{'paths' section}
+\label{subsubsec-global-config-ledgersmb-conf-paths}
 
 \begin{description}
 \item [spool]
@@ -93,6 +105,7 @@ Individual configuration keys; full discussion of possible values in reference a
 \end{description}
 
 \subsubsection{'programs' section}
+\label{subsubsec-global-config-ledgersmb-conf-programs}
 
 \begin{description}
 \item [gzip]
@@ -100,6 +113,7 @@ Individual configuration keys; full discussion of possible values in reference a
 
 
 \subsubsection{'mail' section}
+\label{subsubsec-global-config-ledgersmb-conf-mail}
 
 \begin{description}
 \item [sendmail]
@@ -109,6 +123,7 @@ Individual configuration keys; full discussion of possible values in reference a
 \end{description}
 
 \subsubsection{'printers' section}
+\label{subsubsec-global-config-ledgersmb-conf-printers}
 
 This section contains a list of printers and the commands
 to be executed in order for the output to be sent to the given printer with
@@ -122,6 +137,7 @@ Laser    = lpr -Plaser
 
 
 \subsubsection{'database' section}
+\label{subsubsec-global-config-ledgersmb-conf-database}
 
 \begin{description}
 \item [host] Name of the host to connect to. See the documentation of the {\tt -h} command line option at 
@@ -140,6 +156,7 @@ Laser    = lpr -Plaser
 \end{description}
 
 \subsubsection{log4perl\_config\_modules\_loglevel}
+\label{subsubsec-global-config-ledgersmb-conf-log4perl}
 
 @@@ This is a list of \textless module.name \textgreater = \textless level \textgreater
 
@@ -147,11 +164,13 @@ This is an advanced setting not typically touched.
 
 
 \subsection{pos.conf.pl}
+\label{subsec-global-config-pos-conf}
+
 
 @@@ no idea what should go in here. to be investigated.
 
 \subsection{templates}
-\label{subsec:GlobalConfigTemplates}
+\label{subsec-global-config-templates}
 
 LedgerSMB uses templates mainly for two things:
 
@@ -168,12 +187,24 @@ sets.
 
 
 \subsection{ledgersmb.css}
+\label{subsec-global-config-ledgersmb-css}
+
+
 
 \chapter{Per company configuration}
+\label{cha-company-config}
 
 \section{Administrative user}
+\label{sec-company-config-admin-user}
+
 \section{Chart of accounts}
+\label{sec-company-config-coa}
+
+@@@ Should refer to the 'administration' section???
+
 \subsection{Special accounts}
+\label{subsec-company-config-coa-special-accounts}
+
 \begin{itemize}
 \item AR/AP summary accounts
 \item 5 other special purpose accounts, see ``Defaults'' screen discussion
@@ -182,13 +213,17 @@ sets.
 
 
 \section{System menu settings}
+\label{sec-company-config-system-menu}
 
 This section enumerates the ``System'' menu's immediate children. In some cases the
 functionality is too complex and is referred to a chapter of its own.
 
 \subsection{Audit control}
+\label{subsec-company-config-audit-control}
 
 \subsubsection{Enforce transaction reversal for all dates}
+\label{subsubsec-company-config-audit-control-reversals}
+
 
 This is a Yes/No value which affects the actions which can be performed on posted financial transactions.
 \begin{itemize}
@@ -200,6 +235,8 @@ audit trails and thereby supports fraud detection.
 \end{itemize}
 
 \subsubsection{Close books up to}
+\label{subsubsec-company-config-audit-control-close-books}
+
 
 @@@ This item isn't a system setting; shouldn't it move to ``Transaction approval''?? That way system settings (config) and processes are separated.
 
@@ -216,6 +253,7 @@ fact that the figures are known-stable as a performance optimization when calcul
 account balances.
 
 \subsubsection{Activate audit trail}
+\label{subsubsec-company-config-audit-control-audit-trail}
 
 This is a Yes/No value which - when Yes - causes the system to install triggers to register
 user actions (creation/adjustments/reversals/etc...) executed on financial transactions.
@@ -227,6 +265,8 @@ user actions (creation/adjustments/reversals/etc...) executed on financial trans
 triggers so this setting does nothing.  --CT
 
 \subsection{Taxes}
+\label{subsec-company-config-taxes}
+
 
 This page lists all accounts which have the ``Tax'' account option enabled as discussed in \secref{sec:AccountOptions}.
 
@@ -252,21 +292,25 @@ is the only one installed.
 \end{description}
 
 \subsection{Defaults}
-\label{subsec:Defaults}
+\label{subsec-company-config-defaults}
 
 \subsubsection{Business number}
+\label{subsubsec-company-config-defaults-business-number}
    This is used to store an arbitrary identification number for the business.  It
 could be used to store a business license number or anything similar.
    
 \subsubsection{Weight unit}
+\label{subsubsec-company-config-defaults-weight-unit}
    The unit of measurement for weights. @@@ why don't we have a unit of measurement for distance as well??? And maybe a unit of measurement for content?
    
 \subsubsection{Separation of duties}
+\label{subsubsec-company-config-defaults-separation-of-duties}
 
 Set this field to 1 if you want to activate separation of duties or to 0 if you don't
 want to enforce it. Separation of duties is explained in \secref{sec:SeparationOfDuties}.
 
 \subsubsection{Default accounts}
+\label{subsubsec-company-config-defaults-accounts}
 
 This setting will be used to preselect an account in
 the listings of the three categories listed below:
@@ -278,6 +322,7 @@ the listings of the three categories listed below:
 
 
 \subsubsection{Foreign exchange gain and loss accounts}
+\label{subsubsec-company-config-defaults-fx-accounts}
 
 When working with foreign currencies,
 the system needs two special purpose accounts. One to post the gains onto which are
@@ -286,17 +331,20 @@ which are caused by foreign currencies decreasing in value.
 
 
 \subsubsection{Default country}
+\label{subsubsec-company-config-defaults-country}
 
 This setting indicates which country needs to be pre-selected
    in country selection lists.
 
 
 \subsubsection{Default language}
+\label{subsubsec-company-config-defaults-language}
 
 The language to be used when no other language has been selected. Several parts of the
 application require language selection, such as customer, vendor and employee entry screens.
 
 \subsubsection{Templates directory}
+\label{subsubsec-company-config-defaults-templates}
 
 This setting indicates which set of templates - stored in the
    \texttt{templates/} directory - should be used. In a standard installation, the drop down
@@ -308,6 +356,7 @@ This setting indicates which set of templates - stored in the
 
 
 \subsubsection{List of currencies \& default currency}
+\label{subsubsec-company-config-defaults-currencies}
 
 Enter a list of all currencies you want
 to use in your company, identified by their 3-letter codes separated by a colon; i.e.
@@ -316,11 +365,13 @@ to use in your company, identified by their 3-letter codes separated by a colon;
 is used as the company default currency.
 
 \subsubsection{Company data (name /address)}
+\label{subsubsec-company-config-defaults-name-address}
 
 The fields ``Company Name'', ``Company Address'',
 ``Company Phone'' and ``Company Fax'' will be used on printed/e-mailed invoices.
 
 \subsubsection{Password duration}
+\label{subsubsec-company-config-defaults-password-duration}
 
 This is an integer value field measuring the validity period in days for passwords set through
 the user's \texttt{Preferences} screen. If this field is empty, passwords set through that method
@@ -341,7 +392,8 @@ holes.
 \end{quotation}
 
 
-\subsubsection{Default Email addresses}
+\subsubsection{Default E-mail addresses}
+\label{subsubsec-company-config-defaults-email}
 
 These addresses will be used to send e-mails from the system.
 Note that the ``Default Email From'' address should be configured in order to make sure
@@ -349,6 +401,7 @@ e-mail doesn't look like it's coming from your webserver. The format to be used 
 ``$\langle$'' and ``$\rangle$''.
 
 \subsubsection{Max per dropdown}
+\label{subsubsec-company-config-defaults-max-dropdown}
 
 Some elements in the screens may present a drop down. However, drop downs are
 relatively unwieldy to work with when used to present a large number of values
@@ -359,7 +412,7 @@ presented as drop down.  When the number is exceeded, no drop down is used.  Ins
 a multi-step selection procedure will be used.
 
 \subsubsection{Item numbering}
-\label{sec:DefaultsItemNumbering}
+\label{subsubsec-company-config-defaults-item-numbers}
 
 Many items in the system have sequence numbers: invoices, parts, etc.
  These sequence numbers can be just a number (i.e. 1 or 37),
@@ -388,11 +441,15 @@ meta\_number?? -- Meta-number (CT) \\
 Vendor number & @@@ same question as customer number \\
 \end{longtable}
 
-\subsubsection{Check prefix} The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
+\subsubsection{Check prefix}
+\label{subsubsec-company-config-defaults-check-prefix}
+
+ The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
 checks can be created outside the application as well, meaning the numbers can
 get out of sync.
 
 \subsection{Year end}
+\label{subsec-company-config-year-end}
 
 @@@ Rename ``Yearend'' in menu interface to ``Year end''.
 
@@ -401,22 +458,26 @@ get out of sync.
 
 
 \subsection{Admin users}
+\label{subsec-company-config-admin-users}
 
 @@@ Same as Year end; doesn't belong here...
 
 \subsection{Chart of accounts}
+\label{subsec-company-config-coa}
 
 @@@ Chart of accounts isn't exactly a ``process'', but it doesn't feel like being pure
 config either. At any rate it's a fact that the CoA discussion is a full chapter in and
 of itself - so discussion here isn't necessary anymore.
 
 \subsection{Warehouses}
+\label{subsec-company-config-warehouses}
 
 Warehouses are stocking locations. They don't have any properties (in the system)
 other than that they have a name. Warehouses can be added, modified and deleted from
 the System $\rightarrow$ Warehouses menu item.
 
 \subsection{Departments}
+\label{subsec-company-config-departments}
 
 Departments can be used to divide a company in smaller pieces. LedgerSMB distinguishes two
 types of departments:
@@ -429,12 +490,14 @@ types of departments:
 Departments can be created (added), modified or deleted through the System $\rightarrow$ Departments menu item.
 
 \subsection{Type of business}
+\label{subsec-company-config-business-types}
 
 Types of business are used in sales operations where customers can be assigned a type
 of business. Based on the type of business assignment, quotations, sales orders and
 invoices will automatically apply discount rates. For each type of business you enter a description and a discount rate to be applied.
 
 \subsection{Languages}
+\label{subsec-company-config-languages}
 
 The language table is the table users can select languages from, both to present
 the UI of the application as well as the setting for customers to be used to generate
@@ -446,6 +509,7 @@ available in the program installation directory.
 Languages can be added, modified or deleted through the System $\rightarrow$ Language menu item.
 
 \subsection{Standard Industry Code (SIC)}
+\label{subsec-company-config-sic}
 
 SI codes feature these three fields:
 
@@ -467,15 +531,18 @@ merely for informational purposes. However in the future its role could be exten
 impact on reports, taxes or other functionalities where type of industry could matter.
 
 \subsection{HTML templates}
+\label{subsec-company-config-html-templates}
 
 Through this menu, the user is being offered to manipulate a global resource. See
-\secref{subsec:GlobalConfigTemplates} for more details.
+\secref{subsec-global-config-templates} for more details.
 
 \subsection{LaTeX templates}
+\label{subsec-company-config-latex-templates}
 
 Same as the last subsection.
 
 \subsection{Text templates}
+\label{subsec-company-config-text-templates}
 
 Same as the previous subsection.
 
