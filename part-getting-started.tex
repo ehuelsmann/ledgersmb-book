@@ -3,19 +3,22 @@
 
 
 \part{Getting started}
-\label{part:GettingStarted}
+\label{part-getting-started}
 
 \chapter{Overview}
+\label{cha-starting-overviev}
 
 \section{Introduction}
+\label{sec-starting-introduction}
 
 This part of the book will run the reader through the LedgerSMB using an example
 startup company run by Jack: Example Inc, which starts its life as a computer parts
 store for the business to business market.
 
 Jack just completed incorporation of Example and is ready to start doing business.
-Before starting his operation Jack decides to look for tooling to run his operation
-efficiently.
+Before starting his operation Jack was looking for tooling to run his operation
+efficiently. To that extent he'll be running LedgerSMB using the domain he acquired
+for his business: \url{http://example.com/}.
 
 The other chapters in this part of the book show you what steps Jack has to go through
 to get LedgerSMB up and running for Example, as well as the steps he has to take to
@@ -28,12 +31,12 @@ Jack chooses to use a hosted LedgerSMB, so he doesn't need to concern himself wi
 technical details of getting the application up and running. Instead he can start by setting
 up the company database immediately.
 
-In \charef{cha:CompanyCreation} and \charef{cha:the-first-login} Jack goes through the
+In \charef{cha-company-creation} and \charef{cha-first-login} Jack goes through the
 steps of setting up a basic company. The chapters after that may not apply to every
-business. \charef{cha:building-up-stock}, \charef{cha:ramping-up-to-the-first-sale} and
-\charef{cha:shipping-sales} apply to businesses dealing with physical goods: buying,
-selling and shipping. \charef{cha:invoicing} discusses how to handle invoicing from LedgerSMB.
-\charef{cha:customer-payments}, \charef{cha:vendor-payments} and \charef{cha:monitoring-arrears}
+business. \charef{cha-building-up-stock}, \charef{cha-ramping-up-to-the-first-sale} and
+\charef{cha-shipping-sales} apply to businesses dealing with physical goods: buying,
+selling and shipping. \charef{cha-invoicing} discusses how to handle invoicing from LedgerSMB.
+\charef{cha-customer-payments}, \charef{cha-vendor-payments} and \charef{cha-monitoring-arrears}
 discuss how to manage accounts receivable and payable including arrears monitoring.
 
 Not all chapters may be relevant to the reader, e.g. when he or she is starting up or
@@ -43,33 +46,12 @@ phase.
 
 @@@ more chapters??
 
-\section{LedgerSMB, because...}
-
-@@@ This seems to be a full overlap with \charef{cha:Advocacy}.
-
-Jack finds several tools which suit his requirements to some extent or another.
-After evaluation of his options he decides to use LedgerSMB for the following reasons:
-
-\begin{itemize}
-\item Centralized data storage
-\item Actively developed
-\item Development team with security focus
-\item Access to the application requires only a web browser
-\item Integrated sales, shipping, invoicing, purchasing and accounting
-\item Open source solution, so no vendor lock in
-\item The roadmap appeals to him, because it has web services payrolling on it
-\item There are multiple vendors offering commercial support, including hosted options
-\item The developers envision building a platform out of it: creating the building blocks
-required to build a company on
-\end{itemize}
-
-He'll be running LedgerSMB using the domain he acquired for his business:
-\url{http://example.com/}.
 
 \chapter{Creating a company}
-\label{cha:CompanyCreation}
+\label{cha-company-creation}
 
 \section{Using setup.pl}
+\label{sec-create-using-setup}
 
 LedgerSMB comes with a tool called 'setup.pl'. It's the beginning of a web-based
 database administration interface to LedgerSMB. This tool can be used to create
@@ -81,6 +63,7 @@ for the next screen to appear after clicking on each button: Some buttons involv
 a large amount of processing on the server before the next screen can be presented.
 
 \subsection{Step 1: setup.pl login}
+\label{subsec-create-setup-login}
 
 Jack installed LedgerSMB using the default installation instructions, which means
 that the url for his setup.pl is \url{https://example.com/ledgersmb/setup.pl}.
@@ -112,6 +95,7 @@ in-depth.
 \end{figure}
 
 \subsection{Step 2: Company creation}
+\label{subsec-create-setup-create}
 
 When creating a company database, there are a few things that are of importance:
 
@@ -146,6 +130,7 @@ support personnel.  On Linux/Unix systems these are stored, by default, in
 /tmp/ledgersmb/ and named dblog, dblog\_stderr and dblog\_stdout.}.
 
 \subsection{Step 3: Selection of a Chart of Accounts}
+\label{subsec-create-setup-select-coa}
 
 LedgerSMB comes with numerous predefined charts of accounts. These have been grouped
 per country making the selection of a chart a two-step procedure. setup.pl allows for
@@ -186,7 +171,8 @@ the setup later if he has to, but for the time being offers a broadly useable se
 \end{figure}
 
 
-\subsection{Step 4: First user}
+\subsection{Step 4: Initial user}
+\label{subsec-create-setup-initial-user}
 
 In the last paragraph the technical part of the company creation procedure was completed.
 However, it's not possible to log in to the company yet. This paragraph describes how to
@@ -213,7 +199,7 @@ otherwise please read the chapter on user creation mentioned above.
 
 \begin{quotation}
 Note: The password you enter here is a temporary one which will remain in effect for 24
-hours only. Be sure to execute the steps in \secref{sec:steps-to-the-first-login} before
+hours only. Be sure to execute the steps in \secref{sec-first-login-ramp-up} before
 these 24 hours elapse, because the user will be disabled after that.
 \end{quotation}
 
@@ -238,14 +224,17 @@ Jack succeeded to correctly create his company database. His story continues in
 the next chapter ``The first login''.
 
 \section{Using prepare-company-database.sh}
+\label{sec-create-using-command-line}
+
 
 To be done.
 
 
 \chapter{The first login}
-\label{cha:the-first-login}
+\label{cha-first-login}
 
 \section{Introduction}
+\label{sec-first-login-introduction}
 
 After the company has been created by executing the procedure described in the last
 chapter it is still an empty shell which needs to be populated. The correct data
@@ -259,17 +248,18 @@ consequences of events in many workflows are directly reflected in the company's
 Some accounting related settings have to be completed before LedgerSMB can do so.
 
 This chapter documents the steps to this configuration. It assumes you've did not skip
-loading a chart of accounts in \charef{cha:CompanyCreation} or that - if you did -
+loading a chart of accounts in \charef{cha-company-creation} or that - if you did -
 imported your own. Whatever your method, a chart of accounts should be available.
 
 \section{Steps to the first login}
-\label{sec:steps-to-the-first-login}
+\label{sec-first-login-ramp-up}
 
 After Jack finishes the last chapter, he clicks the \texttt{Start using LedgerSMB} link
 shown in \figref{fig:setup-step6}.
 
 
 \subsection{Login screen}
+\label{subsec-first-login-screen}
 
 \begin{figure}[h]
 \centering
@@ -287,6 +277,7 @@ The login screen shows three fields which need to be filled out as follows:
 \end{description}
 
 \subsection{Selecting a password}
+\label{subsec-first-login-password}
 
 After successful login, the system shows the user preferences screen as depicted in
 \figref{fig:first-login-password} to facilitate the required password change. The
@@ -313,7 +304,7 @@ password resets through user admins.
 
 
 \section{Setting up a bank account or credit card}
-\label{sec:setup-bank-account}
+\label{sec-first-login-setup-bank-account}
 
 As part of the start up activities of his company, Jack comes to an agreement with the
 bank for three products:
@@ -365,7 +356,7 @@ settings as configured for the sample checking account will do.
 
 
 \section{Checking and adjusting the chart of accounts}
-\label{sec:checking-the-coa}
+\label{sec-first-login-coa-check}
 
 First and foremost the chart of accounts serves to register income, expenses,
 assets and liabilities in categories which support financial decision making or
@@ -377,6 +368,7 @@ If the configuration required for these transactions to be created isn't in plac
 users won't be able to complete their workflows. 
 
 \subsection{Accounts list}
+\label{subsec-first-login-accounts-list}
 
 Jack wants to make sure his chart of accounts fits his purposes. To perform these
 checks Jack goes into the System $\rightarrow$ Chart of Accounts $\rightarrow$
@@ -391,6 +383,7 @@ he does indeed need to create additional accounts to support sales and
 purchase discounts.}
 
 \subsection{Technical accounts identified by Links}
+\label{subsec-first-login-technical-accounts-links}
 
 For LedgerSMB to operate correctly, a number of accounts have to be configured for
 their specific purpose. He continues on the same screen as the previous section. His
@@ -446,7 +439,7 @@ Jack creates two accounts, one for each line marked in italics in Table \ref{tbl
 
 
 \subsection{Technical accounts from System Defaults}
-\label{subsec:technical-accounts-system-defaults}
+\label{subsec-first-login-technical-accounts-defaults}
 
 Two special purpose accounts are currently not assigned their special purpose through
 the Links column in the Chart of Accounts menu. Instead, their special purpose is indicated
@@ -472,7 +465,7 @@ applicable, e.g. different rates for different types of goods, he would have bee
 required to create more accounts.
 
 The procedure to create more sales tax accounts is the same as the one used in
-\secref{sec:setup-bank-account}, with the notable difference that this time the base account
+\secref{sec-first-login-setup-bank-account}, with the notable difference that this time the base account
 to be used is the sales tax account.
 
 With the accounts in place, the tax rates have to be checked and possibly adjusted.
@@ -489,8 +482,7 @@ long to describe and hence has its own chapter. Please refer to \charef{cha:Taxe
 details on how to change taxes.
 
 \section{Setting up the system defaults}
-\label{sec:setting-up-system-defaults}
-
+\label{sec-first-login-defaults}
 With the password renewal out of the way, Jack can start to set up the company for first
 use. To do so, Jack selects the System $\rightarrow$ Defaults menu item.
 
@@ -519,7 +511,7 @@ Jack enters the values mentioned between the square brackets in the list above.
 
 
 \chapter{Building up stock}
-\label{cha:building-up-stock}
+\label{cha-building-up-stock}
 
 \section{Overview}
 
@@ -652,7 +644,7 @@ as shown in \figref{fig:vendor-create-2}.
 When he's done filling out and saving the form,
 he notices the empty ``Discount'' drop down. Reading more about account configuration
 check marks in \secref{subsec:AR-AP-checkmarks} and going back to the checks on his
-chart of accounts (\secref{sec:checking-the-coa}), he finds he's missing the purchase and
+chart of accounts (\secref{sec-first-login-coa-check}), he finds he's missing the purchase and
 sales discount accounts. He adds two accounts as listed in \tabref{tbl:special-purpose-account-config-summary}:
 
 \begin{itemize}
@@ -775,15 +767,15 @@ based on the amounts entered as received.
 
 
 \chapter{Ramping up to the first sale}
-\label{cha:ramping-up-to-the-first-sale}
+\label{cha-ramping-up-to-the-first-sale}
 
 % sending out a quote followed by a sales order
 
 \chapter{Shipping sales}
-\label{cha:shipping-sales}
+\label{cha-shipping-sales}
 
 \chapter{Invoicing}
-\label{cha:invoicing}
+\label{cha-invoicing}
 
 \section{Handling sales taxes}
 
@@ -795,7 +787,7 @@ based on the amounts entered as received.
 
 
 \chapter{Collecting sales invoice payments}
-\label{cha:customer-payments}
+\label{cha-customer-payments}
 
 \section{Customer payments}
 
@@ -809,7 +801,7 @@ based on the amounts entered as received.
 
 
 \chapter{Paying vendor invoices}
-\label{cha:vendor-payments}
+\label{cha-vendor-payments}
 
 % handling vendors who match amounts to exact invoices
 
@@ -819,7 +811,7 @@ based on the amounts entered as received.
 %   relating to bounced checks
 
 \chapter{Monitoring arrears}
-\label{cha:monitoring-arrears}
+\label{cha-monitoring-arrears}
 
 % handling interest on arrears
 
