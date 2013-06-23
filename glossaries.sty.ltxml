@@ -1,0 +1,35 @@
+package LaTeXML::Package::Pool;
+
+use LaTeXML::Package;
+use strict;
+
+DefMacro('\makeglossaries','');
+DefMacro('\printglossaries','');
+DefMacro('\printglossary[]','');
+DefMacro('\newglossaryentry{}{}','');
+DefMacro('\gls{}','\@ACRO@{#1}{\@ACRO@s{#1}}{\@ACRO@l{#1}}');
+DefMacro('\glspl{}','');
+
+DefPrimitive('\newacronym{}{}{}',
+   sub {
+     my ($stomach, $id, $short, $long) = @_;
+
+     $id = ToString($id);
+     AssignValue( 'ACRO@s@' . $id, Digest($short), 'global');
+     AssignValue( 'ACRO@l@' . $id, Digest($long), 'global');
+});
+
+DefConstructor('\@ACRO@s{}',"&LookupValue('ACRO\@s\@#1')");
+DefConstructor('\@ACRO@l{}',"&LookupValue('ACRO\@l\@#1')");
+
+DefConstructor('\@ACRO@{}{}{}',
+        '<ltx:acronym name="#1" title="#title">#2</ltx:acronym>',
+        properties => {
+         title => sub { LookupValue('ACRO@l@' . ToString($_[1])); }
+        }
+);
+
+
+1;
+
+
