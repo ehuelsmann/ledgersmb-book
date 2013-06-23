@@ -5,6 +5,9 @@ img_path=$base_path/images
 dest_path=/www/vhosts/book.ledgersmb.org/public_html/1.3
 tmp_path=/www/vhosts/book.ledgersmb.org/tmp
 
+
+export PATH=/usr/local/bin:$PATH
+
 cd $base_path
 
 latexml --inputencoding=utf-8 \
