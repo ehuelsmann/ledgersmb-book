@@ -89,7 +89,7 @@ in-depth.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=7cm]{dmc-create-step1.png}
+\includegraphics[width=0.8\textwidth]{dmc-create-step1.png}
 \caption{setup.pl login screen}
 \label{fig:setup-step1}
 \end{figure}
@@ -178,7 +178,7 @@ In the last paragraph the technical part of the company creation procedure was c
 However, it's not possible to log in to the company yet. This paragraph describes how to
 create a first user.
 \figref{fig:setup-step5} shows the user creation screen. The fields in this screen have
-the same meaning as those discussed as part of user management in \secref{sec:user-creation}.
+the same meaning as those discussed as part of user management in \secref{sec-user-creation}.
 
 \begin{figure}[h]
 \centering
@@ -296,7 +296,7 @@ Not clicking the \texttt{Save} button means the password remains unchanged and t
 \end{figure}
 
 The new password has a validity of determined by the \texttt{Password Duration} setting
-from the System $\rightarrow$ Defaults screen. User management is discussed is detail in \charef{cha:user-management}.
+from the System $\rightarrow$ Defaults screen. User management is discussed is detail in \charef{cha-user-management}.
 
 The password reset dialog won't show on subsequent logins until one week
 before expiry. Login will be denied to users with expired passwords; they can request
@@ -345,7 +345,7 @@ shown in \figref{fig:bank-setup1}.
 Then Jack repeats the steps \ref{itm:bank-setup-steps-start} to \ref{itm:bank-setup-steps-end}
 for the credit card with the account number 1062 and description ``Credit card xxxx.xxxx.7734'' to set
 up the credit card. \figref{fig:bank-setup2} shows the screen in which to enter the account
-details. \secref{sec:AccountOptions} discusses the options in detail - for now using the
+details. \secref{sec-account-options} discusses the options in detail - for now using the
 settings as configured for the sample checking account will do.
 
 \begin{figure}[h]
@@ -478,7 +478,7 @@ To do so, go to the System $\rightarrow$ Taxes page as shown in \figref{fig:setu
 \end{figure}
 
 The rate shown (5\%) is exactly what Jack needs. The procedure to set rates is a bit
-long to describe and hence has its own chapter. Please refer to \charef{cha:Taxes} for
+long to describe and hence has its own chapter. Please refer to \charef{cha-taxes} for
 details on how to change taxes.
 
 \section{Setting up the system defaults}
@@ -568,7 +568,7 @@ Jack chooses a 5TB hard drive by Samsung to be entered into the system as the fi
 To do so, he goes to the {\tt Goods and Services $\rightarrow$ Add part} page from the menu
 as shown in @@@ (figure to be inserted).
 
-Based on his reading from \secref{sec:DefinitionOfParts}, Jack decides to enter the hard
+Based on his reading from \secref{sec-definition-parts}, Jack decides to enter the hard
 drive with the following data:
 
 \begin{tabular}{ll}
@@ -592,7 +592,7 @@ the memory modules he's going to sell. The problem is that they usually go in pa
 since that's what the systems consuming them need. However, he expects them to be sold
 as single items as well and he wants to be able to set a separate price for those occasions.
 
-From his reading of \secref{subsec:parts-vs-assemblies-for-package-sales}, it should be
+From his reading of \secref{subsec-parts-versus-assemblies}, it should be
 possible to support this scenario with a small work around\footnote{It's planned to directly
 support this use-case in some version higher than 1.3}. From the two solutions available,
 he chooses option (b): to create a part and an assembly and regularly restock the assembly
@@ -602,7 +602,7 @@ to 0 (zero) in order to remove the stock from the single item.
 \label{sec-stock-part-groups}
 
 As Jack continues to enter more parts into the system, he wonders how he's going to
-look up the parts efficiently later on. Returning his reading to \secref{sec:DefinitionOfParts},
+look up the parts efficiently later on. Returning his reading to \secref{sec-definition-parts},
 he understands that 'part groups' are the solution to that problem. He decides to create
 the following list of part groups:
 
@@ -648,7 +648,7 @@ as shown in \figref{fig:vendor-create-2}.
 
 When he's done filling out and saving the form,
 he notices the empty ``Discount'' drop down. Reading more about account configuration
-check marks in \secref{subsec:AR-AP-checkmarks} and going back to the checks on his
+check marks in \secref{subsec-AR-AP-checkmarks} and going back to the checks on his
 chart of accounts (\secref{sec-first-login-coa-check}), he finds he's missing the purchase and
 sales discount accounts. He adds two accounts as listed in \tabref{tbl:special-purpose-account-config-summary}:
 
