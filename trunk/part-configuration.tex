@@ -268,12 +268,12 @@ triggers so this setting does nothing.  --CT
 \label{subsec-company-config-taxes}
 
 
-This page lists all accounts which have the ``Tax'' account option enabled as discussed in \secref{sec:AccountOptions}.
+This page lists all accounts which have the ``Tax'' account option enabled as discussed in \secref{sec-account-options}.
 
 Each account is listed at least once, but can be listed many times, if it has had different
 settings applied over different time periods. E.g. if one of the current VAT rates is 19\%,
 today but it used to be 17.5\% until last month, there will be 2 rows for the applicable
-VAT account. See \charef{cha:Taxes} for further discussion of how taxes work in
+VAT account. See \charef{cha-taxes} for further discussion of how taxes work in
 LedgerSMB and the choices involved when being required to handle changes in tax rates.
 
 Each row lists the following fields:
@@ -287,7 +287,7 @@ exist and one has an ordering of 0 and one of 1, then the second tax will be
 calculated on a basis that includes the first.  One place where this used to be
 used was in Quebec, where GST was taxable under PST.
 \item [Tax rules] LedgerSMB features a flexible structure to facilitate complex tax
-calculations (see \secref{sec:TaxRulePlugins}). By default the ``Simple'' module
+calculations (see \secref{sec-tax-rule-plugins}). By default the ``Simple'' module
 is the only one installed.
 \end{description}
 
