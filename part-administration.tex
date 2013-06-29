@@ -20,6 +20,7 @@
 \label{cha-administration-overview}
 
 \section{Introduction}
+\label{sec-administration-introduction}
 
 This part of the book describes the tasks and processes that may need to be carried out
 on a regular basis in order to keep the application in good health and in line with
@@ -49,6 +50,7 @@ for the first type of task is the subject of the next chapter.
 \label{cha-user-management}
 
 \section{Introduction}
+\label{sec-user-management-introduction}
 
 This chapter deals with management of application level user accounts. This is the first
 of the three types of system access required to do LedgerSMB administration described in
@@ -94,7 +96,7 @@ The ``Country'' field speaks for itself and is required as well.
 
 
 \section{User authorization}
-
+\label{sec-user-management-authorization}
 
 After filling out all the fields as described in the previous section and
 clicking ``Save user'', you'll be presented
@@ -124,8 +126,10 @@ reader is referred to \appref{cha:RolesListing}.
 
 
 \section{Maintaining users}
+\label{sec-user-management-maintenance}
 
 \subsection{Editing user information and authorizations}
+\label{subsec-user-maintenance-editing-authorizations}
 
 When the role of a user in the company changes, it may be necessary to assign
 that user new roles and possibly revoke some other roles. This can be done through
@@ -141,6 +145,7 @@ the password, give the new password to the user, they then log in and
 immediately change it.
 
 \subsection{Changing user preferences}
+\label{subsec-user-management-user-prefs}
 
 Each user can change his preferences and password through the \texttt{Preferences}
 top level menu. See \figref{fig:user-preferences}.
@@ -154,6 +159,7 @@ top level menu. See \figref{fig:user-preferences}.
 
 
 \subsection{Deleting users}
+\label{subsec-user-management-deletion}
 
 From the ``User search'' result screen, users can be ``deleted'' from the company:
 they have their access to the current company revoked.
@@ -181,6 +187,7 @@ copied to the current company.
 
 
 \section{setup.pl users}
+\label{sec-users-management-initial}
 
 As mentioned in the introduction, users created through the process documented above
 don't have rights to execute work with the setup.pl database administration tool.
@@ -197,10 +204,12 @@ be used to manage the database from the database administration tool setup.pl.
 
 
 \section{Definition of goods}
+\label{sec-products-definition-goods}
+
 Structure of products in the system.
 
 \subsection{Definition of parts}
-\label{sec-definition-parts}
+\label{subsec-definition-parts}
 
 The part entry screen consists of four parts:
 
@@ -217,7 +226,7 @@ contains both required and optional fields. The information in the remaining
 three sections is entirely optional.
 
 \subsubsection{Part information}
-\label{subsec-parts-information}
+\label{subsubsec-parts-information}
 
 Every part requires the following fields to be entered:
 
@@ -263,7 +272,7 @@ updated when posting a vendor invoice (increased) or sales invoice (decreased).
 
 
 \subsubsection{Taxation of parts}
-\label{subsec-parts-taxation}
+\label{subsubsec-parts-taxation}
 
 Right below the accounts selection section, there is the Tax section, which lists
 all tax accounts with a check mark. Each account corresponds with a certain tax type
@@ -277,6 +286,7 @@ as described in section
 
 
 \subsubsection{Vendor information}
+\label{subsubsec-parts-vendor-information}
 
 This section of the screen lists one or more vendors from which the part can be
 purchased, with purchasing information for the given vendor:
@@ -290,6 +300,7 @@ purchased, with purchasing information for the given vendor:
 \end{itemize}
 
 \subsubsection{Customer information}
+\label{subsubsec-parts-customer-information}
 
 The customer information section specifies sell prices per customer or price group
 where those are required to deviate from the default sell price. This mechanism exists
@@ -302,11 +313,13 @@ to support the marketing principle of categorizing customers.
 \end{itemize}
 
 \subsubsection{File attachments}
+\label{subsubsec-parts-file-attachments}
 
 The process of attaching files to parts is very similar to that of
 attaching files to quotations, which is covered in \secref{sec:FileAttachments}.
 
 \subsection{Definition of part groups}
+\label{subsec-parts-groups}
 
 All goods and services can be categorized in 'part groups'. Upon lookup, these can
 help to limit the number of matches when searching for a partial part number.
@@ -318,11 +331,11 @@ There's no requirement that a good be assigned to any specific part group if par
 groups have been configured, however, a good can be assigned to more than one part group.
 
 \subsection{Definition of assemblies}
-
+\label{subsec-assemblies-definition}
 
 
 \subsection{Definition of overhead or labour}
-
+\label{subsec-overhead-definition}
 
 \subsection{The use of parts versus assemblies for multi-item-package sales}
 \label{subsec-parts-versus-assemblies}
@@ -367,7 +380,7 @@ allowing for a semi-automated way to convert stock from one type of inventory to
 
 
 \section{Definition of services}
-
+\label{sec-services-definition}
 
 \subsection{Taxation of services}
 \label{subsec-service-taxation}
@@ -378,6 +391,7 @@ allowing for a semi-automated way to convert stock from one type of inventory to
 \label{cha-chart-of-accounts}
 
 \section{Accounts and headers}
+\label{sec-coa-accounts-and-headers}
 
 The system allows ordering accounts into groups by assigning accounts to headers. Headers
 can themselves be assigned to other headers resulting in trees of account groups.\footnote{Although the database structure supports this type of account hierarchy
@@ -387,13 +401,14 @@ but headers can't be assigned to headers themselves.}
 
 
 \section{Account configuration}
+\label{sec-coa-account-configuration}
 
 Headers don't have any configuration, other than their number and description. Accounts also
 have a number and description, but require additional configuration for the application to work
 correctly. The settings are described in the sections that follow.
 
 \subsection{Account options}
-\label{sec-account-options}
+\label{sec-coa-account-options}
 \begin{itemize}
 \item Contra This checkmark identifies the account as a contra account, which means
    that the account is going to hold the opposite of an account it's associated with.
@@ -409,7 +424,7 @@ correctly. The settings are described in the sections that follow.
 \end{itemize}
 
 \subsection{Summary accounts}
-\label{subsec-summary-accounts}
+\label{subsec-coa-summary-accounts}
 
 There are currently three types of summary accounts:
 
@@ -422,11 +437,11 @@ There are currently three types of summary accounts:
 \end{enumerate}
 
 \subsection{Account inclusion in drop down lists}
-\label{subsec-account-links}
+\label{subsec-coa-account-links}
 @@@ Add summary
 
 \subsubsection{Receivables \& payables UI}
-\label{subsec-AR-AP-checkmarks}
+\label{subsubsec-coa-AR-AP-checkmarks}
 
 \begin{itemize}
 \item[Income (AR\_amount)] This check mark adds the account to the list of accounts
@@ -447,6 +462,7 @@ that the technical names of the configuration identifiers are prefixed by AP\_ i
 of AR\_.
 
 \subsubsection{Tracking Items}
+\label{subsubsec-coa-tracking-items}
 
 The items on this line relate to stocked items, i.e. those tracked for inventory: parts and
 assemblies.
@@ -466,6 +482,7 @@ assemblies.
   % Chris T
 
 \subsubsection{Non-tracking items}
+\label{subsubsec-coa-non-tracking-items}
 
 The items on this line relate to untracked (non stocked) items, i.e. services.
 
@@ -479,6 +496,7 @@ The items on this line relate to untracked (non stocked) items, i.e. services.
 \end{enumerate}
 
 \subsubsection{Fixed assets}
+\label{subsubsec-coa-fixed-assets}
 
 \begin{enumerate}
 \item[Fixed asset (Fixed\_Asset)] Marks the account as holding the original asset value for the fixed
@@ -493,6 +511,7 @@ The items on this line relate to untracked (non stocked) items, i.e. services.
 
 
 \section{Alternative accounts (GIFI)}
+\label{sec-coa-gifi}
 
 Next to the regular account numbering scheme, LedgerSMB supports a second numbering scheme: GIFI numbering. The GIFI accounts are a kind of secondary numbering scheme to support legal requirements.
 
@@ -506,6 +525,7 @@ the total reported under GIFI is the sum of the mapped accounts.
 
 
 \subsection{Maintaining GIFI}
+\label{subsec-coa-gifi-maintenance}
 
 GIFI accounts should be created before being assigned to a standard G/L account. GIFI accounts
 can be maintained through the System $\rightarrow$ Chart of accounts $\rightarrow$ Add GIFI and List GIFI menu items. Existing accounts can be edited by selecting them from the List GIFI menu, which opens a page where individual GIFI items can have their number or
@@ -516,6 +536,7 @@ description adjusted.
 \label{cha-taxes}
 
 \section{Overview}
+\label{sec-tax-overview}
 
 When an account has been marked as a Tax account (see \secref{sec-account-options}, item
 \ref{item:AccountOptionsTax}) several things happen:
@@ -534,6 +555,7 @@ creating a sales invoice for the given customer which includes parts which also
 have the specific account marked as relevant.
 
 \section{Tax account configuration}
+\label{sec-tax-account-configuration}
 
 \begin{figure}[h]
 \centering
@@ -582,6 +604,7 @@ and part settings and service settings described in \secref{subsec-parts-taxatio
 \end{quotation}
 
 \section{Tax calculation examples}
+\label{sec-tax-calculation-examples}
 
 % ### TODO
 
@@ -598,6 +621,7 @@ LedgerSMB side-by-side with the simple rule.
 
 
 \section{Tax forms}
+\label{sec-tax-taxforms}
 
 The tax forms facility exists to help file sales tax forms. It's primarily modelled
 after the 1099 US tax reporting forms functionality, which means that it's cash based.
@@ -613,6 +637,8 @@ Before using this functionality be sure to check with an accountant or the tax
 authorities if cash based reporting is appropriate.
 
 \subsection{Overview}
+\label{subsec-tax-taxforms-overview}
+
 Tax forms are meant to support tax reporting requirements in the countries
 where the company has tax reporting obligations. This means that tax forms
 are country specific: each country for which reporting obligations exist
@@ -634,6 +660,7 @@ but not both.
 \end{quotation}
 
 \subsection{Creating tax forms}
+\label{subsec-tax-taxforms-creation}
 
 Tax forms can be created (or edited) using the menu options available under the
 ``Taxforms'' main menu item.
@@ -649,8 +676,10 @@ Tax forms have three fields.
 
 
 \chapter{Pricing}
+\label{cha-pricing}
 
 \section{Introduction}
+\label{sec-pricing-introduction}
 
 In the application there are four reasons for an invoice to include a discount:
 
@@ -669,6 +698,7 @@ This section deals with items \ref{item:PricingBusinessType} and \ref{item:Prici
 @@@ types of business are 'old school'; price groups have been introduced to replace types of business with a more fine-grained structure.
 
 \section{Definition of types of business}
+\label{sec-pricing-business-types}
 
 Types of business are really straight forward: they feature a description
 which allows them to be identified in the customer account screen and a discount
@@ -676,18 +706,23 @@ percentage which is applied across the board. I.e. all invoices to the customer
 will have that discount applied.
 
 \section{Definition of price groups / price matrix}
+\label{sec-pricing-price-groups}
 
 \chapter{Contingency planning}
+\label{cha-contingency}
 
 \section{Backup and restore}
+\label{sec-contingency-backup-restore}
 
 \subsection{Backup using setup.pl}
-
+\label{subsec-contingency-backup-setup-pl}
 
 
 \subsection{Backup using PostgreSQL administration tools}
+\label{subsec-contingency-backup-psql}
 
 \subsection{Restore}
+\label{subsec-contingency-restore}
 
 \begin{quotation}
 Note that if the database being restored is a backup from a different (earlier) PostgreSQL version,
@@ -698,10 +733,14 @@ additional steps described in \appref{sec:MigrationBetweenPostgreSQLVersions} wi
 
 
 \section{Advanced PostgreSQL: replication}
+\label{sec-contingency-replication}
+
 
 \chapter{Software updates}
+\label{cha-software-updates}
 
 \section{Introduction}
+\label{sec-updates-introduction}
 
 This chapter describes patch release updates. Upgrades from older versions (e.g. 1.1 or 1.2)
 are covered in \appref{cha:Migration}. The same is true for upgrades from SQL Ledger 2.6 or 2.8.
@@ -710,6 +749,7 @@ The remainder of the chapter discusses the steps to be executed. Please note tha
 below mean a window where the application can't be used during the entire execution of the procedure.
 
 \section{Backups}
+\label{sec-updates-backups}
 
 \begin{itemize}
 \item Backup database roles (authorizations)
@@ -720,14 +760,17 @@ below mean a window where the application can't be used during the entire execut
 
 
 \section{Software upgrade}
+\label{sec-updates-software-upgrades}
 
 @@@ Untar / use package manager
 
 \section{Database upgrade}
+\label{sec-updates-database-upgrades}
 
 @@@ go to setup.pl and ``Rebuild''
 
 \chapter{Optional Features}
+\label{cha-options}
 
 As business requirements change sometimes it may be necessary to add or remove
 some of the optional features of LedgerSMB.  This chapter describes how these
@@ -735,6 +778,7 @@ optional features work, how to troubleshoot them of things go wrong, and how to
 enable or disable them.
 
 \section{PDF and Postscript Documents}
+\label{sec-options-pdf}
 
 LedgerSMB can create PDF and Postscript documents for orders, invoices, and
 more.  This is an optional feature and requires some additional software not
@@ -774,9 +818,12 @@ From the doc/manual directory in the LedgerSMB application directory:
 \# pdflatex LedgerSMB-manual
 
 \section{Attaching Uploaded Files to PDF Invoices}
+\label{sec-options-uploaded-files-invoices}
 
 \section{OpenDocument Spreadsheet Output}
+\label{sec-options-ODS-spreadsheet-output}
+
 
 \section{Microsoft Excel Output}
-
+\label{sec-options-XLS-spreadsheet-output}
 
