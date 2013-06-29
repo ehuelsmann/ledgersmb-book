@@ -35,7 +35,7 @@ Basically, you will create multiple accounts when you have to record different d
 for any of the items listed above.
 
 The company itself is used - albeit not as customer or vendor - in the context of
-credit risk management (See \charef{cha:credit-risk-management}).
+credit risk management (See \charef{cha-credit-risk-management}).
 
 \section{Creating customers and vendors}
 \label{sec-workflows-creating-customers-and-vendors}
@@ -85,7 +85,7 @@ are not shown in case their selection lists are empty}:
 \item [Starting Date] Date from which the account is valid
 \item [End date] Date until which the account is valid, or empty if there's no known end date
 \item [Credit limit] Maximum amount of open invoices and orders allowed for the account, see
-    \charef{cha:credit-risk-management}
+    \charef{cha-credit-risk-management}
 \item [Terms] Number of days within which invoices have to be paid
 \item [Discount (conditions)] Percentage discount the account is entitled to when payment
          is within the given number of days
@@ -111,12 +111,12 @@ are not shown in case their selection lists are empty}:
 % \section{}
 
 \section{Maintaining contact information}
-
-
+\label{sec-workflows-customers-contact-information}
 \chapter{Quotations from Vendors and for Customers}
+\label{cha-workflows-quotations}
 
 \section{Creating Quotations and RFQs}
-\label{sec:creating-quotations}
+\label{sec-workflows-quotations-creation}
 
 % ### Proze with explanation missing
 
@@ -171,43 +171,53 @@ Note that the quotation entry screen offers a number of extra buttons after the 
 been saved.
 
 \section{Expediting quotations}
+\label{sec-workflows-quotations-sending}
 
 \subsection{Printing}
+\label{subsec-workflow-quotiontions-sending-print}
 
 \subsection{Sending by e-mail}
-\label{subsec:sending-quotation-by-email}
+\label{subsec-workflow-quotations-sending-email}
 
 \section{Attaching files to quotations}
-\label{sec:FileAttachments}
+\label{sec-workflows-quotations-file-attachments}
 
 
 \chapter{Sales and vendor orders}
-\label{cha:OrderManagement}
+\label{cha-workflows-orders}
 
 In this chapter the options for creating orders will be discussed.
 After successful order creation, there are two possible next steps.
 The first applies to cases where actual goods have to be handled
 and goes through shipping and receiving as discussed in
-\charef{cha:InventoryManagement}. The other skips handling of goods
-and directly proceeds to invoicing in \charef{cha-invoicing}.
+\charef{cha-workflows-inventory}. The other skips handling of goods
+and directly proceeds to invoicing in \charef{cha-workflows-invoicing}.
 
 \section{Creating new orders}
+\label{sec-workflows-orders-creation}
 
 \section{Creating orders from quotations}
-\label{sec:QuotationsFromOrders}
+\label{sec-workflows-orders-creation-from-quotations}
 
 \section{Creating orders from projects}
+\label{sec-workflows-orders-creation-from-projects}
+
+@@@ What about from time sheets??
 
 \section{Creating purchase orders from sales orders}
+\label{sec-workflows-orders-purchase-from-sales}
 
 \section{Combining orders}
+\label{sec-workflows-orders-combining}
+
 
 \section{Recurring orders}
-\label{sec:RecurringOrders}
+\label{sec-workflows-orders-recurring}
 
 % @@@ ### Not getting these to work in the test system. Need to check with Chris.
 
 \section{Incomplete orders}
+\label{sec-workflows-orders-incomplete}
 
 Orders fully shipped and invoiced are automatically closed. However, this isn't always an option.
 
@@ -219,16 +229,23 @@ changes in the application database.
 
 
 \chapter{Inventory management}
-\label{cha:InventoryManagement}
+\label{cha-workflows-inventory}
 
 \section{Shipping}
+\label{sec-workflows-inventory-shipping}
 
 \subsection{Pick lists}
+\label{subsec-workflows-inventory-shipping-picklist}
+
+@@ \textbf{Order picking} is the work(flow), not the picklist!
 
 \subsection{Packing list}
+\label{subsec-workflows-inventory-shipping-packlist}
+
+@@ \textbf{Order packing} is the work(flow), not the packlist!
 
 \section{Receiving}
-\label{sec:Receiving}
+\label{sec-workflows-inventory-receiving}
 
 % ### TODO the role of shipping points in receipts??
 
@@ -284,6 +301,7 @@ print a ``Bin List''. This list contains the bin (storage) locations configured 
 
 
 \section{Partial shipments or receipts}
+\label{sec-workflows-inventory-shipping-partial}
 
 Both shipping and receiving support partial shipments and per-lot invoicing. If the vendor
 ships multiple lots to a single order (and charges a single invoice), you can simply call
@@ -291,15 +309,19 @@ up the order and enter items into inventory on the same order. The outstanding i
 are automatically decremented by the amounts entered before.
 
 To create an invoice for a received lot simply follow the process as detailed in
-\secref{sec:InvoicesFromOrders}. If the lot is a partial shipment, the invoice will be
+\secref{sec-workflows-invoicing-from-orders}. If the lot is a partial shipment, the invoice will be
 for the current receipt by default.
 
 \section{Handling returns}
+\label{sec-workflows-inventory-shipping-returns}
 
 
 \section{Transferring between warehouses}
+\label{sec-workflows-inventory-warehouse-transfers}
 
 \section{Inventory reporting}
+\label{sec-workflows-inventory-reporting}
+
 
 \subsection{Inventory status report}
 
@@ -308,20 +330,20 @@ for the current receipt by default.
 
 
 
-\chapter{Sales and vendor invoices}
-\label{cha-invoicing}
+\chapter{Sales and vendor invoice handling}
+\label{cha-workflows-invoicing}
 
 Invoices can come from multiple sources. When the quotation and order
 management functionalities in LedgerSMB aren't used, they will usually
 be entered manually. This work flow is covered in Section
-\ref{sec:ManuallyCreatingInvoices}.
+\ref{sec-workflows-invoicing-manual-entry}.
 When order management \emph{is} being used they mostly originate from orders
-which is covered in Section \ref{sec:InvoicesFromOrders}.
+which is covered in Section \ref{sec-workflows-invoicing-from-orders}.
 
 
 
 \section{Creating invoices from orders}
-\label{sec:InvoicesFromOrders}
+\label{sec-workflows-invoicing-from-orders}
 
 % This section first because the previous chapter is about orders,
 % which seems like a natural flow for the book
@@ -330,7 +352,7 @@ which is covered in Section \ref{sec:InvoicesFromOrders}.
 
 
 \section{Creating new invoices}
-\label{sec:ManuallyCreatingInvoices}
+\label{sec-workflows-invoicing-manual-entry}
 
 
 %% this section is about Sales and Vendor Invoices
@@ -364,7 +386,10 @@ to automate calculation of sales taxes. Third, invoices update inventory
 for items held in stock (parts, assemblies). Transactions offer none of this.
 
 \subsection{Invoices}
-\label{subsec:creating-invoices}
+\label{subsec-workflows-invoicing-manual-entry-invoices}
+
+% @@@ Section misnomer: ``Invoices'' isn't a workflow or workflow step
+
 As mentioned in the previous paragraph, invoices can perform automatic
 sales tax calculations, maintain inventory and post income (or expense)
 to the correct GL accounts.
@@ -378,6 +403,9 @@ and services.
 
 
 \subsection{Transactions}
+\label{subsec-workflows-invoicing-manual-entry-transactions}
+
+% @@@ Sections misnomer: ``Transactinos'' isn't a workflow or workflow step
 
 Transactions serve an important purpose not handled by invoices: payroll
 calculations are often too difficult to fit in the simple ``amount times price''
@@ -393,10 +421,11 @@ traceable history records.
 % @@@ Transaction creation screen shot(s)
 
 \section{Recurring invoices}
-
+\label{sec-workflows-invoicing-recurring}
 
 
 \section{Invalidating invoices}
+\label{sec-workflows-invoicing-invalidation}
 
 Sometimes, it's necessary to invalidate an invoice. When an invoice has been
 posted, this also means derived administrations have been updated, such as
@@ -411,11 +440,11 @@ invoice has a suffix \texttt{-VOID}.
 Unfortunately, in LedgerSMB 1.3 - the earlier versions - voiding an invoice did not
 automatically close the original and voiding invoices.  To close both invoices from
 the open invoice overview, use the cash receipt process as described in
-\secref{sec:SinglePayments} to make a zero amount payment.
+\secref{sec-workflows-payment-processing-single-payments} to make a zero amount payment.
 \end{quotation}
 
 \section{Correcting and deleting invoices}
-\label{sec:CorrectingInvoices}
+\label{sec-workflows-invoicing-correction-or-deletion}
 
 There's only one way to persist an invoice in LedgerSMB: posting it. This means
 the invoice becomes part of the accounting information. One of the primary
@@ -451,6 +480,7 @@ See the Remarks section at the end of this chapter for details on how to handle
 the draft invoice requirement.
 
 \section{Handling invoice disputes}
+\label{sec-workflows-invoicing-handling-disputes}
 
 %When an invoice has been sent to a customer it could happen that the customer disagrees
 %with the invoice due to incorrect amounts, discounts, products, etc.
@@ -500,42 +530,52 @@ the draft invoice requirement.
 You can't edit invoices any more in LedgerSMB 1.3 because it breaks the audit trail
 in financial accounting. But in fact there's functionality available which is meant
 exactly for this purpose. It's called ``Sales order'' and its details are in
-\charef{cha:OrderManagement}. Sales orders can be converted - upon customer approval -
+\charef{cha-workflows-orders}. Sales orders can be converted - upon customer approval -
 into an invoice with a click of a button.
 \end{description}
 
 
 \chapter{Shop sales}
+\label{cha-workflows-shop-sales}
 
 \section{Opening and closing the cash register}
+\label{sec-workflows-shop-register-opening-closing}
 
 \section{Shop sales invoices}
-
+\label{sec-workflows-shop-invoicing}
 
 \chapter{Manufacturing management}
+\label{cha-workflows-manufacturing}
 
 \section{Producing sales orders}
+\label{sec-workflows-manufacturing-producing-orders}
 
 \subsection{Work orders}
+\label{sec-workflows-manufacturing-work-orders}
 
+@@ section misnomer ``Work orders'' is not a workflow or workflow step
 
-
-\chapter{Accounts receivable and payable}
+\chapter{Managing accounts receivable and payable}
+\label{cha-workflows-managing-ar/ap}
 
 \section{Creating generic AR/AP items}
+\label{sec-workflows-managing-ar/ap-item-creation}
 
 \section{Handling refunds, overpayments and advances}
+\label{sec-workflows-managing-ar/ap-overpayments}
 
 - this bit is about credit notes and debit notes
 
 \section{Handling returns}
+\label{sec-workflows-managing-ar/ap-returns}
 
 --> this bit is about credit (sales) and debit (vendor) invoices
 
 \chapter{Credit risk management}
-\label{cha:credit-risk-management}
+\label{cha-credit-risk-management}
 
 \section{Introduction}
+\label{sec-credit-risk-management-introduction}
 
 A company runs credit risk when it gives credit: it runs the risk of the
 creditor not paying off its debts.  LedgerSMB features two ways to manage
@@ -551,6 +591,7 @@ receives more credit than a certain limit while the latter tries to
 make sure any over due payments get cashed.
 
 \section{Limit management}
+\label{sec-workflows-credit-risk-limit-management}
 
 Limit management should prevent a company on one hand from delivering too much
 to its customers at once and on the other from taking (and delivering) new orders
@@ -565,8 +606,10 @@ to customers with too high amount of unpaid invoices.
 
 
 \section{Granting payment terms}
+\label{sec-workflows-credit-risk-payment-terms}
 
 \section{Managing arrears}
+\label{sec-workflows-credit-risk-managing-arrears}
 
 As mentioned before, the process of managing arrears is directed toward
 detecting arrears positions with customers early and taking appropriate
@@ -574,7 +617,7 @@ action.
 
 
 \subsection{Monitoring AR aging}
-\label{subsec-credit-risk-monitoring-arrears}
+\label{subsec-workflows-credit-risk-monitoring-arrears}
 
 In order to find out about over due invoices, a company should run the AR
 aging report available under AR $\rightarrow$ Reports $\rightarrow$ AR Aging.
@@ -596,6 +639,7 @@ This report shows customers and their outstanding invoices categorised as:
 
 
 \subsection{Tracking invoice history}
+\label{subsec-workflows-credit-risk-arrears-reminding}
 
 After an invoice becomes over due a process will be started to remind
 the customer of the outstanding amount requiring payment.
@@ -615,6 +659,7 @@ unedited in order to be able to generate an exact copy at a later date.
 
 
 \subsection{Special treatment of invoices}
+\label{subsec-workflows-credit-risk-arrears-special-treatment}
 
 There may be good reasons to treat some over due invoices differently. E.g. in case
 payment arrangements have been made with the customer and further standard arrears
@@ -626,21 +671,26 @@ invoices (those not on hold) or only invoices on hold.
 
 
 \section{Interest on arrears}
+\label{sec-workflows-credit-risk-interest-on-arrears}
 
 \section{Allowance for doubtful accounts}
-
+\label{sec-workflows-credit-risk-allowance-doubtful-accounts}
 
 
 \section{Writing off bad debt}
+\label{sec-workflows-credit-risk-bad-debt-write-off}
 
 \subsection{Direct write-off}
+\label{sec-workflows-credit-risk-bad-debt-direct-write-off}
 
 \subsection{Allowed-for write-off}
-
+\label{sec-workflows-credit-risk-bad-debt-allowed-write-off}
 
 \chapter{Receipts and payment processing}
+\label{cha-workflows-payment-processing}
 
 \section{Introduction}
+\label{sec-workflows-payment-processing-introduction}
 
 Receipt (incoming payments for sales invoices) and payments (outgoing payments
 for purchase invoices) use the same process. This chapter describes the steps
@@ -648,7 +698,7 @@ using receipts only for brevity but be equally applied to payments - except
 when explicitly stated.
 
 \section{Single receipts or payments}
-\label{sec:SinglePayments}
+\label{sec-workflows-payment-processing-single-payments}
 
 LedgerSMB provides two ways to process receipts (and payments). One for single transactions,
 the other for batches. The next section discusses the steps to do batch processing.
@@ -661,7 +711,7 @@ customers.
 \begin{quotation}
 \textbf{Remark} The customers listed may not have open invoices. The list only serves to select
 the customer the user is looking for. To find customers with outstanding balances, please refer to
-\secref{subsec-credit-risk-monitoring-arrears}.
+\secref{subsec-workflows-credit-risk-monitoring-arrears}.
 \end{quotation}
 
 After selecting a customer, the cash entry screen as depicted in <figure reference> is shown. This
@@ -690,21 +740,23 @@ pay off invoices at a later date.
 % documents. Reconciliation aggregates 
 
 \section{Batch receipts and payments}
-
+\label{sec-workflows-payment-processing-batch-payments}
 
 \section{Check payments}
+\label{sec-workflows-payment-processing-check-payments}
 
 % Cash -> Vouchers -> Payments, create batch, print checks from the AP transactions.
 
 \section{Using overpayments}
-\label{sec:UsingOverpayments}
+\label{sec-workflows-payment-processing-overpayments}
 
 \section{Receipt and payment reversal}
-
+\label{sec-workflows-payment-processing-reversal}
 % Cash/Vouchers/Reverse Payment
 % Batches/Approval
 
 \section{Overpayment reversal}
+\label{sec-workflows-payment-processing-overpayment-reversal}
 
 Reversal of overpayments is a weak spot in LedgerSMB 1.3: there's no way
 to reverse or ``undo'' an overpayment incorrectly entered.  By consequence
@@ -750,23 +802,32 @@ AP overpayments, replacing ``customer'' with ``vendor'', ``AR'' with ``AP'', ``I
 \end{quotation}
 
 \section{Receipts and payments in foreign currencies}
+\label{sec-workflows-payment-processing-fx-payments}
 
 \chapter{Accounting}
+\label{cha-workflows-accounting}
 
 \section{Separation of duties: Transaction approval}
-\label{sec:SeparationOfDuties}
+\label{sec-workflows-accounting-transaction-approval}
 @@@ Probably belongs into the Overview part of the book?
 
 Separation of duties is a method to help prevent fraud where one employee can't modify the
 ledger by himself - such access could be used to blur or erase tracks of fraud.
 
 \section{Entering non sales transactions}
+\label{sec-workflows-accounting-transaction-entry}
 
 \subsection{Corrections}
+\label{subsec-workflows-accounting-correction-transaction-entry}
+
 \subsection{Transfer of money between bank accounts}
+\label{subsec-workflows-accounting-entry-bank-to-bank-transactions}
+
 \subsection{Wages}
+\label{subsec-workflows-accounting-entry-of-wages}
 
 \subsection{Entering other general accounting documents}
+\label{subsec-workflows-accounting-entry-others}
 
 Even though the application handles many general ledger postings as consequences
 from work flows elsewhere in the system - thus not requiring separate postings -
@@ -781,11 +842,12 @@ at the end of the book year.
 
 
 \section{Bank reconciliation}
-\label{sec:Reconciliation}
+\label{sec-workflows-accounting-reconciliation}
 
 
 
 \section{Period closing}
+\label{sec-workflows-accounting-period-closing}
 
 Period closing is a concept used by accountants to ensure that audited and
 known-correct accounting data stays correct by ``freezing'' it: by closing
@@ -813,7 +875,7 @@ currency.
 \end{quotation}
 
 \section{Year-end processing}
-\label{sec:YearEndProcessing}
+\label{sec-workflows-accounting-year-end-processing}
 
 Year end closing is a concept which prepares the accounting books for the next
 accounting year. Note that this is unrelated to the calendar year but to the
@@ -840,31 +902,43 @@ for this use case isn't available in LedgerSMB 1.3.
 
 
 \section{Fixed asset accounting}
-\label{sec:FixedAssetAccounting}
+\label{sec-workflows-accounting-fixed-asset-accounting}
 
-
-\section{Tax (VAT) reporting}
-
-
-
-\begin{itemize}
-\item 1099
-\item EU VAT
-\end{itemize}
-
-
-\section{Linking companies to tax forms}
-
-
-\section{Collecting taxes in tax forms}
-
-
-\section{Running tax form reports}
 
 
 \section{Reporting}
-\subsection{Income statement}
-\subsection{Balance sheet}
-\subsection{Trial balance}
+\label{sec-workflows-accounting-reporting}
 
+\subsection{Tax (VAT) reporting}
+\label{subsec-workflows-accounting-reporting-tax}
+
+
+\begin{itemize}
+\item 1099 (cash based)
+\item EU VAT (accrual based)
+\end{itemize}
+
+
+\subsection{Tax reporting using tax forms}
+\label{subsec-workflows-accounting-reporting-tax-with-taxforms}
+
+\subsubsection{Collecting taxes in tax forms}
+\label{subsubsec-workflows-accounting-reporting-tax-collecting-taxforms}
+
+\subsubsection{Linking companies to tax forms}
+\label{subsubsec-workflows-accounting-reporting-tax-linking-taxforms}
+
+\subsubsection{Running tax form reports}
+\label{subsubsec-workflows-accounting-reporting-tax-running-taxforms}
+
+
+\subsection{Income statement}
+\label{subsec-workflows-accounting-reporting-result}
+
+
+\subsection{Balance sheet}
+\label{subsec-workflows-accounting-reporting-balance}
+
+\subsection{Trial balance}
+\label{subsec-workflows-accounting-reporting-trial-balance}
 
