@@ -6,12 +6,14 @@
 \label{part-workflows}
 
 \chapter{Overview}
-
+\label{cha-workflows-overview}
 
 
 \chapter{Customers and vendors}
+\label{cha-workflows-customers}
 
 \section{Introduction}
+\label{sec-workflows-customers-intro}
 
 In order to understand how to use customers and vendors, this section describes
 how LedgerSMB implements these concepts.
@@ -36,7 +38,7 @@ The company itself is used - albeit not as customer or vendor - in the context o
 credit risk management (See \charef{cha:credit-risk-management}).
 
 \section{Creating customers and vendors}
-\label{sec:creating-customers-and-vendors}
+\label{sec-workflows-creating-customers-and-vendors}
 
 The procedure to create customers and vendors works exactly alike:
 
@@ -47,6 +49,7 @@ The procedure to create customers and vendors works exactly alike:
 \end{enumerate}
 
 \subsection{Creation of a company}
+\label{subsec-worflows-customer-creating-company}
 
 A company has the following fields:
 
@@ -63,11 +66,11 @@ The ``Generate Control code'' button generates a new control code upon
 user request when the user is entering a company which isn't yet known
 in the system in any other role.
 
-The ``Retrieve'' button is discussed in \secref{sec:VendorsFromCustomers}.
+The ``Retrieve'' button is discussed in \secref{sec-workflows-customers-to-vendors}.
 
 
 \subsection{Creating an account}
-\label{subsec:customers-creating-account}
+\label{subsec-workflows-customers-creating-account}
 
 When a company of class ``Customer'' or ``Vendor'' has been created,
 accounts of that type can be added. The account entry screen lists the
@@ -100,9 +103,10 @@ are not shown in case their selection lists are empty}:
 \end{description}
 
 \section{Multiple customers within one company}
+\label{sec-workflows-customer-multiple-per-company}
 
 \section{Creating vendors from customers}
-\label{sec:VendorsFromCustomers}
+\label{sec-workflows-customers-to-vendors}
 
 % \section{}
 
@@ -416,7 +420,7 @@ the open invoice overview, use the cash receipt process as described in
 There's only one way to persist an invoice in LedgerSMB: posting it. This means
 the invoice becomes part of the accounting information. One of the primary
 properties of an accounting system is to record full audit trails and help enforce
-internal controls as detailed in \secref{sec:AccountingSystemRequirements}. Because
+internal controls as detailed in \secref{sec-system-accounting-principles}. Because
 of that fact there's no way to delete or edit invoices after they have been posted
 \footnote{LedgerSMB currently does not support saving an invoice without posting
 it. This functionality is on the roadmap for addition when the AR/AP functionality
@@ -570,7 +574,7 @@ action.
 
 
 \subsection{Monitoring AR aging}
-\label{subsec:MonitoringAging}
+\label{subsec-credit-risk-monitoring-arrears}
 
 In order to find out about over due invoices, a company should run the AR
 aging report available under AR $\rightarrow$ Reports $\rightarrow$ AR Aging.
@@ -657,7 +661,7 @@ customers.
 \begin{quotation}
 \textbf{Remark} The customers listed may not have open invoices. The list only serves to select
 the customer the user is looking for. To find customers with outstanding balances, please refer to
-\secref{subsec:MonitoringAging}.
+\secref{subsec-credit-risk-monitoring-arrears}.
 \end{quotation}
 
 After selecting a customer, the cash entry screen as depicted in <figure reference> is shown. This

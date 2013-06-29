@@ -36,7 +36,7 @@ steps of setting up a basic company. The chapters after that may not apply to ev
 business. \charef{cha-building-up-stock}, \charef{cha-ramping-up-to-the-first-sale} and
 \charef{cha-shipping-sales} apply to businesses dealing with physical goods: buying,
 selling and shipping. \charef{cha-invoicing} discusses how to handle invoicing from LedgerSMB.
-\charef{cha-customer-payments}, \charef{cha-vendor-payments} and \charef{cha-monitoring-arrears}
+\charef{cha-starting-sales-customer-payments}, \charef{cha-starting-vendor-payments} and \charef{cha-starting-monitoring-arrears}
 discuss how to manage accounts receivable and payable including arrears monitoring.
 
 Not all chapters may be relevant to the reader, e.g. when he or she is starting up or
@@ -345,7 +345,7 @@ shown in \figref{fig:bank-setup1}.
 Then Jack repeats the steps \ref{itm:bank-setup-steps-start} to \ref{itm:bank-setup-steps-end}
 for the credit card with the account number 1062 and description ``Credit card xxxx.xxxx.7734'' to set
 up the credit card. \figref{fig:bank-setup2} shows the screen in which to enter the account
-details. \secref{sec-account-options} discusses the options in detail - for now using the
+details. \secref{sec-coa-account-options} discusses the options in detail - for now using the
 settings as configured for the sample checking account will do.
 
 \begin{figure}[h]
@@ -378,7 +378,7 @@ the numerous expense accounts, it turns out that there is also a single Purchase
 account on which all the expenses for parts purchases are going to be booked.
 
 He decides that if this isn't enough, he can add accounts later.
-\footnote{Note that Jack will discover in \secref{sec:defining-vendors} that
+\footnote{Note that Jack will discover in \secref{sec-stock-defining-vendors} that
 he does indeed need to create additional accounts to support sales and
 purchase discounts.}
 
@@ -443,7 +443,7 @@ Jack creates two accounts, one for each line marked in italics in Table \ref{tbl
 
 Two special purpose accounts are currently not assigned their special purpose through
 the Links column in the Chart of Accounts menu. Instead, their special purpose is indicated
-in the defaults screen as discussed in \secref{sec:setting-up-system-defaults}.
+in the defaults screen as discussed in \secref{sec-first-login-defaults}.
 
 Each chart of accounts should have
 \begin{itemize}
@@ -568,7 +568,7 @@ Jack chooses a 5TB hard drive by Samsung to be entered into the system as the fi
 To do so, he goes to the {\tt Goods and Services $\rightarrow$ Add part} page from the menu
 as shown in @@@ (figure to be inserted).
 
-Based on his reading from \secref{sec-definition-parts}, Jack decides to enter the hard
+Based on his reading from \secref{subsec-products-parts-definition}, Jack decides to enter the hard
 drive with the following data:
 
 \begin{tabular}{ll}
@@ -602,7 +602,7 @@ to 0 (zero) in order to remove the stock from the single item.
 \label{sec-stock-part-groups}
 
 As Jack continues to enter more parts into the system, he wonders how he's going to
-look up the parts efficiently later on. Returning his reading to \secref{sec-definition-parts},
+look up the parts efficiently later on. Returning his reading to \secref{subsec-products-parts-definition},
 he understands that 'part groups' are the solution to that problem. He decides to create
 the following list of part groups:
 
@@ -625,7 +625,7 @@ not to create a separate group for those and leaves these two parts unassigned.
 Jack selects ``ABC Parts'' to purchase the inventory he needs to run his company. In
 order to start buying inventory, ABC Parts needs to be entered as a Vendor to LedgerSMB.
 
-Using the work flow detailed in \secref{sec:creating-customers-and-vendors} Jack starts to do so by going through the menu \menupath{AP \ma Vendors \ma Add Vendor}.
+Using the work flow detailed in \secref{sec-workflows-creating-customers-and-vendors} Jack starts to do so by going through the menu \menupath{AP \ma Vendors \ma Add Vendor}.
  He fills out the Company creation form by clicking the {\tt Generate control code}
 button and adding the data as shown in \figref{fig:vendor-create-1}.
 
@@ -648,7 +648,7 @@ as shown in \figref{fig:vendor-create-2}.
 
 When he's done filling out and saving the form,
 he notices the empty ``Discount'' drop down. Reading more about account configuration
-check marks in \secref{subsec-AR-AP-checkmarks} and going back to the checks on his
+check marks in \secref{subsubsec-coa-AR-AP-checkmarks} and going back to the checks on his
 chart of accounts (\secref{sec-first-login-coa-check}), he finds he's missing the purchase and
 sales discount accounts. He adds two accounts as listed in \tabref{tbl:special-purpose-account-config-summary}:
 
@@ -670,7 +670,7 @@ Note the top-left corner stating ``Company: ABC Parts'' and ``Account: 2''. The 
 entered on the ``Addresses'', ``Contact Info'' and ``Bank Accounts'' tabs will be attached
 to the account listed, i.e. account number 2 in this case.
 
-The reader is referred to \secref{sec:creating-customers-and-vendors} for a more in-depth
+The reader is referred to \secref{sec-workflows-creating-customers-and-vendors} for a more in-depth
 description of the vendor data screens.
 
 \section{Requesting quotations}

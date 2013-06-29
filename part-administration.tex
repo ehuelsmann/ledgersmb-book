@@ -209,7 +209,7 @@ be used to manage the database from the database administration tool setup.pl.
 Structure of products in the system.
 
 \subsection{Definition of parts}
-\label{subsec-definition-parts}
+\label{subsec-products-parts-definition}
 
 The part entry screen consists of four parts:
 
@@ -272,7 +272,7 @@ updated when posting a vendor invoice (increased) or sales invoice (decreased).
 
 
 \subsubsection{Taxation of parts}
-\label{subsubsec-parts-taxation}
+\label{subsubsec-products-parts-taxation}
 
 Right below the accounts selection section, there is the Tax section, which lists
 all tax accounts with a check mark. Each account corresponds with a certain tax type
@@ -380,10 +380,10 @@ allowing for a semi-automated way to convert stock from one type of inventory to
 
 
 \section{Definition of services}
-\label{sec-services-definition}
+\label{sec-products-services-definition}
 
 \subsection{Taxation of services}
-\label{subsec-service-taxation}
+\label{subsec-products-services-taxation}
 
 
 
@@ -448,7 +448,7 @@ There are currently three types of summary accounts:
    in the transaction and invoice screens which are used to post income on.
 \item[Payment (AR\_paid)] This check mark adds the account to the list of accounts
    to choose from in the Receipts (AR) and Payments (AP) screens. Additionally, it
-   adds the account to the part entry screen as described in \secref{sec-definition-parts}.
+   adds the account to the part entry screen as described in \secref{subsec-products-parts-definition}.
 \item[Tax (AR\_tax)] This check mark makes the account show up as a check mark on the
    customer (AR) or vendor (AP) entry screen. See \charef{cha-taxes} for further discussion.
 \item[Overpayment (AR\_overpayment)] Adds the account to the receipts screen as discussed
@@ -538,7 +538,7 @@ description adjusted.
 \section{Overview}
 \label{sec-tax-overview}
 
-When an account has been marked as a Tax account (see \secref{sec-account-options}, item
+When an account has been marked as a Tax account (see \secref{sec-coa-account-options}, item
 \ref{item:AccountOptionsTax}) several things happen:
 
 \begin{itemize}
@@ -598,9 +598,9 @@ applied to a 10\$ amount charges 1\$ of national tax and 0.55\$ of Quebec tax (5
 \begin{quotation}
 Note that - as pointed out in the Overview section of this chapter - the customer related
 tax calculation on invoices is triggered by the settings in this chapter as well as
-the customer/vendor settings described in \secref{sec:creating-customers-and-vendors}
-and part settings and service settings described in \secref{subsec-parts-taxation} and
-\secref{subsec-service-taxation} respectively.
+the customer/vendor settings described in \secref{sec-workflows-creating-customers-and-vendors}
+and part settings and service settings described in \secref{subsubsec-products-parts-taxation} and
+\secref{subsec-products-services-taxation} respectively.
 \end{quotation}
 
 \section{Tax calculation examples}
@@ -645,7 +645,7 @@ are country specific: each country for which reporting obligations exist
 needs to have its own form associated.
 
 In order to be able to collect taxes in a tax form companies need to be
-linked to it. \secref{subsec:customers-creating-account} describes how to do this.
+linked to it. \secref{subsec-workflows-customers-creating-account} describes how to do this.
 
 When associations have been set up between companies and
 tax forms, the ``Tax form'' check mark can be used in invoices to include
