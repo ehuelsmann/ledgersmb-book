@@ -4,12 +4,15 @@
 
 
 \part{Appendices}
+\label{part-appendices}
+
 \appendix
 
 \chapter{Differences between version 1.2 and 1.3}
+\label{app-differences-12-13}
 
 \section{Users}
-\label{sec:DifferencesUsers}
+\label{sec-diff12-13-users}
 
 The way users are defined and used differs greatly between LedgerSMB 1.3 and
 older versions. In version 1.3 user access to the database is enforced by the
@@ -33,11 +36,13 @@ users from older LedgerSMB and SQL-Ledger versions to LedgerSMB 1.3.
 
 
 \chapter{Why deleting invoices is not supported}
-
+\label{app-no-invoice-deletion}
 
 \section{Invoices are debt claims}
+\label{sec-no-invoices-deletion-claims}
 
 \section{Cost Of Goods Sold become ambiguous}
+\label{sec-no-invoices-deletion-cogs-ambiguity}
 
 From a mail by Chris Travers on the LedgerSMB mailing list:
 
@@ -76,9 +81,10 @@ So in this system we do *not* calculate extrinsic financial movements for docume
 \end{quote}
 
 \chapter{Migration}
-\label{cha:Migration}
+\label{app-migration}
 
 \section{Introduction}
+\label{sec-migration-introduction}
 
 There are plenty of reasons to want to migrate to LedgerSMB 1.3:
 
@@ -113,12 +119,16 @@ pre-migration checks, they are written to your old data and will persist after
 backing out of a migration to 1.3.
 
 \section{From older LedgerSMB versions}
+\label{sec-migration-from-older-ledgersmb}
 
 \section{From SQL-Ledger 2.8}
+\label{sec-migration-from-sql-ledger-28}
 
 \section{From older SQL-Ledger versions}
+\label{sec-migration-from-older-sql-ledger}
 
 \section{From other accounting packages}
+\label{sec-migration-from-other-accounting-systems}
 
 While accounting and ERP solution have wildly differing structures to record their
 data, this sections uses data with a relatively simple structure as a show case of
@@ -133,6 +143,7 @@ a UTF-8 encoded database and recode your data accordingly.
 \end{quote}
 
 \subsection{Migrating customers}
+\label{subsec-migration-others-customers}
 
 The source system for this section uses a structure where every company has one
 contact person, one address, one phone number and e-mail.
@@ -154,11 +165,16 @@ some entities are \emph{Person}s - natural persons.
 @@@ How to
 
 \subsection{Migrating parts, services, ...}
-\subsection{Migrating open items}
+\label{subsec-migration-others-products}
+
+\subsection{Migrating open AR and AP items}
+\label{subsec-migration-others-open-items}
+
 \subsection{Migrating your ledger}
+\label{subsec-migration-others-ledger}
 
 \section{Migrating between PostgreSQL versions}
-\label{sec:MigrationBetweenPostgreSQLVersions}
+\label{sec-migration-postrgesql}
 
 If you're migrating between PostgreSQL versions, there are a few things to take
 into account.
@@ -169,6 +185,7 @@ into account.
 %              possible need to issue ``CREATE EXTENSION tablefunc FROM UNPACKAGED''
 
 \subsubsection{Notes on migration from 8.3 (or earlier) to 8.4 (or later)}
+\label{subsec-migration-pre84-to84plus}
 
 % Performance benefit due to built in support for recursive queries only available
 % after the next setup.pl run
@@ -198,7 +215,7 @@ of that functionality, the following restore procedure should be used.
 
 
 \chapter{Listing of application roles}
-\label{cha:RolesListing}
+\label{app-role-listing}
 
 Application roles specify the right to execute one or more tasks in the application.
 LedgerSMB enforces these roles by allowing a user to select (list, read) data from or to
@@ -329,18 +346,23 @@ related to the execution of these tasks.
 \end{description}
 
 \chapter{Open source explained}
+\label{app-open-source-explained}
 
 \section{An open source application}
+\label{sec-open-source-application}
 
 \section{An open source book}
+\label{sec-open-source-book}
 
 \chapter{Glossaries}
+\label{app-glossaries}
 
 \addcontentsline{toc}{section}{Acronyms}
 \printglossary[type=acronym]
 
 
 \chapter{Copyright and license}
+\label{app-copyright-license}
 
 Copyright (c) 2011, 2012 Erik H\"ulsmann.
 
@@ -353,6 +375,7 @@ Stanford, California 94305, USA.
 A summary of the license is given below, followed by the full legal text.
 
 \section{License summary}
+\label{sec-license-summary}
 
 \begin{verbatim}
 
@@ -385,6 +408,7 @@ With the understanding that:
 
 
 \section{Legal full text}
+\label{sec-license-fulltext}
 
 \begin{verbatim}
 License

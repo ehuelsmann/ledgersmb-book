@@ -4,9 +4,10 @@
 
 
 \part{Customization}
-\label{part:Customization}
+\label{part-customization}
 
 \chapter{Batch data import methods}
+\label{cha-customization-batch-import}
 
 LedgerSMB 1.3 doesn't have batch data imports built in out of the box,
 except for bank statement imports for reconciliation purposes. This
@@ -17,11 +18,13 @@ the LedgerSMB 1.4-built-in data import routines to create a variety
 of file-upload based data imports.
 
 \section{Custom bank statement import}
+\label{sec-customization-batch-import-bank-statement}
 
-
-\section{Data imports from 1.4}
+\section{Data imports back port from 1.4}
+\label{sec-customization-import-routines-from-14}
 
 \subsection{Chart of Accounts import}
+\label{subsec-customization-import-coa}
 
 This function allows bulk import of an entire chart of accounts using a
 single \gls{csv} file.
@@ -45,4 +48,6 @@ import routine expects the columns as presented in (table name).
 All lines after the first one are considered to be data lines.
 
 \chapter{Add-ons and plug-ins}
+\label{cha-customization-add-ons}
+
 
