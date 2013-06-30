@@ -1,35 +1,61 @@
 package LaTeXML::Package::Pool;
 
-use LaTeXML::Package;
 use strict;
+use LaTeXML::Package;
+use LaTeXML::Util::KeyVal;
 
+
+DefKeyVal('Gls','name','Semiverbatim'); # name of the entry in the glossary
+DefKeyVal('Gls','description','Semiverbatim'); # description in the glossary
+DefKeyVal('Gls','text','Semiverbatim'); # text to show in the doc
+DefKeyVal('Gls','plural','Semiverbatim'); # plural form of text
+DefKeyVal('Gls','first','Semiverbatim'); # text to show on first occurrance
+DefKeyVal('Gls','firstplural','Semiverbatim'); # first, plural form
+DefKeyVal('Gls','type','Semiverbatim');
+
+
+DefMacro('\acronymtype','main'); # could also be 'acronym'
+
+
+DefMacro('\glspluralsuffix','s');
+DefMacro('\newacronym{}{}{}',
+     '\newglossaryentry{#1}{ name={#2}, text={#2},
+                             plural={#2\glspluralsuffix},
+                             type=\acronymtype }');
+
+DefPrimitive('\newglossaryentry{} RequiredKeyVals:Gls',
+  sub {
+     my ($gullet, $id, $keyvals) = @_;
+     AssignValue('@@GLS@'. ToString($id),$keyvals);
+  });
+
+
+### Workaround macros for the fact that we don't have the
+# uppercasing behaviour yet.
+DefMacro('\Gls{}','\gls{#1}');
+DefMacro('\Glspl{}','\glspl{#1}');
+DefMacro('\GLS{}','\gls{#1}');
+DefMacro('\GLSpl{}','\glspl{#1}');
 DefMacro('\makeglossaries','');
-DefMacro('\printglossaries','');
 DefMacro('\printglossary[]','');
-DefMacro('\newglossaryentry{}{}','');
-DefMacro('\gls{}','\@ACRO@{#1}{\@ACRO@s{#1}}{\@ACRO@l{#1}}');
-DefMacro('\glspl{}','');
+DefMacro('\printglossaries','');
 
-DefPrimitive('\newacronym{}{}{}',
-   sub {
-     my ($stomach, $id, $short, $long) = @_;
 
-     $id = ToString($id);
-     AssignValue( 'ACRO@s@' . $id, Digest($short), 'global');
-     AssignValue( 'ACRO@l@' . $id, Digest($long), 'global');
-});
 
-DefConstructor('\@ACRO@s{}',"&LookupValue('ACRO\@s\@#1')");
-DefConstructor('\@ACRO@l{}',"&LookupValue('ACRO\@l\@#1')");
+DefPrimitive('\gls{}',
+  sub {
+     my ($gullet, $id) = @_;
+     my $keyval = LookupValue('@@GLS@'. ToString($id));
+     Digest(KeyVal($keyval,'text'));
+  });
 
-DefConstructor('\@ACRO@{}{}{}',
-        '<ltx:acronym name="#1" title="#title">#2</ltx:acronym>',
-        properties => {
-         title => sub { LookupValue('ACRO@l@' . ToString($_[1])); }
-        }
-);
+DefPrimitive('\glspl{}',
+  sub {
+    my ($gullet, $id) = @_;
+    my $keyval = LookupValue('@@GLS@'. ToString($id));
+    Digest(KeyVal($keyval,'plural'));
+  });
+
 
 
 1;
-
-
