@@ -34,20 +34,38 @@ DefPrimitive('\newglossaryentry{} RequiredKeyVals:Gls',
 # uppercasing behaviour yet.
 DefMacro('\Gls{}','{\MakeUppercase \gls{#1}}');
 DefMacro('\Glspl{}','{\MakeUppercase \glspl{#1}}');
-DefMacro('\GLS{}','\Gls{#1}');
+DefMacro('\GLS{}','\MakeUppercase{\gls{#1}}');
 DefMacro('\GLSpl{}','\Glspl{#1}');
 DefMacro('\makeglossaries','');
 DefMacro('\printglossary[]','');
 DefMacro('\printglossaries','');
 
 
+DefConstructor('\gls{}','<glossaryref key="#key" role="#role" show="#title" />',
+    properties => {
+        title => sub {
+            my ($stomach, $id) = @_;
+            my $keyval = LookupValue('@@GLS@' . ToString($id));
+            Digest(KeyVal($keyval,'text'));
+        },
+        role => sub {
+            my ($stomach, $id) = @_;
+            my $keyval = LookupValue('@@GLS@' . ToString($id));
+            Digest(KeyVal($keyval,'type'));
+        },
+        key => sub {
+            my ($stomach, $id) = @_;
+            my $keyval = LookupValue('@@GLS@' . ToString($id));
+            Digest(KeyVal($keyval,'name'));
+        }
+               });
 
-DefPrimitive('\gls{}',
-  sub {
-     my ($gullet, $id) = @_;
-     my $keyval = LookupValue('@@GLS@'. ToString($id));
-     Digest(KeyVal($keyval,'text'));
-  });
+# DefPrimitive('\gls{}',
+#   sub {
+#      my ($gullet, $id) = @_;
+#      my $keyval = LookupValue('@@GLS@'. ToString($id));
+#      Digest(KeyVal($keyval,'text'));
+#   });
 
 DefPrimitive('\glspl{}',
   sub {
