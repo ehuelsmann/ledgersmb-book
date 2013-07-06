@@ -32,10 +32,10 @@ DefPrimitive('\newglossaryentry{} RequiredKeyVals:Gls',
 
 ### Workaround macros for the fact that we don't have the
 # uppercasing behaviour yet.
-DefMacro('\Gls{}','\gls{#1}');
-DefMacro('\Glspl{}','\glspl{#1}');
-DefMacro('\GLS{}','\gls{#1}');
-DefMacro('\GLSpl{}','\glspl{#1}');
+DefMacro('\Gls{}','{\MakeUppercase \gls{#1}}');
+DefMacro('\Glspl{}','{\MakeUppercase \glspl{#1}}');
+DefMacro('\GLS{}','\Gls{#1}');
+DefMacro('\GLSpl{}','\Glspl{#1}');
 DefMacro('\makeglossaries','');
 DefMacro('\printglossary[]','');
 DefMacro('\printglossaries','');
