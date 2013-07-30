@@ -513,15 +513,21 @@ The items on this line relate to untracked (non stocked) items, i.e. services.
 \section{Alternative accounts (GIFI)}
 \label{sec-coa-gifi}
 
-Next to the regular account numbering scheme, LedgerSMB supports a second numbering scheme: GIFI numbering. The GIFI accounts are a kind of secondary numbering scheme to support legal requirements.
+Next to the regular account numbering scheme, LedgerSMB supports a second
+numbering scheme: GIFI numbering. \gls{GIFI} is a standardized account 
+coding system used in Canada by the Canada Revenue Agency for processing
+corporate Tax Returns forms. 
 
-Some jurisdictions require a specific numbering scheme, which can be supported using GIFI. If you
-use GIFI account numbers, each account is associated with a GIFI account. Multiple accounts may map
-to a single GIFI account.
+Other countries (e.g. France) may have required numbering schemes for
+corporate accounting as well.
 
-Many General Ledger reports exist in two variants: a variant using the normal G/L accounts and
-one with the GIFI numbering scheme. In the GIFI variant, when a single GIFI has multiple accounts,
-the total reported under GIFI is the sum of the mapped accounts.
+If you use GIFI account numbers, each account is associated with a GIFI
+account. Multiple accounts may map to a single GIFI account.
+
+Many General Ledger reports exist in two variants: a variant using the
+normal G/L accounts and one with the GIFI numbering scheme. In the GIFI
+variant, when a single GIFI has multiple accounts, the total reported
+under GIFI is the sum of the mapped accounts.
 
 
 \subsection{Maintaining GIFI}
