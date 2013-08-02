@@ -50,7 +50,48 @@ or set up your own hardware.
 \section{Application architecture}
 \label{sec-ledgersmb-architecture}
 
-@@@TODO
+Due to its heritage from SQL Ledger and the on-going process of rewriting
+the inherited code, the architecture differs between parts
+of the application: the old parts and the ones which have already been
+rewritten.
+
+Overall, the application consists of five layers:
+
+\begin{itemize}
+\item The web browser
+\item The web server (as a network traffic handler)
+\item The web server (as an application - CGI)
+\item The database (as an application - PL/SQL)
+\item The database (as storage)
+\end{itemize}
+
+Rewritten parts include the price matrix and the management of customers
+and vendors as well as batch payments.
+
+The ``database as an application'' layer is part of the new design, but otherwise
+both designs share the same basic structure - as any web application.
+
+As part of the new design, database integrity is being enforced much more
+strictly than before.  Much of this enforcement is being done in the database
+at the ``storage'' level, by adding constraints to table definitions. Additionally,
+the new design moves to a model where a large part of the database API as well
+as business logic is implemented in PL/SQL.  The ultimate goal there is to
+allow easier development of bindings in languages other than Perl.  Part of this
+move is to reduce the CGI layer to become more of a ``glue'' layer between
+the web server and the application database layer.
+
+As part of the on-going code restructuring, in 1.4 there will be a REST web service
+based API for the areas where functionality has been rewritten.
+
+One of the roles that has remained so far for the CGI layer is to generate
+HTML screens for presentation in the web browser, handling all user interaction.
+Recently activities have started to change that for 1.4 and 1.5 to create a
+much heavier client in the web browser with back end interaction through
+web services.
+
+In the old design everything except storage was handled in the ``web server as an
+application (CGI)'' layer.
+
 
 \section{Supported functionality}
 \label{sec-ledgersmb-modules}
