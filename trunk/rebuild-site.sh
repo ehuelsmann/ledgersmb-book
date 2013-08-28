@@ -17,20 +17,21 @@ latexml --inputencoding=utf-8 \
 
 rm -rf $tmp_path/split-book
 mkdir -p $tmp_path/split-book
-cp $dest_path/additional.css $tmp_path/additional.css
+cp $dest_path/split-book/additional.css $tmp_path/split-book/additional.css
 latexmlpost --destination=$tmp_path/split-book/index.html \
             --split \
             --splitnaming=label \
             --format=html \
-            --css=$tmp_path/additional.css \
+            --css=$tmp_path/split-book/additional.css \
             --sitedirectory=$tmp_path/split-book/ \
             book.xml
 
 rm -rf $tmp_path/full-book
 mkdir -p $tmp_path/full-book
+cp $dest_path/full-book/additional.css $tmp_path/full-book/additional.css
 latexmlpost --destination=$tmp_path/full-book/index.html \
             --format=html \
-            --css=$tmp_path/additional.css \
+            --css=$tmp_path/full-book/additional.css \
             --sitedirectory=$tmp_path/full-book/ \
             book.xml
 
