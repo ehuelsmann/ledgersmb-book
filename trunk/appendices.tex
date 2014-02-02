@@ -130,6 +130,12 @@ backing out of a migration to 1.3.
 \section{From other accounting packages}
 \label{sec-migration-from-other-accounting-systems}
 
+\subsection{Overview}
+
+
+
+
+
 While accounting and ERP solution have wildly differing structures to record their
 data, this sections uses data with a relatively simple structure as a show case of
 how this problem may be dealt with.
@@ -167,10 +173,29 @@ some entities are \emph{Person}s - natural persons.
 \subsection{Migrating parts, services, ...}
 \label{subsec-migration-others-products}
 
-\subsection{Migrating open AR and AP items}
+\subsection{Migrating the balance}
+
+The strategy that I used when migrating to LedgerSMB is the following:
+
+\begin{itemize}
+\item create customers and vendors as needed
+\item create at least the parts and services for which there are open AR or AP items in the closing balance
+\item create the open AR/AP items in the closing balance by posting them on the original opening date (this allows you to do your aging management in LSMB from day 1)
+\item create in addition the parts for which you have stock in the closing balance
+\item import your stock by posting invoices against the inventory entity
+\item make sure you "pay" the invoices - e.g. by paying them from equity
+\item draw up the incomplete balance you have so far
+\item calculate the delta of the partially imported balance against the closing balance
+\item import the delta balance on top of what you already had to make a full balance
+\end{itemize}
+
+
+What I did is post the transaction from the last step on the day before I wanted to start my books; say you want to start your books on 2014-01-01, then you'd post it on 2013-12-31. That way, the opening balance of your books on the starting date is exactly what you had on the closing balance of the books you left behind.
+
+\subsubsection{Migrating open AR and AP items}
 \label{subsec-migration-others-open-items}
 
-\subsection{Migrating your ledger}
+\subsubsection{Migrating your ledger}
 \label{subsec-migration-others-ledger}
 
 \section{Migrating between PostgreSQL versions}
