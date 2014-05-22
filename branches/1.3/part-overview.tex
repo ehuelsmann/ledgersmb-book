@@ -1,0 +1,359 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\part{Overview}
+\label{part-overview}
+% An overview should contain:
+
+% * why read?
+%   * problems being solved
+%   * goals to be achieved
+%   * 
+% * how
+%   * erp
+
+\chapter{What is LedgerSMB}
+\label{cha-what-is-ledgersmb}
+
+\section{Introduction}
+\label{sec-ledgersmb-introduction}
+LedgerSMB is an open source, web based \gls{erp}. An ERP is a system
+which supports business processes of all disciplines throughout the
+organization, automating as much of those processes as possible. To
+illustrate this, consider the process of selling goods to a customer
+in a trade company. Typically, a customer will request a quote, which
+Sales will provide. When satisfied he or she will convert the quote 
+to an order. Sales will register the order, leading to order-pickers
+to collect one or more shipments. Upon completion, Finance sends
+out an invoice and records the customer's payment. LedgerSMB supports
+this process by automating the conversion from quotation to order,
+order to shipment and shipment to invoice, as well as providing
+pack lists and other production related documents.
+
+LedgerSMB includes a
+powerful framework which supports building your own extensions and
+integrations with other applications. Through this philosophy, it
+aspires to be \emph{the} (open source) integrated administration system.
+
+The software is being developed by the LedgerSMB project with its homepage at \url{http://ledgersmb.org/}.
+However, the actual project activity can be witnessed at the SourceForge
+project site hosted at \url{http://sf.net/projects/ledger-smb/} and the mailing list archive
+hosted at \url{http://archive.ledgersmb.org/}.  The project
+employs the Freenode.net IRC network's \#ledgersmb chat channel to help out users and to discuss
+development.
+
+Its open source nature allows you to download it and use it with any
+infrastructure you like. So there's no vendor lock-in: you can
+always take your data and set up your system with another hardware vendor
+or set up your own hardware.
+
+\section{Application architecture}
+\label{sec-ledgersmb-architecture}
+
+Due to its heritage from SQL Ledger and the on-going process of rewriting
+the inherited code, the architecture differs between parts
+of the application: the old parts and the ones which have already been
+rewritten.
+
+Overall, the application consists of five layers:
+
+\begin{itemize}
+\item The web browser
+\item The web server (as a network traffic handler)
+\item The web server (as an application - CGI)
+\item The database (as an application - PL/SQL)
+\item The database (as storage)
+\end{itemize}
+
+Rewritten parts include the price matrix and the management of customers
+and vendors as well as batch payments.
+
+The ``database as an application'' layer is part of the new design, but otherwise
+both designs share the same basic structure - as any web application.
+
+As part of the new design, database integrity is being enforced much more
+strictly than before.  Much of this enforcement is being done in the database
+at the ``storage'' level, by adding constraints to table definitions. Additionally,
+the new design moves to a model where a large part of the database API as well
+as business logic is implemented in PL/SQL.  The ultimate goal there is to
+allow easier development of bindings in languages other than Perl.  Part of this
+move is to reduce the CGI layer to become more of a ``glue'' layer between
+the web server and the application database layer.
+
+As part of the on-going code restructuring, in 1.4 there will be a REST web service
+based API for the areas where functionality has been rewritten.
+
+One of the roles that has remained so far for the CGI layer is to generate
+HTML screens for presentation in the web browser, handling all user interaction.
+Recently activities have started to change that for 1.4 and 1.5 to create a
+much heavier client in the web browser with back end interaction through
+web services.
+
+In the old design everything except storage was handled in the ``web server as an
+application (CGI)'' layer.
+
+
+\section{Supported functionality}
+\label{sec-ledgersmb-modules}
+As most \glspl{erp} LedgerSMB's functionalities are grouped into modules.
+Many modules are integrated parts of the base application.  New features
+are implemented in separate modules at first to allow evaluation of the
+feature set. When a feature set has become sufficiently stable, the new
+module will be integrated in the base application. As of that time, the
+existing feature set of the module will be frozen, meaning that the utmost
+will be done to prevent changes to how the modules operate: to keep them
+stable.
+
+These separate modules - which are called \glspl{add-on} - have to be
+installed separately. After installation they become seamless parts of
+LedgerSMB with no visible difference from the base application. An
+additional benefit of having the separation between the base application
+and \glspl{add-on} is that it allows for different release schedules
+and separate maturity levels.
+
+
+LedgerSMB 1.3 features the following integrated modules:
+
+\begin{itemize}
+\item General ledger
+\item Payment and Accounts payable
+\item Invoicing and Accounts receivable
+\item Fixed asset accounting
+\item Time registration and invoicing
+\item Point of Sale
+\item Quotation and Order management
+\item Manufacturing
+\item Inventory (warehousing) and shipping management
+\item VAT reporting (cash based)
+\item Controlling
+\begin{itemize}
+\item Project accounting
+\item Department accounting
+\end{itemize}
+\item Application administration
+\end{itemize}
+
+These add-ons can be installed:
+\begin{itemize}
+\item Budgeting
+\item Enhanced AR and AP support
+\item VAT reporting (accrual based)
+\item Enhanced trial-balance report
+\item Enhanced recurring transactions
+\item Payroll (to be created - under discussion at the time of writing)
+\end{itemize}
+
+With this list of modules and add-ons LedgerSMB has succesfully been implemented
+in a wide range of companies of varying types and sizes: shops, manufacturing
+companies and service oriented businesses up to as big as four thousand (4.000)
+Accounts payable transactions \emph{per week}. 
+
+\section{Feature comparison with alternatives}
+\label{sec-ledgersmb-feature-comparison}
+@@@ TODO
+
+Packages to compare to:
+
+\begin{itemize}
+\item GNUcash
+\item OSfinancials
+\item ERP5
+\item OpenERP
+\item xTuple
+\end{itemize}
+
+\section{Release history}
+\label{sec-ledgersmb-release-history}
+
+The project started out as a fork of SQL-Ledger - the open source \gls{erp}
+developed by Dieter Simader - somewhere between SQL-Ledger versions 2.6
+and 2.8.  A fork happens when a group of developers can't - for whatever
+reason - continue to work as one group on a project.  At that time, the
+project splits into two or more projects and the fork is in effect.
+
+LedgerSMB split off from the SQL-Ledger project (i.e. forked) because
+there was disagreement between developers about how to go forward both with
+respect to handling of security vulnerability reports as well as the general
+state of the code base.
+
+After the fork, between versions 1.0 and 1.2 a lot of energy was spent on
+making LedgerSMB more secure (i.e. less vulnerable).  In technical terms,
+measures were taken to fend off (amongst other things):
+
+\begin{itemize}
+\item Cross site scripting attacks
+\item Replay attacks
+\item SQL injection attacks
+\end{itemize}
+
+Come version 1.3 the development directed toward improvement of the overall
+quality of the code base as the old SQL-Ledger code was in very poor state:
+looking very much like webscripts as they were written in 1998, the code had
+grown largely outdated in style and was no longer maintainable by 2007.
+
+The 1.3 effort focussed on bringing relief on that front by introducing
+modern structure into the application.  With the new application structure
+modern and important features were realized: separation of duties (for the
+accounting part of the application) and authorizations to allow distinguishing
+different roles in your company.
+
+Unfortunately, by the beginning of 2011 the project looked mostly dead from
+an outside perspective: the team had not brought forward any releases since
+2007, there were no signs of development activity and the
+mailing lists (a measure for community activity) were
+completely silent.  SVN commits were continuing, but were being made by ever 
+fewer committers and contributors.
+
+Fortunately development activity was showing again in the first half 
+year of 2011,
+leading to the release of version 1.3 by September.  Between September and the
+year end in total 10 small bug fixes were released, showing active commitment
+of the developers to maintain the application.
+
+New committers showed up, indicating revived community interest. Other signs of
+increased interest are the higher number of bug reports and the creation of the
+linux package for Debian 7, which has been included in Ubuntu 12.04 as of
+October 2012.
+
+
+
+\section{System requirements}
+\label{sec-ledgersmb-system-requirements}
+
+The INSTALL file which comes with every LedgerSMB software release should be
+considered the authorative source of system requirements. In summary, the
+following technical components are required:
+
+\begin{itemize}
+\item The Apache web server (others may or may not work)
+\item Perl 5.10 or higher, with additional modules
+\item PostgreSQL 8.3 or higher, with contribs
+\item \LaTeX or XeLaTeX from the TeTeX or TexLive \TeX distributions
+\end{itemize}
+
+Other system requirements such as required RAM and number of CPUs and their speed
+largely depend on the expected system activity. However, any modern VPS should
+provide enough memory and storage to satisfy a reasonable number of users.
+
+\section{License}
+\label{sec-ledgersmb-license}
+
+LedgerSMB is being made available under the terms of the
+\textit{GNU Public License version 2}, or shorter \textit{GPLv2}
+\footnote{\url{http://www.opensource.org/licenses/GPL-2.0}}.
+
+The project attaches this meaning to the license:
+The copyright holders grant you the right to copy and
+redistribute the software.  In case you make any modifications to the sofware
+you're obligated to make public those changes.  You are however, free to use
+the APIs from your own software without being required to publish your own software.
+
+The project considers the following to be APIs:
+\begin{itemize}
+\item Database tables
+\item URLs with their input and output
+\item Webservices of any kind
+\item Function and object calls
+\end{itemize}
+
+The effect of this interpretation is that changes directly to the code base as
+well as inheritance of classes defined in the software constitute ''making modifications''.
+
+\chapter{Reasons to use LedgerSMB}
+\label{cha-advocacy}
+
+Jack finds several tools which suit his requirements to some extent or another.
+After evaluation of his options he decides to use LedgerSMB for the following reasons:
+
+\begin{itemize}
+\item Centralized data storage
+\item Actively developed
+\item Development team with security focus
+\item Access to the application requires only a web browser
+\item Integrated sales, shipping, invoicing, purchasing and accounting
+\item Open source solution, so no vendor lock in
+\item The roadmap appeals to him, because it has web services payrolling on it
+\item There are multiple vendors offering commercial support, including hosted options
+\item The developers envision building a platform out of it: creating the building blocks
+required to build a company on
+\end{itemize}
+
+
+\begin{itemize}
+\item Own your own data
+\item Freedom to change
+	\begin{itemize}
+	\item Support organization
+	\item Developer (organization)
+	\item Data storage provider
+	\item Application service provider
+	\end{itemize}
+\end{itemize}
+
+\section{Internal control}
+\label{sec-advocacy-internal-control}
+
+Internal control\footnote{See also \url{http://en.wikipedia.org/wiki/Internal_control}}
+helps organizations to prevent and detect fraud by introducing checks and balances
+to assess effectiveness and validity of transactions in the organization and thereby
+in its \gls{erp} and accounting system(s).
+
+\section{Accounting principles}
+\label{sec-system-accounting-principles}
+
+The accounting guidelines \gls{ias} and \gls{ifrs} describe requirements
+to financial statements (reports) and the underlying accounting process
+\footnote{See also \url{http://en.wikipedia.org/wiki/International_Financial_Reporting_Standards}}.
+Said requirements include qualitative characteristics:
+
+\begin{enumerate}
+\item Relevance
+\item Faithful representation
+\item Comparability
+\item Verifiability
+\item Timeliness
+\item Understandability
+\end{enumerate}
+
+While some - if not most - of these characteristics relate to the process of accounting,
+the ``Verifiability'' item clearly has an impact on the underlaying accounting systems:
+In order to be verifiable, there must be a clear audit trail to show the origin of the
+figures. To make sure users leave behind the required audit trail, some actions can't
+be performed in LedgerSMB, even though it would seem to be a logical requirement to be
+able to do so - from the perspective of a non-accountant.
+
+
+\section{Impact of tight integration}
+\label{sec-system-impact-of-tight-integration}
+
+While both the qualitative characteristics from \gls{ifrs} and the checks and balances
+from the internal controls are pose restrictions on the accounting process,
+sometimes these restrictions require support from the underlying accounting
+software.
+
+One example is the support for creating reliable audit trails
+by protecting accounting data from deletion. It's important to realize the scope
+of accounting data in this respect: because invoices are being registered in the
+accounts receivable administration - which is summarized in the general ledger -
+they are part of the data for which the audit trail needs to be recorded.
+
+Another example is separation of duties (also known as the ``four eye principle''),
+where one accountant enters financial transactions and another is responsible for
+posting them. This procedure protects the company from an accountant single-handedly
+faking transactions and possibly masking fraud.
+
+The requirements for good accounting processes and internal control have impact
+on the work flows supported by LedgerSMB. As a consequence some of the work flows
+described in part \ref{part-workflows} may seem unwieldy; an example being the
+lack of functionality to delete or correct incorrect invoices (See \secref{sec-workflows-invoicing-correction-or-deletion} for more details).
+
+
+
+\chapter{Introduction to accounting}
+\label{cha-accounting-introduction}
+
+
+\section{Valuation of inventory}
+\label{sec-accounting-valuation-inventory}
+
+

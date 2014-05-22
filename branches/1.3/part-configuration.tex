@@ -1,0 +1,549 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+
+\part{Configuration}
+\label{part-configuration}
+
+
+\chapter{Overview}
+\label{cha-configuration-overview}
+
+\section{Introduction}
+\label{sec-config-overview-introduction}
+This section of the book describes how to set up LedgerSMB and its components.
+Configuration is assumed to be mostly one-off and rather technical in nature.  To find
+out which tasks might need to be performed in order to keep the application in good
+health the reader is referred to the section ``Administration''. 
+
+\chapter{Global configuration}
+\label{cha-global-configuration}
+
+\section{Apache}
+\label{sec-global-config-apache}
+
+Section about installing on Apache 2+
+
+items to be discussed:
+
+Forwarding of authentication \\
+cgi configuration \\
+performance: cgiD configuration: don't (yet) [but will be supported once all legacy code is gone] \\
+security: suEXEC environment \\
+
+\subsection{Differences between Apache 1.3 and 2+}
+\label{subsec-global-config-apache-13-vs-2}
+
+Explain how to use lsmb with 1.3 instead of 2+.
+
+\section{PostgreSQL}
+\label{sec-global-config-postgresql}
+
+pg\_hba.conf: authentication \\
+security: local vs IP connections \\
+
+
+
+
+\section{LedgerSMB}
+\label{sec-global-config-ledgersmb}
+
+\subsection{ledgersmb.conf}
+\label{subsec-global-config-ledgersmb-conf}
+
+to be discussed:
+
+Individual configuration keys; full discussion of possible values in reference appendix?
+
+\subsubsection{General section}
+\label{subsubsec-global-config-ledgersmb-conf-general}
+
+
+\begin{description}
+\item[auth]
+\item[logging]
+\item[tempdir] Directory to store temporary artifacts. E.g. PDF files are stored here before
+    being sent to the browser. The default on unix variants is /tmp/ledgersmb.
+\item[cache\_templates] Determines if HTML templates used for the LedgerSMB UI will be stored
+    in precompiled form for improved performance. The value 0 (zero) means no caching; the value
+    1 means caching in the directory \$(tempdir)/lsmb\_templates; systems running multiple
+    LedgerSMB instances with customized UIs should use separate values for {\tt tempdir} for that
+    reason
+\item[language]
+\item[log\_level]
+\item[DBI\_TRACE]
+\item[pathsep]
+\item[latex] Identifies if the system has \LaTeX available: 0 means no \LaTeX, 1 means \LaTeX supported
+\item[check\_max\_invoices]
+\item[max\_post\_size] States the maximum size in bytes of the body in case of a POST request; this
+    setting reduces the impact of DoS requests, if the system is under attack. The setting also limits the
+    maximum size of attachments (see \secref{sec-workflows-quotations-file-attachments}) that can be uploaded
+\item[decimal\_places]
+\item[cookie\_name]
+\item[no\_db\_str]
+
+\end{description}
+
+\subsubsection{'environment' section}
+\label{subsubsec-global-config-ledgersmb-conf-environment}
+
+\begin{description}
+\item[PATH]
+\end{description}
+
+
+\subsubsection{'paths' section}
+\label{subsubsec-global-config-ledgersmb-conf-paths}
+
+\begin{description}
+\item [spool]
+\item [userspath]
+\item [templates]
+\item [images]
+\item [memberfile]
+\item [localepath]
+\end{description}
+
+\subsubsection{'programs' section}
+\label{subsubsec-global-config-ledgersmb-conf-programs}
+
+\begin{description}
+\item [gzip]
+\end{description}
+
+
+\subsubsection{'mail' section}
+\label{subsubsec-global-config-ledgersmb-conf-mail}
+
+\begin{description}
+\item [sendmail]
+\item [smtphost]
+\item [smtptimeout]
+\item [backup\_email\_from]
+\end{description}
+
+\subsubsection{'printers' section}
+\label{subsubsec-global-config-ledgersmb-conf-printers}
+
+This section contains a list of printers and the commands
+to be executed in order for the output to be sent to the given printer with
+the document to be printed fed to the program through standard input.
+The example below shows how to send standard input data to a printer called ``laser''
+when selecting the item ``Laser'' in the LedgerSMB printer selection drop down.
+
+\texttt{
+Laser    = lpr -Plaser
+}
+
+
+\subsubsection{'database' section}
+\label{subsubsec-global-config-ledgersmb-conf-database}
+
+\begin{description}
+\item [host] Name of the host to connect to. See the documentation of the {\tt -h} command line option at 
+   \url{http://www.postgresql.org/docs/9.2/static/app-psql.html}
+   for more information (documentation unchanged since before 8.3, so applies to older versions as well)
+\item [port] Port number to be used to connect to. See the documentation of the {\tt -p} option at the
+   same URL as the previous item
+\item [default\_db] Database to connect to when the ``Company'' entry field in the login screen is left blank
+\item [db\_namespace] The name space the company resides in; expert setting -- should not be used (default is
+   ``public'')
+\item [contrib\_dir] Path of the directory in which the PostgreSQL contrib modules (extensions) are
+   located; this setting is used by setup.pl when creating new companies or rebuilding (upgrading)
+   existing ones
+\item [sslmode] Selects whether to use \gls{SSL} over TCP connections or not; can be ``require'', ``allow'',
+   ``prefer'' or ``disable''
+\end{description}
+
+\subsubsection{log4perl\_config\_modules\_loglevel}
+\label{subsubsec-global-config-ledgersmb-conf-log4perl}
+
+@@@ This is a list of \textless module.name \textgreater = \textless level \textgreater
+
+This is an advanced setting not typically touched.
+
+
+\subsection{pos.conf.pl}
+\label{subsec-global-config-pos-conf}
+
+
+@@@ no idea what should go in here. to be investigated.
+
+\subsection{templates}
+\label{subsec-global-config-templates}
+
+LedgerSMB uses templates mainly for two things:
+
+\begin{itemize}
+\item Output documents such as pick lists and invoices
+\item The HTML User Interface
+\end{itemize}
+
+This setting relates to the former, which are meant to be copied and customized by users. The system
+supports having multiple sets in a global setup, where companies can be configured to use different
+sets.
+
+
+
+
+\subsection{ledgersmb.css}
+\label{subsec-global-config-ledgersmb-css}
+
+
+
+\chapter{Per company configuration}
+\label{cha-company-config}
+
+\section{Administrative user}
+\label{sec-company-config-admin-user}
+
+\section{Chart of accounts}
+\label{sec-company-config-coa}
+
+@@@ Should refer to the 'administration' section???
+
+\subsection{Special accounts}
+\label{subsec-company-config-coa-special-accounts}
+
+\begin{itemize}
+\item AR/AP summary accounts
+\item 5 other special purpose accounts, see ``Defaults'' screen discussion
+\item sales tax accounts
+\end{itemize}
+
+
+\section{System menu settings}
+\label{sec-company-config-system-menu}
+
+This section enumerates the ``System'' menu's immediate children. In some cases the
+functionality is too complex and is referred to a chapter of its own.
+
+\subsection{Audit control}
+\label{subsec-company-config-audit-control}
+
+\subsubsection{Enforce transaction reversal for all dates}
+\label{subsubsec-company-config-audit-control-reversals}
+
+
+This is a Yes/No value which affects the actions which can be performed on posted financial transactions.
+\begin{itemize}
+\item No means transactions can be altered or deleted, even after posting them. Note that
+if a transaction has been posted before the latest closing date, it can never be altered,
+not even when this value is in effect.
+\item Yes means transactions can't be altered after posting. This setting is highly preferred and considered the only correct approach to accounting as it assures visible
+audit trails and thereby supports fraud detection.
+\end{itemize}
+
+\subsubsection{Close books up to}
+\label{subsubsec-company-config-audit-control-close-books}
+
+
+@@@ This item isn't a system setting; shouldn't it move to ``Transaction approval''?? That way system settings (config) and processes are separated.
+
+@@@ My preference is to remove the setting entirely and rely on year-end 
+workflow.  We might add an account checkpoint interface as well at some point
+--Chris T
+
+It's advisable to regularly close the books after review. This prevents user error changing
+reviewed numbers: after closing the books, it's no longer possible to post in the closed
+period.
+
+There are also performance benefits to closing the books, because LedgerSMB uses the
+fact that the figures are known-stable as a performance optimization when calculating
+account balances.
+
+\subsubsection{Activate audit trail}
+\label{subsubsec-company-config-audit-control-audit-trail}
+
+This is a Yes/No value which - when Yes - causes the system to install triggers to register
+user actions (creation/adjustments/reversals/etc...) executed on financial transactions.
+
+
+@@@ Once activated, where can we see it the audit trail??
+
+@@@ This setting should go.  In 1.3 the audit trails are always enforced via
+triggers so this setting does nothing.  --CT
+
+\subsection{Taxes}
+\label{subsec-company-config-taxes}
+
+
+This page lists all accounts which have the ``Tax'' account option enabled as discussed in \secref{sec-coa-account-options}.
+
+Each account is listed at least once, but can be listed many times, if it has had different
+settings applied over different time periods. E.g. if one of the current VAT rates is 19\%,
+today but it used to be 17.5\% until last month, there will be 2 rows for the applicable
+VAT account. See \charef{cha-taxes} for further discussion of how taxes work in
+LedgerSMB and the choices involved when being required to handle changes in tax rates.
+
+Each row lists the following fields:
+
+\begin{description}
+\item [Rate (\%)] The tax rate to be applied when calculating VAT to be posted on this account.
+\item [Number] Account number
+\item [Valid To] The ending date of the settings in this row. This can apply to the rate as well as the ordering or the tax rules (but usually applies to the rate).
+\item [Ordering] This has to do with cumulative taxes.  For example if two taxes
+exist and one has an ordering of 0 and one of 1, then the second tax will be
+calculated on a basis that includes the first.  One place where this used to be
+used was in Quebec, where GST was taxable under PST.
+\item [Tax rules] LedgerSMB features a flexible structure to facilitate complex tax
+calculations (see \secref{sec-tax-rule-plugins}). By default the ``Simple'' module
+is the only one installed.
+\end{description}
+
+\subsection{Defaults}
+\label{subsec-company-config-defaults}
+
+\subsubsection{Business number}
+\label{subsubsec-company-config-defaults-business-number}
+   This is used to store an arbitrary identification number for the business.  It
+could be used to store a business license number or anything similar.
+   
+\subsubsection{Weight unit}
+\label{subsubsec-company-config-defaults-weight-unit}
+   The unit of measurement for weights. @@@ why don't we have a unit of measurement for distance as well??? And maybe a unit of measurement for content?
+   
+\subsubsection{Separation of duties}
+\label{subsubsec-company-config-defaults-separation-of-duties}
+
+Set this field to 1 if you want to activate separation of duties or to 0 if you don't
+want to enforce it. Separation of duties is explained in \secref{sec-workflows-accounting-transaction-approval}.
+
+\subsubsection{Default accounts}
+\label{subsubsec-company-config-defaults-accounts}
+
+This setting will be used to preselect an account in
+the listings of the three categories listed below:
+\begin{itemize}
+\item Inventory
+\item Income
+\item Expense
+\end{itemize}
+
+
+\subsubsection{Foreign exchange gain and loss accounts}
+\label{subsubsec-company-config-defaults-fx-accounts}
+
+When working with foreign currencies,
+the system needs two special purpose accounts. One to post the gains onto which are
+caused by foreign currencies increasing in value; the other to post the losses onto
+which are caused by foreign currencies decreasing in value.
+
+
+\subsubsection{Default country}
+\label{subsubsec-company-config-defaults-country}
+
+This setting indicates which country needs to be pre-selected
+   in country selection lists.
+
+
+\subsubsection{Default language}
+\label{subsubsec-company-config-defaults-language}
+
+The language to be used when no other language has been selected. Several parts of the
+application require language selection, such as customer, vendor and employee entry screens.
+
+\subsubsection{Templates directory}
+\label{subsubsec-company-config-defaults-templates}
+
+This setting indicates which set of templates - stored in the
+   \texttt{templates/} directory - should be used. In a standard installation, the drop down
+   lists two items:
+   \begin{itemize}
+   \item [demo] which contains templates based on \LaTeX, which is more commonly installed but has issues dealing with accented characters
+   \item [xedemo] which contains the same templates based on TeTeX, which handles UTF-8 input (and thus accented characters) much better than \LaTeX and is broadly available, but not usually pre-installed.
+   \end{itemize}
+
+
+\subsubsection{List of currencies \& default currency}
+\label{subsubsec-company-config-defaults-currencies}
+
+Enter a list of all currencies you want
+to use in your company, identified by their 3-letter codes separated by a colon; i.e.
+``USD:EUR:CHF''. To ensure correct operation of the application, at least one currency
+(the company default currency) must be listed. In case of multiple currencies the first
+is used as the company default currency.
+
+\subsubsection{Company data (name /address)}
+\label{subsubsec-company-config-defaults-name-address}
+
+The fields ``Company Name'', ``Company Address'',
+``Company Phone'' and ``Company Fax'' will be used on printed/e-mailed invoices.
+
+\subsubsection{Password duration}
+\label{subsubsec-company-config-defaults-password-duration}
+
+This is an integer value field measuring the validity period in days for passwords set through
+the user's \texttt{Preferences} screen. If this field is empty, passwords set through that method
+won't expire.
+
+A user will receive password expiration reminders upon logging starting a week before password
+expiry. When not acted upon, starting two days before expiry an hourly popup will appear
+requesting the user to change the password.
+
+The application behaves this way because users with expired passwords won't be able to log in:
+their password will need to be reset by a user admin.
+
+\begin{quotation}
+Note that passwords set by admins for other users expire within 24 hours after setting them.
+This value is hard coded and can't be overruled. This is a security measure taken to make
+sure as few unused accounts as possible exist: Existence of such accounts could open up security
+holes.
+\end{quotation}
+
+
+\subsubsection{Default E-mail addresses}
+\label{subsubsec-company-config-defaults-email}
+
+These addresses will be used to send e-mails from the system.
+Note that the ``Default Email From'' address should be configured in order to make sure
+e-mail doesn't look like it's coming from your webserver. The format to be used is \texttt{``Name'' <e-mail address>} where the e-mail address should be inserted between the
+``$\langle$'' and ``$\rangle$''.
+
+\subsubsection{Max per dropdown}
+\label{subsubsec-company-config-defaults-max-dropdown}
+
+Some elements in the screens may present a drop down. However, drop downs are
+relatively unwieldy to work with when used to present a large number of values
+to choose from.
+
+This configuration option sets an upper limit on the number of records to be
+presented as drop down.  When the number is exceeded, no drop down is used.  Instead,
+a multi-step selection procedure will be used.
+
+\subsubsection{Item numbering}
+\label{subsubsec-company-config-defaults-item-numbers}
+
+Many items in the system have sequence numbers: invoices, parts, etc.
+ These sequence numbers can be just a number (i.e. 1 or 37),
+but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for employees.
+The numbers shown in the input boxes will be used to generate the next number in the
+numbering sequence.
+
+\begin{longtable}{ p{3.4cm} p{6.7cm} }
+GL Reference number & The default reference number for the next GL
+transaction. \\
+Sales invoice/ AR Transaction number & This number is used to generate an invoice
+number when none is being filled out by the user. \\
+Sales order number & Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page \\
+Vendor invoice/ AP Transaction number & Same as Sales invoice, except that the number
+is used for accounts payable transactions. @@@ layout issue: the label is too big to fit on the page \\
+Sales quotation number & Same as sales order number, except that it's used for quotations. \\
+RFQ number & Request for quotation number is like the sales quotation number, except
+that it is used to track which vendors have been asked for quotes. \\
+Part number & All parts, services and assemblies are identified by a unique number.
+When an item is created and no number is entered by the user, a number is generated
+from this sequence. \\
+Job/project number & Used when creating new projects. \\
+Employee number & Same as the sales invoice number, used by new employee entry. \\
+Customer number & @@@ is this the control code number? or is this
+meta\_number?? -- Meta-number (CT) \\
+Vendor number & @@@ same question as customer number \\
+\end{longtable}
+
+\subsubsection{Check prefix}
+\label{subsubsec-company-config-defaults-check-prefix}
+
+ The prefix to use when printing checks. There's no check sequence number. That sequence number is requested from the check printing interface, because
+checks can be created outside the application as well, meaning the numbers can
+get out of sync.
+
+\subsection{Year end}
+\label{subsec-company-config-year-end}
+
+@@@ Rename ``Yearend'' in menu interface to ``Year end''.
+
+
+@@@ IMO this section doesn't belong here, because it's a process, not config, but does it belong in this menu then? IMO it doesn't...
+
+
+\subsection{Admin users}
+\label{subsec-company-config-admin-users}
+
+@@@ Same as Year end; doesn't belong here...
+
+\subsection{Chart of accounts}
+\label{subsec-company-config-coa}
+
+@@@ Chart of accounts isn't exactly a ``process'', but it doesn't feel like being pure
+config either. At any rate it's a fact that the CoA discussion is a full chapter in and
+of itself - so discussion here isn't necessary anymore.
+
+\subsection{Warehouses}
+\label{subsec-company-config-warehouses}
+
+Warehouses are stocking locations. They don't have any properties (in the system)
+other than that they have a name. Warehouses can be added, modified and deleted from
+the System $\rightarrow$ Warehouses menu item.
+
+\subsection{Departments}
+\label{subsec-company-config-departments}
+
+Departments can be used to divide a company in smaller pieces. LedgerSMB distinguishes two
+types of departments:
+
+\begin{itemize}
+\item [Profit centers] which can be associated with any type of transaction, including AR transactions.
+\item [Cost centers] which can be associated with all types of transactions, except AR transactions.
+\end{itemize}
+
+Departments can be created (added), modified or deleted through the System $\rightarrow$ Departments menu item.
+
+\subsection{Type of business}
+\label{subsec-company-config-business-types}
+
+Types of business are used in sales operations where customers can be assigned a type
+of business. Based on the type of business assignment, quotations, sales orders and
+invoices will automatically apply discount rates. For each type of business you enter a description and a discount rate to be applied.
+
+\subsection{Languages}
+\label{subsec-company-config-languages}
+
+The language table is the table users can select languages from, both to present
+the UI of the application as well as the setting for customers to be used to generate
+documents.
+
+This listing should correspond to the actual translations of the application being
+available in the program installation directory.
+
+Languages can be added, modified or deleted through the System $\rightarrow$ Language menu item.
+
+\subsection{Standard Industry Code (SIC)}
+\label{subsec-company-config-sic}
+
+SI codes feature these three fields:
+
+\begin{description}
+\item [Code]
+\item [Heading]
+\item [Description]
+\end{description}
+
+When creating a company you can assign that it an SI code, irrespective of its role (i.e. customer,
+vendor, lead or anything else). An example of an SI code system is the
+US's NAICS code\footnote{\url{http://www.census.gov/eos/www/naics/}}.
+Other countries have their own coding systems such
+as ANZSIC\footnote{\url{http://www.abs.gov.au/ausstats/abs@.nsf/mf/1292.0}} for Australia and New Zealand
+and NACE\footnote{\url{http://ec.europa.eu/competition/mergers/cases/index/nace\_all.html}} for Europe
+
+The SIC field currently doesn't support a specific function in the application and is there
+merely for informational purposes. However in the future its role could be extended to include
+impact on reports, taxes or other functionalities where type of industry could matter.
+
+\subsection{HTML templates}
+\label{subsec-company-config-html-templates}
+
+Through this menu, the user is being offered to manipulate a global resource. See
+\secref{subsec-global-config-templates} for more details.
+
+\subsection{LaTeX templates}
+\label{subsec-company-config-latex-templates}
+
+Same as the last subsection.
+
+\subsection{Text templates}
+\label{subsec-company-config-text-templates}
+
+Same as the previous subsection.
+
+

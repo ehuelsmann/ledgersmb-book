@@ -1,0 +1,137 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+\documentclass[10pt,a4paper]{book}
+
+\usepackage{lmodern}
+\usepackage{url, palatino, color}
+% \usepackage[colorlinks, linkcolor=black, urlcolor=black]{hyperref}
+\usepackage{graphicx}
+\usepackage{longtable}
+\graphicspath{{images/}}
+
+% glossaries must be loaded *after* hyperref
+\usepackage[acronym]{glossaries}
+\makeglossaries
+
+\ifdefined\LaTeXML
+  \newcommand{\figref}[1]{Figure~\ref{#1}}
+  \newcommand{\tabref}[1]{Table~\ref{#1}}
+  \newcommand{\secref}[1]{Section~\ref{#1}}
+  \newcommand{\charef}[1]{Chapter~\ref{#1}}
+  \newcommand{\appref}[1]{Appendix~\ref{#1}}
+\else
+  \newcommand{\figref}[1]{Figure~\ref{#1} on page~\pageref{#1}}
+  \newcommand{\tabref}[1]{Table~\ref{#1} on page~\pageref{#1}}
+  \newcommand{\secref}[1]{Section~\ref{#1} on page~\pageref{#1}}
+  \newcommand{\charef}[1]{Chapter~\ref{#1} starting at page~\pageref{#1}}
+  \newcommand{\appref}[1]{Appendix~\ref{#1} starting at page~\pageref{#1}}
+\fi
+
+\newcommand{\menupath}[1]{{\tt #1}}
+\newcommand{\ma}{\ensuremath{\rightarrow}}
+
+
+\begin{document}
+\include{acronyms}
+\include{glossary}
+
+
+\author{Erik H\"ulsmann, Chris Travers}
+\title{\begin{Large}
+Running your business with
+\end{Large} \\
+LedgerSMB 1.3 \\
+ ~ \\
+\texttt{DRAFT / WORK IN PROGRESS} }
+
+
+\maketitle
+
+
+\tableofcontents
+
+\listoffigures
+
+\listoftables
+
+\printglossaries
+
+\section*{Preface}
+\label{preface}
+\addcontentsline{toc}{section}{Preface}
+
+\section*{Intended audience}
+\label{sec-intended-audience}
+
+The book has been split up in several parts intended for starting entrepreneurs,
+(potential) users, application integration developers and
+administrators, it offers something for everybody who works with or considers working with
+LedgerSMB.
+
+\section*{Organization of the book}
+\label{sec-book-organization}
+\addcontentsline{toc}{section}{Organization of the book}
+
+The first
+part ('Overview') is intended for everybody who tries to get an impression of LedgerSMB, with
+chapters on technology, features, licensing and a bit of project history.
+
+The second part
+('Getting started') leads new users and especially new entrepreneurs step by step through the
+application. This part also contains additional explanations on good business and accounting
+process.
+
+The third part ('Configuration') describes system wide configuration settings such as
+the LedgerSMB configuration file and those required for dependencies like PostgreSQL. Additionally
+it describes the company specific settings within the application, such as audit control settings
+and required special accounts. This part is required material for anybody who wants to set up
+a LedgerSMB instance.
+
+The fourth part ('Administration') discusses the different topics
+regarding application administration such as user management, product definition, taxes and etc.
+Anybody responsible for maintaining application instances in good health should read this part.
+
+The fifth part discusses work flows; LedgerSMB best practices, so to say. This part is highly advised
+reading for everybody who is a LedgerSMB user and should be considered required reading for 'business
+architects': those in the company who decide about process design and execution.
+
+The sixth part discusses how to customize the application. This part is intended for developers of
+custom extensions (such as company specific integrations), add-ons and plug-ins.
+
+The last part, the appendices, contain information on various subjects, such as a listing and description
+of the authorization roles in the application as well as information on migration to or upgrading of
+LedgerSMB versions.
+
+
+\section*{Comments and questions}
+\label{sec-comments}
+\addcontentsline{toc}{section}{Comments and questions}
+
+The sources of this book are being developed in the ledgersmb-book Google Code project at
+\url{https://code.google.com/p/ledgersmb-book/}. Comments and enhancement ideas can be filed
+in the ticket tracker of the project. Additionally, discussion about the content of the book
+can be organized on the IRC freenode.net channel \#ledgersmb or the ledger-smb-devel for which
+you can subscribe at \url{https://lists.sourceforge.net/lists/listinfo/ledger-smb-devel}.
+
+
+
+\section*{Acknowledgements}
+\label{sec-acknowledgements}
+\addcontentsline{toc}{section}{Acknowledgements}
+
+H{\aa}vard S{\o}rli for his efforts to help out develop the book outline.
+
+\include{part-overview}
+\include{part-getting-started}
+\include{part-configuration}
+\include{part-administration}
+\include{part-workflows}
+\include{part-customization}
+\include{appendices}
+
+
+
+
+\end{document}
+

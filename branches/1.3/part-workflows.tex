@@ -1,0 +1,946 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+
+\part{Workflows}
+\label{part-workflows}
+
+\chapter{Overview}
+\label{cha-workflows-overview}
+
+
+\chapter{Customers and vendors}
+\label{cha-workflows-customers}
+
+\section{Introduction}
+\label{sec-workflows-customers-intro}
+
+In order to understand how to use customers and vendors, this section describes
+how LedgerSMB implements these concepts.
+
+When creating a customer or vendor in LedgerSMB, you have to create a company
+\footnote{The LedgerSMB database model allows much more flexible constructs
+involving humans as well as companies or legal entities, but this chapter discusses
+the web interface exposed functionality only.}. However,
+this company can't itself be used as a one. Instead, you have to create an ``account''
+\footnote{These ``accounts'' are referred to as (entity) credit accounts as well as
+customers or vendors.}
+which is linked to the company. An account can have either the role of vendor or customer.
+Due to this construct, a single company can both be vendor and customer which is
+sometimes desirable.
+
+One company can have multiple customer and/or vendor type accounts. Each account has its
+own language settings, shipping address, contact data and payment conditions.
+Basically, you will create multiple accounts when you have to record different data
+for any of the items listed above.
+
+The company itself is used - albeit not as customer or vendor - in the context of
+credit risk management (See \charef{cha-credit-risk-management}).
+
+\section{Creating customers and vendors}
+\label{sec-workflows-creating-customers-and-vendors}
+
+The procedure to create customers and vendors works exactly alike:
+
+\begin{enumerate}
+\item Creation of a company
+\item Creation of a credit entity account (''account'')
+\item Attaching addresses, contact info and notes to the account 
+\end{enumerate}
+
+\subsection{Creation of a company}
+\label{subsec-worflows-customer-creating-company}
+
+A company has the following fields:
+
+\begin{description}
+\item [Control code] Code to uniquely identify the company
+\item [Name] Legal name of the company
+\item [Country] Country of incorporation
+\item [Tax number] Tax (VAT/Sales tax) number of the company
+\item [SIC (Standized Industry Code)] Code used to identify
+    the type of business of the company
+\end{description}
+
+The ``Generate Control code'' button generates a new control code upon
+user request when the user is entering a company which isn't yet known
+in the system in any other role.
+
+The ``Retrieve'' button is discussed in \secref{sec-workflows-customers-to-vendors}.
+
+
+\subsection{Creating an account}
+\label{subsec-workflows-customers-creating-account}
+
+When a company of class ``Customer'' or ``Vendor'' has been created,
+accounts of that type can be added. The account entry screen lists the
+following fields\footnote{To simplify the interface if they're unused, some fields
+are not shown in case their selection lists are empty}:
+
+\begin{description}
+\item [Customer number] Number to identify this account among all other accounts in the company;
+     when left empty, the system will generate one when you click ``Save New''
+\item [Description] Textual representation of the account, usually a name
+\item [Pay To] % @@@ ### What's this?
+\item [Starting Date] Date from which the account is valid
+\item [End date] Date until which the account is valid, or empty if there's no known end date
+\item [Credit limit] Maximum amount of open invoices and orders allowed for the account, see
+    \charef{cha-credit-risk-management}
+\item [Terms] Number of days within which invoices have to be paid
+\item [Discount (conditions)] Percentage discount the account is entitled to when payment
+         is within the given number of days
+\item [Subcontract GIFI] Unused - deprecated and removed as of 1.3.24
+\item [AR (account)] Account to post created invoices on
+\item [Payment (account)] Account used as default to accept payments on
+\item [Discount (account)] Account used to post discounts as calculated based on discount conditions
+\item [Business Type] Deprecated. Should not be used anymore.
+\item [Threshold] Minimum amount for invoices to be sent out
+\item [Pricegroup] This field classifies a company for the right 
+\item [Taxform] The applicable tax form for this vendor; tax forms are discussed in more detail in
+   \charef{cha-taxes}
+\item [Language] The language parameter is used to select templates for communication with the customer
+\item [Currency] The (default) currency to be used with the customer
+\end{description}
+
+\section{Multiple customers within one company}
+\label{sec-workflows-customer-multiple-per-company}
+
+\section{Creating vendors from customers}
+\label{sec-workflows-customers-to-vendors}
+
+% \section{}
+
+\section{Maintaining contact information}
+\label{sec-workflows-customers-contact-information}
+\chapter{Quotations from Vendors and for Customers}
+\label{cha-workflows-quotations}
+
+\section{Creating Quotations and RFQs}
+\label{sec-workflows-quotations-creation}
+
+% ### Proze with explanation missing
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{rfq-entry-screen.png}
+\caption{RFQ entry screen}
+\label{fig:rfq-entry-screen}
+\end{figure}
+
+\begin{quotation}
+\textbf{Remark} Note that the \gls{rfq} entry screen contains prices; this is misleading
+at least: the printed output to be sent to the vendor does not. The fact that this screen
+allows entry of prices could be considered a bug.
+\end{quotation}
+
+The listing below describes the meaning of the per \gls{rfq} fields presented in the screen.
+
+\begin{description}
+\item [Vendor (Customer)] Name of the company the quotation is requested from (issued to)
+\item [Currency] Currency for the intended transaction
+\item [Shipping point] Address to ship to ??? % ### TODO check with Chris
+\item [Ship via] Shipping method ???  % ### TODO check with Chris
+\item [RFQ number] The number of the document (automatically generated when left empty)
+\item [Quotation date] Date the document is issued
+\item [Required by] Date of the intended delivery of the goods and services requested ??? % ###
+\item [Notes] Notes to be included on the printed RFQ document sent to the vendor
+\item [Internal notes] Notes to be kept internal to the company - not disclosed through the RFQ document
+\end{description}
+
+The following per item fields are listed.
+
+\begin{description}
+\item [Item] Order number of the item
+\item [Number] Part number of the item to be ordered
+\item [Description] Description or name of the item to be ordered
+\item [Qty] The number of items to be ordered
+\item [Unit] The unit in which the quantity is measured; e.g. 'each' or '6pack'
+\item [OH] Number of items currently on hand (i.e. in stock)
+\item [Price] Item price
+\item [\%] Discount percentage rate
+\item [Extended] Item price after discount
+\item [TaxForm] % ### ???
+\item [SKU] Stocking unit - code used to track stock
+\item [Required by] Required date of delivery; can be used to specify a different date
+   than the date in the header
+\item [Remarks] Item specific remarks
+\item [Group] (Not shown in the screen shot) Part group for the item
+\end{description}
+
+Note that the quotation entry screen offers a number of extra buttons after the data has
+been saved.
+
+\section{Expediting quotations}
+\label{sec-workflows-quotations-sending}
+
+\subsection{Printing}
+\label{subsec-workflow-quotiontions-sending-print}
+
+\subsection{Sending by e-mail}
+\label{subsec-workflow-quotations-sending-email}
+
+\section{Attaching files to quotations}
+\label{sec-workflows-quotations-file-attachments}
+
+
+\chapter{Sales and vendor orders}
+\label{cha-workflows-orders}
+
+In this chapter the options for creating orders will be discussed.
+After successful order creation, there are two possible next steps.
+The first applies to cases where actual goods have to be handled
+and goes through shipping and receiving as discussed in
+\charef{cha-workflows-inventory}. The other skips handling of goods
+and directly proceeds to invoicing in \charef{cha-workflows-invoicing}.
+
+\section{Creating new orders}
+\label{sec-workflows-orders-creation}
+
+\section{Creating orders from quotations}
+\label{sec-workflows-orders-creation-from-quotations}
+
+\section{Creating orders from projects}
+\label{sec-workflows-orders-creation-from-projects}
+
+@@@ What about from time sheets??
+
+\section{Creating purchase orders from sales orders}
+\label{sec-workflows-orders-purchase-from-sales}
+
+\section{Combining orders}
+\label{sec-workflows-orders-combining}
+
+
+\section{Recurring orders}
+\label{sec-workflows-orders-recurring}
+
+% @@@ ### Not getting these to work in the test system. Need to check with Chris.
+
+\section{Incomplete orders}
+\label{sec-workflows-orders-incomplete}
+
+Orders fully shipped and invoiced are automatically closed. However, this isn't always an option.
+
+In case an order ends up being partially shipped and parties agree not to ship the remaining
+items in the order, the order stays open and incomplete. In situations like these, the order
+needs to be marked ``Closed'' in the order entry screen. A note stating why the order was manually
+closed can be put in the ``Internal Notes'' input box. Clicking the ``Save'' button stores the
+changes in the application database.
+
+
+\chapter{Inventory management}
+\label{cha-workflows-inventory}
+
+\section{Shipping}
+\label{sec-workflows-inventory-shipping}
+
+\subsection{Pick lists}
+\label{subsec-workflows-inventory-shipping-picklist}
+
+@@ \textbf{Order picking} is the work(flow), not the picklist!
+
+\subsection{Packing list}
+\label{subsec-workflows-inventory-shipping-packlist}
+
+@@ \textbf{Order packing} is the work(flow), not the packlist!
+
+\section{Receiving}
+\label{sec-workflows-inventory-receiving}
+
+% ### TODO the role of shipping points in receipts??
+
+Reception of goods into inventory assumes having at least one
+saved and incomplete purchase order such as shown in
+\figref{fig:purchase-order-screen} stored in the system.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{purchase-order-screen.png}
+\caption{Saved purchase order}
+\label{fig:purchase-order-screen}
+\end{figure}
+
+The reception process starts by going through the menu to the
+``Receive'' order lookup screen (Shipping $\rightarrow$ Receive).
+This will show the order search screen which will help finding
+any orders which have items available for reception, see \figref{fig:shipping-receive-search-screen}.
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{shipping-receive-search-screen.png}
+\caption{Search screen for purchase order item receipts}
+\label{fig:shipping-receive-search-screen}
+\end{figure}
+
+After filling order selection criteria and hitting the ``Continue'' button (or doing so
+immediately to see all orders with outstanding items in the system), the system will return
+a listing of orders with matching the selection criteria as in \figref{fig:shipping-receive-search-result-screen}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{shipping-receive-search-result-screen.png}
+\caption{Search results screen for purchase order item receipts}
+\label{fig:shipping-receive-search-result-screen}
+\end{figure}
+
+Upon selection of one of the orders by clicking the order number the next screen is loaded
+as shown in \figref{fig:shipping-receive-screen}. In this screen you can enter the amounts
+received in the current lot. The entered data is to be confirmed with the ``Done'' button.
+After confirmation of the receipt screen, items will be added to inventory.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7cm]{shipping-receive-screen.png}
+\caption{Purchase order receipt screen}
+\label{fig:shipping-receive-screen}
+\end{figure}
+
+LedgerSMB supports warehouse management on the Receipt screen by offering the ability to
+print a ``Bin List''. This list contains the bin (storage) locations configured for each part.
+
+
+\section{Partial shipments or receipts}
+\label{sec-workflows-inventory-shipping-partial}
+
+Both shipping and receiving support partial shipments and per-lot invoicing. If the vendor
+ships multiple lots to a single order (and charges a single invoice), you can simply call
+up the order and enter items into inventory on the same order. The outstanding items
+are automatically decremented by the amounts entered before.
+
+To create an invoice for a received lot simply follow the process as detailed in
+\secref{sec-workflows-invoicing-from-orders}. If the lot is a partial shipment, the invoice will be
+for the current receipt by default.
+
+\section{Handling returns}
+\label{sec-workflows-inventory-shipping-returns}
+
+
+\section{Transferring between warehouses}
+\label{sec-workflows-inventory-warehouse-transfers}
+
+\section{Inventory reporting}
+\label{sec-workflows-inventory-reporting}
+
+
+\subsection{Inventory status report}
+
+\subsection{Inventory activity report}
+
+
+
+
+\chapter{Sales and vendor invoice handling}
+\label{cha-workflows-invoicing}
+
+Invoices can come from multiple sources. When the quotation and order
+management functionalities in LedgerSMB aren't used, they will usually
+be entered manually. This work flow is covered in Section
+\ref{sec-workflows-invoicing-manual-entry}.
+When order management \emph{is} being used they mostly originate from orders
+which is covered in Section \ref{sec-workflows-invoicing-from-orders}.
+
+
+
+\section{Creating invoices from orders}
+\label{sec-workflows-invoicing-from-orders}
+
+% This section first because the previous chapter is about orders,
+% which seems like a natural flow for the book
+
+
+
+
+\section{Creating new invoices}
+\label{sec-workflows-invoicing-manual-entry}
+
+
+%% this section is about Sales and Vendor Invoices
+
+When a business decides not to use the order management as per the previous
+chapter it may find itself in need to manually enter invoices. But even
+if it does use order management, it may be necessary to enter an invoice
+directly.
+
+When creating a transaction to record that the company owes another
+entity (a vendor invoice) or that it has outstanding receivables,
+LedgerSMB offers two options:
+
+\begin{enumerate}
+\item Invoices
+\item Transactions
+\end{enumerate}
+
+Transactions have very limited functionality: they allow a user to enter
+a debt owed or owned into the AR and AP subsystems. They also require the
+user to think how the other side of the transaction should be registered;
+i.e. which cost account the AP transaction should be posted against, or
+which income account the AR transaction should be posted against. If there
+are sales taxes applicable, the user is required to manually calculate and
+enter them.
+
+Invoices offer a much more clever set of functionalities. First of all, it
+allows the user to create a document to be sent to the vendor or customer.
+Second, invoices take advantage of parts and services
+to automate calculation of sales taxes. Third, invoices update inventory
+for items held in stock (parts, assemblies). Transactions offer none of this.
+
+\subsection{Invoices}
+\label{subsec-workflows-invoicing-manual-entry-invoices}
+
+% @@@ Section misnomer: ``Invoices'' isn't a workflow or workflow step
+
+As mentioned in the previous paragraph, invoices can perform automatic
+sales tax calculations, maintain inventory and post income (or expense)
+to the correct GL accounts.
+
+To be able to do so, they need the items on the invoice to be correctly
+configured. See \charef{cha-products-definition} how to set up products
+and services.
+
+% @@@ Invoice entry screen screenshot(s)
+
+
+
+\subsection{Transactions}
+\label{subsec-workflows-invoicing-manual-entry-transactions}
+
+% @@@ Sections misnomer: ``Transactinos'' isn't a workflow or workflow step
+
+Transactions serve an important purpose not handled by invoices: payroll
+calculations are often too difficult to fit in the simple ``amount times price''
+model offered by invoices. In order to still be able to track which ``vendor''
+was paid which amount such payment obligations can be recorded in the AP subsystem
+with a transaction.
+
+Likewise it's often more hassle than it's worth to create the parts and services
+required to correctly calculate the utility bill. In such cases the transaction
+(possibly with a linked document as supporting evidence) offers good per-vendor
+traceable history records.
+
+% @@@ Transaction creation screen shot(s)
+
+\section{Recurring invoices}
+\label{sec-workflows-invoicing-recurring}
+
+
+\section{Invalidating invoices}
+\label{sec-workflows-invoicing-invalidation}
+
+Sometimes, it's necessary to invalidate an invoice. When an invoice has been
+posted, this also means derived administrations have been updated, such as
+inventory for the items on the invoice.
+
+To undo the effects of an invoice, i.e. to reduce the amount outstanding with a
+customer, use the \texttt{VOID} button on the invoice screen as shown in @@@figref .
+This creates a new invoice by the same number as the original, except that the new
+invoice has a suffix \texttt{-VOID}.
+
+\begin{quotation}
+Unfortunately, in LedgerSMB 1.3 - the earlier versions - voiding an invoice did not
+automatically close the original and voiding invoices.  To close both invoices from
+the open invoice overview, use the cash receipt process as described in
+\secref{sec-workflows-payment-processing-single-payments} to make a zero amount payment.
+\end{quotation}
+
+\section{Correcting and deleting invoices}
+\label{sec-workflows-invoicing-correction-or-deletion}
+
+There's only one way to persist an invoice in LedgerSMB: posting it. This means
+the invoice becomes part of the accounting information. One of the primary
+properties of an accounting system is to record full audit trails and help enforce
+internal controls as detailed in \secref{sec-system-accounting-principles}. Because
+of that fact there's no way to delete or edit invoices after they have been posted
+\footnote{LedgerSMB currently does not support saving an invoice without posting
+it. This functionality is on the roadmap for addition when the AR/AP functionality
+is being rewritten - currently 1.5 or 1.6.}.
+
+The only way to ``undo'' an invoice is by voiding it. This is important for several
+reasons:
+
+\begin{enumerate}
+\item Invoices can't be deleted (because they're accounting data)
+\item Invoices pose a claim on the assets of a customer
+\label{item:InvoicesAsClaims}
+\item @@@ others?
+\end{enumerate}
+
+Specifically item \ref{item:InvoicesAsClaims} is important: when you sent the invoice
+to your customer, you effectively sent them a claim. When you decide to refrain from
+pursuing that claim, you should notify them of that fact so they have the documentation
+to update their accounting system to reflect that fact: they need your documentation
+to void their vendor invoice, instead of paying it.
+
+For the same reason it's ill-advised (and no longer supported) to edit invoices:
+when a customer has multiple invoices, each stating a different amount, all
+using the same invoice number; how is that customer supposed to document (verifiably)
+that the claim has been settled satisfactorily by paying the one he did?
+
+See the Remarks section at the end of this chapter for details on how to handle
+the draft invoice requirement.
+
+\section{Handling invoice disputes}
+\label{sec-workflows-invoicing-handling-disputes}
+
+%When an invoice has been sent to a customer it could happen that the customer disagrees
+%with the invoice due to incorrect amounts, discounts, products, etc.
+%
+%Depending on whether the customer has already paid the invoice there are several
+%options to handle this situation:
+%
+%@@@ AR Invoices have nothing to do with it! They parallel AR Transactions!!
+%
+%\begin{description}
+%\item [Credit invoices] The customer has not paid the invoice yet
+%\item [Credit notes] The customer has paid the invoice and allows offsetting against
+%   other (possibly future) invoices
+%\item[AR vouchers] The customer has paid the invoice and demands repayment
+%\end{description}
+%
+%Note that the naming in the listing above applies to AR items but could equally apply
+%to AP items by replacing the word ``Credit'' by ``Debit'' and ``AR'' by ``AP''.
+%
+%
+%
+%\subsection{Credit and debit invoices}
+%
+%@@@ produce an accounting document to exchange with the customer/vendor
+%@@@ restock credited parts
+%@@@ reverse taxes
+%
+%\subsection{Credit and debit notes}
+%
+%@@@ generic transaction, not related to orders, inventory or anything else
+%@@@ amount taken out of an income account, which is to be selected
+%@@@ i.e. based on the account on which the original income was posted.
+%
+%\subsection{AR and AP Vouchers}
+%
+%@@@ like a credit note or debit note, meant to initiate
+%@@@ a repayment to the customer
+%
+%@@@ exists as a batch workflow only -- to support separation of duties
+
+
+\section{Remarks}
+\label{sec-workflows-accounting-remarks}
+
+
+\begin{description}
+\item [Why can't I send a draft invoice to a customer and edit it
+   to match their expectations?] 
+You can't edit invoices any more in LedgerSMB 1.3 because it breaks the audit trail
+in financial accounting. But in fact there's functionality available which is meant
+exactly for this purpose. It's called ``Sales order'' and its details are in
+\charef{cha-workflows-orders}. Sales orders can be converted - upon customer approval -
+into an invoice with a click of a button.
+\end{description}
+
+
+\chapter{Shop sales}
+\label{cha-workflows-shop-sales}
+
+\section{Opening and closing the cash register}
+\label{sec-workflows-shop-register-opening-closing}
+
+\section{Shop sales invoices}
+\label{sec-workflows-shop-invoicing}
+
+\chapter{Manufacturing management}
+\label{cha-workflows-manufacturing}
+
+\section{Producing sales orders}
+\label{sec-workflows-manufacturing-producing-orders}
+
+\subsection{Work orders}
+\label{sec-workflows-manufacturing-work-orders}
+
+@@ section misnomer ``Work orders'' is not a workflow or workflow step
+
+\chapter{Managing accounts receivable and payable}
+\label{cha-workflows-managing-ar/ap}
+
+\section{Creating generic AR/AP items}
+\label{sec-workflows-managing-ar/ap-item-creation}
+
+\section{Handling refunds, overpayments and advances}
+\label{sec-workflows-managing-ar/ap-overpayments}
+
+- this bit is about credit notes and debit notes
+
+\section{Handling returns}
+\label{sec-workflows-managing-ar/ap-returns}
+
+--> this bit is about credit (sales) and debit (vendor) invoices
+
+\chapter{Credit risk management}
+\label{cha-credit-risk-management}
+
+\section{Introduction}
+\label{sec-credit-risk-management-introduction}
+
+A company runs credit risk when it gives credit: it runs the risk of the
+creditor not paying off its debts.  LedgerSMB features two ways to manage
+the risks involved:
+
+\begin{enumerate}
+\item Limit management
+\item Arrears management
+\end{enumerate}
+
+The former tries to limit the risk involved by making sure no customer
+receives more credit than a certain limit while the latter tries to
+make sure any over due payments get cashed.
+
+\section{Limit management}
+\label{sec-workflows-credit-risk-limit-management}
+
+Limit management should prevent a company on one hand from delivering too much
+to its customers at once and on the other from taking (and delivering) new orders
+to customers with too high amount of unpaid invoices.
+
+
+
+@@@ Where to set up limits
+
+@@@ How to monitor limits
+
+
+
+\section{Granting payment terms}
+\label{sec-workflows-credit-risk-payment-terms}
+
+\section{Managing arrears}
+\label{sec-workflows-credit-risk-managing-arrears}
+
+As mentioned before, the process of managing arrears is directed toward
+detecting arrears positions with customers early and taking appropriate
+action.
+
+
+\subsection{Monitoring AR aging}
+\label{subsec-workflows-credit-risk-monitoring-arrears}
+
+In order to find out about over due invoices, a company should run the AR
+aging report available under AR $\rightarrow$ Reports $\rightarrow$ AR Aging.
+The initial screen presents parameters for the aging report to be generated.
+
+@@@ discuss parameters
+
+This report shows customers and their outstanding invoices categorised as:
+
+\begin{description}
+\item [Current] Invoices not over due
+\item [30] Invoice amounts over due by 30 days or less
+\item [60] Invoice amounts over due by 60 days or less (but more than 30)
+\item [90] Invoice amounts over due by 90 days or less (but more than 60)
+\end{description}
+
+
+@@@ Printing / mailing aging reports to customers
+
+
+\subsection{Tracking invoice history}
+\label{subsec-workflows-credit-risk-arrears-reminding}
+
+After an invoice becomes over due a process will be started to remind
+the customer of the outstanding amount requiring payment.
+
+In order to keep records of actions taken to chase customer payment,
+the invoice screen has an ``Internal Notes'' field which can be edited
+after the invoice has been posted.
+
+In order to save any edits to that field, hit the ``Save Info'' button.
+
+\begin{quotation}
+Note that the ``Save Info'' button also saves any changes to the ``TaxForm'' column or
+rather, any information that's not accounting information (posted to the books and
+thereby fixed) nor information which appears on the invoice - which also should remain
+unedited in order to be able to generate an exact copy at a later date.
+\end{quotation}
+
+
+\subsection{Special treatment of invoices}
+\label{subsec-workflows-credit-risk-arrears-special-treatment}
+
+There may be good reasons to treat some over due invoices differently. E.g. in case
+payment arrangements have been made with the customer and further standard arrears
+management would not be appropriate any more.
+
+In this case, you can put an invoice ``On Hold''. The opposite of being on hold is
+being active. The AR Aging report allows selection of all invoices, only active
+invoices (those not on hold) or only invoices on hold.
+
+
+\section{Interest on arrears}
+\label{sec-workflows-credit-risk-interest-on-arrears}
+
+\section{Allowance for doubtful accounts}
+\label{sec-workflows-credit-risk-allowance-doubtful-accounts}
+
+
+\section{Writing off bad debt}
+\label{sec-workflows-credit-risk-bad-debt-write-off}
+
+\subsection{Direct write-off}
+\label{sec-workflows-credit-risk-bad-debt-direct-write-off}
+
+\subsection{Allowed-for write-off}
+\label{sec-workflows-credit-risk-bad-debt-allowed-write-off}
+
+\chapter{Receipts and payment processing}
+\label{cha-workflows-payment-processing}
+
+\section{Introduction}
+\label{sec-workflows-payment-processing-introduction}
+
+Receipt (incoming payments for sales invoices) and payments (outgoing payments
+for purchase invoices) use the same process. This chapter describes the steps
+using receipts only for brevity but be equally applied to payments - except
+when explicitly stated.
+
+\section{Single receipts or payments}
+\label{sec-workflows-payment-processing-single-payments}
+
+LedgerSMB provides two ways to process receipts (and payments). One for single transactions,
+the other for batches. The next section discusses the steps to do batch processing.
+
+To record an amount received from a customer as an invoice payment, go through the menus
+\menupath{Cash \ma Receipt} and fill out the search criteria to find the customer from whom
+the payment has been received. After clicking ``Continue'' the application lists all matching
+customers.
+
+\begin{quotation}
+\textbf{Remark} The customers listed may not have open invoices. The list only serves to select
+the customer the user is looking for. To find customers with outstanding balances, please refer to
+\secref{subsec-workflows-credit-risk-monitoring-arrears}.
+\end{quotation}
+
+After selecting a customer, the cash entry screen as depicted in <figure reference> is shown. This
+screen looks the same for single receipts or payments. This screen consists of three parts. The upper
+block lists customer details on the left and transaction details on the right. The middle block lists
+any (partially) unpaid invoices. The lower block handles overpayments.
+
+Note that the cash transaction amount isn't being entered explicitly in this screen: the total
+is shown on the right of last line above the buttons.
+
+The receipt entry screen can be used to register payment of any outstanding invoices. This is the
+normal scenario. However, if there are no outstanding invoices, or the amount paid is too high,
+the transaction should be (partially) recorded as overpayment. Overpayments can be used to
+pay off invoices at a later date.
+
+
+@@@ Discuss the single receipt screen
+
+% The X column in the single payment interface deletes the checked invoice
+% from the payment list on the next screen update.
+% ### Shouldn't this be replaced by some nice JS/Ajax code which hides the row instead?
+
+% the input box in the single-receipt/payment interface right after the Cash|Check|Deposit|Other
+% plays an important role in the bank statement reconciliation. The drop-down selected
+% selects a numbering range for real world documents which should be uniquely identifying
+% documents. Reconciliation aggregates 
+
+\section{Batch receipts and payments}
+\label{sec-workflows-payment-processing-batch-payments}
+
+\section{Check payments}
+\label{sec-workflows-payment-processing-check-payments}
+
+% Cash -> Vouchers -> Payments, create batch, print checks from the AP transactions.
+
+\section{Using overpayments}
+\label{sec-workflows-payment-processing-overpayments}
+
+\section{Receipt and payment reversal}
+\label{sec-workflows-payment-processing-reversal}
+% Cash/Vouchers/Reverse Payment
+% Batches/Approval
+
+\section{Overpayment reversal}
+\label{sec-workflows-payment-processing-overpayment-reversal}
+
+Reversal of overpayments is a weak spot in LedgerSMB 1.3: there's no way
+to reverse or ``undo'' an overpayment incorrectly entered.  By consequence
+this section describes the workaround that's required to achieve the same
+effect.
+
+This workaround needs an account which can be used to temporarily book income on.
+
+Please note that the income will immediately be reversed, so
+technically any account can be used.  To be able to assert that the entire process
+has been executed correctly, it's advisable to create a separate account, however, since
+it can be checked to be zero at the end.
+
+With the prerequisites in place, you should execute the following steps - assuming the amount
+of the overpayment needs to be placed back into a cash account.
+
+\begin{enumerate}
+\item \label{itm:StartSetupOverpaymentCancelation} Create an AR transaction for the
+    company the overpayment has been entered on
+\item Add a single line to the transaction, with the selected account
+\item Put the overpayment amount to be canceled out in the Amount field for the line
+\item \label{itm:EndSetupOverpaymentCancelation} Save and post the transaction
+\item \label{itm:OverpaymentCancelation} Pay the transaction from the overpayment
+\item \label{itm:MoveToCashAccount} Create a ``General Journal'' transaction debiting the income account and crediting the
+    cash account the overpayment was entered from
+\end{enumerate}
+
+Steps \ref{itm:StartSetupOverpaymentCancelation} trough \ref{itm:EndSetupOverpaymentCancelation}
+prepare the Accounts Receivable module with a transaction which allows the overpayment to be used.
+After step \ref{itm:OverpaymentCancelation}, the overpayment has been cleared, but the
+amount is in the wrong place, since it sits in the income account instead of the cash account,
+which is what step \ref{itm:MoveToCashAccount} corrects.
+
+The side-effect from this workaround is an AR transaction registered against a customer which can't
+be reversed: doing so, would result in the reversed amount ending up in the AR summary account.  Using
+a dummy company isn't an option, because overpayments are registered to a specific customer.  An
+overpayment can only be used to clear open items on that specific customer.
+
+\begin{quotation}
+Note that the above procedure applies to an AR overpayment. However, the same steps apply to
+AP overpayments, replacing ``customer'' with ``vendor'', ``AR'' with ``AP'', ``Income'' with
+``Expense'' and ``debit'' with ``credit''.
+\end{quotation}
+
+\section{Receipts and payments in foreign currencies}
+\label{sec-workflows-payment-processing-fx-payments}
+
+\chapter{Accounting}
+\label{cha-workflows-accounting}
+
+\section{Separation of duties: Transaction approval}
+\label{sec-workflows-accounting-transaction-approval}
+@@@ Probably belongs into the Overview part of the book?
+
+Separation of duties is a method to help prevent fraud where one employee can't modify the
+ledger by himself - such access could be used to blur or erase tracks of fraud.
+
+\section{Entering non sales transactions}
+\label{sec-workflows-accounting-transaction-entry}
+
+\subsection{Corrections}
+\label{subsec-workflows-accounting-correction-transaction-entry}
+
+\subsection{Transfer of money between bank accounts}
+\label{subsec-workflows-accounting-entry-bank-to-bank-transactions}
+
+\subsection{Wages}
+\label{subsec-workflows-accounting-entry-of-wages}
+
+\subsection{Entering other general accounting documents}
+\label{subsec-workflows-accounting-entry-others}
+
+Even though the application handles many general ledger postings as consequences
+from work flows elsewhere in the system - thus not requiring separate postings -
+sometimes the need may occur to create manual postings not resulting from
+AR or AP transactions or till and inventory adjustments.
+
+One example of a case like that is the calculation, and posting of
+corporate taxes presumably at the end of each accounting period but at least
+at the end of the book year.
+
+% @@@ screenshot
+
+
+\section{Bank reconciliation}
+\label{sec-workflows-accounting-reconciliation}
+
+
+
+\section{Period closing}
+\label{sec-workflows-accounting-period-closing}
+
+Period closing is a concept used by accountants to ensure that audited and
+known-correct accounting data stays correct by ``freezing'' it: by closing
+an accounting period no modifications can be made to the accounting data
+before a certain date.
+
+LedgerSMB supports this concept through the System $\rightarrow$ Audit Control
+menu, where you'll find the ``Close Books up to'' item. By filling out a date
+in the input field and hitting Continue posting to dates before the entered
+date will be disallowed.
+
+% @@@ screenshot
+
+\begin{quotation}
+Note that due to a design limitation in LedgerSMB 1.3 - to be lifted with the
+general AR/AP redesign - invoices in foreign currencies can't be reversed on
+other dates than their original posting date. That is: they can, but their
+reversal will result in P\&L and balance sheet effects which presumably isn't
+desirable. Since period closing disables posting before a certain date this
+functionality may have negative side effects in some set ups.
+
+Also note that this pertains exclusively to invoices and transactions in foreign
+currencies and has no effect in case of invoices and transactions in the default
+currency.
+\end{quotation}
+
+\section{Year-end processing}
+\label{sec-workflows-accounting-year-end-processing}
+
+Year end closing is a concept which prepares the accounting books for the next
+accounting year. Note that this is unrelated to the calendar year but to the
+accounting year of the company instead. To muddy the waters even more: there's
+no inherent requirement for this process to be run at least once a year. If the
+first book year of the company spans more than a year, then this procedure will
+be run more than a year after starting up the company.
+
+This procedure freezes the accounting data in the year to be closed as described
+in the previous section. Additionally it clears out the profit and loss accounts:
+setting all the account
+balances to zero by posting their balance to the retained earnings account. Some
+businesses prefer to create a retained earnings account for each book year they
+close. LedgerSMB supports that use-case by allowing the user to select which
+retained earnings account the balance should be posted to.
+
+Some companies want may to include additional transactions related to dividend
+payment regarding the current year: reduce the equity by the amount paid as
+dividends in transactions marked as ``year-end transaction''. Support
+for this use case isn't available in LedgerSMB 1.3.
+
+% @@@ screenshot
+
+
+
+\section{Fixed asset accounting}
+\label{sec-workflows-accounting-fixed-asset-accounting}
+
+
+
+\section{Reporting}
+\label{sec-workflows-accounting-reporting}
+
+\subsection{Tax (VAT) reporting}
+\label{subsec-workflows-accounting-reporting-tax}
+
+
+\begin{itemize}
+\item 1099 (cash based)
+\item EU VAT (accrual based)
+\end{itemize}
+
+
+\subsection{Tax reporting using tax forms}
+\label{subsec-workflows-accounting-reporting-tax-with-taxforms}
+
+\subsubsection{Collecting taxes in tax forms}
+\label{subsubsec-workflows-accounting-reporting-tax-collecting-taxforms}
+
+\subsubsection{Linking companies to tax forms}
+\label{subsubsec-workflows-accounting-reporting-tax-linking-taxforms}
+
+\subsubsection{Running tax form reports}
+\label{subsubsec-workflows-accounting-reporting-tax-running-taxforms}
+
+
+\subsection{Income statement}
+\label{subsec-workflows-accounting-reporting-result}
+
+
+\subsection{Balance sheet}
+\label{subsec-workflows-accounting-reporting-balance}
+
+\subsection{Trial balance}
+\label{subsec-workflows-accounting-reporting-trial-balance}
+

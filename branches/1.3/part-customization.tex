@@ -1,0 +1,53 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_US
+
+
+
+\part{Customization}
+\label{part-customization}
+
+\chapter{Batch data import methods}
+\label{cha-customization-batch-import}
+
+LedgerSMB 1.3 doesn't have batch data imports built in out of the box,
+except for bank statement imports for reconciliation purposes. This
+chapter starts to explain how to use the one import that is supported
+out of the box. It then goes on to highlight some often-used customizations: 
+It is quite easy to customize a LedgerSMB 1.3 instance using
+the LedgerSMB 1.4-built-in data import routines to create a variety
+of file-upload based data imports.
+
+\section{Custom bank statement import}
+\label{sec-customization-batch-import-bank-statement}
+
+\section{Data imports back port from 1.4}
+\label{sec-customization-import-routines-from-14}
+
+\subsection{Chart of Accounts import}
+\label{subsec-customization-import-coa}
+
+This function allows bulk import of an entire chart of accounts using a
+single \gls{csv} file.
+
+The first line of the file contains the headers of the columns. The
+import routine expects the columns as presented in (table name).
+
+\begin{description}
+\item [accno] Number of the account or header
+\item [desc] Description for the account or header
+\item [charttype] ``H'' for heading record, ``A'' for account record
+\item [category] ``I'' for Income, ``E'' for Expense, ``A'' for Asset, ``L'' for Liability
+\item [contra] ``0'' if not a contra-account, ``1'' if it is.
+\item [tax] ``0'' if it is not a tax-account, ``1'' if it is.
+\item [link] A colon (':') separated list of acccount checkmark values (links) as described
+    in \secref{subsec-coa-account-links}, or ``AR'', ``AP'' or ``IC'' for the specified summary accounts
+\item [heading] Id of the heading to group the account (or heading) under
+\item [gifi] GIFI account number
+\end{description}
+
+All lines after the first one are considered to be data lines.
+
+\chapter{Add-ons and plug-ins}
+\label{cha-customization-add-ons}
+
+
