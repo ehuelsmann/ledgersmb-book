@@ -1,0 +1,11 @@
+*.aux
+*.pdf
+*.toc
+*.ist
+*.glo
+*.glsdefs
+*.log
+*.lof
+*.lot
+*.acn
+*.gz
