@@ -59,7 +59,7 @@ Individual configuration keys; full discussion of possible values in reference a
 \label{subsubsec-global-config-ledgersmb-conf-general}
 
 
-\begin{description}
+\begin{description}[style=nextline]
 \item[auth]
 \item[logging]
 \item[tempdir] Directory to store temporary artifacts. E.g. PDF files are stored here before
@@ -139,7 +139,7 @@ Laser    = lpr -Plaser
 \subsubsection{'database' section}
 \label{subsubsec-global-config-ledgersmb-conf-database}
 
-\begin{description}
+\begin{description}[style=nextline]
 \item [host] Name of the host to connect to. See the documentation of the {\tt -h} command line option at 
    \url{http://www.postgresql.org/docs/9.2/static/app-psql.html}
    for more information (documentation unchanged since before 8.3, so applies to older versions as well)
@@ -278,7 +278,7 @@ LedgerSMB and the choices involved when being required to handle changes in tax 
 
 Each row lists the following fields:
 
-\begin{description}
+\begin{description}[style=nextline]
 \item [Rate (\%)] The tax rate to be applied when calculating VAT to be posted on this account.
 \item [Number] Account number
 \item [Valid To] The ending date of the settings in this row. This can apply to the rate as well as the ordering or the tax rules (but usually applies to the rate).
@@ -420,26 +420,25 @@ but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for 
 The numbers shown in the input boxes will be used to generate the next number in the
 numbering sequence.
 
-\begin{longtable}{ p{3.4cm} p{6.7cm} }
-GL Reference number & The default reference number for the next GL
-transaction. \\
-Sales invoice/ AR Transaction number & This number is used to generate an invoice
-number when none is being filled out by the user. \\
-Sales order number & Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page \\
-Vendor invoice/ AP Transaction number & Same as Sales invoice, except that the number
-is used for accounts payable transactions. @@@ layout issue: the label is too big to fit on the page \\
-Sales quotation number & Same as sales order number, except that it's used for quotations. \\
-RFQ number & Request for quotation number is like the sales quotation number, except
-that it is used to track which vendors have been asked for quotes. \\
-Part number & All parts, services and assemblies are identified by a unique number.
+\begin{description}[style=nextline]
+\item [GL Reference number] The default reference number for the next GL transaction.
+\item [Sales invoice/ AR Transaction number] This number is used to generate an invoice
+number when none is being filled out by the user.
+\item [Sales order number ] Same as Sales invoice number, except that it's used for sales orders @@@ layout issue: the label is too big to fit on the page
+\item [Vendor invoice/ AP Transaction number] Same as Sales invoice, except that the number
+is used for accounts payable transactions. @@@ layout issue: the label is too big to fit on the page 
+\item [Sales quotation number] Same as sales order number, except that it's used for quotations.
+\item [RFQ number] Request for quotation number is like the sales quotation number, except
+that it is used to track which vendors have been asked for quotes.
+\item [Part number] All parts, services and assemblies are identified by a unique number.
 When an item is created and no number is entered by the user, a number is generated
-from this sequence. \\
-Job/project number & Used when creating new projects. \\
-Employee number & Same as the sales invoice number, used by new employee entry. \\
-Customer number & @@@ is this the control code number? or is this
-meta\_number?? -- Meta-number (CT) \\
-Vendor number & @@@ same question as customer number \\
-\end{longtable}
+from this sequence.
+\item [Job/project number] Used when creating new projects.
+\item [Employee number ] Same as the sales invoice number, used by new employee entry.
+\item [Customer number] @@@ is this the control code number? or is this
+meta\_number?? -- Meta-number (CT) 
+\item [Vendor number] @@@ same question as customer number
+\end{description}
 
 \subsubsection{Check prefix}
 \label{subsubsec-company-config-defaults-check-prefix}

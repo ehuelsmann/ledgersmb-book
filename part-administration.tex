@@ -230,7 +230,7 @@ three sections is entirely optional.
 
 Every part requires the following fields to be entered:
 
-\begin{itemize}
+\begin{description}[style=nextline]
 \item [Number] The (alphanumeric) code the company uses to identify the item
 \item [Description] The (native language) description of the item, used as the default
 	description on sales invoices
@@ -240,12 +240,12 @@ Every part requires the following fields to be entered:
 \item [COGS account] The P\&L (expense) Cost of Goods Sold (COGS) account to use
 	to post cost of sold items on
 \item [Sell price] The default selling price used on sales invoices
-\end{itemize}
+\end{description}
 
 
 The other fields in this section of the screen are optional:
 
-\begin{itemize}
+\begin{description}[style=nextline]
 \item [List price] Informational; can be used for any (monetary) purpose
 \item [Last cost] Last buying price, updated when a vendor invoice listing the current part
     is posted
@@ -258,7 +258,7 @@ The other fields in this section of the screen are optional:
 \item [ROP] Reorder point - when the inventory drops below this number,
      the part will show up in ``Short parts'' reports
 \item [Bin] The storage location in the warehouse
-\end{itemize}
+\end{description}
 
 
 Apart from these fields, there are also the Make and Model paired fields. Every part
@@ -291,13 +291,13 @@ as described in section
 This section of the screen lists one or more vendors from which the part can be
 purchased, with purchasing information for the given vendor:
 
-\begin{itemize}
+\begin{description}[style=nextline]
 \item [Vendor code] Code used by the vendor to identify the good, to be used by
     customizations and future enhancements (currently informational only)
 \item [Lead time] Lead time of the part from the vendor in days
 \item [Last cost] Last price at which the good was purchased from the vendor
 \item [Currency] The currency belonging to the Last cost field
-\end{itemize}
+\end{description}
 
 \subsubsection{Customer information}
 \label{subsubsec-parts-customer-information}
@@ -306,11 +306,11 @@ The customer information section specifies sell prices per customer or price gro
 where those are required to deviate from the default sell price. This mechanism exists
 to support the marketing principle of categorizing customers.
 
-\begin{itemize}
+\begin{description}[style=nextline]
 \item [Sell price] Price for this part to be used for this customer
 \item [From] Start of the applicability window of the price (inclusive)
 \item [To] End of the applicability window of the price (inclusive)
-\end{itemize}
+\end{description}
 
 \subsubsection{File attachments}
 \label{subsubsec-parts-file-attachments}
@@ -443,7 +443,7 @@ There are currently three types of summary accounts:
 \subsubsection{Receivables \& payables UI}
 \label{subsubsec-coa-AR-AP-checkmarks}
 
-\begin{itemize}
+\begin{description}[style=nextline]
 \item[Income (AR\_amount)] This check mark adds the account to the list of accounts
    in the transaction and invoice screens which are used to post income on.
 \item[Payment (AR\_paid)] This check mark adds the account to the list of accounts
@@ -455,7 +455,7 @@ There are currently three types of summary accounts:
    in \secref{sec-workflows-payment-processing-overpayments}.
 \item[Discount (AR\_discount)] Adds the account to the customer entry screen's selection
    list for accounts to post 
-\end{itemize}
+\end{description}
 
 The payables UI works the same way as the receivables UI. The difference is
 that the technical names of the configuration identifiers are prefixed by AP\_ instead
@@ -467,7 +467,7 @@ of AR\_.
 The items on this line relate to stocked items, i.e. those tracked for inventory: parts and
 assemblies.
 
-\begin{enumerate}
+\begin{description}[style=nextline]
 \item[Income (IC\_sale)] Adds the account to the selection list of income accounts on the
    part and assembly definition screens.
 \item[COGS (IC\_cogs)] Adds the account to the selection list of COGS @@@ accounts on the
@@ -475,7 +475,7 @@ assemblies.
 \item[Tax (IC\_taxpart)] Adds a check mark to the part and assembly definition screen
    for the applicable account. See \charef{cha-taxes} for more details on how taxes
    work in LedgerSMB.
-\end{enumerate}
+\end{description}
 
 @@@ Question: Labor/Overhead accounts == inventory accounts??
   % Labor/Overhead has an inventory and expense account but no income account.
@@ -486,19 +486,19 @@ assemblies.
 
 The items on this line relate to untracked (non stocked) items, i.e. services.
 
-\begin{enumerate}
+\begin{description}[style=nextline]
 \item[Income (IC\_income)] Adds the account to the income account selection list in
    the service definition screen.
 \item[Expense (IC\_expense)] Adds the account to the expense account selection list in
    the service definition screen.
 \item[Tax (IC\_taxservice)] Adds a check mark to the service definition screen for the
    applicable account. See \charef{cha-taxes} for more details on how taxes work in LedgerSMB.
-\end{enumerate}
+\end{description}
 
 \subsubsection{Fixed assets}
 \label{subsubsec-coa-fixed-assets}
 
-\begin{enumerate}
+\begin{description}[style=nextline]
 \item[Fixed asset (Fixed\_Asset)] Marks the account as holding the original asset value for the fixed
    assets module, for some classes of fixed assets.
 \item[Depreciation (Asset\_Dep)] Marks the account as holding the cumulative depreciation amount
@@ -507,7 +507,7 @@ The items on this line relate to untracked (non stocked) items, i.e. services.
    accounting module. See \secref{sec-workflows-accounting-fixed-asset-accounting} for more details.
 \item[Gain (asset\_gain)] Account to hold book value gain upon disposal of a fixed asset.
 \item[Loss (asset\_loss)] Account to hold book value loss upon disposal of a fixed asset.
-\end{enumerate}
+\end{description}
 
 
 \section{Alternative accounts (GIFI)}
@@ -575,7 +575,7 @@ the full history of the percentage rates, their dates of applicability and the t
 accounts they apply to. An account can show up any number of times, with different
 Valid To dates.
 
-\begin{description}
+\begin{description}[style=nextline]
 \item [Account name] The first column; not an input field
 \item [Rate (\%)] The rate to be applied to the sales amount
 \item [Min Taxable] The minimum amount for which the tax is applicable
@@ -673,7 +673,7 @@ Tax forms can be created (or edited) using the menu options available under the
 
 Tax forms have three fields.
 
-\begin{description}
+\begin{description}[style=nextline]
 \item [Country] Country to which the tax form applies
 \item [Description] Name of the tax form to be displayed in drop down lists
 \item [Select by Default] % ### TODO verify: Determines if the tax form check mark on invoices is checked  or unchecked by default
