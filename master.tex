@@ -1,6 +1,11 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
+%
+% Any packages added to this book must be supported in LaTeXML.
+% https://dlmf.nist.gov/LaTeXML/
+%
+ 
 \documentclass[10pt,a4paper]{book}
 
 \usepackage{lmodern}
@@ -13,7 +18,12 @@
 % For use of next line in description list
 \usepackage{enumitem}
 
+% For fixing the postition of figures using H
+\usepackage{float}
+
 % glossaries must be loaded *after* hyperref
+% Items to be added to the Glossary or Acronym list are designated with \gls{csv} for single and  \glspl{add-on} for plural form.
+% To determine Acronym or Glossary enter the key in the appropriate file; acronyms.tex or glossary.tex
 \usepackage[acronym]{glossaries}
 \makeglossaries
 
@@ -44,7 +54,7 @@
 \title{\begin{Large}
 Running your business with
 \end{Large} \\
-LedgerSMB 1.5 \\
+LedgerSMB 1.9 \\
  ~ \\
 \texttt{DRAFT / WORK IN PROGRESS} }
 
@@ -59,6 +69,8 @@ LedgerSMB 1.5 \\
 \listoftables
 
 \printglossaries
+
+\cleardoublepage
 
 \section*{Preface}
 \label{preface}
@@ -119,7 +131,7 @@ you can subscribe at \url{https://lists.sourceforge.net/lists/listinfo/ledger-sm
 
 
 
-\section*{Acknowledgements}
+\section*{Acknowledgments}
 \label{sec-acknowledgements}
 \addcontentsline{toc}{section}{Acknowledgements}
 
