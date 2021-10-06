@@ -8,12 +8,12 @@
 \chapter{Overview}
 \label{cha-starting-overviev}
 
-\section{Introduction}
-\label{sec-starting-introduction}
-
 This part of the book will run the reader through the LedgerSMB using an example
 startup company run by Jack: Example Inc, which starts its life as a computer parts
 store for the business to business market.
+
+\section{Introduction}
+\label{sec-starting-introduction}
 
 Jack just completed incorporation of Example and is ready to start doing business.
 Before starting his operation Jack was looking for tooling to run his operation
@@ -71,7 +71,7 @@ that the url for his setup.pl is \url{https://example.com/ledgersmb/setup.pl}.
 
 \begin{quotation}
 Please note that in version 1.7 and earlier you can't be logged into the administration tool (setup.pl) and the webapp
-through the same browser at the same time in this version of LedgerSMB - due to technicalities.
+through the same browser at the same time due to limitations of the implementation.
 \end{quotation}
 
 The login screen shows three fields: (a) a user, (b) a password and (c) a database name.
@@ -174,19 +174,19 @@ the setup later if he has to, but for the time being offers a broadly usable set
 \label{subsec-create-setup-load-template}
 
 LedgerSMB comes with a set of default reporting templates. 
-These control the formatting of reports like invoices, balance sheet, income statement, etc. 
+These control the formatting of reports like invoices, checks, balance sheet, purchase orders, income statement, etc. 
 Jack is now presented with the screen to load templates. The choices are:
 \begin{itemize}
-	\item demo
-	\item xedemo
+	\item  \texttt{demo} -- templates processed using pdflatex
+	\item  \texttt{xedemo} -- templates processed using xelatex
 \end{itemize}
 
-Jack selects  \texttt{demo} to load the demo templates.
+Jack selects  \texttt{demo} to load the standard templates for use with text that does not include \glspl{diacritic character}.
 
 \subsection{Step 5: Initial user}
 \label{subsec-create-setup-initial-user}
 
-In the last step the technical part of the company creation procedure was completed.
+In the last step, the technical part of the company creation procedure was completed.
 However, it's not possible to log in to the company yet. This paragraph describes how to
 create a first user.
 \figref{fig:setup-step5} shows the user creation screen. The fields in this screen have
@@ -215,16 +215,26 @@ hours only. Be sure to execute the steps in \secref{sec-first-login-ramp-up} bef
 these 24 hours elapse, because the user will be disabled after that.
 \end{quotation}
 
-The setup.pl program allows the user to be created with the following permissions:
-
-\begin{itemize}
-\item Manage Users
-\item Full Permissions
-\item No changes
-\end{itemize}
-
-Jack's choice for a fully authorized \texttt{admin} user leads him to select the
-\texttt{Full Permissions} option.
+Jack proceeds to enter the values as follows:
+\begin{longtable}{ llp{6cm} }
+	Field & Value & Description \\ \hline
+	\endhead
+	User Name & \texttt{admin} & The login user name\\
+	Password & \texttt{asdfg} & The password to use for your first login\\
+	Create New User & \texttt{Checked} & \\
+	Import Existing User & \texttt{Unchecked} & Only used when the user exists in another database\\
+	Salutation & \texttt{Mr.} & \\
+	First Name &  \texttt{Ad} & \\
+	Last Name & \texttt{Min} & \\
+	Employee Number & \texttt{1} & \\
+	Date of Birth & \texttt{1/1/2000} & \\
+	Tax ID/SSN & \texttt{0} & \\
+	Country & \texttt{United States} & \\
+	Assign Permissions & \texttt{Full Permissions} & \\
+	\\
+	\caption{Create first user entry data}
+	\label{tbl:setupp-step5-user-entry-data}
+\end{longtable}
 
 \begin{figure}[h]
 \centering
@@ -257,8 +267,8 @@ consequences of events in many workflows are directly reflected in the company's
 Some accounting related settings have to be completed before LedgerSMB can do so.
 
 This chapter documents the steps to create a basic usable configuration for Example Inc. 
-It assumes that either
-one of the default  chart of accounts was used in as shown in \charef{cha-company-creation} or 
+It assumes that
+one of the default chart of accounts was selected as shown in \charef{cha-company-creation} or 
 that a custom chart of accounts was imported using the instructions in \secref{subsubsec-coa-importing}. 
 Whatever method was chosen, this chapter assumes that a chart of accounts is available.
 
@@ -268,7 +278,7 @@ Whatever method was chosen, this chapter assumes that a chart of accounts is ava
 Jack is ready for his first login and should see the screen as shown in \figref{fig:login-screen}.
 
 If this screen is not shown then Jack navigates to 
-\url{https://example.com/ledgersmb/login.pl} to access the log in screen.
+\url{https://example.com/ledgersmb/login.pl} to access the login screen.
 
 \subsection{Login screen}
 \label{subsec-first-login-screen}
@@ -280,15 +290,23 @@ If this screen is not shown then Jack navigates to
 \label{fig:login-screen}
 \end{figure}
 
-The login screen shows three fields which need to be filled out as follows:
+The login screen shows three fields which Jack proceeds to fill in as follows:
 
-\begin{description}
-\item[Name] The user name created during database setup; Jack uses \texttt{admin}
-\item[Password] The password - in this case for Jack's \texttt{admin} user
-\item[Company] The name of the database created; Jack uses \texttt{example\_inc}
-\end{description}
+\begin{longtable}{ llp{6cm} }
+	Field & Value & Description \\ \hline
+	\endhead
+	Name & \texttt{admin} & The login user name\\
+	Password & \texttt{asdfg} & The password to use for your first login\\
+	Company & \texttt{example\_inc} & The name of the company database \\
+\end{longtable}
 
-After entering all of the information and taping the \texttt{Login} button Jack will see an alert letting
+% \begin{description}
+% \item[Name] The user name created during database setup; Jack uses \texttt{admin}
+% \item[Password] The password - in this case for Jack's \texttt{admin} user
+% \item[Company] The name of the database created; Jack uses \texttt{example\_inc}
+% \end{description}
+
+After entering all of the information and tapping the \texttt{Login} button Jack will see an alert letting
 him know that his password will expire today.  Jack clicks \texttt{OK} to dismiss the alert.
 
 \subsection{Selecting a password}
@@ -316,21 +334,32 @@ different than the temporary password set by the administrator.
 Not clicking the \texttt{Save} button means the password remains unchanged and the
 24-hour limit remains in effect.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=7cm]{user-password.png}
-\caption{Password change}
+\caption{Password change screen}
 \label{fig:first-user-password}
 \end{figure}
 
-\begin{samepage}
-Jack enters his new information as follows, then clicks the \texttt{Change Password} button:
-\begin{description}
-	\item[Old Password] The old password originally set by the administrator using \texttt{setup.pl}
-	\item[New Password] The new password for Jack's account.
-	\item[Verify] The new password for Jack's account.
-\end{description}
-\end{samepage}
+Jack enters the information in the Change Password screen as follows:
+\begin{longtable}{ llp{6cm} }
+	Field & Value & Description \\ \hline
+	\endhead
+	Old Password & \texttt{asdfg} & The old password set by the administrator using setup.pl\\
+	New Password & \texttt{lkjhg} & The new password that Jack wants to use for admin\\
+	Verify & \texttt{lkjhg} &  Repeats the new password that Jack wants to use for admin\\
+	\\
+	\caption{First Login - Change initial password data}
+	\label{fig:first-user-change-initial-password}
+\end{longtable}
+
+%\begin{description}
+%	\item[Old Password] The old password originally set by the administrator using \texttt{setup.pl}
+%	\item[New Password] The new password for Jack's account.
+%	\item[Verify] The new password for Jack's account.
+%\end{description}
+
+Jack then clicks the \texttt{Change Password} button.
 
 The new password has a validity of determined by the \texttt{Password Duration} setting
 from the System $\rightarrow$ Defaults screen. User management is discussed is detail in \charef{cha-user-management}.
@@ -356,8 +385,8 @@ Jack selects his language, in this case \texttt{American English} and clicks \te
 \subsection{Setting system defaults}
 \label{subsec-setting-system-defaults}
 
-Setting system defaults is optional.  Out of the box, LedgerSMB contains reasonable system defaults.
-Jack navigates to System $\rightarrow$ Defaults and sees the screen depicted in \figref{fig:first-user-system-defaults}.
+Out of the box, LedgerSMB contains reasonable system defaults, but Jack needs to add some specific company information.
+In order to do so, Jack navigates to System $\rightarrow$ Defaults and sees the screen depicted in \figref{fig:first-user-system-defaults}.
  
 \begin{figure}[H]
 	\centering
@@ -367,20 +396,35 @@ Jack navigates to System $\rightarrow$ Defaults and sees the screen depicted in 
 \end{figure}
 
 Jack sets the following defaults:
-\begin{itemize}
-	\item \textbf{Company Name} to \texttt{Example Inc.}
-	\item \textbf{Company Address} to  \texttt{215 Example street, Any City, CA}
-	\item \textbf{Default Country} to \texttt{United States} 
-	\item \textbf{Default Language} to \texttt{English (US)}
-	\item \textbf{Business Number} (e.g. Chamber of commerce number) to \texttt{12345}
-	\item \textbf{Password Duration} to \texttt{180}
-	\item \textbf{Default Email From} to \texttt{info@example.com}
-	\item \textbf{Company Phone} to \texttt{555 836 2255}
-\end{itemize}
+\begin{longtable}{ llp{6cm} }
+	Field & Value & Description \\ \hline
+	\endhead
+	Company Name & \texttt{Example Inc.} & \\
+	Company Address &  \makecell[l]{\texttt{215 Example St} \\  \texttt{Any City, CA}} & Note the use of the new line\\
+	Company Phone &  \texttt{555 836 2255} & \\
+	Business Number &  \texttt{12345} & e.g. Chamber of commerce number\\
+	Default Email From & \texttt{info@example.com} & \\
+	Default Country & \texttt{United States}  & \\
+	Default Language &  \texttt{English (US)} & \\
+	Password Duration &  \texttt{180} & Days\\
+	\\
+\caption{First Login - Change user defaults data}
+\label{fig:first-user-user-default-data}
+\end{longtable}
+
+%\begin{itemize}
+%	\item \textbf{Company Name} to \texttt{Example Inc.}
+%	\item \textbf{Company Address} to  \texttt{215 Example street, Any City, CA}
+%	\item \textbf{Company Phone} to \texttt{555 836 2255}
+%	\item \textbf{Business Number} (e.g. Chamber of commerce number) to \texttt{12345}
+%	\item \textbf{Default Email From} to \texttt{info@example.com}
+%	\item \textbf{Default Country} to \texttt{United States} 
+%	\item \textbf{Default Language} to \texttt{English (US)}
+%	\item \textbf{Password Duration} to \texttt{180}
+%\end{itemize}
 
 A more elaborate description of the parameters in this screen is provided in subsection
-\ref{subsec-company-config-defaults}. However, when setting up a new company, it's probably good enough
-to fill out these parameters (and thus skip the rest).
+\ref{subsec-company-config-defaults}.
 
 \section{Setting up a bank account or credit card}
 \label{sec-first-login-setup-bank-account}
@@ -399,7 +443,7 @@ each bank account. This allows easy reconciliation of the ending balance on the 
 account with the balance in the books.
 
 Knowing this, Jack looks up the example bank account from his preconfigured US chart of
-accounts using the System $\rightarrow$ Chart of Accounts $\rightarrow$ List Accounts menu as
+accounts using the General Journal $\rightarrow$ Chart of Accounts menu as
 shown in \figref{fig:bank-setup1}.
 
 \begin{figure}[h]
@@ -408,23 +452,22 @@ shown in \figref{fig:bank-setup1}.
 \label{fig:bank-setup1}
 \end{figure}
 
-
+Jack adds the new bank accounts by doing the following:
 
 \begin{enumerate}
-\item Renames the original account 1060 ``Checking account'' into ``Checking account C54769''
+\item Click on ``1060''
+\item The screen appears as shown in \figref{fig:bank-setup2} appears 
+\item Change the Description ``Checking Account'' to ``Checking Account C54769''
 \item Click ``Save''
-\item Open the 1060 account again
-\label{itm:bank-setup-steps-start}
-\item Change the number to 1061
-\item Change the description to ``Cash deposit account D54990''
-\item Click ``Save as''
-\label{itm:bank-setup-steps-end}
+\item In the same screen change the Account Number to ``1061''
+\item Change the Description to ``Cash Deposit Account D54990''
+\item Click ``Save as new''
+\item In the same screen change the Account Number to ``1062""
+\item Change the description to ``Credit Card xxxx.xxxx.7734''
+\item Click ``Save as new''
 \end{enumerate}
 
-Then Jack repeats the steps \ref{itm:bank-setup-steps-start} to \ref{itm:bank-setup-steps-end}
-for the credit card with the account number 1062 and description ``Credit card xxxx.xxxx.7734'' to set
-up the credit card. \figref{fig:bank-setup2} shows the screen in which to enter the account
-details. \secref{sec-coa-account-options} discusses the options in detail - for now using the
+\secref{sec-coa-account-options} discusses the options in detail - for now using the
 settings as configured for the sample checking account will do.
 
 \begin{figure}[h]
@@ -450,8 +493,7 @@ users won't be able to complete their workflows.
 \label{subsec-first-login-accounts-list}
 
 Jack wants to make sure his chart of accounts fits his purposes. To perform these
-checks Jack goes into the System $\rightarrow$ Chart of Accounts $\rightarrow$
-List Accounts page. For now, he finds
+checks Jack goes into the General Journal $\rightarrow$ Chart of Accounts page. For now, he finds
 the ledger to be in order. Although the single Sales account stands out a bit against
 the numerous expense accounts, it turns out that there is also a single Purchases
 account on which all the expenses for parts purchases are going to be booked.
@@ -461,60 +503,6 @@ He decides that if this isn't enough, he can add accounts later.
 he does indeed need to create additional accounts to support sales and
 purchase discounts.}
 
-\subsection{Technical accounts identified by Links}
-\label{subsec-first-login-technical-accounts-links}
-
-For LedgerSMB to operate correctly, a number of accounts have to be configured for
-their specific purpose. He continues on the same screen as the previous section. His
-checks concern the values in the \texttt{Link} column of the screen. These values have
-to be present:
-
-\begin{longtable}{ lp{8cm} }
-Purpose & Description \\ \hline
-\endhead
-AR  & The summary account for accounts receivables; most example charts of accounts have one. \\
-AR\_overpayment & Receivables overpayments; if a customer pays too much or gets a credit
-                  invoice for an invoice already paid, this is where his credit gets
-                  recorded if it's not refunded immediately \\
-AR\_discount & Sales discounts; if a customer pays within the specified terms, a discount
-                  is applied.
-                  In order to monitor effectiveness of the discount offered, one probably
-                  wants it posted on its own account. \\
-AP  & Same as AR, except for payables. \\
-AP\_overpayment  & Same as AR\_overpayment, except that this registers credits others owe you \\
-AP\_discount &  Same as AR\_discount, except that it applies to payables \\
-IC  & Summary account for inventory; this account doesn't apply to companies which sell
-      services only. \\
-
-\caption{List of special purpose account types by link}
-\label{tbl:special-purpose-account-types-links}
-\end{longtable}
-
-
-Jack's chart (the US General.sql standard chart) misses the AR and AP\_overpayment links as
-well as the overpayment accounts. He'll need to create them by going to the Add Accounts under
-the same submenu as the List Accounts option. The table below shows the settings required for
-the account types listed in Table \ref{tbl:special-purpose-account-types-links}.
-
-\begin{longtable}{lll}
-Purpose & Account type & Overpayment checkmark line \\ \hline
-\endhead
-AR & Asset &  \\
-\textit{AR\_overpayment} & \textit{Liability} & \textit{Receivables} \\
-AR\_discount & Income (Contra) &  \\
-AP & Liability &  \\
-\textit{AP\_overpayment} & \textit{Asset} & \textit{Payables} \\
-AP\_discount & Expense (Contra) & \\
-IC & Asset &  \\
-\caption{Special purpose account configuration summary}
-\label{tbl:special-purpose-account-config-summary}
-\end{longtable}
-
-Jack creates two accounts, one for each line marked in italics in Table \ref{tbl:special-purpose-account-config-summary}:
-\begin{itemize}
-\item [1202] Advance payments
-\item [2105] Advance receipts
-\end{itemize}
 
 \section{Checking sales tax (VAT) rates}
 \label{sec-first-login-checking-tax-rates}
@@ -807,8 +795,6 @@ be recorded until invoices have been posted.
 \section{Receiving an invoice}
 \label{sec-stock-invoice}
 
-
-
 \section{Paying an invoice}
 \label{sec-stock-payment}
 
@@ -817,21 +803,31 @@ be recorded until invoices have been posted.
 \chapter{Ramping up to the first sale}
 \label{cha-ramping-up-to-the-first-sale}
 
-% sending out a quote followed by a sales order
+\section{Sending out a quote} 
+\label{sec-sending-a-quote}
+
+\section{Sending out a sales order}
+\label{sec-sending-a-sales-order}
+
+
 
 \chapter{Shipping sales}
 \label{cha-shipping-sales}
+
+
 
 \chapter{Invoicing}
 \label{cha-starting-invoicing}
 
 \section{Handling sales taxes}
 \label{sec-invoicing-sales-tax}
-% invoices with taxes included
 
-% invoices with explicit tax amounts
+\subsection{Invoices with taxes included}
+\label{subsec-sales-tax-included}
 
-% 
+\subsection{Invoices with explicit tax amounts}
+\label{subsec-sales-tax-explicit-amount}
+
 
 
 \chapter{Collecting sales invoice payments}
@@ -843,33 +839,47 @@ be recorded until invoices have been posted.
 \section{Customer payment mismatch}
 \label{sec-starting-sales-payment-mismatch}
 
-% choosing between pardonning and registering underpayment
+\subsection{Choosing between pardoning and registering underpayment}
+\label{subsec-sales-payment-mismatch}
 
-% large ones, as in partial payments or largish under/over payments
+\subsection{Large ones, as in partial payments or largish under/over payments}
+\label{subsec-sales-payment-partial}
 
-% pardonning small mismatches
+\subsection{Pardoning small mismatches}
+\label{subsec-sales-payment-pardoning}
+
 
 
 \chapter{Paying vendor invoices}
 \label{cha-starting-vendor-payments}
 
-% handling vendors who match amounts to exact invoices
+\section{Handling vendors who match amounts to exact invoices}
+\label{sec-vendor-invoice-exact-match}
 
-% handling vendors with running balances
+\section{Handling vendors with running balances}
+\label{sec-vendor-invoice-running-balance}
 
-% handling bounced checks: voiding checks to undo payments of vendor invoices
-%   relating to bounced checks
+\section{Handling bounced checks}
+\label{sec-vendor-invoice-bounced-checks}
+
+\subsection{Voiding checks to undo payments of vendor invoices
+ relating to bounced checks}
+
+
 
 \chapter{Monitoring arrears}
 \label{cha-starting-monitoring-arrears}
 
-% handling interest on arrears
+\section{Handling interest on arrears}
+\label{sec-monitoring-interest-on-arrears}
+
+
 
 \chapter{Branching out: services}
 \label{cha-starting-branch-to-services}
 
-% including creation / assignment to different accounts
-
+\section{Creation / assignment to different accounts}
+\label{sec-starting-services-assignment}
 
 \section{Recording service hours}
 \label{sec-starting-services-writing-hours}

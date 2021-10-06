@@ -21,6 +21,9 @@
 % For fixing the postition of figures using H
 \usepackage{float}
 
+% For newlines inside cells
+\usepackage{makecell}
+
 % glossaries must be loaded *after* hyperref
 % Items to be added to the Glossary or Acronym list are designated with \gls{csv} for single and  \glspl{add-on} for plural form.
 % To determine Acronym or Glossary enter the key in the appropriate file; acronyms.tex or glossary.tex
@@ -44,6 +47,9 @@
 \newcommand{\menupath}[1]{{\tt #1}}
 \newcommand{\ma}{\ensuremath{\rightarrow}}
 
+% This is the only place needed to change the current version of LedgerSMB
+% that this document references. Keep the space after.
+\newcommand{\ledgerSMBversion}{1.9 }
 
 \begin{document}
 \include{acronyms}
@@ -54,7 +60,7 @@
 \title{\begin{Large}
 Running your business with
 \end{Large} \\
-LedgerSMB 1.9 \\
+LedgerSMB \ledgerSMBversion \\
  ~ \\
 \texttt{DRAFT / WORK IN PROGRESS} }
 
@@ -123,12 +129,10 @@ LedgerSMB versions.
 \label{sec-comments}
 \addcontentsline{toc}{section}{Comments and questions}
 
-The sources of this book are being developed in the ledgersmb-book Google Code project at
-\url{https://code.google.com/p/ledgersmb-book/}. Comments and enhancement ideas can be filed
+The sources of this book are being developed in the ledgersmb-book Github project at
+\url{https://github.com/ehuelsmann/ledgersmb-book}. Comments and enhancement ideas can be filed
 in the ticket tracker of the project. Additionally, discussion about the content of the book
-can be organized on the IRC freenode.net channel \#ledgersmb or the ledger-smb-devel for which
-you can subscribe at \url{https://lists.sourceforge.net/lists/listinfo/ledger-smb-devel}.
-
+can be organized on the mail list or chat channels listed  at \url{https://ledgersmb.org/topics/support}.
 
 
 \section*{Acknowledgments}

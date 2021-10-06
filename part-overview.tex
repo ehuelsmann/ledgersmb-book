@@ -35,14 +35,14 @@ powerful framework which supports building your own extensions and
 integrations with other applications. Through this philosophy, it
 aspires to be \emph{the} (open source) integrated administration system.
 
-The software is being developed by the LedgerSMB project with its homepage at \url{http://ledgersmb.org/}.
-However, the actual project activity can be witnessed at the SourceForge
-project site hosted at \url{http://sf.net/projects/ledger-smb/} and the mailing list archive
-hosted at \url{http://archive.ledgersmb.org/}.  The project
-employs the Freenode.net IRC network's \#ledgersmb chat channel to help out users and to discuss
-development.
+The software is being developed by the LedgerSMB project with its
+homepage at \url{http://ledgersmb.org/}.
+However, the actual project activity can be witnessed at the Github
+project site hosted at \url{https://github.com/ledgersmb/LedgerSMB} and
+on the mailing lists or chat channel 
+listed at \url{https://ledgersmb.org/topics/support}
 
-Its open source nature allows you to download it and use it with any
+Its open source nature allows you to download LedgerSMB and use it with any
 infrastructure you like. So there's no vendor lock-in: you can
 always take your data and set up your system with another hardware vendor
 or set up your own hardware.
@@ -60,7 +60,7 @@ Overall, the application consists of five layers:
 \begin{itemize}
 \item The web browser
 \item The web server (as a network traffic handler)
-\item The web server (as an application - CGI)
+\item The web server (as an application - \gls{cgi})
 \item The database (as an application - PL/SQL)
 \item The database (as storage)
 \end{itemize}
@@ -77,20 +77,20 @@ at the ``storage'' level, by adding constraints to table definitions. Additional
 the new design moves to a model where a large part of the database API as well
 as business logic is implemented in PL/SQL.  The ultimate goal there is to
 allow easier development of bindings in languages other than Perl.  Part of this
-move is to reduce the CGI layer to become more of a ``glue'' layer between
+move is to reduce the \gls{cgi} layer to become more of a ``glue'' layer between
 the web server and the application database layer.
 
 As part of the on-going code restructuring, in 1.4 there will be a REST web service
 based API for the areas where functionality has been rewritten.
 
-One of the roles that has remained so far for the CGI layer is to generate
+One of the roles that has remained so far for the \gls{cgi} layer is to generate
 HTML screens for presentation in the web browser, handling all user interaction.
 Recently activities have started to change that for 1.4 and 1.5 to create a
 much heavier client in the web browser with back end interaction through
 web services.
 
 In the old design everything except storage was handled in the ``web server as an
-application (CGI)'' layer.
+application (\gls{cgi})'' layer.
 
 
 \section{Supported functionality}
@@ -112,7 +112,7 @@ and \glspl{add-on} is that it allows for different release schedules
 and separate maturity levels.
 
 
-LedgerSMB 1.3 features the following integrated modules:
+LedgerSMB \ledgerSMBversion features the following integrated modules:
 
 \begin{itemize}
 \item General ledger
@@ -135,8 +135,6 @@ LedgerSMB 1.3 features the following integrated modules:
 
 These \glspl{add-on}  can be installed:
 \begin{itemize}
-\item Budgeting
-\item Enhanced AR and AP support
 \item VAT reporting (accrual based)
 \item Enhanced trial-balance report
 \item Enhanced recurring transactions
@@ -201,7 +199,7 @@ Unfortunately, by the beginning of 2011 the project looked mostly dead from
 an outside perspective: the team had not brought forward any releases since
 2007, there were no signs of development activity and the
 mailing lists (a measure for community activity) were
-completely silent.  SVN commits were continuing, but were being made by ever
+completely silent.  \gls{svn} commits were continuing, but were being made by ever
 fewer committers and contributors.
 
 Fortunately development activity was increasing in the first half
@@ -221,13 +219,13 @@ October 2012.
 \label{sec-ledgersmb-system-requirements}
 
 The INSTALL file which comes with every LedgerSMB software release should be
-considered the authorative source of system requirements. In summary, the
+considered the canonical source for system requirements. In summary, the
 following technical components are required:
 
 \begin{itemize}
 \item The Apache web server (others may or may not work)
-\item Perl 5.10 or higher, with additional modules
-\item PostgreSQL 8.3 or higher, with contribs
+\item Perl 5.32 or higher, with additional modules
+\item PostgreSQL 10.0 or higher, with contribs
 \item \LaTeX or XeLaTeX from the TeTeX or TexLive \TeX distributions
 \end{itemize}
 
@@ -375,13 +373,13 @@ document:
 \begin{description}[style=nextline]
 	\item [Assets] Money and anything that can be converted into money without reducing
 	the net equity of the business. Assets include money owed, money held, goods
-	available for sale, property, and the like.
+	available for sale, property, etc.
 	\item [Liabilities] Debts owned by the business such as bank loans and unpaid bills.
 	\item [Equity] What would be left for the owner if all the assets were converted to
 	money and all the liabilities paid off.
 	\item [Revenue] Income from business activities.
 	\item [Expense] Money paid to operate the business.
-	\item [Cost of Goods] Expenses that go into a product that is sold.
+	\item [Cost of Goods] Money that is spent to acquire material and services to build a product that is sold.
 	\item [Operating Expenses] Expenses that are consumed to administer the business.
 	\item [Trial Balance] A report to use when checking that all accounts in the
 	General Journal are in balance.
@@ -423,4 +421,68 @@ There can be a number of problems with \gls{cash basis} accounting:
 \section{Valuation of inventory}
 \label{sec-accounting-valuation-inventory}
 
+@@@ TODO Need why is this important paragraph?
 
+The cost of inventory, in theory, includes all costs incurred to acquire the goods and make 
+them ready for sale. This theoretical cost may include shipping costs, discounts, insurance, 
+receiving costs, handling costs, storage costs, etc.
+
+In practice, the cost used is often limited to the total invoice price for the goods.
+This formula may or may not include shipping and handling.
+Other costs are often ignored if they are immaterial to the overall cost of the inventory, if there
+is no easy way to allocate the costs to the inventory, or they are relatively constant period to period.
+
+Inventory valuation must consider in the following situations:
+\begin{itemize}
+	\item When the valuation of inventory varies from purchase to purchase. The costing method
+	determines the valuation.  This situation is automatically handled in LedgerSMB using one of the
+	inventory valuation methods discussed below.
+	\item When the valuation of inventory is less that what was paid for it. The inventory must
+	be written down. This is usually a manual calculation that is the result of damage, obsolescence, 
+	or decline in the vendor or suppliers selling price.
+	\item When estimates are required, such as when inventory is stolen, destroyed, or when a physical inventory
+	cannot be performed. In this case, a reasonable and consistent manual method must be used to 
+	estimate the value. 
+\end{itemize}
+
+There are several general automated inventory valuation methods including the following:
+\begin{itemize}
+	\item Specific Identification -- Each specific inventory item has its cost tracked individually. 
+	This method is usually used for large and expensive items that can be tracked by 
+	serial number or identification tag. 
+	Typically, the specific identification inventory valuation method results an inventory valuation
+	close to value of using the \gls{FIFO} method.
+	\item \gls{FIFO} -- This method is similar to selling the oldest product first merchandising policy.
+	In the \gls{FIFO} method the lastest costs are included in inventory cost and the older costs
+	are charged back to \gls{COGS}.
+
+	\gls{FIFO} is the preferred method for maintaining accurate historical costs and is less 
+	susceptible to income manipulation by the timing of new purchases. Typically \gls{FIFO}
+	results in the highest inventory value of these methods.
+	
+	% https://github.com/ledgersmb/LedgerSMB/blob/master/sql/modules/COGS.sql
+	In LedgerSMB the inventory cost is tracked on a \gls{FIFO} basis. When a part is purchased, 
+	its cost is added to the inventory asset account. When the part is sold, the cost of the item
+	is moved to the cost of goods sold account.\\
+	@@@TODO Is this paragraph redundant?\\
+	@@@TODO  What sold cost is used; oldest, newest, average?\\
+	@@@TODO How is the inventory asset account debited?
+	\item \gls{LIFO} --  Under \gls{LIFO} the costs of the last goods purchased are charged
+	against revenues as the \gls{COGS} and the inventory is composed of the costs
+	of the oldest goods acquired.
+	
+	\gls{LIFO} is preferred when prices are rising as it typically results in reducing net income and
+	thereby reducing taxes. However, \gls{LIFO} allows manipulation of income by simply changing the time
+	at which additional purchases are made and does not represent accurate historical costs. 
+	Typically \gls{LIFO} results in the lowest inventory value.
+	
+	\item Weighted Average -- Under the weighted average method, the total number of units 
+	purchased plus those on-hand at the beginning of the period is divided by the total costs
+	of purchases plus the cost of the beginning inventory.
+	
+	Typically the weighted average inventory valuation method results in 
+	an inventory value between \gls{FIFO}, which is the highest,
+	and \gls{LIFO} which is the lowest.
+\end{itemize}
+
+ 
