@@ -24,6 +24,18 @@
 % For newlines inside cells
 \usepackage{makecell}
 
+% For links in the pdf table of contents
+% Not sure of the impact of this on the HTML docs
+% No color, no visible indication of the link
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black
+}
+
 % glossaries must be loaded *after* hyperref
 % Items to be added to the Glossary or Acronym list are designated with \gls{csv} for single and  \glspl{add-on} for plural form.
 % To determine Acronym or Glossary enter the key in the appropriate file; acronyms.tex or glossary.tex
@@ -45,7 +57,7 @@
 \fi
 
 \newcommand{\menupath}[1]{{\tt #1}}
-\newcommand{\ma}{\ensuremath{\rightarrow}}
+\newcommand{\ma}{\ensuremath{\rightarrow} }
 
 % This is the only place needed to change the current version of LedgerSMB
 % that this document references. Keep the space after.

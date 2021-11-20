@@ -17,7 +17,7 @@
 
 \section{Introduction}
 \label{sec-ledgersmb-introduction}
-LedgerSMB is an open source, web based \gls{erp}. An ERP is a system
+LedgerSMB is an open source, web based \gls{erp}. An \gls{ERP} is a system
 which supports business processes of all disciplines throughout the
 organization, automating as much of those processes as possible. To
 illustrate this, consider the process of selling goods to a customer
@@ -60,7 +60,7 @@ Overall, the application consists of five layers:
 \begin{itemize}
 \item The web browser
 \item The web server (as a network traffic handler)
-\item The web server (as an application - \gls{cgi})
+\item The web server (as an application - \gls{PSGI})
 \item The database (as an application - PL/SQL)
 \item The database (as storage)
 \end{itemize}
@@ -77,20 +77,20 @@ at the ``storage'' level, by adding constraints to table definitions. Additional
 the new design moves to a model where a large part of the database API as well
 as business logic is implemented in PL/SQL.  The ultimate goal there is to
 allow easier development of bindings in languages other than Perl.  Part of this
-move is to reduce the \gls{cgi} layer to become more of a ``glue'' layer between
+move is to reduce the \gls{PSGI} layer to become more of a ``glue'' layer between
 the web server and the application database layer.
 
-As part of the on-going code restructuring, in 1.4 there will be a REST web service
+As part of the on-going code restructuring, in 1.4 there will be a \gls{REST} web service
 based API for the areas where functionality has been rewritten.
 
-One of the roles that has remained so far for the \gls{cgi} layer is to generate
-HTML screens for presentation in the web browser, handling all user interaction.
+One of the roles that has remained so far for the \gls{PSGI} layer is to generate
+\gls{HTML} screens for presentation in the web browser, handling all user interaction.
 Recently activities have started to change that for 1.4 and 1.5 to create a
 much heavier client in the web browser with back end interaction through
 web services.
 
 In the old design everything except storage was handled in the ``web server as an
-application (\gls{cgi})'' layer.
+application (\gls{PSGI})'' layer.
 
 
 \section{Supported functionality}
@@ -163,7 +163,7 @@ Packages to compare to:
 \section{Release history}
 \label{sec-ledgersmb-release-history}
 
-The project started out as a fork of SQL-Ledger - the open source \gls{erp}
+The project started out as a fork of \gls{SL} - the open source \gls{erp}
 developed by Dieter Simader - somewhere between SQL-Ledger versions 2.6
 and 2.8.  A fork happens when a group of developers can't - for whatever
 reason - continue to work as one group on a project.  At that time, the
@@ -218,16 +218,20 @@ October 2012.
 \section{System requirements}
 \label{sec-ledgersmb-system-requirements}
 
-The INSTALL file which comes with every LedgerSMB software release should be
+The README file which comes with every LedgerSMB software release should be
 considered the canonical source for system requirements. In summary, the
 following technical components are required:
 
 \begin{itemize}
 \item The Apache web server (others may or may not work)
-\item Perl 5.32 or higher, with additional modules
-\item PostgreSQL 10.0 or higher, with contribs
+\item Modern Perl 5, with additional modules
+\item PostgreSQL 10 or higher, with contribs
 \item \LaTeX or XeLaTeX from the TeTeX or TexLive \TeX distributions
 \end{itemize}
+
+More information about system requirements is available at
+
+\href{https://ledgersmb.org/content/system-requirements}{https://ledgersmb.org/content/system-requirements} 
 
 Other system requirements such as required RAM and number of CPUs and their speed
 largely depend on the expected system activity. However, any modern VPS should

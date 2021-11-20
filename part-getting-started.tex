@@ -262,7 +262,7 @@ on invoices.
 
 These steps have to be completed before LedgerSMB can be used meaningfully: these
 settings have to be present for many workflows. A major reason is that with LedgerSMB
-- as most ERP systems - financial
+- as most \gls{erp} - financial
 consequences of events in many workflows are directly reflected in the company's books.
 Some accounting related settings have to be completed before LedgerSMB can do so.
 
@@ -326,7 +326,7 @@ The
 initial password has a 24-hour validity limit to prevent unused user accounts from posing
 a security risk.  
 
-To set a new password Jack navigates to Preferences $\rightarrow$ Password and sees the 
+To set a new password Jack navigates to \menupath{Preferences \ma Password} and sees the 
 screen as depicted in \figref{fig:first-user-password}.
 
 The new password that Jack chooses will be different than any password used before and 
@@ -362,7 +362,7 @@ Jack enters the information in the Change Password screen as follows:
 Jack then clicks the \texttt{Change Password} button.
 
 The new password has a validity of determined by the \texttt{Password Duration} setting
-from the System $\rightarrow$ Defaults screen. User management is discussed is detail in \charef{cha-user-management}.
+from the \menupath{System \ma Defaults} screen. User management is discussed is detail in \charef{cha-user-management}.
 
 Login will be denied to users with expired passwords; they can request
 password resets through user admins.
@@ -386,7 +386,7 @@ Jack selects his language, in this case \texttt{American English} and clicks \te
 \label{subsec-setting-system-defaults}
 
 Out of the box, LedgerSMB contains reasonable system defaults, but Jack needs to add some specific company information.
-In order to do so, Jack navigates to System $\rightarrow$ Defaults and sees the screen depicted in \figref{fig:first-user-system-defaults}.
+In order to do so, Jack navigates to \menupath{System \ma Defaults} and sees the screen depicted in \figref{fig:first-user-system-defaults}.
  
 \begin{figure}[H]
 	\centering
@@ -443,7 +443,7 @@ each bank account. This allows easy reconciliation of the ending balance on the 
 account with the balance in the books.
 
 Knowing this, Jack looks up the example bank account from his preconfigured US chart of
-accounts using the General Journal $\rightarrow$ Chart of Accounts menu as
+accounts using the \menupath{General Journal \ma Chart of Accounts} menu as
 shown in \figref{fig:bank-setup1}.
 
 \begin{figure}[h]
@@ -493,7 +493,7 @@ users won't be able to complete their workflows.
 \label{subsec-first-login-accounts-list}
 
 Jack wants to make sure his chart of accounts fits his purposes. To perform these
-checks Jack goes into the General Journal $\rightarrow$ Chart of Accounts page. For now, he finds
+checks Jack goes into the \menupath{General Journal \ma Chart of Accounts} page. For now, he finds
 the ledger to be in order. Although the single Sales account stands out a bit against
 the numerous expense accounts, it turns out that there is also a single Purchases
 account on which all the expenses for parts purchases are going to be booked.
@@ -504,11 +504,12 @@ he does indeed need to create additional accounts to support sales and
 purchase discounts.}
 
 
-\section{Checking sales tax (VAT) rates}
+\section{Checking sales tax rates}
 \label{sec-first-login-checking-tax-rates}
 
-First off, Jack asserts that a sales tax account has been provisioned. He finds it
-in the Current Liabilities section of his chart of accounts. In his jurisdiction there
+First off, Jack asserts that a sales tax\footnote{Sales tax may be called \gls{VAT}
+in some jurisdictions.} account has been provisioned. He finds it
+in the Current Liabilities section of his \gls{coa}. In his jurisdiction there
 is only one sales tax rate applicable at any one time, which means this single account
 will suit his needs just fine. If he had been in a jurisdiction with multiple tax rates
 applicable, e.g. different rates for different types of goods, he would have been
@@ -519,7 +520,7 @@ The procedure to create more sales tax accounts is the same as the one used in
 to be used is the sales tax account.
 
 With the accounts in place, the tax rates have to be checked and possibly adjusted.
-To do so, go to the System $\rightarrow$ Taxes page as shown in \figref{fig:setup-tax-rates}.
+To do so, Jack navigates to the \menupath{System \ma Taxes} page as shown in \figref{fig:setup-tax-rates}.
 
 \begin{figure}[h]
 \includegraphics[width=\linewidth]{setup-tax-rates.png}
@@ -544,10 +545,10 @@ to an order and receive goods into inventory and invoices into accounts payable.
 
 To prepare LedgerSMB for his parts sales and purchases, Jack needs to configure Parts.
 The system records inventory for parts and assemblies. Jack won't use them for his
-business. There's more on assemblies in @@@.
+business. There's more on assemblies in \secref{subsec-assemblies-definition}.
 
 Once set up, Jack is ready to execute the ordering process. Even though the process
-is described here from a purchasing perspective sales work the same way with the roles
+is described here from a purchasing perspective, sales work the same way with the roles
 reversed (Jack will act as a vendor in the sales process).
 
 To start his purchase, Jack creates a \gls{rfq} document which
@@ -559,7 +560,7 @@ certain rate - subject to conditions specifically mentioned. If Jack accepts the
 and meets the conditions, the vendor is obligated to deliver.
 
 In response to the quotation, Jack will place an order with the vendor to indicate
-acceptance quotation (or he can let the
+acceptance of the quotation (or he can let the
 it expire). When he places the order, that legally means he agrees to the terms
 and conditions in the quotation. If the vendor delivers the goods or services as per the
 order, Jack has accepted the legal obligation to pay.
@@ -586,20 +587,30 @@ with the easy ones: the ones which will be sold as single items.
 \label{subsec-stock-parts-single-item}
 
 Jack chooses a 5TB hard drive by Samsung to be entered into the system as the first item.
-To do so, he goes to the {\tt Goods and Services $\rightarrow$ Add part} page from the menu
-as shown in @@@ (figure to be inserted).
+To do so, he goes to the \menupath{ Goods and Services \ma Add part} page from the menu
+as shown in \figref{fig:setup-add-part}.
+
+\begin{figure}[h]
+	\includegraphics[width=\linewidth]{setup-add-part.png}
+	\caption{Add first part}
+	\label{fig:setup-add-part}
+\end{figure}
 
 Based on his reading from \secref{subsec-products-parts-definition}, Jack decides to enter the hard
 drive with the following data:
 
 \begin{tabular}{ll}
-Number & SAM5TB \\
-Description & Samsung Hard drive 5TB / 7200rpm \\
-Inventory account & 1510 - Inventory\\
-Income account & 4010 - Sales\\
-COGS account & 5010 - Purchases\\
-Sell price & 75.00
+Field & Value\\ \hline
+Number & \texttt{SAM1TB}\\
+Description & \texttt{SAMSUNG 980 PRO 1TB PCIe NVMe Gen4 SSD} \\
+Inventory account &  \texttt{1510 - Inventory}\\
+Income account &  \texttt{4010 - Sales}\\
+COGS account &  \texttt{5010 - Purchases}\\
+Sell price &  \texttt{175.00}\\
+\\
 \end{tabular}
+
+After entering the data Jack clicks \texttt{Save}.
 
 He decides not to include make/model information, drawings or images yet and since
 he hasn't entered vendors or customers in his system yet, he decides to leave
@@ -608,7 +619,7 @@ those sections blank as well.
 \subsection{Combining single-item and ``multi-item pre-packaged'' sales}
 \label{subsec-stock-parts-mulit-item}
 
-After having finished setting up the easy parts, Jack now wants to enter
+After having finished setting up the solid state drive, Jack now wants to enter
 the memory modules he's going to sell. The problem is that they usually go in pairs,
 since that's what the systems consuming them need. However, he expects them to be sold
 as single items as well and he wants to be able to set a separate price for those occasions.
@@ -624,15 +635,23 @@ to 0 (zero) in order to remove the stock from the single item.
 
 As Jack continues to enter more parts into the system, he wonders how he's going to
 look up the parts efficiently later on. Returning his reading to \secref{subsec-products-parts-definition},
-he understands that 'part groups' are the solution to that problem. He decides to create
-the following list of part groups:
+he understands that 'part groups' are the solution to that problem. 
 
-\begin{itemize}
-\item Storage
-\item Monitors
-\item Input devices
-\item Printers and MFPs
-\end{itemize}
+He decides to create
+the part groups by navigating to:
+\begin{quote}
+\menupath{Goods and Services \ma Add Group}.
+\end{quote}
+For each group in the list below Jack enters the group name and clicks \texttt{Save} after each one:
+
+\begin{tabular}{ll}
+Field & Value \\ \hline
+Group & \texttt{Storage}\\
+Group & \texttt{Monitors}\\
+Group & \texttt{Input devices}\\
+Group & \texttt{Printers}\\
+\\
+\end{tabular}
 
 After creating these part groups, the ``Group'' drop down appears on the parts entry screen,
 allowing him to assign each of his parts to one of these groups.
@@ -646,8 +665,8 @@ not to create a separate group for those and leaves these two parts unassigned.
 Jack selects ``ABC Parts'' to purchase the inventory he needs to run his company. In
 order to start buying inventory, ABC Parts needs to be entered as a Vendor to LedgerSMB.
 
-Using the work flow detailed in \secref{sec-workflows-creating-customers-and-vendors} Jack starts to do so by going through the menu \menupath{AP \ma Vendors \ma Add Vendor}.
- He fills out the Company creation form by clicking the {\tt Generate control code}
+Using the work flow detailed in \secref{sec-workflows-creating-customers-and-vendors} Jack starts to do so by going through the menu \menupath{Contacts \ma Add Contact \ma Company}.
+He fills out the Company creation form by clicking the {\tt Generate control code}
 button and adding the data as shown in \figref{fig:vendor-create-1}.
 
 \begin{figure}[h]

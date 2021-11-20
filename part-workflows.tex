@@ -8,6 +8,11 @@
 \chapter{Overview}
 \label{cha-workflows-overview}
 
+This part of the document describes specific workflows.  Workflows are specific steps
+taken to achieve a specific outcome in LedgerSMB.
+
+Some of these workflows may not apply to your specific use of the software and
+can be ignored.
 
 \chapter{Customers and vendors}
 \label{cha-workflows-customers}
@@ -55,11 +60,12 @@ A company has the following fields:
 
 \begin{description}[style=nextline]
 \item [Control code] Code to uniquely identify the company
+\item [Class] The type of company; vendor, customer, etc.
 \item [Name] Legal name of the company
 \item [Country] Country of incorporation
-\item [Tax number] Tax (VAT/Sales tax) number of the company
-\item [SIC (Standized Industry Code)] Code used to identify
-    the type of business of the company
+\item [Tax number/SSN] Tax (VAT/Sales tax) number of the company
+\item [Sales Tax ID] The sales tax reporting number.
+\item [License Number] The company operating license number.
 \end{description}
 
 The ``Generate Control code'' button generates a new control code upon
@@ -69,37 +75,36 @@ in the system in any other role.
 The ``Retrieve'' button is discussed in \secref{sec-workflows-customers-to-vendors}.
 
 
-\subsection{Creating an account}
+\subsection{Creating a customer account}
 \label{subsec-workflows-customers-creating-account}
 
-When a company of class ``Customer'' or ``Vendor'' has been created,
+When a contact of class ``Customer'' or ``Vendor'' has been created,
 accounts of that type can be added. The account entry screen lists the
 following fields\footnote{To simplify the interface if they're unused, some fields
 are not shown in case their selection lists are empty}:
 
 \begin{description}[style=nextline]
-\item [Customer number] Number to identify this account among all other accounts in the company;
+	\item [Class] @@@TODO
+\item [Number] Number to identify this account among all other accounts in the company;
      when left empty, the system will generate one when you click ``Save New''
 \item [Description] Textual representation of the account, usually a name
-\item [Pay To] % @@@ ### What's this?
+\item [Pay To] @@@TODO
 \item [Starting Date] Date from which the account is valid
 \item [End date] Date until which the account is valid, or empty if there's no known end date
+\item [Threshold] Minimum amount for invoices to be sent out
 \item [Credit limit] Maximum amount of open invoices and orders allowed for the account, see
     \charef{cha-credit-risk-management}
-\item [Terms] Number of days within which invoices have to be paid
+\item [Payment Terms] Number of days within which invoices have to be paid
 \item [Discount (conditions)] Percentage discount the account is entitled to when payment
          is within the given number of days
-\item [Subcontract GIFI] Unused - deprecated and removed as of 1.3.24
-\item [AR (account)] Account to post created invoices on
-\item [Payment (account)] Account used as default to accept payments on
 \item [Discount (account)] Account used to post discounts as calculated based on discount conditions
-\item [Business Type] Deprecated. Should not be used anymore.
-\item [Threshold] Minimum amount for invoices to be sent out
-\item [Pricegroup] This field classifies a company for the right 
-\item [Taxform] The applicable tax form for this vendor; tax forms are discussed in more detail in
-   \charef{cha-taxes}
+\item [Account] Account (AR) to post created invoices on
+\item [AP] Account used as default to accept payments on
+\item [Payment]
+\item [Currency] The default currency to be used with the customer
 \item [Language] The language parameter is used to select templates for communication with the customer
-\item [Currency] The (default) currency to be used with the customer
+\item [Taxes] The applicable tax form for this vendor; tax forms are discussed in more detail in
+\charef{cha-taxes}
 \end{description}
 
 \section{Multiple customers within one company}
@@ -261,7 +266,7 @@ saved and incomplete purchase order such as shown in
 \end{figure}
 
 The reception process starts by going through the menu to the
-``Receive'' order lookup screen (Shipping $\rightarrow$ Receive).
+``Receive'' order lookup screen (\menupath{Shipping \ma Receive}).
 This will show the order search screen which will help finding
 any orders which have items available for reception, see \figref{fig:shipping-receive-search-screen}.
 
@@ -622,7 +627,7 @@ action.
 \label{subsec-workflows-credit-risk-monitoring-arrears}
 
 In order to find out about over due invoices, a company should run the AR
-aging report available under AR $\rightarrow$ Reports $\rightarrow$ AR Aging.
+aging report available under \menupath{AR \ma Reports \ma AR Aging}.
 The initial screen presents parameters for the aging report to be generated.
 
 @@@ discuss parameters
@@ -846,7 +851,53 @@ at the end of the book year.
 \section{Bank reconciliation}
 \label{sec-workflows-accounting-reconciliation}
 
+\subsection{Importing bank transactions - OFX}
+\label{subsec-importing-bank-transactions-ofx}
 
+@@@ TODO - Quick capture of chat info, needs to be revised and maybe moved to customization chapter.
+
+\subsection{Importing bank transactions - CAMT.053}
+\label{subsec-importing-bank-transactions-camt}
+
+@@@ TODO - Quick capture of chat info, needs to be revised and maybe moved to customization chapter.
+
+\subsection{Importing bank transactions - CSV}
+\label{subsec-importing-bank-transactions-csv}
+
+\menupath{Cash \ma Reconcillation}
+
+@@@ TODO - Quick capture of chat info, needs to be revised and maybe moved to customization chapter.
+
+Custom formats can be handled by creating an import file
+like \url{https://github.com/ledgersmb/LedgerSMB/blob/master/doc/reconciliation/recon_csv.pl}
+
+The file should reside in \texttt{LedgerSMB/Reconciliation/CSV/Formats/}
+
+A perl \texttt{sub} must exist which is named:
+
+\begin{verbatim}
+parse_<name-of-your-company-database>_<id-of-account-to-reconcile>
+\end{verbatim}
+
+With a company database name of \texttt{testdb} and an account id of \texttt{255} the parse code might look like the following:
+
+\begin{verbatim}
+sub parse_testdb_255 {
+    parse_n(@_);
+}
+\end{verbatim}
+
+% reference to https://github.com/ledgersmb/LedgerSMB/blob/master/doc/reconciliation/recon_csv.pl#L72
+default format is:
+\begin{verbatim}
+cleared_date,amount,scn,type
+2021-09-01,25.25,224435,CHECK
+2021-09-01,-30.31,44351,CHECK
+2021-09-02,100,,
+2021-09-02,-425,3321435,
+\end{verbatim}
+
+scn = Source Coding Number
 
 \section{Period closing}
 \label{sec-workflows-accounting-period-closing}
@@ -856,7 +907,7 @@ known-correct accounting data stays correct by ``freezing'' it: by closing
 an accounting period no modifications can be made to the accounting data
 before a certain date.
 
-LedgerSMB supports this concept through the System $\rightarrow$ Audit Control
+LedgerSMB supports this concept through the \menupath{System \ma Audit Control}
 menu, where you'll find the ``Close Books up to'' item. By filling out a date
 in the input field and hitting Continue posting to dates before the entered
 date will be disallowed.
@@ -911,13 +962,13 @@ for this use case isn't available in LedgerSMB 1.3.
 \section{Reporting}
 \label{sec-workflows-accounting-reporting}
 
-\subsection{Tax (VAT) reporting}
+\subsection{Tax reporting}
 \label{subsec-workflows-accounting-reporting-tax}
 
 
 \begin{itemize}
 \item 1099 (cash based)
-\item EU VAT (accrual based)
+\item EU \gls{VAT} (accrual based)
 \end{itemize}
 
 
