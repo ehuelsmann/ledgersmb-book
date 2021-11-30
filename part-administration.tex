@@ -40,14 +40,60 @@ Maintenance may require different types of system access for different types of 
 Each of the above tasks requires its own type of user account. Creating and managing accounts
 for the first type of task is the subject of the next chapter.
 
-% @@@ (Within-application tasks)
+\chapter{New install}
+\label{cha-new-install}
 
-% @@@ (DBA tasks from setup.pl)
+This chapter covers the general steps to use when installing LedgerSMB for the first time.
+If you elected to skip Part \ref{part-getting-started} Getting Started of this document 
+then this summary will
+help you with the main steps normally required after installation to get LedgerSMB up and running. 
 
-% @@@ (Outside-application tasks)
+It is assumed that:
+\begin{itemize}
+	\item you have followed the installation instructions and have a working install.
+	if not, then see the install instructions at @@@TODO.
+	\item you have setup the company database using \texttt{setup.pl}.
+	if not, then see the instructions at @@@TODO.
+	\item  you have created an admin user with all privileges.
+	if not, then see the instructions at @@@TODO.
+\end{itemize} 
+
+The basic accounting system setup steps are:
+
+\begin{enumerate}
+	\item Create a new password for the user using \menupath{Preferences \ma Password}.
+	\item Setup the company defaults in \menupath{System \ma Defaults}.
+	\item Edit the Chart of Accounts as necessary using \menupath{General Journal \ma Chart of Accounts}.
+	This includes setting up your bank account.
+	\item Enter or import customers.
+	\item Enter or import vendors.
+	\item Enter or import products or services.
+	\item Customize Sales Order format.
+	\item Customize Sales Invoice format.
+	\item Customize Purchase Quotation format.
+	\item Customize Purchase Order format.
+	\item Testing your setup.
+\end{enumerate}
+
+\chapter{Within-application tasks}
+\label{cha-within-app-tasks}
+
+@@@TODO
+
+\chapter{DBA tasks from setup.pl}
+\label{cha-dba-tasks}
+
+@@@TODO
+
+\chapter{Outside-application tasks}
+\label{cha-outside-app-tasks}
+
+@@@TODO
 
 \chapter{User management}
 \label{cha-user-management}
+
+@@@TODO
 
 \section{Introduction}
 \label{sec-user-management-introduction}
@@ -66,7 +112,7 @@ with version 1.3.
 In order to create users, the current user must be sufficiently authorized. The user
 created at application set up time is such a user.
 
-Go to the System $\rightarrow$ Admin Users $\rightarrow$ Add User. You'll be presented the page as shown in figure \figref{fig:create-user-step1}.
+Go to the \menupath{System \ma Admin Users \ma Add User}. You'll be presented the page as shown in figure \figref{fig:create-user-step1}.
 
 \begin{figure}[h]
 \includegraphics{create-user-step1.png}
@@ -133,7 +179,7 @@ reader is referred to \appref{app-role-listing}.
 
 When the role of a user in the company changes, it may be necessary to assign
 that user new roles and possibly revoke some other roles. This can be done through
-user search: System $\rightarrow$ Admin Users $\rightarrow$ Search Users $\rightarrow$ Search $\rightarrow$ {[}edit] which brings you to the same screen as presented in
+user search: \menupath{System \ma Admin Users \ma Search Users \ma Search \ma {[}edit]} which brings you to the same screen as presented in
 \figref{fig:create-user-step2}.
 
 Similarly, there may be reasons to change the user information, such as a last name
@@ -334,7 +380,7 @@ groups have been configured, however, a good can be assigned to more than one pa
 \label{subsec-assemblies-definition}
 
 
-\subsection{Definition of overhead or labour}
+\subsection{Definition of overhead or labor}
 \label{subsec-overhead-definition}
 
 \subsection{The use of parts versus assemblies for multi-item-package sales}
@@ -394,8 +440,8 @@ allowing for a semi-automated way to convert stock from one type of inventory to
 \label{sec-coa-accounts-and-headers}
 
 The system allows ordering accounts into groups by assigning accounts to headers. Headers
-can themselves be assigned to other headers resulting in trees of account groups.\footnote{Although the database structure supports this type of account hierarchy
-doesn't the 1.3 user take advantage of it yet: in 1.3 accounts can be assigned a header,
+can themselves be assigned to other headers resulting in trees of account groups.\footnote{Although the
+	 database structure supports this type of account hierarchy from  1.3, it was not fully in use in reports until  1.4.17. In 1.3 accounts can be assigned a header,
 but headers can't be assigned to headers themselves.}
 
 
@@ -409,19 +455,19 @@ correctly. The settings are described in the sections that follow.
 
 \subsection{Account options}
 \label{sec-coa-account-options}
-\begin{itemize}
-\item Contra This checkmark identifies the account as a contra account, which means
+\begin{description}[style=nextline]
+\item[Contra] This checkmark identifies the account as a \gls{contra} account, which means
    that the account is going to hold the opposite of an account it's associated with.
    A good example of this kind would be the depreciation account associated with a fixed
    asset account where the depreciation account contains the credit amount to be added to
    the original asset (debit) value to get the current asset value.
-\item Recon This checkmark identifies the account as one which needs reconciliation as
+\item[Recon] This checkmark identifies the account as one which needs reconciliation as
    described in \secref{sec-workflows-accounting-reconciliation}.
-\item Tax This checkmark identifies the account as a Tax (VAT) account. Tax accounts need
+\item[Tax] This checkmark identifies the account as a Tax (VAT) account. Tax accounts need
    to be further configured. See \charef{cha-taxes} for further discussion of the
    subject.
    \label{item:AccountOptionsTax}
-\end{itemize}
+\end{description}
 
 \subsection{Summary accounts}
 \label{subsec-coa-summary-accounts}
@@ -536,7 +582,7 @@ under GIFI is the sum of the mapped accounts.
 \label{subsec-coa-gifi-maintenance}
 
 GIFI accounts should be created before being assigned to a standard G/L account. GIFI accounts
-can be maintained through the System $\rightarrow$ Chart of accounts $\rightarrow$ Add GIFI and List GIFI menu items. Existing accounts can be edited by selecting them from the List GIFI menu, which opens a page where individual GIFI items can have their number or
+can be maintained through the \menupath{System \ma Chart of accounts \ma Add GIFI} and List GIFI menu items. Existing accounts can be edited by selecting them from the List GIFI menu, which opens a page where individual GIFI items can have their number or
 description adjusted.
 
 
