@@ -477,7 +477,7 @@ There are currently three types of summary accounts:
 \begin{enumerate}
 \item AR Marking an account as a summary account for AR means that all outstanding
    receivable amounts will be posted to this account. The Accounts Receivable administration
-   will contain the details of which amount is owed by which customer.
+   will contain the details of which amount is owed by which \gls{customer}.
 \item AP Same as the AR account, except for amounts owed to vendors.
 \item Inventory This account holds the monetary value equal to the items on stock.
 \end{enumerate}
@@ -496,7 +496,7 @@ There are currently three types of summary accounts:
    to choose from in the Receipts (AR) and Payments (AP) screens. Additionally, it
    adds the account to the part entry screen as described in \secref{subsec-products-parts-definition}.
 \item[Tax (AR\_tax)] This check mark makes the account show up as a check mark on the
-   customer (AR) or vendor (AP) entry screen. See \charef{cha-taxes} for further discussion.
+   \gls{customer} (AR) or vendor (AP) entry screen. See \charef{cha-taxes} for further discussion.
 \item[Overpayment (AR\_overpayment)] Adds the account to the receipts screen as discussed
    in \secref{sec-workflows-payment-processing-overpayments}.
 \item[Discount (AR\_discount)] Adds the account to the customer entry screen's selection
@@ -596,7 +596,7 @@ When an account has been marked as a Tax account (see \secref{sec-coa-account-op
 \ref{item:AccountOptionsTax}) several things happen:
 
 \begin{itemize}
-\item The account will be shown in the customer and vendor account screens with
+\item The account will be shown in the \gls{customer} and vendor account screens with
    a check mark to mark it ``relevant for the customer''
 \item The account will be shown in the part and service configuration screens
    with a check mark to mark it ``relevant for the part/service item''
@@ -604,7 +604,7 @@ When an account has been marked as a Tax account (see \secref{sec-coa-account-op
    a tax percentage on the account as discussed in the next section
 \end{itemize}
 
-By marking an account relevant for a customer, taxes will be calculated when
+By marking an account relevant for a \gls{customer}, taxes will be calculated when
 creating a sales invoice for the given customer which includes parts which also
 have the specific account marked as relevant.
 
@@ -650,7 +650,7 @@ National tax with order 0 and rate 10\% and Quebec tax with order 1 and rate 5\%
 applied to a 10\$ amount charges 1\$ of national tax and 0.55\$ of Quebec tax (5\% of 11\$).
 
 \begin{quotation}
-Note that - as pointed out in the Overview section of this chapter - the customer related
+Note that - as pointed out in the Overview section of this chapter - the \gls{customer} related
 tax calculation on invoices is triggered by the settings in this chapter as well as
 the customer/vendor settings described in \secref{sec-workflows-creating-customers-and-vendors}
 and part settings and service settings described in \secref{subsubsec-products-parts-taxation} and
@@ -740,7 +740,7 @@ In the application there are four reasons for an invoice to include a discount:
 \begin{enumerate}
 \item Because a discount is entered by the sales person creating the quotation,
   sales order or sales invoice
-\item Because the customer's payment terms include a discount for paying early
+\item Because the \gls{customer}'s payment terms include a discount for paying early
 \item Because the customer belongs to a type of business which is entitled to discounts
 \label{item:PricingBusinessType}
 \item Because the customer has been assigned a price matrix leading to discounts
@@ -755,7 +755,7 @@ This section deals with items \ref{item:PricingBusinessType} and \ref{item:Prici
 \label{sec-pricing-business-types}
 
 Types of business are really straight forward: they feature a description
-which allows them to be identified in the customer account screen and a discount
+which allows them to be identified in the \gls{customer} account screen and a discount
 percentage which is applied across the board. I.e. all invoices to the customer
 will have that discount applied.
 
