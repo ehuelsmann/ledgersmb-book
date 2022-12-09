@@ -585,6 +585,18 @@ GIFI accounts should be created before being assigned to a standard G/L account.
 can be maintained through the \menupath{System \ma Chart of accounts \ma Add GIFI} and List GIFI menu items. Existing accounts can be edited by selecting them from the List GIFI menu, which opens a page where individual GIFI items can have their number or
 description adjusted.
 
+\section{Reporting}
+\label{sec-coa-reporting}
+
+As for the general journal being presented in the "ordered by account" and "ordered by date": these are both in the "General Journal > Search" menu. 
+
+Once you run the report, you can sort the lines by date (journal) or by account (which I believe is sorted by date within the account).
+My accountant either lists "all transactions for one specific account" or "all transactions for 202x; all accounts"
+so usually, sorting by date isn't much of an issue.
+
+I believe that in the "General Journal > Search" search options, you may need to check the "Account" indicator to add the account to the output. This comes in handy when you decide not to filter for a specific account.
+
+@@@ Needs Editing
 
 \chapter{Taxes}
 \label{cha-taxes}
@@ -761,6 +773,19 @@ will have that discount applied.
 
 \section{Definition of price groups / price matrix}
 \label{sec-pricing-price-groups}
+
+\chapter{Auditing}
+\label{cha-auditing}
+
+There's an audit-trail table which tracks (and this can't be disabled) who changed what in the transactions you post. This table isn't currently visible in the application; it's not hard to make it visible. However, when we look at what auditing usually means, it is that you're able to completely demonstrate everything that happened to your books while compiling your accounting data. That is: you can show that the invoices sent to your customers are the same as shown in the system. Also, auditors want to see completeness: that you've recorded all invoices sent out in the books and that all work performed has been invoiced.
+
+For completeness, we have "gap-less numbering" for invoices.
+That means the system generates invoices with numbers that are always exactly 1 apart.
+so when a number misses, you know the books have been tampered with.
+
+There's another thing with LedgerSMB that helps auditability: transactions can't be deleted or changed once they have been posted. Some people hate that: they find mistakes and it's a lot of work to correct those. Also, large vendors like Quickbooks, Sage and Xero allow changing transactions after they are recorded in the books (but they have a special "auditor mode' which shows the old versions of the same transaction).
+
+@@@ Needs Editing
 
 \chapter{Contingency planning}
 \label{cha-contingency}
