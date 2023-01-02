@@ -280,8 +280,11 @@ a multi-step selection procedure will be used.
 \label{subsubsec-company-config-defaults-item-numbers}
 
 Many items in the system have sequence numbers: invoices, parts, etc.
- These sequence numbers can be just a number (i.e. 1 or 37),
-but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for employees.
+These sequence numbers can be just a number (i.e. 1 or 37) or
+they can also be both prefixed and suffixed. For example, INV0001 for invoices and EMP001 for employees or YOU-0001TOO, in which case the next item will be YOU-0002TOO. 
+
+You can only issue every number in the sequence once, but you can issue Y21-001 and Y22-001 by changing the sequence number format at the beginning of the year.
+
 The numbers shown in the input boxes will be used to generate the next number in the
 numbering sequence.
 
