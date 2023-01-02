@@ -26,6 +26,10 @@
 % For newlines inside cells
 \usepackage{makecell}
 
+% hyper referenced index at the end.
+\usepackage{makeidx}
+\makeindex
+
 % For links in the pdf table of contents
 % Not sure of the impact of this on the HTML docs
 % No color, no visible indication of the link
@@ -156,7 +160,8 @@ can be organized on the mail list or chat channels listed  at \url{https://ledge
 \label{sec-acknowledgements}
 \addcontentsline{toc}{section}{Acknowledgements}
 
-H{\aa}vard S{\o}rli for his efforts to help out develop the book outline.
+H{\aa}vard S{\o}rli for his efforts to help develop the original book outline.\\
+Other members of the \url{https://app.element.io/#/room/#ledgersmb:matrix.org}  chat room.
 
 \include{part-overview}
 \include{part-getting-started}
@@ -166,8 +171,7 @@ H{\aa}vard S{\o}rli for his efforts to help out develop the book outline.
 \include{part-customization}
 \include{appendices}
 
-
-
+\printindex
 
 \end{document}
 
