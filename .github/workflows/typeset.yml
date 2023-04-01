@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PDF
-          path: lsmb_book.pdf
+          path: master.pdf
