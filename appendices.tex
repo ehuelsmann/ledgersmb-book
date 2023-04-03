@@ -376,84 +376,110 @@ related to the execution of these tasks.
 \section{ledgersmb.conf}
 \label{app-deprecated-ledgersmb-conf}
 
-%\subsection{ledgersmb.conf}
-%\label{subsec-global-config-ledgersmb-conf}
+This ledgersmb.conf is deprecated as of 1 Jan 2023 and only remains here for historical use.
 
-This section is deprecated as of 1 Jan 2023 and only remains for historical use.
+The environment variable for controlling the configuration is \texttt{LSMB\_CONFIG\_FILE}.
 
-\subsubsection{General section}
+By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set to an alternate location.
+
+\subsubsection{[main] Section}
 \label{subsubsec-global-config-ledgersmb-conf-general}
 
-
 \begin{description}[style=nextline]
-	\item[auth] @@@TODO
-	\item[logging] @@@TODO
-	\item[tempdir] Directory to store temporary artifacts. E.g. PDF files are stored here before
-	being sent to the browser. The default on unix variants is /tmp/ledgersmb.
-	\item[cache\_templates] Determines if HTML templates used for the LedgerSMB UI will be stored
-	in precompiled form for improved performance. The value 0 (zero) means no caching; the value
-	1 means caching in the directory \$(tempdir)/lsmb\_templates; systems running multiple
-	LedgerSMB instances with customized UIs should use separate values for {\tt tempdir} for that
-	reason
-	\item[language] @@@TODO
-	\item[log\_level] @@@TODO
-	\item[DBI\_TRACE] @@@TODO
-	\item[pathsep] @@@TODO
-	\item[latex] Identifies if the system has \LaTeX available: 0 means no \LaTeX, 1 means \LaTeX supported
-	\item[check\_max\_invoices] @@@TODO
-	\item[max\_post\_size] States the maximum size in bytes of the body in case of a POST request; this
-	setting reduces the impact of DoS requests, if the system is under attack. The setting also limits the
-	maximum size of attachments (see \secref{sec-workflows-quotations-file-attachments}) that can be uploaded
-	\item[decimal\_places] @@@TODO
-	\item[cookie\_name] @@@TODO
-	\item[no\_db\_str] @@@TODO
+	\item[language] Set language for login and admin pages. 
+	\item[date\_format] Set the date format for the admin pages.  The default is \texttt{yyyy-mm-dd}. Unset means detected from the browser)
+	\item[log\_level] Specifies the logging level to be used. This setting is ignored when the \texttt{log\_config} setting 
+	is supplied and indicates an existing file. Available values are OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE.
+	\item [log\_config] Set the name of the extended logging configuration file. This file uses the \texttt{log4j/Log::Log4perl} syntax described at \url{https://metacpan.org/pod/Log::Log4perl#Configuration-files}
+	\item [dojo\_theme] This is the Dojo theme that is used by default when no other theme
+	has been selected.  The default if unset is \texttt{claro}. Other values can be \texttt{nihilo}, \texttt{soria}, and \texttt{tundra}.
+	
+	
+% From the old book, commented out for now.
+% 	\item[auth] @@@TODO
+% 	\item[tempdir] Directory to store temporary artifacts. E.g. PDF files are stored here before
+% 	being sent to the browser. The default on unix variants is /tmp/ledgersmb.
+% 	\item[cache\_templates] Determines if HTML templates used for the LedgerSMB UI will be stored
+% 	in precompiled form for improved performance. The value 0 (zero) means no caching; the value
+% 	1 means caching in the directory \$(tempdir)/lsmb\_templates; systems running multiple
+% 	LedgerSMB instances with customized UIs should use separate values for {\tt tempdir} for that
+% 	reason
+% 	\item[DBI\_TRACE] @@@TODO
+% 	\item[pathsep] @@@TODO
+% 	\item[latex] Identifies if the system has \LaTeX available: 0 means no \LaTeX, 1 means \LaTeX supported
+% 	\item[check\_max\_invoices] @@@TODO
+% 	\item[max\_post\_size] States the maximum size in bytes of the body in case of a POST request; this
+% 	setting reduces the impact of DoS requests, if the system is under attack. The setting also limits the
+% 	maximum size of attachments (see \secref{sec-workflows-quotations-file-attachments}) that can be uploaded
+% 	\item[decimal\_places] @@@TODO
+% 	\item[cookie\_name] @@@TODO
+% 	\item[no\_db\_str] @@@TODO
 	
 \end{description}
 
-\subsubsection{'environment' section}
+\subsubsection{[environment] Section}
 \label{subsubsec-global-config-ledgersmb-conf-environment}
 
+	Sets shell environment variables when starting up.
+
 \begin{description}[style=nextline]
-	\item[PATH] @@@TODO
+	\item[PATH] If the server can't find applications, append to the path. For example:
+	\texttt{PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/pgsql/bin}
+	\item [PERL5LIB] On some operating systems like macOS the perl path may need to be set. For example, on macOS using Fink's Perl libs it might be set like:
+	\texttt{PERL5LIB=/sw/lib/perl5}
 \end{description}
 
 
-\subsubsection{'paths' section}
+\subsubsection{[paths] Section}
 \label{subsubsec-global-config-ledgersmb-conf-paths}
 
 \begin{description}[style=nextline]
-	\item [spool] @@@TODO
-	\item [userspath] @@@TODO
-	\item [templates] @@@TODO
-	\item [images] @@@TODO
-	\item [memberfile] @@@TODO
-	\item [localepath] @@@TODO
+	\item [templates] Templates base directory. Typically set to \texttt{templates}.
+	\item [images] Images base directory. Typically set to \texttt{UI/images}.
+	\item [localepath] Path to locale files. Defaults to \texttt{locale/po}.
+	\item [templates\_cache] Location where compiled templates are stored. When relative, appended to the directory specified by \texttt{File::Spec->tmpdir()}. 
+	
+	Defaults to \texttt{lsmb\_templates}.
+	\item [workflows] Directory where workflow files are stored. Defaults to \texttt{workflows}
+	\item [custom\_workflows] Directory where custom workflow files are stored. Custom workflows are used to override behavior of the default workflows by providing actions, conditions, etc. with the same name and type or by providing workflows of the same type with additional states and actions. Defaults to \texttt{custom\_workflows}.
+	
+% Items from the old book
+%	\item [spool] @@@TODO
+%	\item [userspath] @@@TODO
+%	\item [memberfile] @@@TODO
 \end{description}
 
-\subsubsection{'programs' section}
+\subsubsection{[programs] Section}
 \label{subsubsec-global-config-ledgersmb-conf-programs}
 
-\begin{description}[style=nextline]
-	\item [gzip] @@@TODO
-\end{description}
+Setup the various helper programs that can be used with LedgerSMB.
+
+% From the old book.
+%\begin{description}[style=nextline]
+%	\item [gzip] @@@TODO
+%\end{description}
 
 
-\subsubsection{'mail' section}
+\subsubsection{[mail] Section}
 \label{subsubsec-global-config-ledgersmb-conf-mail}
 
 \begin{description}[style=nextline]
-	\item [sendmail] @@@TODO
-	\item [smtphost] @@@TODO
-	\item [smtptimeout] @@@TODO
-	\item [backup\_email\_from] @@@TODO
+	\item [backup\_email\_from] Set to enable e-mail delivery of backups. For example:
+	\texttt{backup\_email\_from = backups@lsmb\_hosting.com}
+
+% From the old Book
+%	\item [sendmail] @@@TODO
+%	\item [smtphost] @@@TODO
+%	\item [smtptimeout] @@@TODO
 \end{description}
 
-\subsubsection{'printers' section}
+\subsubsection{[printers] Section}
 \label{subsubsec-global-config-ledgersmb-conf-printers}
 
 This section contains a list of printers and the commands
 to be executed in order for the output to be sent to the given printer with
 the document to be printed fed to the program through standard input.
+
 The example below shows how to send standard input data to a printer called ``laser''
 when selecting the item ``Laser'' in the LedgerSMB printer selection drop down.
 
@@ -461,13 +487,19 @@ when selecting the item ``Laser'' in the LedgerSMB printer selection drop down.
 	Laser    = lpr -Plaser
 }
 
+Or to an Epson Printer.
 
-\subsubsection{'database' section}
+\texttt{
+	Epson   = lpr -PEpson
+}
+
+
+\subsubsection{[database] Section}
 \label{subsubsec-global-config-ledgersmb-conf-database}
 
 \begin{description}[style=nextline]
 	\item [host] Name of the host to connect to. See the documentation of the {\tt -h} command line option at 
-	\url{http://www.postgresql.org/docs/9.2/static/app-psql.html}
+	\url{https://www.postgresql.org/docs/current/static/app-psql.html}
 	for more information (documentation unchanged since before 8.3, so applies to older versions as well)
 	\item [port] Port number to be used to connect to. See the documentation of the {\tt -p} option at the
 	same URL as the previous item
@@ -476,24 +508,17 @@ when selecting the item ``Laser'' in the LedgerSMB printer selection drop down.
 	``public'')
 	\item [contrib\_dir] Path of the directory in which the PostgreSQL contrib modules (extensions) are
 	located; this setting is used by setup.pl when creating new companies or rebuilding (upgrading)
-	existing ones
+	existing ones.
 	\item [sslmode] Selects whether to use \gls{SSL} over TCP connections or not; can be ``require'', ``allow'',
-	``prefer'' or ``disable''
+	``prefer'' or ``disable''.  Default is ``prefer''.
 \end{description}
 
 \subsubsection{log4perl\_config\_modules\_loglevel}
 \label{subsubsec-global-config-ledgersmb-conf-log4perl}
 
-@@@ This is a list of \textless module.name \textgreater = \textless level \textgreater
+This is a list of \textless module.name\textgreater{} = \textless level\textgreater
 
 This is an advanced setting not typically touched.
-
-
-\subsection{pos.conf.pl}
-\label{subsec-global-config-pos-conf}
-
-
-@@@ no idea what should go in here. to be investigated.
 
 \subsection{templates}
 \label{subsec-global-config-templates}
