@@ -69,22 +69,40 @@
 % that this document references. Keep the space after.
 \newcommand{\ledgerSMBversion}{1.10 }
 
+% Setup some pdf metadata.
+\AfterPreamble{\hypersetup{
+		pdfauthor={Erik H\"ulsmann, Chris Travers, Neil Tiffin},
+		pdftitle={Running your business with LedgerSMB \ledgerSMBversion},
+		pdfsubject={LedgerSMB Accounting and ERP software package},
+		pdfkeywords={LedgerSMB, Accounting, ERP, Software, Free, Open Source}
+}}
+
 \begin{document}
 \include{acronyms}
 \include{glossary}
 
-
-\author{Erik H\"ulsmann, Chris Travers, Neil Tiffin}
-\title{\begin{Large}
-Running your business with
-\end{Large} \\
-LedgerSMB \ledgerSMBversion \\
- ~ \\
-\texttt{DRAFT / WORK IN PROGRESS} }
-
-
-\maketitle
-
+\begin{titlepage}
+	\centering
+	
+	\large{\textbf{Running your business with}} \par
+	
+	\LARGE LedgerSMB \ledgerSMBversion \par
+	\vspace{1cm}
+	{\Large\itshape Erik H\"ulsmann\par}
+	{\Large\itshape Chris Travers\par}
+	{\Large\itshape Neil Tiffin\par}
+	\vspace{1cm}
+	\texttt{DRAFT / WORK IN PROGRESS} \par	
+	\vspace{1cm}	
+	{\large Contributors\par}
+	{\normalsize Somebody 1\par}
+	{\normalsize Somebody 2\par}
+	{\normalsize Somebody 3\par}
+	\vfill
+	
+	% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
 
 \tableofcontents
 
