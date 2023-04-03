@@ -386,9 +386,9 @@ SI codes feature these three fields:
 \item [Description]
 \end{description}
 
-When creating a company you can assign that it an SI code, irrespective of its role (i.e. customer,
+When creating a company you can assign that it an SIC code, irrespective of its role (i.e. customer,
 vendor, lead or anything else). An example of an SI code system is the
-US's NAICS code\footnote{\url{http://www.census.gov/eos/www/naics/}}.
+US's NAICS\footnote{\url{http://www.census.gov/eos/www/naics/}} code.
 Other countries have their own coding systems such
 as ANZSIC\footnote{\url{http://www.abs.gov.au/ausstats/abs@.nsf/mf/1292.0}} for Australia and New Zealand
 and NACE\footnote{\url{http://ec.europa.eu/competition/mergers/cases/index/nace\_all.html}} for Europe
@@ -397,28 +397,62 @@ The SIC field currently doesn't support a specific function in the application a
 merely for informational purposes. However in the future its role could be extended to include
 impact on reports, taxes or other functionalities where type of industry could matter.
 
-\subsection{HTML templates}
-\label{subsec-company-config-html-templates}
+\subsection {Templates}
+\label{subsec-company-config-templates}
 
-Through this menu, the user is being offered to manipulate a global resource. See
-\secref{subsec-global-config-templates} for more details.
+Templates are available to control the output format of many LedgerSMB outputs including Balance Sheet, Sales Orders, etc.
 
-\subsection{LaTeX templates}
+There are 3 types of templates: \LaTeX, HTML, and CSV.
+Templates are accessed by navigating to \menupath{System \ma Templates}.
+You should see the view shown in \figref{fig:system-templates}.
+
+The template you want to change is selected in the "Template" drop-down. The template format you want to change is selected in the "Format" drop-down.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{system-templates.png}
+	\caption{System templates screen}
+	\label{fig:system-templates}
+\end{figure}
+
+\subsection{\LaTeX{} templates}
 \label{subsec-company-config-latex-templates}
 
-Same as the last subsection.
+To change a \LaTeX{} template navigate to \menupath{System \ma Templates}.
+Select, for example, Template "Invoice" and Format "tex", you should see the view shown in \figref{fig:system-templates-edit-invoice}
 
-To add a file to the latex template upload the file to the Files directory.  For example, "FL\_Logo\_icon\_250x250.png", then add something like the following to the template.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{system-templates-edit-invoice.png}
+	\caption{Templates edit invoice screen}
+	\label{fig:system-templates-edit-invoice}
+\end{figure}
+
+To add a file to the latex template, first upload the image file to the database.  
+This can be accomplished by navigating to \menupath{System \ma Files}.
+
+To include this graphic file in your \LaTeX{} document, it needs to be retrieved from
+the database and temporarily stored in a location accessible to the PDF
+generator. Once the file is in the database, then the function \texttt{dbfile\_path} handles that.
+
+For example, If the graphic file is named "FL\_Logo\_icon\_250x250.png", then add something like the following to the \LaTeX{} template using the \texttt{Edit} button.
 
 \begin{verbatim}
 \parbox[b]{.1\textwidth}{%
-    \includegraphics[scale=0.7]{<?lsmb dbfile_path("FL_Logo_icon_250x250.png")?>}
+    \includegraphics[scale=0.7]{%
+        <?lsmb dbfile_path("FL_Logo_icon_250x250.png")?>}
 }
 \end{verbatim}
 
-\subsection{Text templates}
-\label{subsec-company-config-text-templates}
+After editing the template must be uploaded to the database using the \texttt{Upload} button.
 
-Same as the previous subsection.
+\subsection{HTML templates}
+\label{subsec-company-config-html-templates}
 
+@@@TODO Add HTML specific template info.
+
+\subsection{CSV templates}
+\label{subsec-company-config-csv-templates}
+
+@@@TODO Add CSV specific template information here.
 
