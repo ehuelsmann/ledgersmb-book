@@ -1,6 +1,8 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_US
 
+% Todo's are represneted by the string @@@TODO
+
 %
 % Any packages added to this book must be supported in LaTeXML.
 % https://math.nist.gov/~BMiller/LaTeXML/manual/included.bindings/
@@ -24,6 +26,10 @@
 % For newlines inside cells
 \usepackage{makecell}
 
+% hyper referenced index at the end.
+\usepackage{makeidx}
+\makeindex
+
 % For links in the pdf table of contents
 % Not sure of the impact of this on the HTML docs
 % No color, no visible indication of the link
@@ -33,7 +39,7 @@
 	citecolor=black,
 	filecolor=black,
 	linkcolor=black,
-	urlcolor=black
+%	urlcolor=black
 }
 
 % glossaries must be loaded *after* hyperref
@@ -61,24 +67,42 @@
 
 % This is the only place needed to change the current version of LedgerSMB
 % that this document references. Keep the space after.
-\newcommand{\ledgerSMBversion}{1.9 }
+\newcommand{\ledgerSMBversion}{1.10 }
+
+% Setup some pdf metadata.
+\AfterPreamble{\hypersetup{
+		pdfauthor={Erik H\"ulsmann, Chris Travers, Neil Tiffin},
+		pdftitle={Running your business with LedgerSMB \ledgerSMBversion},
+		pdfsubject={LedgerSMB Accounting and ERP software package},
+		pdfkeywords={LedgerSMB, Accounting, ERP, Software, Free, Open Source}
+}}
 
 \begin{document}
 \include{acronyms}
 \include{glossary}
 
-
-\author{Erik H\"ulsmann, Chris Travers}
-\title{\begin{Large}
-Running your business with
-\end{Large} \\
-LedgerSMB \ledgerSMBversion \\
- ~ \\
-\texttt{DRAFT / WORK IN PROGRESS} }
-
-
-\maketitle
-
+\begin{titlepage}
+	\centering
+	
+	\large{\textbf{Running your business with}} \par
+	
+	\LARGE LedgerSMB \ledgerSMBversion \par
+	\vspace{1cm}
+	{\Large\itshape Erik H\"ulsmann\par}
+	{\Large\itshape Chris Travers\par}
+	{\Large\itshape Neil Tiffin\par}
+	\vspace{1cm}
+	\texttt{DRAFT / WORK IN PROGRESS} \par	
+	\vspace{1cm}	
+	{\large Contributors\par}
+	{\normalsize Somebody 1\par}
+	{\normalsize Somebody 2\par}
+	{\normalsize Somebody 3\par}
+	\vfill
+	
+	% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
 
 \tableofcontents
 
@@ -154,7 +178,8 @@ can be organized on the mail list or chat channels listed  at \url{https://ledge
 \label{sec-acknowledgements}
 \addcontentsline{toc}{section}{Acknowledgements}
 
-H{\aa}vard S{\o}rli for his efforts to help out develop the book outline.
+H{\aa}vard S{\o}rli for his efforts to help develop the original book outline.\\
+Other members of the \url{https://app.element.io/#/room/#ledgersmb:matrix.org}  chat room.
 
 \include{part-overview}
 \include{part-getting-started}
@@ -164,8 +189,7 @@ H{\aa}vard S{\o}rli for his efforts to help out develop the book outline.
 \include{part-customization}
 \include{appendices}
 
-
-
+\printindex
 
 \end{document}
 

@@ -48,146 +48,12 @@ security: local vs IP connections \\
 \section{LedgerSMB}
 \label{sec-global-config-ledgersmb}
 
-\subsection{ledgersmb.conf}
-\label{subsec-global-config-ledgersmb-conf}
+LedgerSMB configuration using 'ledgersmb.conf' is deprecated as of 1 Jan 2023. New functionality may only available when using `ledgersmb.yaml` configuration file.
 
-to be discussed:
+For the time being there is a conversion step that converts the old 'ledgersmb.conf' to `ledgersmb.yaml`, but the old conf file does not support new functionality.
 
-Individual configuration keys; full discussion of possible values in reference appendix?
-
-\subsubsection{General section}
-\label{subsubsec-global-config-ledgersmb-conf-general}
-
-
-\begin{description}[style=nextline]
-\item[auth]
-\item[logging]
-\item[tempdir] Directory to store temporary artifacts. E.g. PDF files are stored here before
-    being sent to the browser. The default on unix variants is /tmp/ledgersmb.
-\item[cache\_templates] Determines if HTML templates used for the LedgerSMB UI will be stored
-    in precompiled form for improved performance. The value 0 (zero) means no caching; the value
-    1 means caching in the directory \$(tempdir)/lsmb\_templates; systems running multiple
-    LedgerSMB instances with customized UIs should use separate values for {\tt tempdir} for that
-    reason
-\item[language]
-\item[log\_level]
-\item[DBI\_TRACE]
-\item[pathsep]
-\item[latex] Identifies if the system has \LaTeX available: 0 means no \LaTeX, 1 means \LaTeX supported
-\item[check\_max\_invoices]
-\item[max\_post\_size] States the maximum size in bytes of the body in case of a POST request; this
-    setting reduces the impact of DoS requests, if the system is under attack. The setting also limits the
-    maximum size of attachments (see \secref{sec-workflows-quotations-file-attachments}) that can be uploaded
-\item[decimal\_places]
-\item[cookie\_name]
-\item[no\_db\_str]
-
-\end{description}
-
-\subsubsection{'environment' section}
-\label{subsubsec-global-config-ledgersmb-conf-environment}
-
-\begin{description}
-\item[PATH]
-\end{description}
-
-
-\subsubsection{'paths' section}
-\label{subsubsec-global-config-ledgersmb-conf-paths}
-
-\begin{description}
-\item [spool]
-\item [userspath]
-\item [templates]
-\item [images]
-\item [memberfile]
-\item [localepath]
-\end{description}
-
-\subsubsection{'programs' section}
-\label{subsubsec-global-config-ledgersmb-conf-programs}
-
-\begin{description}
-\item [gzip]
-\end{description}
-
-
-\subsubsection{'mail' section}
-\label{subsubsec-global-config-ledgersmb-conf-mail}
-
-\begin{description}
-\item [sendmail]
-\item [smtphost]
-\item [smtptimeout]
-\item [backup\_email\_from]
-\end{description}
-
-\subsubsection{'printers' section}
-\label{subsubsec-global-config-ledgersmb-conf-printers}
-
-This section contains a list of printers and the commands
-to be executed in order for the output to be sent to the given printer with
-the document to be printed fed to the program through standard input.
-The example below shows how to send standard input data to a printer called ``laser''
-when selecting the item ``Laser'' in the LedgerSMB printer selection drop down.
-
-\texttt{
-Laser    = lpr -Plaser
-}
-
-
-\subsubsection{'database' section}
-\label{subsubsec-global-config-ledgersmb-conf-database}
-
-\begin{description}[style=nextline]
-\item [host] Name of the host to connect to. See the documentation of the {\tt -h} command line option at 
-   \url{http://www.postgresql.org/docs/9.2/static/app-psql.html}
-   for more information (documentation unchanged since before 8.3, so applies to older versions as well)
-\item [port] Port number to be used to connect to. See the documentation of the {\tt -p} option at the
-   same URL as the previous item
-\item [default\_db] Database to connect to when the ``Company'' entry field in the login screen is left blank
-\item [db\_namespace] The name space the company resides in; expert setting -- should not be used (default is
-   ``public'')
-\item [contrib\_dir] Path of the directory in which the PostgreSQL contrib modules (extensions) are
-   located; this setting is used by setup.pl when creating new companies or rebuilding (upgrading)
-   existing ones
-\item [sslmode] Selects whether to use \gls{SSL} over TCP connections or not; can be ``require'', ``allow'',
-   ``prefer'' or ``disable''
-\end{description}
-
-\subsubsection{log4perl\_config\_modules\_loglevel}
-\label{subsubsec-global-config-ledgersmb-conf-log4perl}
-
-@@@ This is a list of \textless module.name \textgreater = \textless level \textgreater
-
-This is an advanced setting not typically touched.
-
-
-\subsection{pos.conf.pl}
-\label{subsec-global-config-pos-conf}
-
-
-@@@ no idea what should go in here. to be investigated.
-
-\subsection{templates}
-\label{subsec-global-config-templates}
-
-LedgerSMB uses templates mainly for two things:
-
-\begin{itemize}
-\item Output documents such as pick lists and invoices
-\item The HTML User Interface
-\end{itemize}
-
-This setting relates to the former, which are meant to be copied and customized by users. The system
-supports having multiple sets in a global setup, where companies can be configured to use different
-sets.
-
-
-
-
-\subsection{ledgersmb.css}
-\label{subsec-global-config-ledgersmb-css}
+\subsection{ledgersmb.yaml}
+\label{subsec-global-config-ledgersmb-yaml}
 
 
 
@@ -414,8 +280,11 @@ a multi-step selection procedure will be used.
 \label{subsubsec-company-config-defaults-item-numbers}
 
 Many items in the system have sequence numbers: invoices, parts, etc.
- These sequence numbers can be just a number (i.e. 1 or 37),
-but they can also be prefixed numbers, e.g. INV0001 for invoices and EMP001 for employees.
+These \index{sequence numbers} can be just a number (i.e. 1 or 37) or
+they can also be both prefixed and suffixed. For example, INV0001 for invoices and EMP001 for employees or YOU-0001TOO, in which case the next item will be YOU-0002TOO. 
+
+You can only issue every number in the sequence once, but you can issue Y21-001 and Y22-001 by changing the sequence number format at the beginning of the year.
+
 The numbers shown in the input boxes will be used to generate the next number in the
 numbering sequence.
 
@@ -517,9 +386,9 @@ SI codes feature these three fields:
 \item [Description]
 \end{description}
 
-When creating a company you can assign that it an SI code, irrespective of its role (i.e. customer,
+When creating a company you can assign that it an SIC code, irrespective of its role (i.e. customer,
 vendor, lead or anything else). An example of an SI code system is the
-US's NAICS code\footnote{\url{http://www.census.gov/eos/www/naics/}}.
+US's NAICS\footnote{\url{http://www.census.gov/eos/www/naics/}} code.
 Other countries have their own coding systems such
 as ANZSIC\footnote{\url{http://www.abs.gov.au/ausstats/abs@.nsf/mf/1292.0}} for Australia and New Zealand
 and NACE\footnote{\url{http://ec.europa.eu/competition/mergers/cases/index/nace\_all.html}} for Europe
@@ -528,20 +397,62 @@ The SIC field currently doesn't support a specific function in the application a
 merely for informational purposes. However in the future its role could be extended to include
 impact on reports, taxes or other functionalities where type of industry could matter.
 
+\subsection {Templates}
+\label{subsec-company-config-templates}
+
+Templates are available to control the output format of many LedgerSMB outputs including Balance Sheet, Sales Orders, etc.
+
+There are 3 types of templates: \LaTeX, HTML, and CSV.
+Templates are accessed by navigating to \menupath{System \ma Templates}.
+You should see the view shown in \figref{fig:system-templates}.
+
+The template you want to change is selected in the "Template" drop-down. The template format you want to change is selected in the "Format" drop-down.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{system-templates.png}
+	\caption{System templates screen}
+	\label{fig:system-templates}
+\end{figure}
+
+\subsection{\LaTeX{} templates}
+\label{subsec-company-config-latex-templates}
+
+To change a \LaTeX{} template navigate to \menupath{System \ma Templates}.
+Select, for example, Template "Invoice" and Format "tex", you should see the view shown in \figref{fig:system-templates-edit-invoice}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=13cm]{system-templates-edit-invoice.png}
+	\caption{Templates edit invoice screen}
+	\label{fig:system-templates-edit-invoice}
+\end{figure}
+
+To add a file to the latex template, first upload the image file to the database.  
+This can be accomplished by navigating to \menupath{System \ma Files}.
+
+To include this graphic file in your \LaTeX{} document, it needs to be retrieved from
+the database and temporarily stored in a location accessible to the PDF
+generator. Once the file is in the database, then the function \texttt{dbfile\_path} handles that.
+
+For example, If the graphic file is named "FL\_Logo\_icon\_250x250.png", then add something like the following to the \LaTeX{} template using the \texttt{Edit} button.
+
+\begin{verbatim}
+\parbox[b]{.1\textwidth}{%
+    \includegraphics[scale=0.7]{%
+        <?lsmb dbfile_path("FL_Logo_icon_250x250.png")?>}
+}
+\end{verbatim}
+
+After editing the template must be uploaded to the database using the \texttt{Upload} button.
+
 \subsection{HTML templates}
 \label{subsec-company-config-html-templates}
 
-Through this menu, the user is being offered to manipulate a global resource. See
-\secref{subsec-global-config-templates} for more details.
+@@@TODO Add HTML specific template info.
 
-\subsection{LaTeX templates}
-\label{subsec-company-config-latex-templates}
+\subsection{CSV templates}
+\label{subsec-company-config-csv-templates}
 
-Same as the last subsection.
-
-\subsection{Text templates}
-\label{subsec-company-config-text-templates}
-
-Same as the previous subsection.
-
+@@@TODO Add CSV specific template information here.
 
