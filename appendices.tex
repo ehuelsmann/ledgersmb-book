@@ -393,20 +393,14 @@ By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set t
 	\item [log\_config] Set the name of the extended logging configuration file. This file uses the \texttt{log4j/Log::Log4perl} syntax described at \url{https://metacpan.org/pod/Log::Log4perl#Configuration-files}
 	\item [dojo\_theme] This is the Dojo theme that is used by default when no other theme
 	has been selected.  The default if unset is \texttt{claro}. Other values can be \texttt{nihilo}, \texttt{soria}, and \texttt{tundra}.
-	
-	
+	\item[auth] Indicates which authentication module is to be used; default is DB, referring to LedgerSMB::Auth::DB.
+	\item[cache\_templates] Determines if HTML templates used for the LedgerSMB UI will be stored
+	in precompiled form for improved performance. The value 0 (zero) means no caching; the value
+	1 means caching in the directory \$(tempdir)/lsmb\_templates; systems running multiple
+	LedgerSMB instances with customized UIs should use separate values for {\tt tempdir} for that
+	reason
+
 % From the old book, commented out for now.
-% 	\item[auth] @@@TODO
-% 	\item[tempdir] Directory to store temporary artifacts. E.g. PDF files are stored here before
-% 	being sent to the browser. The default on unix variants is /tmp/ledgersmb.
-% 	\item[cache\_templates] Determines if HTML templates used for the LedgerSMB UI will be stored
-% 	in precompiled form for improved performance. The value 0 (zero) means no caching; the value
-% 	1 means caching in the directory \$(tempdir)/lsmb\_templates; systems running multiple
-% 	LedgerSMB instances with customized UIs should use separate values for {\tt tempdir} for that
-% 	reason
-% 	\item[DBI\_TRACE] @@@TODO
-% 	\item[pathsep] @@@TODO
-% 	\item[latex] Identifies if the system has \LaTeX available: 0 means no \LaTeX, 1 means \LaTeX supported
 % 	\item[check\_max\_invoices] @@@TODO
 % 	\item[max\_post\_size] States the maximum size in bytes of the body in case of a POST request; this
 % 	setting reduces the impact of DoS requests, if the system is under attack. The setting also limits the
@@ -445,8 +439,6 @@ By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set t
 	
 % Items from the old book
 %	\item [spool] @@@TODO
-%	\item [userspath] @@@TODO
-%	\item [memberfile] @@@TODO
 \end{description}
 
 \subsubsection{[programs] Section}
@@ -454,23 +446,24 @@ By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set t
 
 Setup the various helper programs that can be used with LedgerSMB.
 
-% From the old book.
-%\begin{description}[style=nextline]
-%	\item [gzip] @@@TODO
-%\end{description}
-
-
 \subsubsection{[mail] Section}
 \label{subsubsec-global-config-ledgersmb-conf-mail}
 
 \begin{description}[style=nextline]
+	\item [smtphost] The host name of the smtp server. If provided, then do not use local sendmail. Note that one of sendmail or smtphost has to be provided for email to work.
+	\item [sendmail] Path the local sendmail executable. If provided then do not use an smtp server. Note that one of sendmail or smtphost has to be provided for email to work.
+	\item [smtpport] The port number of the smtp server. Note this might vary depending on whether TLS or SSL is used.
+	\item [smtpuser] The smpt server account name
+	\item [smtpauthmech] The smtp server authentication method
+	\item [smtppass] The smtp server password
 	\item [backup\_email\_from] Set to enable e-mail delivery of backups. For example:
 	\texttt{backup\_email\_from = backups@lsmb\_hosting.com}
+	\item [smtptimeout] The timeout value in seconds.
 
-% From the old Book
-%	\item [sendmail] @@@TODO
-%	\item [smtphost] @@@TODO
-%	\item [smtptimeout] @@@TODO
+	% Not sure this is correct.  Why use tls to get SSL? But this appears to be the way the code currently works.
+	\item [smtptls] If unset or 'no' then do not use either TLS or SSL. If 'yes' then use TLS and if 'tls' use SSL for the smtp connection.
+
+	\item [smtpsender\_hostname] Override the default host name for \texttt{helo}.
 \end{description}
 
 \subsubsection{[printers] Section}
