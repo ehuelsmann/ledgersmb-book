@@ -1,0 +1,13 @@
+div.ltx_page_main {
+   width: 800px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+div.ltx_document h6 { display: none; }
+div.ltx_document ul.ltx_toclist { display: none; }
+div.ltx_document div.ltx_part ul.ltx_toclist { display: block; }
+
+acronym { border-bottom: 1px black dotted; }
+
+# img { width: 80%; height: auto; }

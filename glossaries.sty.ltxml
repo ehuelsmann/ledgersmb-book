@@ -2,7 +2,7 @@ package LaTeXML::Package::Pool;
 
 use strict;
 use LaTeXML::Package;
-use LaTeXML::Util::KeyVal;
+use LaTeXML::Core::KeyVal;
 
 
 DefKeyVal('Gls','name','Semiverbatim'); # name of the entry in the glossary
@@ -64,14 +64,14 @@ DefPrimitive('\gls{}',
   sub {
      my ($gullet, $id) = @_;
      my $keyval = LookupValue('@@GLS@'. ToString($id));
-     Digest(KeyVal($keyval,'text'));
+     Digest(DefKeyVal($keyval,'text'));
   });
 
 DefPrimitive('\glspl{}',
   sub {
     my ($gullet, $id) = @_;
     my $keyval = LookupValue('@@GLS@'. ToString($id));
-    Digest(KeyVal($keyval,'plural'));
+    Digest(DefKeyVal($keyval,'plural'));
   });
 
 
