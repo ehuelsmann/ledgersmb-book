@@ -43,3 +43,14 @@ jobs:
         uses: actions/checkout@v3
       - name: Build site
         run: ./rebuild-site.sh
+      - name: Upload split page book site
+        uses: actions/upload-artifact@v3
+        with:
+          name: split-book
+          path: public_html/split-book
+      - name: Upload single page book site
+        uses: actions/upload-artifact@v3
+        with:
+          name: full-book
+          path: public_html/full-book
+
