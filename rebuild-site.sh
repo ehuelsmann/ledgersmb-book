@@ -1,14 +1,16 @@
-#!/bin/sh
+#!/bin/bash -xe
 
-base_path=/www/vhosts/book.ledgersmb.org/book-build
-img_path=$base_path/images
-dest_path=/www/vhosts/book.ledgersmb.org/public_html/1.3
-tmp_path=/www/vhosts/book.ledgersmb.org/tmp
+VHOSTS_PATH=${VHOSTS_PATH:-.}
+base_path=$VHOSTS_PATH
+img_path=$base_path/images/
+dest_path=$VHOSTS_PATH/public_html
+tmp_path=$VHOSTS_PATH/tmp
 
 
 export PATH=/usr/local/bin:$PATH
 
 cd $base_path
+mkdir -p $dest_path $tmp_path
 
 latexml --inputencoding=utf-8 \
         --path=$img_path/ \
@@ -17,7 +19,7 @@ latexml --inputencoding=utf-8 \
 
 rm -rf $tmp_path/split-book
 mkdir -p $tmp_path/split-book
-cp $dest_path/split-book/additional.css $tmp_path/split-book/additional.css
+cp additional.css $tmp_path/split-book/additional.css
 latexmlpost --destination=$tmp_path/split-book/index.html \
             --split \
             --splitnaming=label \
@@ -28,7 +30,7 @@ latexmlpost --destination=$tmp_path/split-book/index.html \
 
 rm -rf $tmp_path/full-book
 mkdir -p $tmp_path/full-book
-cp $dest_path/full-book/additional.css $tmp_path/full-book/additional.css
+cp additional.css $tmp_path/full-book/additional.css
 latexmlpost --destination=$tmp_path/full-book/index.html \
             --format=html \
             --css=$tmp_path/full-book/additional.css \
