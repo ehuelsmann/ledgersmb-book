@@ -13,7 +13,7 @@ cd $base_path
 latexml --inputencoding=utf-8 \
         --path=$img_path/ \
         --destination=book.xml \
-        $base_path/master.tex
+        $base_path/ledgersmb-book.tex
 
 rm -rf $tmp_path/split-book
 mkdir -p $tmp_path/split-book
