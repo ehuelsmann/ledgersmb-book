@@ -14,11 +14,11 @@ cd $base_path
 if [[ $1 = '--use-pdf-latex' ]]; then
 
     # Set the stage for building the glossaries
-    pdflatex -file-line-error master.tex
+    pdflatex -file-line-error ledgersmb-book.tex
     # Build the glossaries
-    makeglossaries master
+    makeglossaries ledgersmb-book
     # Update the links.
-    pdflatex -file-line-error master.tex
+    pdflatex -file-line-error ledgersmb-book.tex
 
 elif [[ $1 = '--use-latex-mk' ]]; then
 
@@ -32,7 +32,7 @@ elif [[ $1 = '--use-latex-mk' ]]; then
         -pdflatex \
         # -aux-directory=${tmp_path} \
         # -output-directory=${base_path}
-        master.tex
+        ledgersmb-book.tex
 
 else
 
@@ -54,7 +54,7 @@ latexml --inputencoding=utf-8 \
         --path=$img_path/ \
         --destination=book.xml \
         --verbose \
-        $base_path/master.tex
+        $base_path/ledgersmb-book.tex
 
 # Found additional.css
 # at https://book.ledgersmb.org/1.3/split-book/additional.css
@@ -90,7 +90,7 @@ for i in full-book split-book ; do
 done
 
 # move the pdf so it does not get cleaned up
-mv master.pdf ${dest_path}
+mv ledgersmb-book.pdf ${dest_path}
 
 
 # echo 'Clean up the latex files'
@@ -101,6 +101,6 @@ mv master.pdf ${dest_path}
 
 echo "The full book can be found at: $dest_path/full-book/index.html"
 echo "The split book can be found at: $dest_path/split-book/index.html"
-echo "The pdf can be found at: $dest_path/master.pdf"
+echo "The pdf can be found at: $dest_path/ledgersmb-book.pdf"
 
 exit 0

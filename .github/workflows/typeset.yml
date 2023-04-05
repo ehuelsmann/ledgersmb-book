@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build LaTeX document
+name: Build LedgerSMB Book
 
 # Controls when the workflow will run
 on:
@@ -25,9 +25,9 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: master.tex
+          root_file: ledgersmb-book.tex
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
           name: PDF
-          path: master.pdf
+          path: ledgersmb-book.pdf
