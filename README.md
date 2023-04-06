@@ -12,9 +12,9 @@ The source for the LedgerSMB Book can be found on [github](https://github.com/eh
 
 # Build Requirements
 
-The book should build with any recent LaTeX installation. The book is expected to produce both HTML and PDF. The book is currently tested with:
+The book should build with any recent LaTeX installation. The book is expected to produce both HTML and PDF and is currently tested with:
 
-* LaTeXML version 0.8.6
+* LaTeXML version 0.8.7
 * TeX Live 2022
 
 All documents can be built by running the script `local-build.sh --use-pdf-latex`. This will create a directory called `local-build` that contains the book in PDF, single page HTML, and multi-page HTML formats.
@@ -30,3 +30,6 @@ The first time the book is built in a clean repository using TeXstudio or TeXSho
 
 Since the build process uses LaTeXML the only packages that can be in the LaTeX source are those compatible with LaTeXML.  The acceptable package list can be found at [LaTeXML Bindings](https://math.nist.gov/~BMiller/LaTeXML/manual/included.bindings/).
 
+Additional technical documentation which is useful when writing documentation can be found at:
+
+[https://docs.ledgersmb.org](https://docs.ledgersmb.org)
