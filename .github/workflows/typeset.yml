@@ -11,6 +11,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  BOOK_VERSION: '1.10'
+
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -31,6 +35,23 @@ jobs:
         with:
           name: PDF
           path: ledgersmb-book.pdf
+      - name: Deploy to site
+        uses: easingthemes/ssh-deploy@main
+        if: ${{ github.repository == 'ehuelsmann/ledgersmb-book' }}
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i"
+          SOURCE: "ledgersmb-book.pdf"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: "/home/www/vhosts/book.ledgersmb.org/public_html/$BOOK_VERSION/ledgersmb.pdf"
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT
 
   build_site:
     runs-on: ubuntu-latest
@@ -53,4 +74,20 @@ jobs:
         with:
           name: full-book
           path: public_html/full-book
-
+      - name: Deploy to site
+        uses: easingthemes/ssh-deploy@main
+        if: ${{ github.repository == 'ehuelsmann/ledgersmb-book' }}
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i"
+          SOURCE: "public_html/"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: "/home/www/vhosts/book.ledgersmb.org/public_html/$BOOK_VERSION/"
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT
