@@ -71,10 +71,10 @@
 
 % Setup some pdf metadata.
 \hypersetup{
-		pdfauthor={Erik H\"ulsmann, Chris Travers, Neil Tiffin},
+		pdfauthor={Erik H\"ulsmann, Neil Tiffin, Chris Travers},
 		pdftitle={Running your business with LedgerSMB \ledgerSMBversion},
 		pdfsubject={LedgerSMB Accounting and ERP software package},
-		pdfkeywords={LedgerSMB, Accounting, ERP, Software, Free, Open Source}
+		pdfkeywords={LedgerSMB, Accounting, Inventry, Invoicing, G/L, ERP, Software, Free, Open Source}
 }
 
 \include{acronyms}
@@ -82,13 +82,25 @@
 
 \begin{document}
 
-\author{Erik H\"ulsmann, Chris Travers, Neil Tiffin}
-\title{\begin{Large}
-		Running your business with
-	\end{Large} \\
-	LedgerSMB \ledgerSMBversion \\
+\author{Erik H\"ulsmann \and Neil Tiffin \and Chris Travers \\
+~ \\
+~ \\
+~ \\
+ \url{https://book.ledgersmb.org}
+} 
+
+\title{
+\includegraphics[width=0.45\textwidth]{NewLedgerSMBLogo512x256.png}\\
 	~ \\
-	\texttt{DRAFT / WORK IN PROGRESS} }
+	~ \\
+	~ \\
+%	\begin{Large}
+	Running your business with\\
+	{\Huge LedgerSMB \ledgerSMBversion} \\
+%	\end{Large} \\
+	~ \\
+	\texttt{DRAFT / WORK IN PROGRESS} \\
+}
 \maketitle
 
 %\begin{titlepage}
@@ -179,9 +191,13 @@ LedgerSMB versions.
 \addcontentsline{toc}{section}{Comments and questions}
 
 The sources of this book are being developed in the ledgersmb-book Github project at
-\url{https://github.com/ehuelsmann/ledgersmb-book}. Comments and enhancement ideas can be filed
+\url{https://github.com/ehuelsmann/ledgersmb-book}. \\
+~ \\
+Comments and enhancement ideas can be filed
 in the ticket tracker of the project. Additionally, discussion about the content of the book
-can be organized on the mail list or chat channels listed  at \url{https://ledgersmb.org/topics/support}.
+can be organized on the mail list or chat channels listed  at \url{https://ledgersmb.org/topics/support}.\\
+~ \\
+Finally, up-to-date versions of this book in both PDF and HTML formats can be found on the book website at \url{https://book.ledgersmb.org}.
 
 
 \section*{Acknowledgments}
@@ -189,7 +205,8 @@ can be organized on the mail list or chat channels listed  at \url{https://ledge
 \addcontentsline{toc}{section}{Acknowledgements}
 
 H{\aa}vard S{\o}rli for his efforts to help develop the original book outline.\\
-Other members of the \url{https://app.element.io/#/room/#ledgersmb:matrix.org}  chat room.
+~ \\
+Members of the \url{https://app.element.io/#/room/#ledgersmb:matrix.org}  chat room.
 
 \include{part-overview}
 \include{part-getting-started}
