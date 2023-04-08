@@ -51,7 +51,7 @@ or set up your own hardware.
 \section{Application architecture}
 \label{sec-ledgersmb-architecture}
 
-Due to its heritage from SQL Ledger and the on-going process of rewriting
+Due to its heritage from \href{https://sql-ledger.com/}{SQL Ledger} and the on-going process of rewriting
 the inherited code, the architecture differs between parts
 of the application: the old parts and the ones which have already been
 rewritten.
@@ -59,39 +59,44 @@ rewritten.
 Overall, the application consists of five layers:
 
 \begin{itemize}
-\item The web browser
+\item The web browser (as the user interface)
 \item The web server (as a network traffic handler)
-\item The web server (as an application - \gls{PSGI})
-\item The database (as an application - PL/SQL)
+\item The Perl (web)server process (as an application - \gls{PSGI})
+\item The database (as an application - \gls{PL/SQL})
 \item The database (as storage)
 \end{itemize}
 
-Rewritten parts include the price matrix and the management of customers
-and vendors as well as batch payments.
+In version 1.10 the user interface is a \gls{SPA} using a mixture of new (e.g. 
+\href{https://vuejs.org/}{Vue 3},
+\href{https://webpack.js.org/}{webpack 5} and \href{https://developer.mozilla.org/en-US/docs/Web/Web_Components}{Web Components}) and old (e.g. \href{https://dojotoolkit.org/}{Dojo Toolkit}) technology.
 
-The ``database as an application'' layer is part of the new design, but otherwise
-both designs share the same basic structure - as any web application.
+The web server is an optional component that's highly recommended for TLS termination
+and protecting the back end Perl HTTP server from malicious traffic. It may also be used
+for serving static page components such as images, style sheets and JavaScript component
+as an efficiency measure.
 
-As part of the new design, database integrity is being enforced much more
-strictly than before.  Much of this enforcement is being done in the database
-at the ``storage'' level, by adding constraints to table definitions. Additionally,
-the new design moves to a model where a large part of the database API as well
-as business logic is implemented in PL/SQL.  The ultimate goal there is to
-allow easier development of bindings in languages other than Perl.  Part of this
-move is to reduce the \gls{PSGI} layer to become more of a ``glue'' layer between
-the web server and the application database layer.
+Recent releases add separation between business logic and process state with the
+latter being stored in the database and managed at the Perl layer.  Other than that, it's the Perl layer's responsibility to forward web requests to the database and
+presenting the resulting data in response to the user interface.
+The original goal to reduce the Perl layer to be a ``glue'' layer between the web
+server and the database has been abandoned with  the introduction of this additional
+(business process) layer.
 
-As part of the on-going code restructuring, in 1.4 there will be a \gls{REST} web service
-based API for the areas where functionality has been rewritten.
+At the ``database as an application'' layer, \gls{PL/SQL} functions implement business
+functionality, such as creating \gls{COGS} accounting entries.
 
-One of the roles that has remained so far for the \gls{PSGI} layer is to generate
-\gls{HTML} screens for presentation in the web browser, handling all user interaction.
-Recently activities have started to change that for 1.4 and 1.5 to create a
-much heavier client in the web browser with back end interaction through
-web services.
+The ``database as storage'' layer is responsible for storing data with consistency and
+integrity; to that extent (and much more than in \acrshort{SL}) constraints and triggers
+have been implemented.  An additional role for the storage layer is to enforce data
+access rules; i.e. to protect data from being accessed by unauthorized users.
 
-In the old design everything except storage was handled in the ``web server as an
-application (\gls{PSGI})'' layer.
+The main difference between old and new coding paradigms is at the Perl application
+layer: older code generates HTML fragments while newer code delivers data through
+web services.  As part of the on-going code restructuring, there's a major effort
+to create a \gls{REST} web service based APIs.  The intent here is to facilitate
+integration with other applications used by businesses (both in the business itself
+or as provided by customers and vendors).
+
 
 
 \section{Supported functionality}
