@@ -50,29 +50,29 @@ help you with the main steps normally required after installation to get LedgerS
 
 It is assumed that:
 \begin{itemize}
-	\item you have followed the installation instructions and have a working install.
-	if not, then see the install instructions at @@@TODO.
-	\item you have setup the company database using \texttt{setup.pl}.
-	if not, then see the instructions at @@@TODO.
-	\item  you have created an admin user with all privileges.
-	if not, then see the instructions at @@@TODO.
+        \item you have followed the installation instructions and have a working install.
+        if not, then see the install instructions at @@@TODO.
+        \item you have setup the company database using \texttt{setup.pl}.
+        if not, then see the instructions at @@@TODO.
+        \item  you have created an admin user with all privileges.
+        if not, then see the instructions at @@@TODO.
 \end{itemize} 
 
 The basic accounting system setup steps are:
 
 \begin{enumerate}
-	\item Create a new password for the user using \menupath{Preferences \ma Password}.
-	\item Setup the company defaults in \menupath{System \ma Defaults}.
-	\item Edit the Chart of Accounts as necessary using \menupath{General Journal \ma Chart of Accounts}.
-	This includes setting up your bank account.
-	\item Enter or import customers.
-	\item Enter or import vendors.
-	\item Enter or import products or services.
-	\item Customize Sales Order format.
-	\item Customize Sales Invoice format.
-	\item Customize Purchase Quotation format.
-	\item Customize Purchase Order format.
-	\item Testing your setup.
+        \item Create a new password for the user using \menupath{Preferences \ma Password}.
+        \item Setup the company defaults in \menupath{System \ma Defaults}.
+        \item Edit the Chart of Accounts as necessary using \menupath{General Journal \ma Chart of Accounts}.
+        This includes setting up your bank account.
+        \item Enter or import customers.
+        \item Enter or import vendors.
+        \item Enter or import products or services.
+        \item Customize Sales Order format.
+        \item Customize Sales Invoice format.
+        \item Customize Purchase Quotation format.
+        \item Customize Purchase Order format.
+        \item Testing your setup.
 \end{enumerate}
 
 \chapter{Within-application tasks}
@@ -279,12 +279,12 @@ Every part requires the following fields to be entered:
 \begin{description}[style=nextline]
 \item [Number] The (alphanumeric) code the company uses to identify the item
 \item [Description] The (native language) description of the item, used as the default
-	description on sales invoices
+        description on sales invoices
 \item [Inventory account] The asset account used to maintain the monetary equivalent
-	of the inventory amount
+        of the inventory amount
 \item [Income account] The P\&L (income) account to post the sales revenues on
 \item [COGS account] The P\&L (expense) Cost of Goods Sold (COGS) account to use
-	to post cost of sold items on
+        to post cost of sold items on
 \item [Sell price] The default selling price used on sales invoices
 \end{description}
 
@@ -441,7 +441,7 @@ allowing for a semi-automated way to convert stock from one type of inventory to
 
 The system allows ordering accounts into groups by assigning accounts to headers. Headers
 can themselves be assigned to other headers resulting in trees of account groups.\footnote{Although the
-	 database structure supports this type of account hierarchy from  1.3, it was not fully in use in reports until  1.4.17. In 1.3 accounts can be assigned a header,
+         database structure supports this type of account hierarchy from  1.3, it was not fully in use in reports until  1.4.17. In 1.3 accounts can be assigned a header,
 but headers can't be assigned to headers themselves.}
 
 
