@@ -58,7 +58,7 @@ jobs:
     steps:
       - name: Install APT dependencies & Perl packages
         run: |
-          sudo apt-get install -y gcc make cpanminus libxslt1-dev libxml-libxml-perl texlive-latex-recommended texlive-fonts-recommended
+          sudo apt-get install -y gcc make cpanminus libxslt1-dev libxml-libxml-perl texlive-latex-extra texlive-fonts-recommended
           sudo cpanm --notest LaTeXML
       - name: Set up Git repository
         uses: actions/checkout@v3
