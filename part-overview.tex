@@ -246,10 +246,10 @@ LedgerSMB is being made available under the terms of the
 The project attaches this meaning to the license:
 The copyright holders grant you the right to copy and
 redistribute the software.  In case you make any modifications to the software
-you're obligated to make public those changes.  You are however, free to use
-the APIs from your own software without being required to publish your own software.
+you're obligated to publish the changes \textit{if you distribute the software}.  You are always free to provide third party access to
+the \acrshort{API} from your modified software without being required to disclose your changes.
 
-The project considers the following to be APIs:
+The project considers the \acrshort{API} to include:
 \begin{itemize}
 \item Database tables
 \item URLs with their input and output
@@ -257,8 +257,7 @@ The project considers the following to be APIs:
 \item Function and object calls
 \end{itemize}
 
-The effect of this interpretation is that changes directly to the code base as
-well as inheritance of classes defined in the software constitute ''making modifications''.
+The effect of this interpretation is that changes directly to the code base as well as inheritance of classes defined in the software constitute ``making modifications''.
 
 \chapter{Reasons to use LedgerSMB}
 \label{cha-advocacy}
@@ -353,26 +352,27 @@ lack of functionality to delete or correct incorrect invoices (See \secref{sec-w
 \chapter{Introduction to accounting}
 \label{cha-accounting-introduction}
 
-The purpose of an accounting system is to keep track of the company's financial status.
+The purpose of an accounting system is to keep track of the company's financial status.  The following reports are used to
+present it:
 
-The accounting system has several major parts:
 \begin{description}[style=nextline]
-        \item [Balance Sheet] A statement of financial position. It provides a snapshot of
-        the current financial health of the business by comparing assets, liabilities,
-        and equity.  As a snapshot the Balance Sheet is produced for a single given date.
-        \item [Income Statement] A statement of income, expenses, and profit/loss.
-        Generally, the Income Statement represents a range of time. For example,
-        the month of January, the first quarter, the year to date, or a specific year.
-        \item [General Journal] Contains the company's transactions.
-        \item [General Ledger] Contains the categorized financial data according the chart
-        of accounts.
-        \item [Chart of Accounts] The categories of financial data which are tracked in
-        the financial system. In order to know or report something about your company there
-        generally has to be a corresponding category in the Chart of Accounts.
+	\item[Balance Sheet] Provides a snapshot of the financial position of a company, listing its possessions (assets), debts (liabilities) and residual value (equity)
+	\item[Income Statement] Also known as the ``Profit \& Loss Statement'', summarizes the income generated over a specific period and the expenses associated with it, resulting in ``Net Result''
+	\item[Cashflow Statement\footnote{\label{cha-accounting-footnote-not-implemented}Not currently implemented in LedgerSMB}] Summarizes the incoming and outgoing cash flows over a specific period, resulting in ``Free Cash Flow''
+	\item[Statement of Owner's Equity\footref{cha-accounting-footnote-not-implemented}] Summarizes the changes in equity over a specific period
+	\item[Trial Balance] An intermediate report used for preparing the Balance Sheet and Income Statement, tallies transactions over the reporting period; used to assert that all accounts in the General Journal are in balance 
 \end{description}
 
-In addition to the parts mentioned above the following terms are used throughout this
-document:
+The accounting system is composed of these parts:
+\begin{description}[style=nextline]
+        \item [Journals] Contain the company's transactions with extensive additional data; they are the first point of entry for transactions, ordered by order of entry
+        \item [Ledgers] Contain aggregated data from the journals, ordered by date
+        \item [Chart of Accounts] The categories by which financial data are classified
+\end{description}
+
+All accounting data ends up summarized in the \acrshort{GL}. Transactions may be entered in a different (sub)ledger before ending up in the \acrshort{GL}; e.g. the Sales Ledger. With the advent of computerized accounting, the use of journals is in decline: transactions are classified while directly being entered into ledgers.
+
+In addition to the parts mentioned above the following terms are used throughout this document:
 \begin{description}[style=nextline]
         \item [Assets] Money and anything that can be converted into money without reducing
         the net equity of the business. Assets include money owed, money held, goods
@@ -382,7 +382,7 @@ document:
         money and all the liabilities paid off.
         \item [Revenue] Income from business activities.
         \item [Expense] Money paid to operate the business.
-        \item [Cost of Goods] Money that is spent to acquire material and services to build a product that is sold.
+        \item [Cost of Goods] Money that was spent to acquire material and services to build a product being sold.
         \item [Operating Expenses] Expenses that are consumed to administer the business.
         \item [Trial Balance] A report to use when checking that all accounts in the
         General Journal are in balance.
