@@ -37,7 +37,7 @@ integrations with other applications. Through this philosophy, it
 aspires to be \emph{the} (open source) integrated administration system.
 
 The software is being developed by the LedgerSMB project with its
-homepage at \url{http://ledgersmb.org/}.
+homepage at \url{https://ledgersmb.org/}.
 However, the actual project activity can be witnessed at the Github
 project site hosted at \url{https://github.com/ledgersmb/LedgerSMB} and
 on the mailing lists or chat channel 
@@ -51,7 +51,7 @@ or set up your own hardware.
 \section{Application architecture}
 \label{sec-ledgersmb-architecture}
 
-Due to its heritage from SQL Ledger and the on-going process of rewriting
+Due to its heritage from \href{https://sql-ledger.com/}{SQL Ledger} and the on-going process of rewriting
 the inherited code, the architecture differs between parts
 of the application: the old parts and the ones which have already been
 rewritten.
@@ -59,58 +59,61 @@ rewritten.
 Overall, the application consists of five layers:
 
 \begin{itemize}
-\item The web browser
+\item The web browser (as the user interface)
 \item The web server (as a network traffic handler)
-\item The web server (as an application - \gls{PSGI})
-\item The database (as an application - PL/SQL)
+\item The Perl (web)server process (as an application - \gls{PSGI})
+\item The database (as an application - \gls{PL/SQL})
 \item The database (as storage)
 \end{itemize}
 
-Rewritten parts include the price matrix and the management of customers
-and vendors as well as batch payments.
+In version 1.10 the user interface is a \gls{SPA} using a mixture of new (e.g. 
+\href{https://vuejs.org/}{Vue 3},
+\href{https://webpack.js.org/}{webpack 5} and \href{https://developer.mozilla.org/en-US/docs/Web/Web_Components}{Web Components}) and old (e.g. \href{https://dojotoolkit.org/}{Dojo Toolkit}) technology.
 
-The ``database as an application'' layer is part of the new design, but otherwise
-both designs share the same basic structure - as any web application.
+The web server is an optional component that's highly recommended for TLS termination
+and protecting the back end Perl HTTP server from malicious traffic. It may also be used
+for serving static page components such as images, style sheets and JavaScript component
+as an efficiency measure.
 
-As part of the new design, database integrity is being enforced much more
-strictly than before.  Much of this enforcement is being done in the database
-at the ``storage'' level, by adding constraints to table definitions. Additionally,
-the new design moves to a model where a large part of the database API as well
-as business logic is implemented in PL/SQL.  The ultimate goal there is to
-allow easier development of bindings in languages other than Perl.  Part of this
-move is to reduce the \gls{PSGI} layer to become more of a ``glue'' layer between
-the web server and the application database layer.
+Recent releases add separation between business logic and process state with the
+latter being stored in the database and managed at the Perl layer.  Other than that, it's the Perl layer's responsibility to forward web requests to the database and
+presenting the resulting data in response to the user interface.
+The original goal to reduce the Perl layer to be a ``glue'' layer between the web
+server and the database has been abandoned with  the introduction of this additional
+(business process) layer.
 
-As part of the on-going code restructuring, in 1.4 there will be a \gls{REST} web service
-based API for the areas where functionality has been rewritten.
+At the ``database as an application'' layer, \gls{PL/SQL} functions implement business
+functionality, such as creating \gls{COGS} accounting entries.
 
-One of the roles that has remained so far for the \gls{PSGI} layer is to generate
-\gls{HTML} screens for presentation in the web browser, handling all user interaction.
-Recently activities have started to change that for 1.4 and 1.5 to create a
-much heavier client in the web browser with back end interaction through
-web services.
+The ``database as storage'' layer is responsible for storing data with consistency and
+integrity; to that extent (and much more than in \acrshort{SL}) constraints and triggers
+have been implemented.  An additional role for the storage layer is to enforce data
+access rules; i.e. to protect data from being accessed by unauthorized users.
 
-In the old design everything except storage was handled in the ``web server as an
-application (\gls{PSGI})'' layer.
+The main difference between old and new coding paradigms is at the Perl application
+layer: older code generates HTML fragments while newer code delivers data through
+web services.  As part of the on-going code restructuring, there's a major effort
+to create a \gls{REST} web service based APIs.  The intent here is to facilitate
+integration with other applications used by businesses (both in the business itself
+or as provided by customers and vendors).
+
 
 
 \section{Supported functionality}
 \label{sec-ledgersmb-modules}
 As most \glspl{erp} LedgerSMB's functionalities are grouped into modules.
 Many modules are integrated parts of the base application.  New features
-are implemented in separate modules at first to allow evaluation of the
-feature set. When a feature set has become sufficiently stable, the new
-module will be integrated in the base application. As of that time, the
-existing feature set of the module will be frozen, meaning that the utmost
-will be done to prevent changes to how the modules operate: to keep them
-stable.
+can be implemented in separate modules at first to allow evaluation of the
+feature set.  When a it has become sufficiently stable, the new module may
+be integrated in the base application. As of that time, the existing features
+will be frozen, meaning that the utmost will be done to prevent it from being
+changed.
 
 These separate modules - which are called \glspl{add-on} - have to be
-installed separately. After installation they become seamless parts of
+installed separately.  After installation they become seamless parts of
 LedgerSMB with no visible difference from the base application. An
-additional benefit of having the separation between the base application
-and \glspl{add-on} is that it allows for different release schedules
-and separate maturity levels.
+additional benefit of having \glspl{add-on} is that they can follow different
+release schedules and separate maturity levels than the main application.
 
 
 LedgerSMB \ledgerSMBversion features the following integrated modules:
@@ -125,7 +128,7 @@ LedgerSMB \ledgerSMBversion features the following integrated modules:
 \item Quotation and Order management
 \item Manufacturing
 \item Inventory (warehousing) and shipping management
-\item VAT reporting (cash based)
+\item VAT reporting
 \item Controlling
 \begin{itemize}
 \item Project accounting
@@ -134,18 +137,12 @@ LedgerSMB \ledgerSMBversion features the following integrated modules:
 \item Application administration
 \end{itemize}
 
-These \glspl{add-on}  can be installed:
-\begin{itemize}
-\item VAT reporting (accrual based)
-\item Enhanced trial-balance report
-\item Enhanced recurring transactions
-\item Payroll (to be created - under discussion at the time of writing)
-\end{itemize}
+There are no known \glspl{add-on} available at this time.
 
-With this list of modules and \glspl{add-on} LedgerSMB has successfully been implemented
-in a wide range of companies of varying types and sizes: shops, manufacturing
-companies and service oriented businesses up to as big as four thousand (4.000)
-Accounts payable transactions \emph{per week}.
+With this list of modules and \glspl{add-on} LedgerSMB has been successfully
+implemented in a wide range of companies of varying types and sizes: shops,
+manufacturing companies and service oriented businesses up to as big as four
+thousand (4.000) Accounts payable transactions \emph{per week}.
 
 \section{Feature comparison with alternatives}
 \label{sec-ledgersmb-feature-comparison}
@@ -164,6 +161,8 @@ Packages to compare to:
 \section{Release history}
 \label{sec-ledgersmb-release-history}
 
+%%TODO This section should be entirely rewritten from the perspective of 1.10
+
 The project started out as a fork of \gls{SL} - the open source \gls{erp}
 developed by Dieter Simader - somewhere between SQL-Ledger versions 2.6
 and 2.8.  A fork happens when a group of developers can't - for whatever
@@ -175,9 +174,9 @@ there was disagreement between developers about how to go forward both with
 respect to handling of security vulnerability reports as well as the general
 state of the code base.
 
-After the fork, between versions 1.0 and 1.2 a lot of energy was spent on
-making LedgerSMB more secure (i.e. less vulnerable).  In technical terms,
-measures were taken to fend off (amongst other things):
+After the fork, between versions 1.0 and 1.2 most energy was spent on
+making LedgerSMB more secure (i.e. less vulnerable to security attacks).  In
+technical terms, measures were taken to fend off (amongst other things):
 
 \begin{itemize}
 \item Cross site scripting attacks
@@ -186,25 +185,23 @@ measures were taken to fend off (amongst other things):
 \end{itemize}
 
 Come version 1.3 the development directed toward improvement of the overall
-quality of the code base as the old SQL-Ledger code was in very poor state:
-looking very much like web scripts as they were written in 1998, the code had
+quality of the code base as the old \acrshort{SL} code was in very poor state:
+looking very much like web programs as they were written in 1998, the code had
 grown largely outdated in style and was no longer maintainable by 2007.
 
-The 1.3 effort focused on bringing relief on that front by introducing
-modern structure into the application.  With the new application structure
-modern and important features were realized: separation of duties (for the
+The 1.3 effort focused on bringing relief with a new application structure.
+Modern and important features were realized: separation of duties (for the
 accounting part of the application) and authorizations to allow distinguishing
-different roles in your company.
+different roles in a company.
 
 Unfortunately, by the beginning of 2011 the project looked mostly dead from
 an outside perspective: the team had not brought forward any releases since
-2007, there were no signs of development activity and the
-mailing lists (a measure for community activity) were
-completely silent.  \gls{svn} commits were continuing, but were being made by ever
-fewer committers and contributors.
+2007, there were no signs of development and the mailing lists (a measure
+of community activity) were
+completely silent.  \gls{svn} commits were continuing, but were being made by
+ever fewer committers and contributors.
 
-Fortunately development activity was increasing in the first half
-year of 2011,
+Fortunately development activity was increasing in the first half year of 2011,
 leading to the release of version 1.3 by September.  Between September and the
 year end in total 10 small bug fixes were released, showing active commitment
 of the developers to maintain the application.
@@ -219,31 +216,32 @@ October 2012.
 \section{System requirements}
 \label{sec-ledgersmb-system-requirements}
 
-The README file which comes with every LedgerSMB software release should be
+The \href{https://github.com/ledgersmb/LedgerSMB/blob/1.10/README.md#system-requirements}{README file}
+which comes with every LedgerSMB software release should be
 considered the canonical source for system requirements. In summary, the
 following technical components are required:
 
 \begin{itemize}
-\item The Apache web server (others may or may not work)
-\item Modern Perl 5, with additional modules
-\item PostgreSQL 10 or higher, with contribs
-\item \LaTeX or XeLaTeX from the TeTeX or TexLive \TeX distributions
+\item A web server (known working are Nginx, Apache, lighttpd and Varnish)
+\item Modern Perl 5, with \href{https://github.com/ledgersmb/LedgerSMB/blob/1.10/cpanfile}{additional modules}
+\item PostgreSQL 13 or higher
+\item (optional) \LaTeX or XeLaTeX from the TeTeX or TexLive \TeX distributions
 \end{itemize}
 
-More information about system requirements is available at
+More information about system requirements for clients and servers is available at
 
 \href{https://ledgersmb.org/content/system-requirements}{https://ledgersmb.org/content/system-requirements} 
 
-Other system requirements such as required RAM and number of CPUs and their speed
-largely depend on the expected system activity. However, any modern VPS should
+System requirements such as required RAM and number of CPUs and their speed
+largely depend on the expected system activity. However, any modern \acrshort{VPS} should
 provide enough memory and storage to satisfy a reasonable number of users.
 
 \section{License}
 \label{sec-ledgersmb-license}
 
 LedgerSMB is being made available under the terms of the
-\textit{GNU Public License version 2}, or shorter \textit{GPLv2}
-\footnote{\url{http://www.opensource.org/licenses/GPL-2.0}}.
+\textit{GNU Public License version 2}, in short: \textit{GPLv2}
+\footnote{\url{https://opensource.org/license/gpl-2-0/}}.
 
 The project attaches this meaning to the license:
 The copyright holders grant you the right to copy and
@@ -296,7 +294,7 @@ required to build a company on
 \section{Internal control}
 \label{sec-advocacy-internal-control}
 
-Internal control\footnote{See also \url{http://en.wikipedia.org/wiki/Internal_control}}
+Internal control\footnote{See also \url{https://en.wikipedia.org/wiki/Internal_control}}
 helps organizations to prevent and detect fraud by introducing checks and balances
 to assess effectiveness and validity of transactions in the organization and thereby
 in its \gls{erp} and accounting system(s).
@@ -306,7 +304,7 @@ in its \gls{erp} and accounting system(s).
 
 The accounting guidelines \gls{ias} and \gls{ifrs} describe requirements
 to financial statements (reports) and the underlying accounting process
-\footnote{See also \url{http://en.wikipedia.org/wiki/International_Financial_Reporting_Standards}}.
+\footnote{See also \url{https://en.wikipedia.org/wiki/International_Financial_Reporting_Standards}}.
 Said requirements include qualitative characteristics:
 
 \begin{enumerate}

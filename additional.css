@@ -11,3 +11,7 @@ div.ltx_document div.ltx_part ul.ltx_toclist { display: block; }
 acronym { border-bottom: 1px black dotted; }
 
 # img { width: 80%; height: auto; }
+
+.ltx_p {
+   line-height: 1.5em;
+}
