@@ -55,38 +55,41 @@ phase.
 \label{sec-create-using-setup}
 
 LedgerSMB comes with a tool called 'setup.pl'. It's the beginning of a web-based
+\footnote{There's also a command line based setup tool called \texttt{ledgersmb-admin}; it's covered as part of the section \lq\hyperref[part-administration]{Administration}\rq}
 database administration interface to LedgerSMB. This tool can be used to create
-company databases as well as backups of existing ones. There's also a command line based
-Unix-only setup tool - this tool is covered in the next section.
+company databases as well as backups of existing ones.
 
 Please note that while executing the steps described in this section, it may take a while
-for the next screen to appear after clicking on each button: Some buttons involve
-a large amount of processing on the server before the next screen can be presented.
+for the next screen to appear after clicking each button: Some buttons involve
+a large amount of server processing before the next screen can be presented.
 
 \subsection{Step 1: setup.pl login}
 \label{subsec-create-setup-login}
 
 Jack installed LedgerSMB using the default installation instructions, which means
-that the url for his setup.pl is \url{https://example.com/ledgersmb/setup.pl}.
+the url for his setup.pl is \url{https://example.com/setup.pl}.
 \figref{fig:setup-step1} shows the login screen for the tool.
 
 \begin{quotation}
-Please note that in version 1.7 and earlier you can't be logged into the administration tool (setup.pl) and the webapp
-through the same browser at the same time due to limitations of the implementation.
+Please note that in version 1.7 and earlier you can't be logged into the administration tool
+(setup.pl) and the webapp through the same browser at the same time due to limitations of the
+implementation.
 \end{quotation}
 
 The login screen shows three fields: (a) a user, (b) a password and (c) a database name.
 
-The user name you use to log in needs to be a PostgreSQL super user: a user you can use
-to log into the database using the ``psql'' command as well.
+The user name you use with setup.pl needs to be a PostgreSQL user. The user needs at least the
+right to create databases and other users; the \texttt{postgres} super user has these rights
+and more, so it's generally convenient (but not very secure) to use it.
 
-The password must be the same as the one used to log in from the command line using the
-``psql'' tool or the password you used upon creation using the ``createdb'' tool. Both
-``psql'' and ``createdb'' are PostgreSQL tools (not LedgerSMB tools).
+The password must be the same as that used to log in from the command line using the
+``psql'' tool or the password you assigned on user creation using the ``createuser'' tool
+\footnote{Most PostgreSQL deployments need configuration changes for this to work, if
+you're installing LedgerSMB yourself. See \url{https://ledgersmb.org} for installation
+instructions.}. Both ``psql'' and ``createuser'' are PostgreSQL tools (not LedgerSMB tools).
 
-The third field is the name of the database to be created, which is the same as the
-name of the company to be logged into later on through the login page shown in \figref{fig:login-screen}. The next paragraph discusses this field and its meaning more
-in-depth.
+The third field is the name of the company database to be created. For practical reasons
+it's best to use only lower case letters, numbers and the underscore (\_).
 
 \begin{figure}[h]
 \centering
@@ -101,18 +104,15 @@ in-depth.
 When creating a company database, there are a few things that are of importance:
 
 \begin{itemize}
-\item The name of the database is the same as the name used at login time and hence
-   will be used by all users - a choice of a suitable, recognizable value is important
-\item The name of the database entered (and hence the company name) is case-sensitive
+\item The name of the company database will be used at login time and hence
+   will be used by all users - a choice of recognizable value is important
+\item The value entered (and hence the company name) is case-sensitive
 \item The name can't be more than 63 characters long
 % \item ### others?
 \end{itemize}
 
 After choosing ``example\_inc'' as his company name, Jack clicks the Login button at which
-time the screen from \figref{fig:setup-step2} shows up. The screen says the database doesn't
-yet exist and offers its creation. The backup buttons being offered are not useful at this
-stage - they have value if the database exists and setup.pl is being used to upgrade
-the database; one of its other functionalities.
+time the screen from \figref{fig:setup-step2} shows up. The screen says the database doesn't yet exist and offers its creation.
 
 \begin{figure}[h]
 \centering
@@ -125,8 +125,8 @@ Jack clicks ``Yes'' to create the database and load it with LedgerSMB's database
 schema, authorization rules and stored
 procedures\footnote{Parts of the program inside the database.}. It may
 take a while (30 seconds or more) for the next screen to appear\footnote{Note 
-that during the creation of the database, logs are kept so that if there are
-errors these can be reviewed either by the person installing the software or by
+that during the creation of the database, logs are kept so that in case of
+errors these can be reviewed either by the person running the installation or by
 support personnel.  On Linux/Unix systems these are stored, by default, in
 /tmp/ledgersmb/ and named dblog, dblog\_stderr and dblog\_stdout.}.
 
@@ -140,16 +140,16 @@ skips the process of loading a chart.
 
 \begin{quote}
 Note that you need to define a chart of accounts before you can meaningfully do anything
-inside LedgerSMB. If you don't load a pre-defined one you'll need to create or import your
-own later.
+inside LedgerSMB. If you don't load a pre-defined one you'll need to create or upload
+your own from inside the application once setup has completed.
 \end{quote}
 
-\figref{fig:setup-step3} shows the first screen in the chart of accounts selection procedure.
-In this screen you select the country for which you want to use the chart of accounts. Note
+\figref{fig:setup-step3} shows the first screen in the \acrshort{CoA} selection procedure.
+Here you select the country for which you want to use the \acrshort{CoA}. Note
 that charts of accounts are highly country dependent and you may want to consult
 an accountant if no default chart of accounts is included for your country.
 
-As Jack runs his company in the US, that's what he selects.
+As Jack runs his company in the United States, that's what he selects.
 
 \begin{figure}[h]
 \centering
@@ -161,8 +161,9 @@ As Jack runs his company in the US, that's what he selects.
 \figref{fig:setup-step4} shows the second screen in the chart of accounts selection procedure.
 The drop down contains a list of all charts of accounts defined for the selected country.
 
-Jack selects the General.xml chart of accounts: that will leave him enough room to specialize
-the setup later if he has to, but for the time being offers a broadly usable setup.
+Jack selects the \texttt{GeneralHierarchical.xml} chart of accounts: that will
+leave him enough room to specialize the setup later if he has to, but for the time
+being offers a broadly usable setup.
 
 \begin{figure}[h]
 \centering
@@ -175,21 +176,19 @@ the setup later if he has to, but for the time being offers a broadly usable set
 \label{subsec-create-setup-load-template}
 
 LedgerSMB comes with a set of default reporting templates. 
-These control the formatting of reports like invoices, checks, balance sheet, purchase orders, income statement, etc. 
-Jack is now presented with the screen to load templates. The choices are:
+These control the formatting of documents like invoices, checks, balance sheet, purchase orders, income statement, etc. 
+Jack is now presented with the screen to load templates. LedgerSMB \ledgerSMBversion comes with a single choice\footnote{Administrators may define extra sets for users to be selected upon company creation; see \ref{sec-customization-company-creation-templates}}:
 \begin{itemize}
-        \item  \texttt{demo} -- templates processed using pdflatex
+        \item  \texttt{demo} -- Example template set for various output formats including PDF, HTML and Excel
 \end{itemize}
-
-Jack selects  \texttt{demo} to load the standard templates for use with text that does not include \glspl{diacritic character}.
 
 \subsection{Step 5: Initial user}
 \label{subsec-create-setup-initial-user}
 
-In the last step, the technical part of the company creation procedure was completed.
-However, it's not possible to log in to the company yet. This paragraph describes how to
-create a first user.
-\figref{fig:setup-step5} shows the user creation screen. The fields in this screen have
+In the previous step, the technical part of the company creation procedure
+was completed. However, it's not possible to log in to the company yet. 
+\figref{fig:setup-step5} shows the next step in the setup process:
+ the user creation screen. The fields shown have
 the same meaning as those discussed as part of user management in \secref{sec-user-creation}.
 
 \begin{figure}[h]
@@ -202,16 +201,15 @@ the same meaning as those discussed as part of user management in \secref{sec-us
 Jack chooses to create an administrative user called \texttt{admin} who will be authorized
 to do everything in the application. Later on he will also create a user \texttt{jack}
 who will be authorized to do everything but changing the configuration and doing application administration.
-He'll use the latter user to log in for day to day operations. This will help him prevent
-changing things by accident.
+He'll use the latter user to log in for day to day operations. This will help him prevent changing settings by accident.
 
 Note that none of the fields in this screen are optional. If the name of the user being created
 isn't already used with other companies, leave the \texttt{Import} option set to \texttt{No},
 otherwise please read the chapter on user creation mentioned above.
 
 \begin{quotation}
-Note: The password you enter here is a temporary one which will remain in effect for 24
-hours only. Be sure to execute the steps in \secref{sec-first-login-ramp-up} before
+Note: The password you enter here is a temporary one which will remain in effect
+\textbf{for 24 hours only}. Be sure to execute the steps in \secref{sec-first-login-ramp-up} before
 these 24 hours elapse, because the user will be disabled after that.
 \end{quotation}
 
@@ -224,11 +222,11 @@ Jack proceeds to enter the values as follows:
         Create New User & \texttt{Checked} & \\
         Import Existing User & \texttt{Unchecked} & Only used when the user exists in another database\\
         Salutation & \texttt{Mr.} & \\
-        First Name &  \texttt{Ad} & \\
+        First Name &  \texttt{Ad} & Used in combination with Last Name to identify the user \\
         Last Name & \texttt{Min} & \\
         Employee Number & \texttt{1} & \\
-        Date of Birth & \texttt{1/1/2000} & \\
-        Tax ID/SSN & \texttt{0} & \\
+        Date of Birth & \texttt{1/1/2000} & not used by the application \\
+        Tax ID/SSN & \texttt{0} & Tax or \acrshort{SSN}; not used by the application \\
         Country & \texttt{United States} & \\
         Assign Permissions & \texttt{Full Permissions} & \\
         \\
@@ -236,6 +234,7 @@ Jack proceeds to enter the values as follows:
         \label{tbl:setupp-step5-user-entry-data}
 \end{longtable}
 
+@@@TODO: Replace figure below: it looks different these days (missing statistics section)
 \begin{figure}[h]
 \centering
 \includegraphics[width=7cm]{dmc-create-step6.png}
@@ -243,7 +242,7 @@ Jack proceeds to enter the values as follows:
 \label{fig:setup-step6}
 \end{figure}
 
-Jack has now succeeded in correctly creating his company database and now sees the
+Jack has created his company database and now sees the
  ``Database Management Console"  screen as shown in \figref{fig:setup-step6}.
 
 By selection \texttt{Start using LedgerSMB} in the ``Database Operation Complete" section of the screen his story continues in
@@ -509,7 +508,7 @@ purchase discounts.}
 
 First off, Jack asserts that a sales tax\footnote{Sales tax may be called \gls{VAT}
 in some jurisdictions.} account has been provisioned. He finds it
-in the Current Liabilities section of his \gls{coa}. In his jurisdiction there
+in the Current Liabilities section of his \gls{CoA}. In his jurisdiction there
 is only one sales tax rate applicable at any one time, which means this single account
 will suit his needs just fine. If he had been in a jurisdiction with multiple tax rates
 applicable, e.g. different rates for different types of goods, he would have been

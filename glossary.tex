@@ -4,8 +4,13 @@
 
 \newglossaryentry{accrual basis}{
         name={accrual basis},
-        description={Income is deemed earned when the customer invoice is prepared and sent, and the expenses 
+        description={Income is deemed earned when the customer invoice is prepared and 	sent, and the expenses 
                 are deemed incurred when the purchase order is prepared and sent}}
+
+\newglossaryentry{add-on}{
+	name=add-on,
+	description={Extension to the base LedgerSMB system to add new functionality},
+	plural=add-ons}
 
 \newglossaryentry{cash basis}{
   name={cash basis},
@@ -35,11 +40,6 @@
   description={Is a contact initially setup as a company or person and further configured with at least one customer credit account},
   plural=customers}
 
-\newglossaryentry{add-on}{
-  name=add-on,
-  description={Extension to the base LedgerSMB system to add new functionality},
-  plural=add-ons}
-
 \newglossaryentry{company}{
   name=company,
   description={A company is a contact initially setup as a company and usually has further configuration as a vendor or customer}}
@@ -49,12 +49,30 @@
         description={The various little dots and squiggles which, in many languages, are written above, below or on top of certain letters of the alphabet to indicate something about their pronunciation},
         plural={diacritic characters}}
 
+\newglossaryentry{expense}{
+	name={expense},
+	description={
+		A cost incurred by the company. Expenses are not payments. The most prominent
+		example is where products are sold and the cost of inventory is recognized as
+		expense (Cost Of Goods Sold) at the time of the sale while the products could
+		have been bought months before.
+	}
+}
+
 \newglossaryentry{gifi}{
   name={GIFI},
   description={Stands for Generalized Index for Financial Information,
      a system used by the Canada Revenue Agency for filing coporate
      tax returns (see \url{http://www.cra-arc.gc.ca/tx/bsnss/tpcs/crprtns/rtrn/wht/gifi-ogrf/menu-eng.html})}
      }
+ 
+\newglossaryentry{payment}{
+	name={payment},
+	description={
+		A transfer of cash or cash equivalents out of the company. Payments are not
+		\gls{expenses}: e.g. payments to pay off a loan
+	}
+}
  
 \newglossaryentry{permalink}{
    name={permalink},
