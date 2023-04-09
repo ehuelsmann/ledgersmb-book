@@ -71,7 +71,7 @@ In version 1.10 the user interface is a \gls{SPA} using a mixture of new (e.g.
 \href{https://webpack.js.org/}{webpack 5} and \href{https://developer.mozilla.org/en-US/docs/Web/Web_Components}{Web Components}) and old (e.g. \href{https://dojotoolkit.org/}{Dojo Toolkit}) technology.
 
 The web server is an optional component that's highly recommended for TLS termination
-and protecting the back end Perl HTTP server from malicious traffic. It may also be used
+and protecting the back end Perl HTTP server from malicious traffic\footnote{This setup is an industry-wide accepted best practice for deploying web applications; web servers like Apache or Nginx have been and continue to be extensively security-reviewed. No other implementations can achieve the same level of scrutiny.}. It may also be used
 for serving static page components such as images, style sheets and JavaScript component
 as an efficiency measure.
 
@@ -141,8 +141,7 @@ There are no known \glspl{add-on} available at this time.
 
 With this list of modules and \glspl{add-on} LedgerSMB has been successfully
 implemented in a wide range of companies of varying types and sizes: shops,
-manufacturing companies and service oriented businesses up to as big as four
-thousand (4.000) Accounts payable transactions \emph{per week}.
+manufacturing companies and service oriented businesses up to as big as @@TODO million transactions, growing by 50,000 transactions (spread across \acrshort{AR}, \acrshort{AP} and \acrshort{GL}) \emph{per month}.
 
 \section{Feature comparison with alternatives}
 \label{sec-ledgersmb-feature-comparison}
@@ -154,7 +153,7 @@ Packages to compare to:
 \item GNUcash
 \item OSfinancials
 \item ERP5
-\item OpenERP
+\item Odoo
 \item xTuple
 \end{itemize}
 
@@ -356,18 +355,18 @@ The purpose of an accounting system is to keep track of the company's financial 
 present it:
 
 \begin{description}[style=nextline]
-	\item[Balance Sheet] Provides a snapshot of the financial position of a company, listing its possessions (assets), debts (liabilities) and residual value (equity)
-	\item[Income Statement] Also known as the ``Profit \& Loss Statement'', summarizes the income generated over a specific period and the expenses associated with it, resulting in ``Net Result''
-	\item[Cashflow Statement\footnote{\label{cha-accounting-footnote-not-implemented}Not currently implemented in LedgerSMB}] Summarizes the incoming and outgoing cash flows over a specific period, resulting in ``Free Cash Flow''
-	\item[Statement of Owner's Equity\footref{cha-accounting-footnote-not-implemented}] Summarizes the changes in equity over a specific period
-	\item[Trial Balance] An intermediate report used for preparing the Balance Sheet and Income Statement, tallies transactions over the reporting period; used to assert that all accounts in the General Journal are in balance 
+	\item[Balance Sheet] Provides a snapshot of the financial position of a company, listing its possessions (assets), debts (liabilities) and residual value (equity).
+	\item[Income Statement] Also known as the ``Profit \& Loss Statement'', summarizes the income generated over a specific period and the expenses associated with it, resulting in ``Net Result''.
+	\item[Cashflow Statement\footnote{\label{cha-accounting-footnote-not-implemented}Not currently implemented in LedgerSMB}] Summarizes the incoming and outgoing cash flows over a specific period, resulting in ``Free Cash Flow''.
+	\item[Statement of Owner's Equity\footref{cha-accounting-footnote-not-implemented}] Summarizes the changes in equity over a specific period.
+	\item[Trial Balance] An intermediate report used for preparing the Balance Sheet and Income Statement, tallies transactions over the reporting period; used to assert that all accounts in the General Journal are balanced.
 \end{description}
 
 The accounting system is composed of these parts:
 \begin{description}[style=nextline]
-        \item [Journals] Contain the company's transactions with extensive additional data; they are the first point of entry for transactions, ordered by order of entry
-        \item [Ledgers] Contain aggregated data from the journals, ordered by date
-        \item [Chart of Accounts] The categories by which financial data are classified
+        \item [Journals] Contain the company's transactions with extensive additional data; they are the first point of entry for transactions, ordered by order of entry.
+        \item [Ledgers] Contain aggregated data from the journals, ordered by date.
+        \item [Chart of Accounts] The categories by which financial data are classified.
 \end{description}
 
 All accounting data ends up summarized in the \acrshort{GL}. Transactions may be entered in a different (sub)ledger before ending up in the \acrshort{GL}; e.g. the Sales Ledger. With the advent of computerized accounting, the use of journals is in decline: transactions are classified while directly being entered into ledgers.
@@ -384,19 +383,31 @@ In addition to the parts mentioned above the following terms are used throughout
         \item [Expense] Money paid to operate the business.
         \item [Cost of Goods] Money that was spent to acquire material and services to build a product being sold.
         \item [Operating Expenses] Expenses that are consumed to administer the business.
-        \item [Trial Balance] A report to use when checking that all accounts in the
-        General Journal are in balance.
         \item [Accounts Receivable] An asset on the books as a claim for a future payment
         from a customer.
         \item [Accounts Payable] A liability on the books for a future payment to a supplier
         or vendor.
 \end{description}
 
+\section{Double-entry accounting}
+\label{sec-accounting-double-entry}
+
+The basic concept in double-entry accounting is that every transaction is an exchange. For example, when a business
+sells goods to a customer, it issues an invoice.
+The exchange is to provide the goods and receive the right for (future) payment. When the customer later pays the invoice, the right for payment is exchanged for cash.
+
+Each exchange is to have the same value on both sides of the exchange, making sure no transaction is incomplete. This is where
+the requirement comes from that double-entry transactions need
+to be balanced.  It can occur that a customer's payment is a bit short of the owed amount.  Should the company decide not to pursue payment, the transaction would end up being unbalanced. After all the exchange is not equal-value between the providing and receiving sides. Double-entry accounting accommodates this scenario by explicitly recording the unpaid amount as an expense.
+
+Because every transaction is balanced, so is the balance sheet. Through this approach, double-entry accounting provides strong
+control over correctness of the numbers: as soon as a transaction
+is unbalanced (i.e. contains an error), the balance sheet becomes unbalanced -- a relatively simple check.
+
 \section{Cash versus accrual basis}
 \label{sec-accounting-cash-vs-accrual}
 
-Financial statements, such as the Income Statement and Balance Sheet can be prepared using
-either a cash or accrual basis.
+Financial statements, such as the Income Statement and Balance Sheet can be prepared using either a cash or accrual basis.
 
 In \gls{cash basis} accounting, the income is deemed earned when the business physically
 receives the customer payment, and the expenses are deemed incurred when the business
@@ -419,6 +430,7 @@ There can be a number of problems with \gls{cash basis} accounting:
         \item Your taxing jurisdiction may limit businesses that can use cash basis accounting.
         For example in the United States, if you sell products or services on credit,
         have gross receipts higher that allowed, or need inventory to account for income.
+        \item  Because cash basis accounting isn't part of any accounting standards, there are varying expectations of what a cash balance or income statement looks like.
 \end{itemize}
 
 \section{Valuation of inventory}
