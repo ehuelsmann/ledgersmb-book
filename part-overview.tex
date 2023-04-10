@@ -68,22 +68,22 @@ release schedules and separate maturity levels than the main application.
 LedgerSMB \ledgerSMBversion features the following integrated modules:
 
 \begin{itemize}
-	\item General ledger
-	\item Payment and Accounts payable
-	\item Invoicing and Accounts receivable
-	\item Fixed asset accounting
-	\item Time registration and invoicing
-	\item Point of Sale
-	\item Quotation and Order management
-	\item Manufacturing
-	\item Inventory (warehousing) and shipping management
-	\item VAT reporting
-	\item Controlling
-	\begin{itemize}
-		\item Project accounting
-		\item Department accounting
-	\end{itemize}
-	\item Application administration
+        \item General ledger
+        \item Payment and Accounts payable
+        \item Invoicing and Accounts receivable
+        \item Fixed asset accounting
+        \item Time registration and invoicing
+        \item Point of Sale
+        \item Quotation and Order management
+        \item Manufacturing
+        \item Inventory (warehousing) and shipping management
+        \item VAT reporting
+        \item Controlling
+        \begin{itemize}
+                \item Project accounting
+                \item Department accounting
+        \end{itemize}
+        \item Application administration
 \end{itemize}
 
 There are no known \glspl{add-on} available at this time.
@@ -99,11 +99,11 @@ manufacturing companies and service oriented businesses up to as big as @@TODO m
 Packages to compare to:
 
 \begin{itemize}
-	\item GNUcash
-	\item OSfinancials
-	\item ERP5
-	\item Odoo
-	\item xTuple
+        \item GNUcash
+        \item OSfinancials
+        \item ERP5
+        \item Odoo
+        \item xTuple
 \end{itemize}
 
 
@@ -117,10 +117,10 @@ considered the canonical source for system requirements. In summary, the
 following technical components are required:
 
 \begin{itemize}
-	\item A web server (known working are Nginx, Apache, lighttpd and Varnish)
-	\item Modern Perl 5, with \href{https://github.com/ledgersmb/LedgerSMB/blob/1.10/cpanfile}{additional modules}
-	\item PostgreSQL 13 or higher
-	\item (optional) \LaTeX{} or \XeLaTeX{} from the Te\TeX{} or \TeX{}Live \TeX{} distributions
+        \item A web server (known working are Nginx, Apache, lighttpd and Varnish)
+        \item Modern Perl 5, with \href{https://github.com/ledgersmb/LedgerSMB/blob/1.10/cpanfile}{additional modules}
+        \item PostgreSQL 13 or higher
+        \item (optional) \LaTeX{} or \XeLaTeX{} from the Te\TeX{} or \TeX{}Live \TeX{} distributions
 \end{itemize}
 
 More information about system requirements for clients and servers is available at
@@ -302,11 +302,12 @@ The purpose of an accounting system is to keep track of the company's financial 
 present it:
 
 \begin{description}[style=nextline]
-	\item[Balance Sheet] Provides a snapshot of the financial position of a company, listing its possessions (assets), debts (liabilities) and residual value (equity).
-	\item[Income Statement] Also known as the ``Profit \& Loss Statement'', summarizes the income generated over a specific period and the expenses associated with it, resulting in ``Net Result''.
-	\item[Cashflow Statement\footnote{\label{cha-accounting-footnote-not-implemented}Not currently implemented in LedgerSMB}] Summarizes the incoming and outgoing cash flows over a specific period, resulting in ``Free Cash Flow''.
-	\item[Statement of Owner's Equity\footref{cha-accounting-footnote-not-implemented}] Summarizes the changes in equity over a specific period.
-	\item[Trial Balance] An intermediate report used for preparing the Balance Sheet and Income Statement, tallies transactions over the reporting period; used to assert that all accounts in the General Journal are balanced.
+        \item[Balance Sheet] Provides a snapshot of the financial position of a company, listing its possessions (assets), debts (liabilities) and residual value (equity).
+        \item[Income Statement] Also known as the ``Profit \& Loss Statement'', summarizes the income generated over a specific period and the expenses associated with it, resulting in ``Net Result''.
+        \item[Cashflow Statement\footnote{Not currently implemented in LedgerSMB}] Summarizes the incoming and outgoing cash flows over a specific period, resulting in ``Free Cash Flow''.
+          %%@@@TODO The footnote on the following line is a duplicate; using \footref didn't work with latexml
+        \item[Statement of Owner's Equity\footnote{Not currently implemented in LedgerSMB}] Summarizes the changes in equity over a specific period.
+        \item[Trial Balance] An intermediate report used for preparing the Balance Sheet and Income Statement, tallies transactions over the reporting period; used to assert that all accounts in the General Journal are balanced.
 \end{description}
 
 The accounting system is composed of these parts:
