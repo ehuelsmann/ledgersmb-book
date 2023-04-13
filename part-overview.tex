@@ -120,7 +120,12 @@ following technical components are required:
 	\item A web server (known working are Nginx, Apache, lighttpd and Varnish)
 	\item Modern Perl 5, with \href{https://github.com/ledgersmb/LedgerSMB/blob/1.10/cpanfile}{additional modules}
 	\item PostgreSQL 13 or higher
-	\item (optional) \LaTeX{} or \XeLaTeX{} from the Te\TeX{} or \TeX{}Live \TeX{} distributions
+    \ifpdf
+	   \item (optional) \LaTeX{} or \XeLaTeX{} from the Te\TeX{} or \TeX{}Live \TeX{} distributions
+    \else
+    	\item (optional) LaTeX or XeLaTeX from the TeTeX or TeXLive TeX distributions
+    \fi
+    
 \end{itemize}
 
 More information about system requirements for clients and servers is available at

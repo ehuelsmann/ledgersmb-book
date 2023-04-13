@@ -27,8 +27,6 @@
 \usepackage{longtable}
 \graphicspath{{images/}}
 
-\usepackage{metalogo}
-
 % For use of next line in description list
 \usepackage{enumitem}
 
@@ -92,51 +90,49 @@
 \include{acronyms}
 \include{glossary}
 
+% metalogo not available to latexml
+% so the meta forms must have \ifpdf for HTML
+\ifpdf
+  \usepackage{metalogo}
+\fi
+
 \begin{document}
 
-\author{Erik H\"ulsmann \and Neil Tiffin \and Chris Travers \\
-~ \\
-~ \\
-~ \\
- \url{https://book.ledgersmb.org}
-} 
-
-\title{
-\includegraphics[width=0.45\textwidth]{NewLedgerSMBLogo512x256.png}\\
+\ifpdf
+    \author{Erik H\"ulsmann \and Neil Tiffin \and Chris Travers \\
+    ~ \\
+    ~ \\
+    ~ \\
+     \url{https://book.ledgersmb.org}
+    } 
+    
+    \title{
+        \includegraphics[width=0.45\textwidth]{NewLedgerSMBLogo512x256.png}\\
         ~ \\
         ~ \\
         ~ \\
-%       \begin{Large}
         Running your business with\\
         {\Huge LedgerSMB \ledgerSMBversion} \\
-%       \end{Large} \\
         ~ \\
         \texttt{DRAFT / WORK IN PROGRESS} \\
-}
-\maketitle
+        ~ \\
+        \normalsize{\emph{See the \hyperref[preface]{Preface}  for current status.}}\\
+    }
+    \maketitle
 
-%\begin{titlepage}
-%       \centering
-%       
-%       \large{\textbf{Running your business with}} \par
-%       
-%       \LARGE LedgerSMB \ledgerSMBversion \par
-%       \vspace{1cm}
-%       {\Large\itshape Erik H\"ulsmann\par}
-%       {\Large\itshape Chris Travers\par}
-%       {\Large\itshape Neil Tiffin\par}
-%       \vspace{1cm}
-%       \texttt{DRAFT / WORK IN PROGRESS} \par  
-%       \vspace{1cm}    
-%       {\large Contributors\par}
-%       {\normalsize Somebody 1\par}
-%       {\normalsize Somebody 2\par}
-%       {\normalsize Somebody 3\par}
-%       \vfill
-%       
-%       % Bottom of the page
-%       {\large \today\par}
-%\end{titlepage}
+\else
+
+    \author{Erik H\"ulsmann \and Neil Tiffin \and Chris Travers}
+    \title{
+        Running your business with
+        LedgerSMB \ledgerSMBversion \\
+        ~ \\
+        \texttt{DRAFT / WORK IN PROGRESS} \\
+    }
+
+    \maketitle
+
+\fi
 
 \tableofcontents
 
@@ -149,6 +145,15 @@
 \section*{Preface}
 \label{preface}
 \addcontentsline{toc}{section}{Preface}
+
+The current development goal for the book is to get the content current and accurate,
+not necessarily perfect structure and grammar.
+
+You will find many incomplete sections which should be regarded as an outline for the finished book.
+
+However, some sections are nearly complete.
+
+Because LedgerSMB is undergoing active infrastructure and API changes in 2023, some portions of this book will not be written until those changes are nearing completion.
 
 \section*{Intended audience}
 \label{sec-intended-audience}
