@@ -250,8 +250,11 @@ related to the execution of these tasks.
 
 \begin{description}[style=nextline]
 \item [account\_all] Allows the user to both create new and edit existing GL accounts.
-\item [account\_create] Allows the user to create (but not edit) new GL accounts.
-\item [account\_edit] Allows the user to edit (but not create) GL accounts.
+\item [account\_create] Allows the user to create, but not edit or delete new GL accounts.
+\item [account\_delete] Allows the user to delete, but not edit or create new GL accounts.
+\item [account\_edit] Allows the user to edit, but not delete or create GL accounts.
+\item [account\_link\_description\_create]
+
 \item [ap\_all]
 \item [ap\_all\_transactions]
 \item [ap\_all\_vouchers]
@@ -263,44 +266,71 @@ related to the execution of these tasks.
 \item [ap\_transaction\_list]
 \item [ar\_all]
 \item [ar\_invoice\_create] Allows the user to create and update sales invoices. If the
-   user needs to be able to enter invoices in foreign currencies, the
-   \emph{exchangerate\_edit} role must be assigned as well.
-\item [ar\_transaction\_all]
-% just added it -- Chris T
+user needs to be able to enter invoices in foreign currencies, the
+\emph{exchangerate\_edit} role must be assigned as well.
+\item [ar\_invoice\_create\_voucher]
+\item [ar\_transaction\_all] 
 \item [ar\_transaction\_create]
 \item [ar\_transaction\_create\_voucher]
 \item [ar\_transaction\_list]
+\item [ar\_voucher\_all]
 \item [assembly\_stock]
 \item [assets\_administer]
 \item [assets\_approve]
 \item [assets\_depreciate]
 \item [assets\_enter]
-\item [auditor]
 \item [audit\_trail\_maintenance]
-\item [backup] \emph{Superseeded}. This role has been replaced by backup functionality
-   in setup.pl
+\item [auditor]
+\item [base\_user]
+\item [backup] \emph{Superseded}. This role has been replaced by backup functionality
+in setup.pl.
 \item [batch\_create] Allows the user to create new batches.
 \item [batch\_list]
 \item [batch\_post] Allows the user to post batches; this authorization includes the
-   right to search for batches (and therefore includes \emph{batch\_list})
+right to search for batches (and therefore includes \emph{batch\_list})
+\item [budget\_approve]
+\item [budget\_enter]
+\item [budget\_obsolete]
+\item [budget\_view]
 \item [business\_type\_all]
 \item [business\_type\_create]
 \item [business\_type\_edit]
+\item [business\_units\_manage]
 \item [cash\_all]
-\item [close\_till]
-\item [contact\_all\_rights]
-\item [contact\_create]
-\item [contact\_edit]
-\item [contact\_read]
-\item [department\_all]
-\item [department\_create]
-\item [department\_edit]
-\item [draft\_edit]
+\item [close\_till] \emph{Obsolete}
+\item [contact\_all\_rights] Has all permissions for creating, editing and deleting contacts.
+\item [contact\_class\_cold\_lead]
+\item [contact\_class\_contact]
+\item [contact\_class\_customer]
+\item [contact\_class\_employee]
+\item [contact\_class\_hot\_lead]
+\item [contact\_class\_lead]
+\item [contact\_class\_referral]
+\item [contact\_class\_robot]
+\item [contact\_class\_sub\_contractor]
+\item [contact\_class\_vendor]\textbf{}
+\item [contact\_create] Can create, but not edit, read, or delete a contact.
+\item [contact\_delete] Can delete, but not create, edit, or read a contact.
+\item [contact\_edit] Can edit, but not create, delete, or read a contact.
+\item [contact\_read] Can read, but not create, delete, or add a contact.
+\item [country\_all] Can create and edit countries.
+\item [country\_create] Can create, but not edit countries.
+\item [country\_edit] Can edit, but not create countries.
+\item [department\_all] \emph{Obsolete}
+\item [department\_create] \emph{Obsolete}
+\item [department\_edit] \emph{Obsolete}
+\item [draft\_edit]  \emph{Obsolete}
+\item [draft\_modify]
+\item [draft\_post]
 \item [employees\_manage]
+\item [exchangerate\_edit]
+\item [file\_attach\_eca]
+\item [file\_attach\_entity]
 \item [file\_attach\_order]
 \item [file\_attach\_part]
 \item [file\_attach\_tx]
 \item [file\_read]
+\item [file\_upload]
 \item [financial\_reports]
 \item [gifi\_create]
 \item [gifi\_edit]
@@ -308,39 +338,43 @@ related to the execution of these tasks.
 \item [gl\_reports]
 \item [gl\_transaction\_create]
 \item [gl\_voucher\_create]
+\item [inventory\_adjust]
 \item [inventory\_all]
+\item [inventory\_approve]
 \item [inventory\_receive]
 \item [inventory\_reports]
 \item [inventory\_ship]
 \item [inventory\_transfer]
 \item [language\_create]
 \item [language\_edit]
-\item [list\_all\_open]
-\item [manual\_translation\_all]
+\item [list\_all\_open]  \emph{Obsolete}
+\item [manual\_translation\_all]  \emph{Obsolete}
 \item [orders\_generate]
 \item [orders\_manage]
 \item [orders\_purchase\_consolidate]
 \item [orders\_sales\_consolidate]
 \item [orders\_sales\_to\_purchase]
 \item [part\_create]
+\item [part\_delete]
 \item [part\_edit]
-\item [partsgroup\_translation\_create]
-\item [part\_translation\_create]
+\item [partsgroup\_translation\_create]  \emph{Obsolete}
+\item [part\_translation\_create]  \emph{Obsolete}
 \item [payment\_process]
-\item [pos\_all]
-\item [pos\_cashier]
-\item [pos\_enter]
+\item [pos\_all]  \emph{Obsolete}
+\item [pos\_cashier]  \emph{Obsolete}
+\item [pos\_enter]  \emph{Obsolete}
 \item [pricegroup\_create]
 \item [pricegroup\_edit]
-\item [print\_jobs]
-\item [print\_jobs\_list]
-\item [project\_create]
-\item [project\_edit]
-\item [project\_order\_generate]
-\item [project\_timecard\_add]
-\item [project\_timecard\_list]
-\item [project\_translation\_create]
+\item [print\_jobs]  \emph{Obsolete}
+\item [print\_jobs\_list]  \emph{Obsolete}
+\item [project\_create]  \emph{Obsolete}
+\item [project\_edit]  \emph{Obsolete}
+\item [project\_order\_generate]  \emph{Obsolete}
+\item [project\_timecard\_add]  \emph{Obsolete}
+\item [project\_timecard\_list]  \emph{Obsolete}
+\item [project\_translation\_create]  \emph{Obsolete}
 \item [purchase\_order\_create]
+\item [purchase\_order\_delete]
 \item [purchase\_order\_edit]
 \item [purchase\_order\_list]
 \item [receipt\_process]
@@ -349,11 +383,14 @@ related to the execution of these tasks.
 \item [reconciliation\_enter]
 \item [recurring]
 \item [rfq\_create]
+\item [rfq\_delete]
 \item [rfq\_list]
 \item [sales\_order\_create]
+\item [sales\_order\_delete]
 \item [sales\_order\_edit]
 \item [sales\_order\_list]
 \item [sales\_quotation\_create]
+\item [sales\_quotation\_delete]
 \item [sales\_quotation\_list]
 \item [sic\_all]
 \item [sic\_create]
@@ -361,13 +398,19 @@ related to the execution of these tasks.
 \item [system\_admin]
 \item [system\_settings\_change]
 \item [system\_settings\_list]
-\item [taxes\_set]
 \item [tax\_form\_save]
+\item [taxes\_set]
 \item [template\_edit]
+\item [timecard\_add]
+\item [timecard\_list]
+\item [timecard\_order\_generate]
+\item [transaction\_template\_delete]
+\item [translation\_create]
 \item [users\_manage]
 \item [voucher\_delete]
 \item [warehouse\_create]
 \item [warehouse\_edit]
+\item [yearend\_reopen]
 \item [yearend\_run]
 \end{description}
 
