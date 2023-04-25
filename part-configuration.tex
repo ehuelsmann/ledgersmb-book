@@ -60,6 +60,23 @@ For the time being there is a conversion step that converts the old 'ledgersmb.c
 \chapter{Per company configuration}
 \label{cha-company-config}
 
+\section{Matching your business processes}
+\label{sec-company-config-matching-your-business}
+
+Currently, LedgerSMB operates such that all optional functionality is available and the user decides to use it or not, provided they have proper application roles (see \appref{app-role-listing}).
+
+The only enforced business process configuration is whether the same person can both create and post transactions. It is called 'separation of duties' \index{separation of duties} and is defined in \secref{subsubsec-company-config-defaults-separation-of-duties}.
+
+LedgerSMB is configured to adjust inventory when a Sales or Purchase Invoice is posted. This closely matches retail business processes where the customer walks out of the establishment with the product and an invoice (or receipt).  This functionality can also be used for wholesale shipping applications because LedgerSMB can also produce picking and shipping documents, just remember that the inventory transaction happens when an invoice is posted.
+
+LedgerSMB uses \gls{FIFO} for \gls{COGS} and inventory calculations.  There are provisions for alternatives, but the code is not yet complete. See \secref{sec-accounting-valuation-inventory} for a detailed explanation of  \gls{FIFO} calculations.
+
+In addition to the above, LedgerSMB has configurable Workflows. These are not user configurable but your technical support staff should be able to create and edit them.
+
+@@@TODO Need reference to LSMB Workflows section.
+
+Contact the \href{https://ledgersmb.org}{development team} for other business process customizations.  In most cases the need for more flexible matching to business processes is understood, but the project has not not yet had any customer requests or development volunteers.
+
 \section{Administrative user}
 \label{sec-company-config-admin-user}
 
@@ -172,8 +189,15 @@ could be used to store a business license number or anything similar.
 \subsubsection{Separation of duties}
 \label{subsubsec-company-config-defaults-separation-of-duties}
 
-Set this field to 1 if you want to activate separation of duties or to 0 if you don't
-want to enforce it. Separation of duties is explained in \secref{sec-workflows-accounting-transaction-approval}.
+% For better or worse this is the spot for the canonical definition of separation of duties.
+
+Separation of duties \index{separation of duties} is a method to help reduce fraud where one employee can't modify the
+accounting ledger without another employee's approval.
+
+Select "Yes" if you want to activate separation of duties or "No" if you don't
+want to activate it.
+
+In order for separation of duties to be enforced, user roles have to be set differently for each user. This is done by removing the \texttt{draft\_post} role from the users that cannot post and making sure that the users that can post have the role enabled.  See \secref{sec-user-management-authorization} for more details about changing and setting User Roles.
 
 \subsubsection{Default accounts}
 \label{subsubsec-company-config-defaults-accounts}
