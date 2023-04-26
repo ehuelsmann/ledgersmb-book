@@ -63,17 +63,19 @@ For the time being there is a conversion step that converts the old 'ledgersmb.c
 \section{Matching your business processes}
 \label{sec-company-config-matching-your-business}
 
-Currently, LedgerSMB operates such that all optional functionality is available and the user decides to use it or not, provided they have proper application roles (see \appref{app-role-listing}).
+By default, LedgerSMB operates such that all optional functionality is available and the user decides to use it or not based on which menu items they select, what fields they enter data into, and what buttons they click.
 
-The only enforced business process configuration is whether the same person can both create and post transactions. It is called 'separation of duties' \index{separation of duties} and is defined in \secref{subsubsec-company-config-defaults-separation-of-duties}.
+Removing application roles \index{application roles} (see \appref{app-role-listing}) can limit the visibility of  menu items, data fields, and buttons. This will simplify the users view of the system, reduce training, and better configure LedgerSMB to your business requirements.
 
-LedgerSMB is configured to adjust inventory when a Sales or Purchase Invoice is posted. This closely matches retail business processes where the customer walks out of the establishment with the product and an invoice (or receipt).  This functionality can also be used for wholesale shipping applications because LedgerSMB can also produce picking and shipping documents, just remember that the inventory transaction happens when an invoice is posted.
+Outside of application roles, the only other enforced business process configuration is whether the same person can both create and post transactions. It is called 'separation of duties' \index{separation of duties} and is defined in \secref{subsubsec-company-config-defaults-separation-of-duties}.
 
-LedgerSMB uses \gls{FIFO} for \gls{COGS} and inventory calculations.  There are provisions for alternatives, but the code is not yet complete. See \secref{sec-accounting-valuation-inventory} for a detailed explanation of  \gls{FIFO} calculations.
+LedgerSMB is configured to adjust inventory \index{inventory} when a Sales or Purchase Invoice is posted. This closely matches retail business processes where the customer walks out of the establishment with the product and an invoice \index{invoice} (or receipt).  This functionality can also be used for wholesale shipping applications because LedgerSMB can also produce picking \index{picking} and \index{shipping} shipping documents, just remember that the inventory transaction happens when an invoice is posted.
+
+LedgerSMB uses \gls{FIFO} \index{FIFO} for \gls{COGS} \index{COGS} and inventory calculations.  There are provisions for alternatives, but the code is not yet complete. See \secref{sec-accounting-valuation-inventory} for a detailed explanation of  \gls{FIFO} calculations.
 
 In addition to the above, LedgerSMB has configurable Workflows \index{workflows}. These are not user configurable but your technical support staff should be able to create and edit them. See \charef{part-workflows}.
 
-Contact the \href{https://ledgersmb.org}{development team} for other business process customizations.  In most cases the need for more flexible matching to business processes is understood, but the project has not not yet had any customer requests or development volunteers.
+Contact the \href{https://ledgersmb.org}{development team} for other business process customizations.  In most cases the need for more flexible matching of LedgerSMB to your business processes is understood, but the project has not not yet had any customer requests or development volunteers.
 
 \section{Administrative user}
 \label{sec-company-config-admin-user}
