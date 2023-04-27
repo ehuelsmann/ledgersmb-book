@@ -39,11 +39,22 @@ Explain how to use lsmb with 1.3 instead of 2+.
 \section{PostgreSQL}
 \label{sec-global-config-postgresql}
 
-pg\_hba.conf: authentication \\
-security: local vs IP connections \\
+@@@TODO pg\_hba.conf: authentication \\
+@@@TODO security: local vs IP connections \\
 
 
 
+\section{LedgerSMB version numbers}
+\label{sec-global-config-ledgersmb-version-numbers}
+
+LedgerSMB version numbers \index{version number} are in the form of Major.Minor.Patch-Optional Tag. So for example, the current 1.9 development release is \texttt{1.9.28-dev} and the production release is \texttt{1.9.28}
+
+\begin{description}[style=nextline]
+\item [Major] An increment in the major release number \index{release number} can mean significant architectural, \gls{API}, functional, or usage changes. It is expected that an upgrade to a new Major version is  going to be planned and tested by the user organization before upgrading.
+\item [Minor] An increment in the minor release number may indicate changes to \glspl{API} \index{API}, interfaces, user instructions, etc.  But these changes are not expected to have major impact and should require minor planning and testing. Often small impact enhancements are back-patched to previous Minor versions as patches.
+\item [Patch] Increments in the Patch number represent bug fixes, security improvements, or enhancements that do not break existing functionality, usage, or \glspl{API}.  These changes are expected to be applied to an installation as soon as possible.
+\item [Optional Tag] Common values include dev, beta, or alpha. Typically, these are only used internally by the LedgerSMB developers.
+\end{description}
 
 \section{LedgerSMB}
 \label{sec-global-config-ledgersmb}
