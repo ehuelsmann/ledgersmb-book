@@ -243,175 +243,216 @@ of that functionality, the following restore procedure should be used.
 \chapter{Listing of application roles}
 \label{app-role-listing}
 
-Application roles specify the right to execute one or more tasks in the application.
+Application roles \index{roles} specify the right (privilege) to execute one or more tasks in the application.
 LedgerSMB enforces these roles by allowing a user to select (list, read) data from or to
 insert (create), update (edit) or delete (delete) data in the tables holding the data
 related to the execution of these tasks.
 
-\begin{description}[style=nextline]
-\item [account\_all] Allows the user to both create new and edit existing GL accounts.
-\item [account\_create] Allows the user to create, but not edit or delete new GL accounts.
-\item [account\_delete] Allows the user to delete, but not edit or create new GL accounts.
-\item [account\_edit] Allows the user to edit, but not delete or create GL accounts.
-\item [account\_link\_description\_create]
+The following table lists the roles that are currently active or have been removed since LedgerSMB version 1.9.0.
 
-\item [ap\_all]
-\item [ap\_all\_transactions]
-\item [ap\_all\_vouchers]
-\item [ap\_invoice\_create]
-\item [ap\_invoice\_create\_voucher]
-\item [ap\_transaction\_all] \footnote{Available as of 1.3.21, missing before}
-\item [ap\_transaction\_create]
-\item [ap\_transaction\_create\_voucher]
-\item [ap\_transaction\_list]
-\item [ar\_all]
-\item [ar\_invoice\_create] Allows the user to create and update sales invoices. If the
-user needs to be able to enter invoices in foreign currencies, the
-\emph{exchangerate\_edit} role must be assigned as well.
-\item [ar\_invoice\_create\_voucher]
-\item [ar\_transaction\_all] 
-\item [ar\_transaction\_create]
-\item [ar\_transaction\_create\_voucher]
-\item [ar\_transaction\_list]
-\item [ar\_voucher\_all]
-\item [assembly\_stock]
-\item [assets\_administer]
-\item [assets\_approve]
-\item [assets\_depreciate]
-\item [assets\_enter]
-\item [audit\_trail\_maintenance]
-\item [auditor]
-\item [base\_user]
-\item [backup] \emph{Superseded}. This role has been replaced by backup functionality
-in setup.pl.
-\item [batch\_create] Allows the user to create new batches.
-\item [batch\_list]
-\item [batch\_post] Allows the user to post batches; this authorization includes the
-right to search for batches (and therefore includes \emph{batch\_list})
-\item [budget\_approve]
-\item [budget\_enter]
-\item [budget\_obsolete]
-\item [budget\_view]
-\item [business\_type\_all]
-\item [business\_type\_create]
-\item [business\_type\_edit]
-\item [business\_units\_manage]
-\item [cash\_all]
-\item [close\_till] \emph{Obsolete}
-\item [contact\_all\_rights] Has all permissions for creating, editing and deleting contacts.
-\item [contact\_class\_cold\_lead]
-\item [contact\_class\_contact]
-\item [contact\_class\_customer]
-\item [contact\_class\_employee]
-\item [contact\_class\_hot\_lead]
-\item [contact\_class\_lead]
-\item [contact\_class\_referral]
-\item [contact\_class\_robot]
-\item [contact\_class\_sub\_contractor]
-\item [contact\_class\_vendor]\textbf{}
-\item [contact\_create] Can create, but not edit, read, or delete a contact.
-\item [contact\_delete] Can delete, but not create, edit, or read a contact.
-\item [contact\_edit] Can edit, but not create, delete, or read a contact.
-\item [contact\_read] Can read, but not create, delete, or add a contact.
-\item [country\_all] Can create and edit countries.
-\item [country\_create] Can create, but not edit countries.
-\item [country\_edit] Can edit, but not create countries.
-\item [department\_all] \emph{Obsolete}
-\item [department\_create] \emph{Obsolete}
-\item [department\_edit] \emph{Obsolete}
-\item [draft\_edit]  \emph{Obsolete}
-\item [draft\_modify]
-\item [draft\_post]
-\item [employees\_manage]
-\item [exchangerate\_edit]
-\item [file\_attach\_eca]
-\item [file\_attach\_entity]
-\item [file\_attach\_order]
-\item [file\_attach\_part]
-\item [file\_attach\_tx]
-\item [file\_read]
-\item [file\_upload]
-\item [financial\_reports]
-\item [gifi\_create]
-\item [gifi\_edit]
-\item [gl\_all]
-\item [gl\_reports]
-\item [gl\_transaction\_create]
-\item [gl\_voucher\_create]
-\item [inventory\_adjust]
-\item [inventory\_all]
-\item [inventory\_approve]
-\item [inventory\_receive]
-\item [inventory\_reports]
-\item [inventory\_ship]
-\item [inventory\_transfer]
-\item [language\_create]
-\item [language\_edit]
-\item [list\_all\_open]  \emph{Obsolete}
-\item [manual\_translation\_all]  \emph{Obsolete}
-\item [orders\_generate]
-\item [orders\_manage]
-\item [orders\_purchase\_consolidate]
-\item [orders\_sales\_consolidate]
-\item [orders\_sales\_to\_purchase]
-\item [part\_create]
-\item [part\_delete]
-\item [part\_edit]
-\item [partsgroup\_translation\_create]  \emph{Obsolete}
-\item [part\_translation\_create]  \emph{Obsolete}
-\item [payment\_process]
-\item [pos\_all]  \emph{Obsolete}
-\item [pos\_cashier]  \emph{Obsolete}
-\item [pos\_enter]  \emph{Obsolete}
-\item [pricegroup\_create]
-\item [pricegroup\_edit]
-\item [print\_jobs]  \emph{Obsolete}
-\item [print\_jobs\_list]  \emph{Obsolete}
-\item [project\_create]  \emph{Obsolete}
-\item [project\_edit]  \emph{Obsolete}
-\item [project\_order\_generate]  \emph{Obsolete}
-\item [project\_timecard\_add]  \emph{Obsolete}
-\item [project\_timecard\_list]  \emph{Obsolete}
-\item [project\_translation\_create]  \emph{Obsolete}
-\item [purchase\_order\_create]
-\item [purchase\_order\_delete]
-\item [purchase\_order\_edit]
-\item [purchase\_order\_list]
-\item [receipt\_process]
-\item [reconciliation\_all]
-\item [reconciliation\_approve]
-\item [reconciliation\_enter]
-\item [recurring]
-\item [rfq\_create]
-\item [rfq\_delete]
-\item [rfq\_list]
-\item [sales\_order\_create]
-\item [sales\_order\_delete]
-\item [sales\_order\_edit]
-\item [sales\_order\_list]
-\item [sales\_quotation\_create]
-\item [sales\_quotation\_delete]
-\item [sales\_quotation\_list]
-\item [sic\_all]
-\item [sic\_create]
-\item [sic\_edit]
-\item [system\_admin]
-\item [system\_settings\_change]
-\item [system\_settings\_list]
-\item [tax\_form\_save]
-\item [taxes\_set]
-\item [template\_edit]
-\item [timecard\_add]
-\item [timecard\_list]
-\item [timecard\_order\_generate]
-\item [transaction\_template\_delete]
-\item [translation\_create]
-\item [users\_manage]
-\item [voucher\_delete]
-\item [warehouse\_create]
-\item [warehouse\_edit]
-\item [yearend\_reopen]
-\item [yearend\_run]
+Roles that are no longer in use as of LedgerSMB version 1.9.0 , have been removed.
+
+%This list contains workaround for HTML lists that looks so bad.  That is all of the '\htmlspacing' stuff.
+% This change at least haromonizes the look between PDF and HTML except that
+% PDF does not have a line space between the role and the description and the HTML does.
+% I am looking for a better solution before we go about modifying all of the lists in the book. Neil
+
+% For large groups of roles both the first and last items are indexed in case the list appears in separate pages.
+
+\ifpdf
+      \newcommand{\htmlspacing}{}
+\else
+      \newcommand{\htmlspacing}{ \hfill \\}
+\fi
+
+    \begin{description}[style=nextline]
+\item [account\_all]  \htmlspacing Allows the user all (create, delete, and edit) roles for \gls{GL} accounts. \index{GL} \index{General Ledger}
+    Does not include the ability to post.
+\item [account\_create]  \htmlspacing Allows the user to only create new \gls{GL} accounts.
+\item [account\_delete]   \htmlspacing  Allows the user to only delete \gls{GL} accounts.
+\item [account\_edit]   \htmlspacing Allows the user to only edit \gls{GL} accounts. \index{GL accounts}
+\item [account\_link\_description\_create]   \htmlspacing @@@
+
+\item [ap\_all]   \htmlspacing Allows the user all roles related to accounts payable. \index{AP} \index{Accounts Payable}
+    Does not include the ability to post.
+\item [ap\_all\_transactions]  \htmlspacing Allows the user all roles related to accounts payable transactions.
+\item [ap\_all\_vouchers]  \htmlspacing Allows the user all roles related to accounts payable vouchers.
+\item [ap\_invoice\_create]  \htmlspacing Allows the user to create an accounts payable invoice.
+\item [ap\_invoice\_create\_voucher]  \htmlspacing Allows the user to create an accounts payable voucher.
+\item [ap\_transaction\_all]  \htmlspacing @@@ Is this the same as \textbf{ap\_all\_transactions}? Added 1.3.21.
+\item [ap\_transaction\_create] \htmlspacing Allows the user to create non-voucher accounts payable transactions.
+\item [ap\_transaction\_create\_voucher]  \htmlspacing Allows the user to create accounts payable voucher transactions.
+\item [ap\_transaction\_list] \htmlspacing Allows the user to read or see accounts payable transactions.  \index{AP} \index{Accounts Payable}
+
+\item [ar\_all] \htmlspacing Allows the user to have all roles related to accounts payable. \index{AR} \index{Accounts Receivable}
+    Does not include the ability to post.
+\item [ar\_invoice\_create]  \htmlspacing Allows the user to create and update sales invoices. If the
+    user needs to be able to enter invoices in foreign currencies, the
+    \emph{exchangerate\_edit} role must be assigned as well. \index{sales invoice} \index{Exchange Rate}
+\item [ar\_invoice\_create\_voucher] \htmlspacing Allows the user to create accounts receivable invoices.
+\item [ar\_transaction\_all]  \htmlspacing Allows the user all roles related to accounts receivable transactions.
+\item [ar\_transaction\_create]  \htmlspacing @@@
+\item [ar\_transaction\_create\_voucher]  \htmlspacing @@@
+\item [ar\_transaction\_list]  \htmlspacing @@@
+\item [ar\_voucher\_all] \htmlspacing @@@ \index{AR} \index{Accounts Receivable}
+
+\item [assembly\_stock]  \htmlspacing @@@ \index{assembly}
+
+\item [assets\_administer] \htmlspacing Allows the user all privileges related to assets. \index{assets}
+\item [assets\_approve] \htmlspacing Allows the user to approve actions associated with assets.
+\item [assets\_depreciate] \htmlspacing Allows the user to depreciate assets.
+\item [assets\_enter] \htmlspacing Allows the user to enter or add assets.
+
+\item [audit\_trail\_maintenance] \htmlspacing @@@ \index{audit trail}
+
+\item [auditor] \htmlspacing @@@ \index{auditor}
+
+\item [base\_user] \htmlspacing The base role only allows access to menu items Preferences, Logout, and New Window. \index{roles, base}
+
+\item [batch\_create]  \htmlspacing Allows the user to create new batches.
+\item [batch\_list] \htmlspacing Allows the user to list batches.
+\item [batch\_post]  \htmlspacing Allows the user to post batches. This authorization includes the right to search for batches 
+    and therefore includes the \emph{batch\_list} role. \index{batch}
+
+\item [budget\_approve] \htmlspacing Allows the user to approve budgets. \index{budget}
+\item [budget\_enter] \htmlspacing Allows the user to enter or create budgets.
+\item [budget\_obsolete] \htmlspacing @@@
+\item [budget\_view] \htmlspacing Allows the user to list or see budgets.
+
+\item [business\_type\_all] \htmlspacing @@@ \index{business type}
+\item [business\_type\_create] \htmlspacing @@@
+\item [business\_type\_edit] \htmlspacing @@@
+
+\item [business\_units\_manage] \htmlspacing @@@ \index{business units}
+
+\item [cash\_all] \htmlspacing @@@ \index{cash} \index{cash}
+
+\item [contact\_all\_rights]  \htmlspacing Gives the user all roles for creating, editing and deleting contacts. \index{contact}
+\item [contact\_class\_cold\_lead] \htmlspacing @@@
+\item [contact\_class\_contact] \htmlspacing @@@
+\item [contact\_class\_customer] \htmlspacing @@@
+\item [contact\_class\_employee] \htmlspacing @@@
+\item [contact\_class\_hot\_lead] \htmlspacing @@@
+\item [contact\_class\_lead] \htmlspacing @@@
+\item [contact\_class\_referral] \htmlspacing @@@
+\item [contact\_class\_robot] \htmlspacing @@@
+\item [contact\_class\_sub\_contractor] \htmlspacing @@@
+\item [contact\_class\_vendor] \htmlspacing @@@
+\item [contact\_create]  \htmlspacing Allows the user to create a contacts.
+\item [contact\_delete]  \htmlspacing Allows the user to delete a contacts.
+\item [contact\_edit]  \htmlspacing Allows the user to edit a contacts.
+\item [contact\_read]  \htmlspacing Allows the user to view contacts.  \index{contact}
+
+\item [country\_all]  \htmlspacing Allows the user to create and edit countries.  Added 1.11.0.  \index{country}
+\item [country\_create]  \htmlspacing Allows the user to create countries. Added 1.11.0.
+\item [country\_edit]  \htmlspacing Allows the user to edit countries.Added 1.11.0.
+
+\item [draft\_modify] \htmlspacing @@@ \index{draft}
+\item [draft\_post] \htmlspacing @@@
+
+\item [employees\_manage] \htmlspacing @@@ \index{employees}
+
+\item [exchangerate\_edit] \htmlspacing @@@ \index{exchange rate}
+
+\item [file\_attach\_eca] \htmlspacing @@@ \index{file}
+\item [file\_attach\_entity] \htmlspacing @@@
+\item [file\_attach\_order] \htmlspacing @@@
+\item [file\_attach\_part] \htmlspacing @@@
+\item [file\_attach\_tx] \htmlspacing @@@
+\item [file\_read] \htmlspacing @@@
+\item [file\_upload] \htmlspacing @@@
+
+\item [financial\_reports] \htmlspacing Allows the user to see and print financial reports. \index{financial reports}
+
+\item [gifi\_create] \htmlspacing @@@ \index{GIFI}
+\item [gifi\_edit] \htmlspacing @@@
+
+\item [gl\_all] \htmlspacing @@@ Not sure how this is different than \texttt{account\_all} above. \index{GL}
+\item [gl\_reports] \htmlspacing @@@
+\item [gl\_transaction\_create] \htmlspacing @@@
+\item [gl\_voucher\_create] \htmlspacing @@@
+
+\item [inventory\_adjust] \htmlspacing Allows the user to adjust inventory. \index{inventory}
+\item [inventory\_all] \htmlspacing Allows the user all inventory privileges. 
+\item [inventory\_approve] \htmlspacing Allows the user to approve inventory receipts and shipments.
+\item [inventory\_receive] \htmlspacing Allows the user to enter inventory receipts.
+\item [inventory\_reports] \htmlspacing Allows the user to see or view inventory.
+\item [inventory\_ship] \htmlspacing Allows the user to enter inventory shipments.
+\item [inventory\_transfer] \htmlspacing Allows the user to transfer inventory.
+
+\item [language\_create] \htmlspacing @@@ \index{language}
+\item [language\_edit] \htmlspacing @@@
+
+\item [orders\_generate] \htmlspacing @@@ How is this different than Sales or Purchase orders? \index{orders}
+\item [orders\_manage] \htmlspacing @@@
+\item [orders\_purchase\_consolidate] \htmlspacing @@@
+\item [orders\_sales\_consolidate] \htmlspacing @@@
+\item [orders\_sales\_to\_purchase] \htmlspacing @@@
+
+\item [part\_create] \htmlspacing Allows the user to create parts. \index{parts}
+\item [part\_delete] \htmlspacing Allows the user to delete parts.
+\item [part\_edit] \htmlspacing Allows the user the edit parts.
+
+\item [payment\_process] \htmlspacing @@@ \index{payment processes}
+
+\item [pricegroup\_create] \htmlspacing @@@ \index{price group}
+\item [pricegroup\_edit] \htmlspacing @@@
+
+\item [purchase\_order\_create] \htmlspacing Allows the user to only create a purchase order. \index{purchase order create}
+\item [purchase\_order\_delete] \htmlspacing @@@
+\item [purchase\_order\_edit] \htmlspacing @@@
+\item [purchase\_order\_list] \htmlspacing @@@
+
+\item [receipt\_process] \htmlspacing @@@
+
+\item [reconciliation\_all] \htmlspacing Can approve or enter a reconciliation. \index{reconciliation}
+\item [reconciliation\_approve] \htmlspacing Can only approve a reconciliation.
+\item [reconciliation\_enter] \htmlspacing Can on enter a reconciliation.
+
+\item [recurring] \htmlspacing @@@ \index{recurring}
+
+\item [rfq\_create] \htmlspacing Allows the user to create a request for quotations (\glspl{rfq}). \index{RFQ} \index{request for quotation}
+\item [rfq\_delete] \htmlspacing Allows the user to delete \glspl{rfq}.
+\item [rfq\_list] \htmlspacing Allows the user to list or see \glspl{rfq}.
+
+\item [sales\_order\_create] \htmlspacing Can only create a sales order. \index{sales order}
+\item [sales\_order\_delete] \htmlspacing Can only delete a sales order. \index{sales order}
+\item [sales\_order\_edit] \htmlspacing Can only edit a sales order.  \index{sales order}
+\item [sales\_order\_list] \htmlspacing Can only list a sales order. \index{sales order}
+\item [sales\_quotation\_create] \htmlspacing Can only create a sales quotation. \index{sales quotation}
+\item [sales\_quotation\_delete] \htmlspacing Can only delete a sales quotation.
+\item [sales\_quotation\_list] \htmlspacing Can only list a sales quotation.
+
+\item [sic\_all] \htmlspacing Allows the user all create and edit privileges for managing \gls{SIC} codes. \index{SIC}
+\item [sic\_create] \htmlspacing Allows the user to create SIC codes.
+\item [sic\_edit] \htmlspacing Allows the user to edit SIC code.
+
+\item [system\_admin] \htmlspacing @@@
+\item [system\_settings\_change] \htmlspacing @@@
+\item [system\_settings\_list] \htmlspacing @@@
+
+\item [tax\_form\_save] \htmlspacing @@@ \index{tax form}
+
+\item [taxes\_set] \htmlspacing @@@ \index{taxes}
+
+\item [template\_edit] \htmlspacing Allows the user to edit templates. \index{template}
+
+\item [timecard\_add] \htmlspacing Allows the user to add timecards. \index{timecard}
+\item [timecard\_list] \htmlspacing Allows the user to see and list timecards.
+\item [timecard\_order\_generate] \htmlspacing @@@
+
+\item [transaction\_template\_delete] \htmlspacing @@@
+\item [translation\_create] \htmlspacing @@@
+
+\item [users\_manage] \htmlspacing Allows the user to manage user roles.
+
+\item [voucher\_delete] \htmlspacing Allows the user to delete vouchers.
+
+\item [warehouse\_create] \htmlspacing Allows the user to create new warehouses.
+\item [warehouse\_edit] \htmlspacing Allows the user to edit existing warehouses.
+
+\item [yearend\_reopen] \htmlspacing Allow the user the reopen a closed year.
+\item [yearend\_run] \htmlspacing Allows the user to run the year end process.
 \end{description}
 
 \chapter{Deprecated Content}
