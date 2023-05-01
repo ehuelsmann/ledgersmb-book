@@ -100,7 +100,8 @@ sub get_format_role_comments($file_name, $conn) {
         LEFT OUTER JOIN pg_shdescription psd ON r.oid = psd.objoid
         INNER JOIN pg_class c ON c.relname = 'pg_authid'
         INNER JOIN pg_namespace n ON n.oid = c.relnamespace AND n.nspname = 'pg_catalog'
-        WHERE   r.rolname ilike ?;
+        WHERE   r.rolname ilike ?
+        ORDER BY 1;
 SQL
     # Accumulate the Latex to write to file.
     my $date = localtime->strftime('%B %e, %X %Y %Z');
