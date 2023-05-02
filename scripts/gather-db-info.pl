@@ -64,13 +64,13 @@ sub to_tex($text_in) {
 # scan the text for bare words that are glossary entries.
 sub make_glossary_entries ($text) {
     my %map = (
-        '\s+GL\s+' => '\gls{GL} \index{GL}',
-        '\s+AR\s+' => '\gls{AR} \index{AR}',
-        '\s+AP\s+' => '\gls{AP} \index{AP}',
+        '\bGL\b' => '\gls{GL} \index{GL}\index{General Ledger}',
+        '\bAR\b' => '\gls{AR} \index{AR}\index{Accounts Receivable}',
+        '\bAP\b' => '\gls{AP} \index{AP}\index{Accounts Payable}',
     );
     my $new_text = $text;
     while (my ($key, $replacement) = each %map) {
-        $new_text =~ s/$key/$replacement/gr;
+        $new_text = $new_text =~ s/$key/$replacement/gr;
     }
     return $new_text;
 }
