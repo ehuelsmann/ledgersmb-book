@@ -22,3 +22,4 @@
 *.txss2
 *.xml
 local-build/
+.vscode
