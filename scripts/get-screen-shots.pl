@@ -2,7 +2,7 @@
 
 # get-screen-shots.pl
 #
-# Query a live LSMB instance and save necessary screen grabs to PNG files.
+# Query a live LSMB instance and save screenshots to PNG files.
 # Does not add meta data to the images because they would change each time.
 #
 # The menu derived screen shot file name format is <parent label>--<label> 
@@ -13,13 +13,7 @@ use warnings;
 use strict;
 use Time::Piece;
 
-use diagnostics;
-use Data::Dumper qw(Dumper); 
-
 use Selenium::Firefox;
-# use Selenium::Screenshot; # For comparing images
-# use YAML::PP;
-
 use DBI;
 
 use feature 'signatures';
@@ -63,7 +57,7 @@ sub get_menu_structure($conn) {
                     url,
     				replace(screen_file_name, 'top-level--', '') AS screen_file_name -- Remove unnecessary top level.
 			FROM 	file_names
-            WHERE 	screen_file_name ilike 'top-level--%'  -- Only need the top level not the recurrsive intermediates.
+            WHERE 	screen_file_name ilike 'top-level--%'  -- Only need the top level not the recursive intermediates.
             ORDER BY screen_file_name
 SQL
     my $sth = $conn->prepare($sql);
@@ -137,7 +131,7 @@ sub close_error ($driver, $screen_file_name) {
     }
 }
 
-# Attempt to select the password tab in the preferences menu view.
+# Attempt to select the password tab in the preferences screen.
 sub select_preferences_tab ($driver) {
     # https://github.com/ledgersmb/LedgerSMB/blob/f3db4354d9cc8e2f98288ecd687f20a5b44a1b36/xt/lib/Pherkin/Extension/pageobject_steps/nav_steps.pl#L177
     my $preference_tab_element = $driver->find_element_by_xpath(".//*[\@role='tab' and text()='Preferences']");
@@ -185,29 +179,29 @@ sub wait_for_keyboard($driver) {
 
 # Contains processing data for each screenshot that needs non-default processing.
 # If the file name is not found as a hash key, then the 'default' hash entry will be used.
-# h = resize the view to this height prior to the screenshot
-# w = resize the view to this width prior to the screen shot
-# pre = subroutine to run after loading the view, but prior to the screenshot
+# h = resize the screen to this height prior to the screenshot
+# w = resize the screen to this width prior to the screenshot
+# pre = subroutine to run after loading the screen, but prior to the screenshot
 # post = subroutine to run after the screen shot
 # Example:
 #    'login.png' => { h => 520, w => 520,  pre => \&preprocess_dummy, post => \&postprocess_dummy},
 my %processing_config = (
     'example'     => { h => 520, w => 520,  pre => \&preprocess_dummy, post => \&postprocess_dummy},  # Example should not be used.
-    'default'     => { h => 820, w => 1200},  # The default view resize values if there is no match file name match
+    'default'     => { h => 820, w => 1200},  # The default screen resize values if there is no match file name match
     'login.png'   => { h => 520, w => 520},   # No need for a lot of empty space
-    'welcome.png' => { h => 700, w => 1280, pre => \&login},  # Make the view wider since it includes the welcome text
+    'welcome.png' => { h => 700, w => 1280, pre => \&login},  # Make the screen wider since it includes the welcome text
     'preferences-preferences.png' => {h => 820, w => 1200, pre => \&select_preferences_tab},
     # 'preferences-password.png' => {h => 820, w => 1200, post => \&wait_for_keyboard},
 );
 
-# If the resize value is different than the current view dimensions
-# then resize the view.
+# If the resize value is different than the current screen dimensions
+# then resize the screen.
 sub check_and_resize($driver, $to_height, $to_width) {
     my $window_size = $driver->get_window_size();
     if ($window_size->{'height'} == $to_height && $window_size->{'width'} == $to_width) {
         return; # No change needed
     }
-    print "  Set view to: $to_height, $to_width\n";
+    print "  Set screen to: $to_height, $to_width\n";
     $driver->set_window_size($to_height, $to_width);
     sleep(0.1); # May not need this, but should verify before removing.
 }
