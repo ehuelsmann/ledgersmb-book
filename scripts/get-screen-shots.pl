@@ -12,16 +12,27 @@
 use warnings;
 use strict;
 use Time::Piece;
+use Diagnostics;
 
 use Selenium::Firefox;
+use Selenium::Remote::Driver;
+use Selenium::Firefox::Profile;
 use DBI;
 
 use feature 'signatures';
 no warnings "experimental::signatures";
 
+print "Syntax:";
+print "  get-screen-shots.pl <file name> ...\n";
+print "  Where <file name> is a screenshot file name ending with '.png'. If no <file name>'s are specified, then process all.\n";
+print "  Wildcards are not accepted.\n";
 print "Example Usage:\n";
 print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='jack' PGUSER='postgres' PGPASSWORD='abc' \\\n";
-print "  LSMB_ADMIN_USERNAME='neil' LSMB_ADMIN_PASSWORD='asdfghjkl' LSMB_BASE_URL='http://vmwareledgerdev.local:5000' perl get-screen-shots.pl\n";
+print "  LSMB_ADMIN_USERNAME='neil' LSMB_ADMIN_PASSWORD='asdfghjkl' LSMB_BASE_URL='http://vmwareledgerdev.local:5000' perl get-screen-shots.pl\n\n";
+
+print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='jack' PGUSER='postgres' PGPASSWORD='abc' \\\n";
+print "  LSMB_ADMIN_USERNAME='neil' LSMB_ADMIN_PASSWORD='asdfghjkl' LSMB_BASE_URL='http://vmwareledgerdev.local:5000' \\\n";
+print "  perl get-screen-shots.pl system--defaults.png\n\n\n";
 
 # Configuration
 my $user_name     = $ENV{'LSMB_ADMIN_USERNAME'}; # The LedgerSMB user to login as
@@ -30,6 +41,9 @@ my $company       = $ENV{'PGDATABASE'};          # The LedgerSMB company to log 
 my $base_url      = $ENV{'LSMB_BASE_URL'};       # The LedgerSMB server base URL
 my $screen_shot_base_path = '../auto-screenshots';
 my $capture_delay = 1; # delay after loading URL and before screenshot in seconds
+my %args = map {$_ => 1} @ARGV; # make the ARGS into a hash
+my $login_screenshot_file_name = 'login.png';
+my $welcome_screenshot_file_name = 'welcome.png';
 
 # Access the database and retrieve the menu items with URLs and
 # a synthesized screenshot file name.
@@ -65,7 +79,7 @@ SQL
     return $sth
 }
 
-sub disable_toster ($conn) {
+sub disable_toaster ($conn) {
     	my $sql = <<'SQL';
         INSERT INTO defaults (setting_key, value) VALUES ('__disableToaster', 'yes')
         ON CONFLICT DO NOTHING;
@@ -82,7 +96,7 @@ SQL
 }
 
 # Capture login screen shot, then log the given user into LSMB
-sub login($driver)  {
+sub login($driver, $screenshot_filename)  {
     if (!defined $user_name) { die "LSMB user name missing" };
     if (!defined $user_password) { die "LSMB password missing" };
     if (!defined $company) { die "LSMB company name missing" };
@@ -165,16 +179,32 @@ sub open_database() {
 }
 
 # A dummy pre-process subroutine for testing
-sub preprocess_dummy($driver) { print "  Pre Processing Example\n"; }
+sub preprocess_dummy($driver, $screenshot_filename) { print "  Pre Processing Example\n"; }
 
 # A dummy post-process subroutine for testing
-sub postprocess_dummy($driver) { print "  Post Processing Example\n"; }
+sub postprocess_dummy($driver, $screenshot_filename) { print "  Post Processing Example\n"; }
 
 # For troubleshooting, this subroutine can be used in either the pre or post processing.
-sub wait_for_keyboard($driver) {
+sub wait_for_keyboard($driver, $screenshot_filename) {
     # For troubleshooting, pause the see the last screen.
     print "Press Enter to continue: ";
-    <>;
+    <STDIN>;
+    print "\n";
+}
+
+# Scroll to the default save button of
+sub scroll_to_save_button($driver, $screenshot_filename) {
+    my $save_element = $driver->find_element_by_xpath(".//*[\@id='action-save-defaults' and \@role='button']");
+    $driver-> execute_script('arguments[0].scrollIntoView(true)', $save_element);
+}
+
+# Scroll to the bottom and create a new screenshot of the bottom
+# of the screen.
+sub post_process_system_defaults($driver, $screenshot_filename) {
+    scroll_to_save_button($driver, $screenshot_filename);
+    my $new_name = "${screen_shot_base_path}/system--defaults-1.png";
+    print "  Processing: $new_name\n";
+    $driver->capture_screenshot($new_name);
 }
 
 # Contains processing data for each screenshot that needs non-default processing.
@@ -186,11 +216,12 @@ sub wait_for_keyboard($driver) {
 # Example:
 #    'login.png' => { h => 520, w => 520,  pre => \&preprocess_dummy, post => \&postprocess_dummy},
 my %processing_config = (
-    'example'     => { h => 520, w => 520,  pre => \&preprocess_dummy, post => \&postprocess_dummy},  # Example should not be used.
-    'default'     => { h => 820, w => 1200},  # The default screen resize values if there is no match file name match
-    'login.png'   => { h => 520, w => 520},   # No need for a lot of empty space
-    'welcome.png' => { h => 700, w => 1280, pre => \&login},  # Make the screen wider since it includes the welcome text
-    'preferences-preferences.png' => {h => 820, w => 1200, pre => \&select_preferences_tab},
+    'default'                     => { h => 820,  w => 1200},  # The default screen resize values if there is no match file name match
+    $login_screenshot_file_name   => { h => 520,  w => 520},   # No need for a lot of empty space
+    $welcome_screenshot_file_name => { h => 700,  w => 1280, pre => \&login},  # Make the screen wider since it includes the welcome text
+    'preferences-preferences.png' => { h => 820,  w => 1200, pre => \&select_preferences_tab},
+    'system--defaults.png'        => { h => 820, w => 1300, post => \&post_process_system_defaults},
+
     # 'preferences-password.png' => {h => 820, w => 1200, post => \&wait_for_keyboard},
 );
 
@@ -207,7 +238,24 @@ sub check_and_resize($driver, $to_height, $to_width) {
 }
 
 # Process a screenshot
-sub process_screen($driver, $url, $screen_file_name, $check_error_dialog=1) {
+# If $do_screenshot is false, then skip the screen capture, but still perform all pre and post subroutines.
+# If $check_error_dialog is false, then skip checking for the error dialog.
+sub process_screen($driver, $url, $screen_file_name, $check_error_dialog=1, $do_screenshot=1) {
+
+    # If only processing specific screenshot file names, then skip the others
+    # Always need to process login or nothing else works.
+    # Note that the actual login is done in the pre processing of the welcome screen.
+    if ((%args) && (!exists $args{$screen_file_name})) {
+        if (($screen_file_name eq $login_screenshot_file_name)
+            || ($screen_file_name eq $welcome_screenshot_file_name)) {
+            # We have do login and welcome, even if we do not capture the screenshot
+            $do_screenshot = 0;
+        }
+        else {
+            return;
+        }
+    }
+
     print "Processing: $screen_file_name\n";
 
     # If the URL is not supplied, then proceed without any navigation. 
@@ -216,6 +264,9 @@ sub process_screen($driver, $url, $screen_file_name, $check_error_dialog=1) {
         # Navigate to the screen
         $driver->get("$base_url/$url");
         sleep($capture_delay);          # Wait for screen to load
+    }
+    else {
+        print "  Skipping navigation\n";
     }
 
     # If error dialog is showing, close it.
@@ -228,19 +279,25 @@ sub process_screen($driver, $url, $screen_file_name, $check_error_dialog=1) {
 
     # Resize if necessary
     check_and_resize($driver, $config{h}, $config{w} );
+    sleep(0.1);
 
     # If defined do pre processing, such as loading data specific to this screen.
     if (defined $config{pre}) {
-        $config{pre}($driver);
+        $config{pre}($driver, $screen_file_name);
     }
 
-    # Capture the screenshot
-    my $main_div = $driver->find_element_by_xpath("//*[\@id='maindiv']"); # ignore menu in screenshot
-    $main_div->capture_screenshot("$screen_shot_base_path/$screen_file_name");
+    if ($do_screenshot) {
+        # Capture the screenshot
+        my $main_div = $driver->find_element_by_xpath("//*[\@id='maindiv']"); # ignore menu in screenshot
+        $main_div->capture_screenshot("$screen_shot_base_path/$screen_file_name");
+    }
+    else {
+        print "  Skipping screenshot\n";
+    }
 
     # If defined, do post processing.
     if (defined $config{post}) {
-        $config{post}($driver);
+        $config{post}($driver, $screen_file_name);
     }
 
 }
@@ -253,17 +310,27 @@ sub process_screen($driver, $url, $screen_file_name, $check_error_dialog=1) {
 my $dbh = open_database();
 
 # Make the toaster go away for these tests by disabling it in the database
-disable_toster($dbh);
+disable_toaster($dbh);
 
-# Set up Firefox Selenium driver
-my $firefox_driver = Selenium::Firefox->new;
+# Set up Firefox profile
+my $profile = Selenium::Firefox::Profile->new; # Clear everything out after the test ends.
+$profile->set_boolean_preference(
+    'browser.cache.disk.enable' => 0,
+    'browser.cache.memory.enable' => 1,
+    'browser.cache.offline.enable' => 0,
+    'network.http.use-cache' => 0
+); 
+
+# Set up Firefox driver
+my $firefox_driver = Selenium::Firefox->new ( firefox_profile => $profile );
+$firefox_driver->delete_all_cookies(); # Get rid of session expired notice.
 # $firefox_driver->debug_on;
 
 # Get the menu structure from the database
 my $menu_structure_data = get_menu_structure($dbh);
 
 # Grab a screenshot of the LSMB login screen.
-process_screen($firefox_driver, "login.pl", "login.png", 0);
+process_screen($firefox_driver, "login.pl", $login_screenshot_file_name, 0);
 
 # Grab a screenshot of the welcome screen after login
 process_screen($firefox_driver, undef, 'welcome.png', 0);
@@ -297,10 +364,6 @@ while (my $ref = $menu_structure_data->fetchrow_hashref('NAME_lc') ) {
 
 # Process the logout screenshot as the last item
 process_screen($firefox_driver, $logout_ref->{url}, $logout_ref->{screen_file_name} );
-
-# For troubleshooting, pause the see the last screen.
-# print "Press Enter to continue: ";
-# <>;
 
 # Done, clean up
 enable_toaster($dbh);
