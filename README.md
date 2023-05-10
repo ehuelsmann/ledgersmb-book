@@ -24,7 +24,7 @@ The Book also builds in PDF format without using the `local-build.sh` script usi
 * TeXstudio version 4.5.1 or later
 * TeXShop version Version 5.12 or later
 
-The first time the book is built in a clean repository using TeXstudio or TeXShop the glossary build may error out or not be included into the PDF. Just build again and it should fix itself.
+The first time the book is built in a clean repository using TeXstudio or TeXShop the glossary or index build may error out or not be included into the PDF. This is normally fixed by making sure that TeXstudio or TeXShop are using `latexmk` instead of `pdflatex` for the build command.
 
 # Development Requirements
 
