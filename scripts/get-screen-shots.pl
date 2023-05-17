@@ -3,25 +3,31 @@
 # get-screen-shots.pl
 #
 # Query a live LSMB instance and save screenshots to PNG files.
-# Does not add meta data to the images because they would change each time.
+#
+# Does not add meta data to the images because they could change each time.
 #
 # A small subset of the screens have default dates that will change each different
-# day the screens are grabbed.  
+# day the screens are grabbed. If mask regions are defined for a screen, then these regions will
+# be ignored during the comparison.  Be aware that perl image compare code is really, and I mean
+# really, slow so be patient.
 #
 # The menu derived screen shot file name format is
 #   <parent label>--<parent label>--<label> 
-# all lowercased with spaces replaced with hyphens ('-').
+# All labels are lowercased and spaces replaced with a single hyphen ('-'). 
+# Parent labels are repeated as necessary to fully describe the menu path.
 #
-# The screenshots use the data expected in the book's prose.  That means
-#   the user is 'admin' and the company name is 'example_inc'.
+# The screenshots use the data expected in the book's Getting Started section.
+# Therefor, the user is 'admin' and the company name is 'example_inc'.
 # 
 
 use warnings;
 use strict;
 use Time::Piece;
 
-# use Data::Dumper;
-# use Diagnostics;
+use Data::Dumper;
+use Diagnostics;
+use Carp 'verbose';
+$SIG{ __DIE__ } = \&Carp::confess;
 
 use Getopt::Long;
 # use Pod::Usage; # TODO convert print statements to real pod help
@@ -29,6 +35,7 @@ use Getopt::Long;
 use Selenium::Firefox;
 use Selenium::Remote::Driver;
 use Selenium::Firefox::Profile;
+use Selenium::Screenshot;
 use DBI;
 
 use feature 'signatures';
@@ -45,6 +52,10 @@ my $screen_shot_base_path = '../auto-screenshots';
 my $capture_delay = 1; # delay after loading URL and before screenshot in seconds
 my $login_screenshot_file_name = 'login.png';
 my $welcome_screenshot_file_name = 'welcome.png';
+my $menu_screenshot_file_name = 'menu.png';
+my $password_screenshot_file_name = 'preferences-password.png';
+my $system_defaults_screenshot_file_name = 'system--defaults.png';
+
 # Set up Firefox profile
 my $profile = Selenium::Firefox::Profile->new; # Clear everything out after the test ends.
 $profile->set_boolean_preference(
@@ -73,7 +84,11 @@ if (($do_help) || (!$do_login && !$do_setup)) {
 }
 # Make sure to do the following after Getopt processing because that processing removes
 # the options it processes, which should only leave optional filenames to process.
-my %args = map {$_ => 1} @ARGV; # make the ARGS into a hash
+my %screenshots_to_process = map {$_ => 1} @ARGV; # make the ARGS into a hash
+
+# During processing, the code may decide to process screenshots manually and out of sequence.
+# If it does, then the screenshot file name is added to this var so that it won't be processed again.
+my %screenshots_to_ignore;
 
 # -----------------
 # Subroutines
@@ -88,7 +103,8 @@ sub print_help {    # TODO move to Pod::Usage
     print "  --debug - Turn on various debug actions.";
     print "  * Optional <file name> is a screenshot file name ending with '.png'. If no <file name>'s are specified, then process all screenshots.\n";
     print "  * At least one of --setup or --login must be specified.\n";
-    print "  * Wildcards are not accepted in file names.\n\n";
+    print "  * Must start with a clean LSMB installation: no companies and no users that match the environment variables.\n";
+    print "  * Wildcards filenames are not accepted in file names.\n\n";
     print "Example Usage:\n";
     print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='example_inc' PGUSER='postgres' PGPASSWORD='abc' \\\n";
     print "  LSMB_ADMIN_USERNAME='admin' LSMB_ADMIN_PASSWORD='asdfg' LSMB_BASE_URL='http://vmwareledgerdev.local:5000'\\\n";
@@ -234,19 +250,42 @@ sub wait_for_keyboard($driver) {
     print "\n";
 }
 
-# Scroll to the default save button of
-sub scroll_to_save_button($driver) {
-    my $save_element = $driver->find_element_by_xpath(".//*[\@id='action-save-defaults' and \@role='button']");
+# Scroll to the default save button
+sub scroll_to_save_button($driver, $xpath) {
+    my $save_element = $driver->find_element_by_xpath($xpath);
     $driver-> execute_script('arguments[0].scrollIntoView(true)', $save_element);
+    return $save_element;
 }
 
 # Scroll to the bottom and create a new screenshot of the bottom
 # of the screen.
 sub post_process_system_defaults($driver) {
-    scroll_to_save_button($driver);
+    scroll_to_save_button($driver, ".//*[\@id='action-save-defaults' and \@role='button']");
     my $new_name = "${screen_shot_base_path}/system--defaults-1.png";
     print "  Processing: $new_name\n";
     $driver->capture_screenshot($new_name);
+}
+
+# Set password expiration in system defaults
+sub pre_process_system_defaults($driver) {
+    send_data_to_field($driver, "//input[\@id='company-name']", 'Example Inc.');
+    send_data_to_field($driver, "//textarea[\@id='company-address']", "215 Example St\nAny City, CA");
+    send_data_to_field($driver, "//input[\@id='company-phone']", '555 836 2255');
+    send_data_to_field($driver, "//input[\@id='businessnumber']", '12345');
+    send_data_to_field($driver, "//input[\@id='default-email-from']", 'info@example.com');
+
+    find_select_dropdown($driver, "//table[\@id='default-country']");
+    scroll_dropdown_and_select($driver, "//*[contains(text(),'United States')]");
+
+    find_select_dropdown($driver, ".//table[\@id='default-language']");
+    scroll_dropdown_and_select($driver, "//*[contains(text(), 'English')]");
+
+    send_data_to_field($driver, "//input[\@id='password-duration']", '180');
+}
+
+# Change password after setting expiration.
+sub renew_password($driver) {
+
 }
 
 # Contains processing data for each screenshot that needs non-default processing.
@@ -255,20 +294,23 @@ sub post_process_system_defaults($driver) {
 #   w    = resize the screen to this width prior to the screenshot
 #   pre  = subroutine to run after loading the screen, but prior to the screenshot
 #   post = subroutine to run after the screen shot. In most cases this is used to process something else on the screen like a tab.
+#   ids  = the ids that represent elements to ignore when comparing screenshot images.
 # Example:
 #    'login.png' => { h => 520, w => 520,  pre => \&preprocess_dummy, post => \&postprocess_dummy},
 my %processing_config = (
-    'default'                         => { h => 820, w => 1200},  # The default screen resize values if there is no match file name match
-    $login_screenshot_file_name       => { h => 520, w =>  520},  # No need for a lot of empty space
-    $welcome_screenshot_file_name     => { h => 700, w => 1280, pre => \&login},  # Make the screen wider since it includes the welcome text
+    'default'                         => { h => 820, w => 1200}, # The default screen resize values if there is no file name match
+    $login_screenshot_file_name       => { h => 520, w =>  520, pre => \&login},  # No need for a lot of empty space
+    $welcome_screenshot_file_name     => { h => 910, w =>  969}, # Make the screen narrower since so both welcome text and menu are visible
+    $menu_screenshot_file_name        => { h => 820, w => 1280}, # Only capturing the menu, but it needs to be longer.
     'preferences-preferences.png'     => { h => 820, w => 1200, pre => \&select_preferences_tab},
-    'system--defaults.png'            => { h => 820, w => 1300, post => \&post_process_system_defaults},
+    'system--defaults.png'            => { h => 820, w => 1300, pre => \&pre_process_system_defaults, post => \&post_process_system_defaults},
     'setup-pl-login.png',             => { h => 550, w =>  520, pre => \&setup_login_create_db_data},
     'setup-pl-select-coa-country.png' => { h => 820, w =>  820, pre => \&setup_select_coa_country },
     'setup-pl-select-coa.png'         => { h => 550, w =>  520, pre => \&setup_select_coa},
     'setup-pl-load-templates.png'     => { h => 400, w =>  420 },
     'setup-pl-create-user.png'        => { h => 680, w =>  650, pre => \&setup_enter_user},
     'setup-pl-create-user-completion.png' => { h => 780, w =>  640},
+    'ap--add-transaction.png'         => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
 );
 
 # If the resize value is different than the current screen dimensions
@@ -280,7 +322,7 @@ sub check_and_resize($driver, $to_height, $to_width) {
     }
     print "  Set screen to: $to_height, $to_width\n";
     $driver->set_window_size($to_height, $to_width);
-    sleep(0.1); # May not need this, but should verify before removing.
+    sleep(0.2); # May not need this, but should verify before removing.
 }
 
 # Process a screenshot
@@ -296,10 +338,9 @@ sub process_screen( $driver,
     # If only processing specific screenshot file names, then skip the others
     # Always need to process login or nothing else works.
     # Note that the actual login is done in the pre processing of the welcome screen.
-    if ((%args) && (!exists $args{$screen_file_name})) {
-        if (($screen_file_name eq $login_screenshot_file_name)
-            || ($screen_file_name eq $welcome_screenshot_file_name)) {
-            # We have do login and welcome, even if we do not capture the screenshot
+    if ((%screenshots_to_process) && (!exists $screenshots_to_process{$screen_file_name})) {
+        if ($screen_file_name eq $login_screenshot_file_name) {
+            # We have to do login, even if we do not capture the screenshot
             $do_screenshot = 0;
         }
         else {
@@ -309,6 +350,11 @@ sub process_screen( $driver,
 
     print "Processing: $screen_file_name\n";
 
+    if ((%screenshots_to_ignore) && (exists $screenshots_to_ignore{$screen_file_name})) {
+        print "  Skipping, has been previously processed\n";
+        return;
+    }
+    
     # If the URL is not supplied, then proceed without any navigation. 
     # The screen may have been updated by some previous action.
     if (defined $url) {
@@ -328,29 +374,21 @@ sub process_screen( $driver,
     # Get the configuration, either specific to the screen file name or the default.
     my %config = (exists $processing_config{$screen_file_name}) ? $processing_config{$screen_file_name}->%* : $processing_config{default}->%* ;
 
-    # Resize if necessary
+    # Resize if necessary, has delay
     check_and_resize($driver, $config{h}, $config{w} );
-    sleep(0.2);
 
     # If defined do pre processing, such as loading data specific to this screen.
     if (defined $config{pre}) {
         $config{pre}($driver);
     }
-    if ($do_debug) { $driver->debug_off; } # Don't need to dump screenshots.
+
+    # Capture the screenshot
     if ($do_screenshot) {
-        # Capture the screenshot
-        if (defined $id_to_capture) {
-            my $main_div = $driver->find_element_by_xpath("//*[\@id='$id_to_capture']"); # ignore menu in screenshot
-            $main_div->capture_screenshot("$screen_shot_base_path/$screen_file_name");
-        }
-        else {
-            $driver->capture_screenshot("$screen_shot_base_path/$screen_file_name");
-        }
+        capture_compare_save_screen($driver, $id_to_capture, $screen_file_name, %config);
     }
     else {
         print "  Skipping screenshot\n";
     }
-    if ($do_debug) { $driver->debug_on; } # Reset after screenshots.
 
     # If defined, do post processing.
     if (defined $config{post}) {
@@ -359,23 +397,108 @@ sub process_screen( $driver,
 
 }
 
+# If screenshot has changed, then capture the new screen
+#
+# If given a list ids, mask those widgets, then compare with existing screenshot.
+# If different, then save the new version.
+sub capture_compare_save_screen($driver, $id_to_capture, $screen_file_name, %config) {
+    my $screen_shot_element = $driver;
+    if (defined $id_to_capture) {
+        # If an element id is provided, then only capture that element's screen
+        $screen_shot_element = $driver->find_element_by_xpath("//*[\@id='$id_to_capture']"); # ignore menu in screenshot
+    }
+    # Find any elements to exclude when comparing screenshots
+    my @exclude = map {
+        print "  Searching for element name: $_\n";
+        my $element = $driver->find_element_by_id($_);
+        if ($element) {
+            my $rect = {
+                size => $element->get_size,
+                location => $element->get_element_location
+            };
+            $rect;
+        }
+        else {
+            print "  Unable to find element: $_ for screenshot $screen_file_name. Line: ", __LINE__, "\n";
+            ();
+        }
+    }  $config{ids}->@*;
+
+    # print Dumper(\@exclude);
+
+    if ($do_debug) { $driver->debug_off; } # Don't need to debug or dump screenshot
+    my $new_screen_shot = Selenium::Screenshot->new(
+        png => $screen_shot_element->screenshot,
+        exclude => [ @exclude ],
+        folder => "$screen_shot_base_path",
+        metadata => {
+            key => "$screen_file_name"
+        }
+    );
+    if ($do_debug) { $driver->debug_on; } # Reset debug after taking screenshot
+
+    # Get the old image
+    my $old_img = Imager->new;
+    $old_img->read(file=>"$screen_shot_base_path/$screen_file_name")
+        or print "  Image $screen_file_name, load error: $old_img->errstr\n";
+
+    # Check that the images can be compared
+    if (($old_img->getwidth()     != $new_screen_shot->png->getwidth()) 
+        or ($old_img->getheight() != $new_screen_shot->png->getheight())
+        or (!$old_img))  {
+            # If not able to compare then just save the new image
+            $new_screen_shot->save;
+            print "  Updated screenshot based on size diff or new\n";
+            return;
+    }
+
+    # Compare the screenshot
+    if ($new_screen_shot->compare($old_img)) {
+        print "  No update, screenshot compares same as file\n";
+    }
+    else {
+        # Save the screenshot
+        $new_screen_shot->save;
+        print "  Updated screenshot based on comparison\n";
+    }
+}
+
 # Query the database menu structure and do requested screenshots based on login.pl
-sub process_login_screenshots($conn, $driver, ) {
+sub process_login_screenshots($conn, $driver) {
     # Make the toaster go away for these tests by disabling it in the database
     disable_toaster($conn);
 
     # Get the menu structure from the database
     my $menu_structure_data = get_menu_structure($conn);
 
-    # Grab a screenshot of the LSMB login screen.
-    process_screen($driver, "login.pl", $login_screenshot_file_name, 'maindiv', 0);
+    # Grab a screenshot of the LSMB login screen
+    process_screen($driver, "login.pl", $login_screenshot_file_name, undef, 0);
+    $screenshots_to_ignore{$login_screenshot_file_name} = 1;
     # Click Login Button
     click_button($driver, "//lsmb-button[\@id='login']");
 
     # Grab a screenshot of the welcome screen after login
-    process_screen($driver, undef, 'welcome.png', 'maindiv', 0);
+    sleep(1.5); # Wait for menus to get setup
+    process_screen($driver, undef, $welcome_screenshot_file_name, undef, 0);
+    $screenshots_to_ignore{$welcome_screenshot_file_name} = 1;
 
-    my $logout_ref; # Create cache for logout, because its screenshot needs to be done last.
+    if (scalar %screenshots_to_process == 0) {
+        # Unless processing a specific set of screenshots, process the user defaults screen first, then add to ignore array
+        # The reason we do it here is so that the password does not expire right away and
+        # to show the default information in subsequent screenshots.
+        process_screen($driver, 'erp.pl?action=root#/configuration.pl?action=defaults_screen', $system_defaults_screenshot_file_name, 'maindiv', 0);
+        $screenshots_to_ignore{$system_defaults_screenshot_file_name} = 1;
+        my $save_default = scroll_to_save_button($driver, ".//*[\@id='action-save-defaults' and \@role='button']");
+        $save_default->click();
+
+        # Reset the user password so the password expires default take effect
+        process_screen($driver, 'erp.pl?action=root#/erp.pl?action=root#/user.pl?action=preference_screen', $password_screenshot_file_name, 'maindiv', 0);
+        $screenshots_to_ignore{$password_screenshot_file_name} = 1;
+        my $save_password = scroll_to_save_button($driver, ".//*[\@id='pw-change' and \@role='button']");
+        save_password->click();
+    }
+
+    my $logout_ref; # Create reference for logout, because it will be deferred and processed after all other screenshots.
 
     # Iterate through all of the menu items and save screen grabs
     while (my $ref = $menu_structure_data->fetchrow_hashref('NAME_lc') ) {
@@ -463,7 +586,7 @@ sub setup_select_coa_country ($driver) {
     find_select_dropdown($driver, "//table[\@id='coa-lc']");
 
     # Scroll United States into view and click it
-    scroll_dropdown_and_select($driver, "//*[contains(text() ,'United States')]");
+    scroll_dropdown_and_select($driver, "//*[contains(text(), 'United States')]");
 }
 
 # Select the CoA from the dropdown.
@@ -473,7 +596,7 @@ sub setup_select_coa($driver) {
     find_select_dropdown($driver, ".//table[\@id='chart']");
 
     # Scroll GeneralHierarchical.xml into view and click it
-    scroll_dropdown_and_select($driver, "//*[contains(text() ,'GeneralHierarchical.xml')]");
+    scroll_dropdown_and_select($driver, "//*[contains(text(), 'GeneralHierarchical.xml')]");
 }
 
 # Enter the admin user info
@@ -576,32 +699,43 @@ sub role_exist() {
 # Main
 # -----------------
 
-# Set up Firefox driver
-my $firefox_driver = Selenium::Firefox->new ( firefox_profile => $profile );
-$firefox_driver->delete_all_cookies(); # Get rid of session expired notice.
-if ($do_debug) { $firefox_driver->debug_on; }
 
 if ($do_setup) {
+    die "Processing specific screenshots is currently broken when using --setup."  if (%screenshots_to_process);
     die "Company '$company' already exists. Setup screenshots cannot be created." if company_exist();
     die "User '$user_name' already exists. Setup screenshots cannot be created." if role_exist();
 
+    # Set up Firefox driver
+    my $firefox_driver = Selenium::Firefox->new ( firefox_profile => $profile );
+    $firefox_driver->delete_all_cookies(); # Get rid of session expired notice.
+    if ($do_debug) { $firefox_driver->debug_on; }
+
     # Do Setup
     process_setup_screenshots($firefox_driver);
+
+    # Done, clean up
+    $firefox_driver->shutdown_binary;
 }
 
 if ($do_login) {
     die "Company '$company' does not exist. Menu screenshots cannot be created." if !company_exist();
     die "User '$user_name' does not exist. Menu screenshots cannot be created." if !role_exist();
 
+    # Set up Firefox driver
+    my $firefox_driver = Selenium::Firefox->new ( firefox_profile => $profile );
+    $firefox_driver->delete_all_cookies(); # Get rid of session expired notice.
+    if ($do_debug) { $firefox_driver->debug_on; }
+
     my $dbh = open_database($company);
 
     # Do Login
     process_login_screenshots($dbh, $firefox_driver);
     $dbh->disconnect();
+
+    # Done, clean up
+    $firefox_driver->shutdown_binary;
 }
 
-# Done, clean up
-$firefox_driver->shutdown_binary;
 
 # Misc Notes
 # https://github.com/ledgersmb/LedgerSMB/blob/c799718433e18f6ffce6e2eda1cd15df178b6999/xt/lib/PageObject/App/Login.pm#L35
