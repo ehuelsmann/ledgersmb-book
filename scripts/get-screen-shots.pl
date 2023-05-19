@@ -19,15 +19,18 @@
 # The screenshots use the data expected in the book's Getting Started section.
 # Therefor, the user is 'admin' and the company name is 'example_inc'.
 # 
+# Runs in about 2240 seconds or with 180 screenshots about 12.4 seconds per screenshot.
+#
 
 use warnings;
 use strict;
-use Time::Piece;
+# use Time::Piece;
+use Time::HiRes;
 
-use Data::Dumper;
+# use Data::Dumper;
 use Diagnostics;
-use Carp 'verbose';
-$SIG{ __DIE__ } = \&Carp::confess;
+use Carp 'verbose'; # 'verbose'
+$SIG{ __DIE__ } = \&Carp::croak;
 
 use Getopt::Long;
 # use Pod::Usage; # TODO convert print statements to real pod help
@@ -55,6 +58,8 @@ my $welcome_screenshot_file_name = 'welcome.png';
 my $menu_screenshot_file_name = 'menu.png';
 my $password_screenshot_file_name = 'preferences-password.png';
 my $system_defaults_screenshot_file_name = 'system--defaults.png';
+my $processing_count = 0;
+my $start_time = Time::HiRes::gettimeofday();
 
 # Set up Firefox profile
 my $profile = Selenium::Firefox::Profile->new; # Clear everything out after the test ends.
@@ -180,11 +185,32 @@ sub login($driver)  {
     send_data_to_field($driver, "//input[\@name='company']", $company);
 }
 
-# If an error dialog is visible, close it.
+# If an error alert is open, close it.
+sub close_alert ($driver) {
+    eval {
+        my $alert_txt = $driver->get_alert_text();
+        print "  Found Alert: $alert_txt";
+        $driver->dismiss_alert;
+    };
+    my $an_error = $@; 
+    if ($an_error) {
+        if ( index($an_error, 'no such alert at') == -1 ) {
+            # Print any unexpected errors
+            print "  $an_error";
+        }
+        # On error no need to wait.
+    }
+    else {
+        print "  Dismissing Alert.\n";
+        sleep($capture_delay);      # Wait for dialog to dismiss.
+    }
+}
+
+# If an error window is visible, close it.
 sub close_error ($driver) {
     eval {
         my $error_element = $driver->find_element_by_xpath("//div[\@id='errorDialog']/*/span[\@role='button']");
-        if ($error_element != 0) {
+        if ($error_element) {
             $driver->mouse_move_to_location(element => $error_element);
             $driver->click();
         }
@@ -192,10 +218,10 @@ sub close_error ($driver) {
     my $an_error = $@; 
     if ($an_error) {
         if ( index($an_error, 'Origin element is not displayed at') == -1) {
-            # Print the error if the error is not the expected error where the dialog is not presented.
-            print "\n$an_error\n";
-            # On error no need to wait.
+            # Print any unexpected errors
+            print "  $an_error\n";
         }
+        # On error no need to wait.
     }
     else {
         print "  Dismissing Error dialog.\n";
@@ -206,7 +232,7 @@ sub close_error ($driver) {
 # Attempt to select the password tab in the preferences screen.
 sub select_preferences_tab ($driver) {
     # https://github.com/ledgersmb/LedgerSMB/blob/f3db4354d9cc8e2f98288ecd687f20a5b44a1b36/xt/lib/Pherkin/Extension/pageobject_steps/nav_steps.pl#L177
-    my $preference_tab_element = $driver->find_element_by_xpath(".//*[\@role='tab' and text()='Preferences']");
+    my $preference_tab_element = $driver->find_element_by_xpath("//*[\@role='tab' and text()='Preferences']");
     if ($preference_tab_element == 0) { die "Preferences xpath element not defined"; }
     $preference_tab_element->click();
 }
@@ -285,7 +311,9 @@ sub pre_process_system_defaults($driver) {
 
 # Change password after setting expiration.
 sub renew_password($driver) {
-
+    send_data_to_field($driver, "//input[\@id='old-pw']", $user_password);
+    send_data_to_field($driver, "//input[\@id='new-pw']", $user_password);
+    send_data_to_field($driver, "//input[\@id='verify-pw']", $user_password);
 }
 
 # Contains processing data for each screenshot that needs non-default processing.
@@ -294,7 +322,7 @@ sub renew_password($driver) {
 #   w    = resize the screen to this width prior to the screenshot
 #   pre  = subroutine to run after loading the screen, but prior to the screenshot
 #   post = subroutine to run after the screen shot. In most cases this is used to process something else on the screen like a tab.
-#   ids  = the ids that represent elements to ignore when comparing screenshot images.
+#   ids  = the CSS ids that represent elements to ignore when comparing screenshot images.  Typically these are date widget ids.
 # Example:
 #    'login.png' => { h => 520, w => 520,  pre => \&preprocess_dummy, post => \&postprocess_dummy},
 my %processing_config = (
@@ -302,6 +330,8 @@ my %processing_config = (
     $login_screenshot_file_name       => { h => 520, w =>  520, pre => \&login},  # No need for a lot of empty space
     $welcome_screenshot_file_name     => { h => 910, w =>  969}, # Make the screen narrower since so both welcome text and menu are visible
     $menu_screenshot_file_name        => { h => 820, w => 1280}, # Only capturing the menu, but it needs to be longer.
+    $password_screenshot_file_name     => { h => 620, w =>  520, pre => \&renew_password},
+
     'preferences-preferences.png'     => { h => 820, w => 1200, pre => \&select_preferences_tab},
     'system--defaults.png'            => { h => 820, w => 1300, pre => \&pre_process_system_defaults, post => \&post_process_system_defaults},
     'setup-pl-login.png',             => { h => 550, w =>  520, pre => \&setup_login_create_db_data},
@@ -310,7 +340,27 @@ my %processing_config = (
     'setup-pl-load-templates.png'     => { h => 400, w =>  420 },
     'setup-pl-create-user.png'        => { h => 680, w =>  650, pre => \&setup_enter_user},
     'setup-pl-create-user-completion.png' => { h => 780, w =>  640},
+
     'ap--add-transaction.png'         => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    'ap--debit-invoice.png'           => { h => 820, w => 1200, ids => ['widget_transdate'] },
+    'ap--debit-note.png'              => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    'ap--vendor-invoice.png'          => { h => 820, w => 1200, ids => ['widget_transdate'] },
+    'ap--vouchers--ap-voucher.png'    => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
+    'ap--vouchers--invoice-vouchers.png' => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
+
+    'ar--add-return.png'              => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    'ar--add-transaction.png'         => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    'ar--credit-invoice.png'          => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    'ar--credit-note.png'             => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    'ar--sales-invoice.png'           => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    'ar--vouchers--ar-voucher.png'    => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
+    'ar--vouchers--invoice-vouchers.png' => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
+
+
+
+    
+    ''           => { h => 820, w => 1200, ids => [] },
+    ''           => { h => 820, w => 1200, ids => [] },
 );
 
 # If the resize value is different than the current screen dimensions
@@ -349,6 +399,7 @@ sub process_screen( $driver,
     }
 
     print "Processing: $screen_file_name\n";
+    $processing_count += 1;
 
     if ((%screenshots_to_ignore) && (exists $screenshots_to_ignore{$screen_file_name})) {
         print "  Skipping, has been previously processed\n";
@@ -370,6 +421,9 @@ sub process_screen( $driver,
     if ($check_error_dialog) {
         close_error($driver);
     }
+
+    # Close any alerts showing
+    close_alert($driver);
 
     # Get the configuration, either specific to the screen file name or the default.
     my %config = (exists $processing_config{$screen_file_name}) ? $processing_config{$screen_file_name}->%* : $processing_config{default}->%* ;
@@ -431,8 +485,9 @@ sub capture_compare_save_screen($driver, $id_to_capture, $screen_file_name, %con
         png => $screen_shot_element->screenshot,
         exclude => [ @exclude ],
         folder => "$screen_shot_base_path",
+        threshold => 1, # 1 percent different
         metadata => {
-            key => "$screen_file_name"
+            key => "$screen_file_name",
         }
     );
     if ($do_debug) { $driver->debug_on; } # Reset debug after taking screenshot
@@ -448,18 +503,18 @@ sub capture_compare_save_screen($driver, $id_to_capture, $screen_file_name, %con
         or (!$old_img))  {
             # If not able to compare then just save the new image
             $new_screen_shot->save;
-            print "  Updated screenshot based on size diff or new\n";
+            print "  🟢 Updated screenshot based on size diff or new\n";
             return;
     }
 
     # Compare the screenshot
     if ($new_screen_shot->compare($old_img)) {
-        print "  No update, screenshot compares same as file\n";
+        print "  No update, screenshot is same as file\n";
     }
     else {
         # Save the screenshot
         $new_screen_shot->save;
-        print "  Updated screenshot based on comparison\n";
+        print "  🟢 Updated screenshot based on comparison\n";
     }
 }
 
@@ -482,6 +537,8 @@ sub process_login_screenshots($conn, $driver) {
     process_screen($driver, undef, $welcome_screenshot_file_name, undef, 0);
     $screenshots_to_ignore{$welcome_screenshot_file_name} = 1;
 
+    # print Dumper($driver->get_all_cookies());
+
     if (scalar %screenshots_to_process == 0) {
         # Unless processing a specific set of screenshots, process the user defaults screen first, then add to ignore array
         # The reason we do it here is so that the password does not expire right away and
@@ -492,10 +549,18 @@ sub process_login_screenshots($conn, $driver) {
         $save_default->click();
 
         # Reset the user password so the password expires default take effect
-        process_screen($driver, 'erp.pl?action=root#/erp.pl?action=root#/user.pl?action=preference_screen', $password_screenshot_file_name, 'maindiv', 0);
+        process_screen($driver, 'erp.pl?action=root#/user.pl?action=preference_screen', $password_screenshot_file_name, 'maindiv');
         $screenshots_to_ignore{$password_screenshot_file_name} = 1;
-        my $save_password = scroll_to_save_button($driver, ".//*[\@id='pw-change' and \@role='button']");
-        save_password->click();
+        #click_button($driver, ".//span[\@id='pw-change']");
+        #click_button($driver, ".//span[\@widgetid='pw-change']");
+        my $xpath = ".//span[\@id='pw-change']";
+        my $button_element = $driver->find_element_by_xpath($xpath);
+        if ($button_element == 0) { die "Button xpath not found: $xpath"; }
+        $button_element->click();
+
+        # Then the actual preferences tab. The navigation code is in the preprocessing subroutine.
+        process_screen($driver, undef, 'preferences-preferences.png', 'maindiv');
+        $screenshots_to_ignore{'preferences-preferences.png'} = 1;
     }
 
     my $logout_ref; # Create reference for logout, because it will be deferred and processed after all other screenshots.
@@ -514,6 +579,9 @@ sub process_login_screenshots($conn, $driver) {
         if ($ref->{label} eq 'Preferences') {
             # Preferences contains 2 tabs so we have to distinguish between them.
             # First the default tab - Password
+
+            # Note that if we are only processing certain menus, then navigation is skipped
+            # and the processing of the preferences tab fails.
             process_screen($driver, $ref->{url}, 'preferences-password.png', 'maindiv');
             # Then the actual preferences tab. The navigation code is in the preprocessing subroutine.
             process_screen($driver, undef, 'preferences-preferences.png', 'maindiv');
@@ -557,6 +625,7 @@ sub click_button($driver, $xpath) {
 sub send_data_to_field($driver, $xpath, $field_text) {
     my $element = $driver->find_element_by_xpath($xpath);
     if ($element == 0) { die "xpath element not found: $xpath"; }
+    $element->clear();
     $element->send_keys($field_text);
 }
 
@@ -736,7 +805,14 @@ if ($do_login) {
     $firefox_driver->shutdown_binary;
 }
 
+my $stop_time = Time::HiRes::gettimeofday();
+my $interval = $stop_time - $start_time;
+my $per = $interval / $processing_count;
+printf ("Processed: %d screens in %0.1f seconds ( %0.1f secs per screen).\n", $processing_count, $interval, $per);
 
 # Misc Notes
 # https://github.com/ledgersmb/LedgerSMB/blob/c799718433e18f6ffce6e2eda1cd15df178b6999/xt/lib/PageObject/App/Login.pm#L35
 # https://github.com/perl-weasel/weasel/blob/58aea10134b46bf10b1e8f97c595abe53ac6a801/lib/Weasel/FindExpanders/HTML.pm#L130
+# also check out https://metacpan.org/pod/Future::Utils those can help to limit the number of "futures being in-flight".
+# https://metacpan.org/pod/Future::AsyncAwait
+# https://metacpan.org/pod/IO::Async
