@@ -70,11 +70,11 @@ Jack installed LedgerSMB using the default installation instructions, which mean
 the url for his \texttt{setup.pl} is \url{https://example.com/setup.pl}.
 \figref{fig:setup-step1} shows the login screen for the tool.
 
-\begin{quotation}
+\begin{quote}
 Please note that in version 1.7 and earlier you can't be logged into the administration tool
 (\texttt{setup.pl}) and the webapp through the same browser at the same time due to limitations of the
 implementation.\index{setup.pl}
-\end{quotation}
+\end{quote}
 
 The login screen shows three fields: (a) a user, (b) a password and (c) a database name.
 
@@ -100,7 +100,9 @@ The ``Create'' button is used to create a new company.
 \begin{figure}[H]
 \centering
 % \includegraphics[width=0.8\textwidth]{dmc-create-step1.png}
-\includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-login.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+% \includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-login.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-login.png}
 \caption{setup.pl login screen}
 \label{fig:setup-step1}
 \end{figure}
@@ -133,7 +135,9 @@ After the delay the screen from \figref{fig:setup-step2} shows up.
 \begin{figure}[H]
 \centering
 %\includegraphics[width=0.8\textwidth]{dmc-create-step2.png}
-\includegraphics[width=\graphicswidth,  trim={0pt 600 0 150}, clip]{\autoscreenshotdir/setup-pl-select-coa-country.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+%\includegraphics[width=\graphicswidth,  trim={0pt 600 0 150}, clip]{\autoscreenshotdir/setup-pl-select-coa-country.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-select-coa-country.png}
 \caption{Chart of accounts - country selection}
 \label{fig:setup-step2}
 \end{figure}
@@ -163,7 +167,9 @@ As Jack runs his company in the United States, that's what he selects.
 \begin{figure}[H]
 \centering
 %\includegraphics[width=0.8\textwidth]{dmc-create-step3.png}
-\includegraphics[width=\graphicswidth,  trim={0pt 150 0 0}, clip]{\autoscreenshotdir/setup-pl-select-coa.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+%\includegraphics[width=\graphicswidth,  trim={0pt 150 0 0}, clip]{\autoscreenshotdir/setup-pl-select-coa.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-select-coa.png}
 \caption{Chart of accounts - selection}
 \label{fig:setup-step3}
 \end{figure}
@@ -188,7 +194,9 @@ Jack is now presented with the screen to load templates. LedgerSMB \ledgerSMBver
 \begin{figure}[H]
     \centering
     %\includegraphics[width=0.8\textwidth]{dmc-create-step4.png}
-    \includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-load-templates.png}
+    % HTML processing does not handle cropping of this image, need to figure out why?
+    %\includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-load-templates.png}
+    \includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-load-templates.png}
     \caption{Template selection}
     \label{fig:setup-step4}
 \end{figure}
@@ -219,11 +227,11 @@ Note that none of the fields in this screen are optional. If the name of the use
 isn't already used with other companies, leave the \texttt{Import} option set to \texttt{No},
 otherwise please read the chapter on user creation mentioned above.
 
-\begin{quotation}
+\begin{quote}
 Note: The password\index{password} you enter here is a temporary one which will remain in effect
 \textbf{for 24 hours only}. Be sure to execute the steps in \secref{sec-first-login-ramp-up} before
 these 24 hours elapse, because the user will be disabled after that.
-\end{quotation}
+\end{quote}
 
 Jack proceeds to enter the values as follows:
 \begin{longtable}{ llp{6cm} }
@@ -350,7 +358,9 @@ Not clicking the \texttt{Save} button means the password remains unchanged and t
 \begin{figure}[H]
 \centering
 %\includegraphics[width=7cm]{user-password.png}
-\includegraphics[width=\graphicswidth, trim={3pt 300 2 4}, clip]{\autoscreenshotdir/preferences-password.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+%\includegraphics[width=\graphicswidth, trim={3pt 300 2 4}, clip]{\autoscreenshotdir/preferences-password.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/preferences-password.png}
 \caption{Password change screen}
 \label{fig:first-user-password}
 \end{figure}
@@ -748,11 +758,11 @@ in \figref{fig:rfq-entry-screen}) for entering a new \gls{rfq} .
 \label{fig:bus-rfq-entry-screen}
 \end{figure}
 
-\begin{quotation}
+\begin{quote}
 \textbf{Remark} Note that the \gls{rfq} entry screen contains prices; this is misleading
 at least: the printed output to be sent to the vendor does not. The fact that this screen
 allows entry of prices could be considered a bug.
-\end{quotation}
+\end{quote}
 
 After filling out the form in accordance with the description in \secref{sec-business-processes-quotations-creation},
 Jack expedites his \gls{rfq} to his vendor through e-mail by clicking the ``E-mail'' button. He finds

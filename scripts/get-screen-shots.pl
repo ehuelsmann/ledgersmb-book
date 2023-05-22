@@ -61,6 +61,11 @@ my $system_defaults_screenshot_file_name = 'system--defaults.png';
 my $processing_count = 0;
 my $start_time = Time::HiRes::gettimeofday();
 
+# The image comparison threshold: 0 to 100
+# This value selected so that minor default date changes will not cause new
+# screenshots to be saved.
+my $comparison_threshold = 0.05;
+
 # Set up Firefox profile
 my $profile = Selenium::Firefox::Profile->new; # Clear everything out after the test ends.
 $profile->set_boolean_preference(
@@ -107,16 +112,18 @@ sub print_help {    # TODO move to Pod::Usage
     print "  --login - Do the login.pl screens. Defaults to not processing if not specified.\n";
     print "  --debug - Turn on various debug actions.";
     print "  * Optional <file name> is a screenshot file name ending with '.png'. If no <file name>'s are specified, then process all screenshots.\n";
-    print "  * At least one of --setup or --login must be specified.\n";
-    print "  * Must start with a clean LSMB installation: no companies and no users that match the environment variables.\n";
     print "  * Wildcards filenames are not accepted in file names.\n\n";
+    print "  * At least one of --setup or --login must be specified. Normally both are.\n";
+    print "  * Must start with a clean LSMB installation: no companies and no users that match the environment variables.\n";
     print "Example Usage:\n";
     print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='example_inc' PGUSER='postgres' PGPASSWORD='abc' \\\n";
     print "  LSMB_ADMIN_USERNAME='admin' LSMB_ADMIN_PASSWORD='asdfg' LSMB_BASE_URL='http://vmwareledgerdev.local:5000'\\\n";
-    print "  perl get-screen-shots.pl --login system--defaults.png\n\n"; # use perl here because /usr/bin/perl is not the correct perl.
+    # use perl here because /usr/bin/perl is not the correct perl for my use.
+    print "  perl get-screen-shots.pl --login system--defaults.png\n\n"; 
     print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='example_inc' PGUSER='postgres' PGPASSWORD='abc' \\\n";
     print "  LSMB_ADMIN_USERNAME='admin' LSMB_ADMIN_PASSWORD='asdfg' LSMB_BASE_URL='http://vmwareledgerdev.local:5000' \\\n";
-    print "  perl get-screen-shots.pl --debug --setup\n\n"; # use perl here because /usr/bin/perl is not the correct perl.
+    # use perl here because /usr/bin/perl is not the correct perl for my use.
+    print "  perl get-screen-shots.pl --setup --login\n\n";              
 }
 
 # Access the database and retrieve the menu items with URLs and
@@ -189,19 +196,19 @@ sub login($driver)  {
 sub close_alert ($driver) {
     eval {
         my $alert_txt = $driver->get_alert_text();
-        print "  Found Alert: $alert_txt";
+        print "  Found Alert: $alert_txt\n";
         $driver->dismiss_alert;
     };
     my $an_error = $@; 
     if ($an_error) {
         if ( index($an_error, 'no such alert at') == -1 ) {
             # Print any unexpected errors
-            print "  $an_error";
+            print "  🛑 $an_error\n";
         }
         # On error no need to wait.
     }
     else {
-        print "  Dismissing Alert.\n";
+        print "  🟡 Dismissing Alert\n";
         sleep($capture_delay);      # Wait for dialog to dismiss.
     }
 }
@@ -219,12 +226,12 @@ sub close_error ($driver) {
     if ($an_error) {
         if ( index($an_error, 'Origin element is not displayed at') == -1) {
             # Print any unexpected errors
-            print "  $an_error\n";
+            print "  🛑 $an_error\n";
         }
         # On error no need to wait.
     }
     else {
-        print "  Dismissing Error dialog.\n";
+        print "  🟡 Dismissing Error dialog\n";
         sleep($capture_delay);      # Wait for dialog to dismiss.
     }
 }
@@ -288,8 +295,8 @@ sub scroll_to_save_button($driver, $xpath) {
 sub post_process_system_defaults($driver) {
     scroll_to_save_button($driver, ".//*[\@id='action-save-defaults' and \@role='button']");
     my $new_name = "${screen_shot_base_path}/system--defaults-1.png";
-    print "  Processing: $new_name\n";
-    $driver->capture_screenshot($new_name);
+    print "Processing: system--defaults-1.png\n";
+    $driver->capture_screenshot($new_name); # TODO this should use the main screenshot sub, but I am not sure if re-entrant is ok
 }
 
 # Set password expiration in system defaults
@@ -335,32 +342,29 @@ my %processing_config = (
     'preferences-preferences.png'     => { h => 820, w => 1200, pre => \&select_preferences_tab},
     'system--defaults.png'            => { h => 820, w => 1300, pre => \&pre_process_system_defaults, post => \&post_process_system_defaults},
     'setup-pl-login.png',             => { h => 550, w =>  520, pre => \&setup_login_create_db_data},
-    'setup-pl-select-coa-country.png' => { h => 820, w =>  820, pre => \&setup_select_coa_country },
-    'setup-pl-select-coa.png'         => { h => 550, w =>  520, pre => \&setup_select_coa},
-    'setup-pl-load-templates.png'     => { h => 400, w =>  420 },
+    'setup-pl-select-coa-country.png' => { h => 500, w =>  400, pre => \&setup_select_coa_country },
+    'setup-pl-select-coa.png'         => { h => 500, w =>  520, pre => \&setup_select_coa},
+    'setup-pl-load-templates.png'     => { h => 400, w =>  400 },
     'setup-pl-create-user.png'        => { h => 680, w =>  650, pre => \&setup_enter_user},
     'setup-pl-create-user-completion.png' => { h => 780, w =>  640},
 
-    'ap--add-transaction.png'         => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
-    'ap--debit-invoice.png'           => { h => 820, w => 1200, ids => ['widget_transdate'] },
-    'ap--debit-note.png'              => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
-    'ap--vendor-invoice.png'          => { h => 820, w => 1200, ids => ['widget_transdate'] },
-    'ap--vouchers--ap-voucher.png'    => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
-    'ap--vouchers--invoice-vouchers.png' => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
+    # Turns out the following may not be needed as the comparison threshold seems to work pretty well.
+    # Leaving the code here just in case it is needed in the future.
+    #
+    # 'ap--add-transaction.png'         => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    # 'ap--debit-invoice.png'           => { h => 820, w => 1200, ids => ['widget_transdate'] },
+    # 'ap--debit-note.png'              => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    # 'ap--vendor-invoice.png'          => { h => 820, w => 1200, ids => ['widget_transdate'] },
+    # 'ap--vouchers--ap-voucher.png'    => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
+    # 'ap--vouchers--invoice-vouchers.png' => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
 
-    'ar--add-return.png'              => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
-    'ar--add-transaction.png'         => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
-    'ar--credit-invoice.png'          => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
-    'ar--credit-note.png'             => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
-    'ar--sales-invoice.png'           => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
-    'ar--vouchers--ar-voucher.png'    => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
-    'ar--vouchers--invoice-vouchers.png' => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
-
-
-
-    
-    ''           => { h => 820, w => 1200, ids => [] },
-    ''           => { h => 820, w => 1200, ids => [] },
+    # 'ar--add-return.png'              => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    # 'ar--add-transaction.png'         => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    # 'ar--credit-invoice.png'          => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    # 'ar--credit-note.png'             => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    # 'ar--sales-invoice.png'           => { h => 820, w => 1200, ids => ['widget_crdate', 'widget_transdate'] },
+    # 'ar--vouchers--ar-voucher.png'    => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },
+    # 'ar--vouchers--invoice-vouchers.png' => { h => 820, w => 1200, ids => ['widget_description', 'widget_batch-number'] },    
 );
 
 # If the resize value is different than the current screen dimensions
@@ -485,7 +489,7 @@ sub capture_compare_save_screen($driver, $id_to_capture, $screen_file_name, %con
         png => $screen_shot_element->screenshot,
         exclude => [ @exclude ],
         folder => "$screen_shot_base_path",
-        threshold => 1, # 1 percent different
+        threshold => $comparison_threshold,
         metadata => {
             key => "$screen_file_name",
         }
@@ -494,16 +498,24 @@ sub capture_compare_save_screen($driver, $id_to_capture, $screen_file_name, %con
 
     # Get the old image
     my $old_img = Imager->new;
-    $old_img->read(file=>"$screen_shot_base_path/$screen_file_name")
-        or print "  Image $screen_file_name, load error: $old_img->errstr\n";
+    if (!$old_img->read(file=>"$screen_shot_base_path/$screen_file_name")) {
+        print "  Image $screen_file_name, load error: ", $old_img->errstr, "\n";
+        # Note that we do not use $new_screen_shot->save because it mangles the filename in an incompatible way
+        # by merging double hyphens into one hyphen and adding the file extension again.
+        $new_screen_shot->png->write(file => "$screen_shot_base_path/$screen_file_name");
+        print "  🟢 Added missing screenshot\n";
+        return;
+    }
 
     # Check that the images can be compared
     if (($old_img->getwidth()     != $new_screen_shot->png->getwidth()) 
-        or ($old_img->getheight() != $new_screen_shot->png->getheight())
-        or (!$old_img))  {
+        or ($old_img->getheight() != $new_screen_shot->png->getheight()) )  {
             # If not able to compare then just save the new image
-            $new_screen_shot->save;
-            print "  🟢 Updated screenshot based on size diff or new\n";
+            #
+            # Note that we do not use $new_screen_shot->save because it mangles the filename in an incompatible way
+            # by merging double hyphens into one hyphen and adding the file extension again.
+            $new_screen_shot->png->write(file => "$screen_shot_base_path/$screen_file_name");
+            print "  🟢 Updated screenshot based on size difference\n";
             return;
     }
 
@@ -513,8 +525,11 @@ sub capture_compare_save_screen($driver, $id_to_capture, $screen_file_name, %con
     }
     else {
         # Save the screenshot
-        $new_screen_shot->save;
-        print "  🟢 Updated screenshot based on comparison\n";
+        #
+        # Note that we do not use $new_screen_shot->save because it mangles the filename in an incompatible way
+        # by merging double hyphens into one hyphen and adding the file extension again.
+        $new_screen_shot->png->write(file => "$screen_shot_base_path/$screen_file_name");
+        print "  🟢 Updated screenshot based on comparison failure\n";
     }
 }
 

@@ -210,11 +210,11 @@ top level menu. See \figref{fig:user-preferences}.
 From the ``User search'' result screen, users can be ``deleted'' from the company:
 they have their access to the current company revoked.
 
-\begin{quotation}
+\begin{quote}
 Note that the user is only revoked access to the current company; the login remains a valid
 login for the database cluster. Administrators wanting to remove user accounts at the database
 level need to take additional action.
-\end{quotation}
+\end{quote}
 
 
 \section{User imports}
@@ -661,13 +661,13 @@ the taxes collected by the national authority, which works like this numerically
 National tax with order 0 and rate 10\% and Quebec tax with order 1 and rate 5\%
 applied to a 10\$ amount charges 1\$ of national tax and 0.55\$ of Quebec tax (5\% of 11\$).
 
-\begin{quotation}
+\begin{quote}
 Note that - as pointed out in the Overview section of this chapter - the \gls{customer} related
 tax calculation on invoices is triggered by the settings in this chapter as well as
 the customer/vendor settings described in \secref{sec-business-processes-creating-customers-and-vendors}
 and part settings and service settings described in \secref{subsubsec-products-parts-taxation} and
 \secref{subsec-products-services-taxation} respectively.
-\end{quotation}
+\end{quote}
 
 \section{Tax calculation examples}
 \label{sec-tax-calculation-examples}
@@ -718,12 +718,12 @@ tax forms, the ``Tax form'' check mark can be used in invoices to include
 (or exclude) invoice lines from the tax form. See \secref{subsec-business-processes-invoicing-manual-entry-invoices}
 for entry of invoices.
 
-\begin{quotation}
+\begin{quote}
 Note that there's a module available for 1.3 which implements accrual based tax reporting by
 the name of EU VAT reporting. This module replaces the default tax reporting functionality
 meaning one can only have accrual based or cash based reports in a single company at this time,
 but not both.
-\end{quotation}
+\end{quote}
 
 \subsection{Creating tax forms}
 \label{subsec-tax-taxforms-creation}
@@ -803,10 +803,10 @@ There's another thing with LedgerSMB that helps auditability: transactions can't
 \subsection{Restore}
 \label{subsec-contingency-restore}
 
-\begin{quotation}
+\begin{quote}
 Note that if the database being restored is a backup from a different (earlier) PostgreSQL version,
 additional steps described in \appref{sec-migration-postrgesql} will be required.
-\end{quotation}
+\end{quote}
 
 
 
