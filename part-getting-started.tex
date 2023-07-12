@@ -22,10 +22,10 @@ efficiently. To that extent he'll be running LedgerSMB using the domain he acqui
 for his business: \url{https://example.com/}.
 
 The other chapters in this part of the book show you what steps Jack has to go through
-to get LedgerSMB up and running for Example, as well as the steps he has to take to
+to get LedgerSMB up and running for Example Inc., as well as the steps he has to take to
 keep LedgerSMB in good health.
 
-Due to its success Example will grow, posing new challenges to LedgerSMB and we'll show
+Due to its success Example Inc. will grow, posing new challenges to LedgerSMB and we'll show
 you how Jack can change the configuration to adapt to his growing business's needs.
 
 Jack chooses to use a hosted LedgerSMB, so he doesn't need to concern himself with the
@@ -54,8 +54,8 @@ phase.
 \section{Using setup.pl}
 \label{sec-create-using-setup}
 
-LedgerSMB comes with a tool called 'setup.pl'. It's the beginning of a web-based
-\footnote{There's also a command line based setup tool called \texttt{ledgersmb-admin}; it's covered as part of the section \lq\hyperref[part-administration]{Administration}\rq}
+LedgerSMB comes with a tool called \texttt{setup.pl}.\index{setup.pl} It's the beginning of a web-based
+\footnote{There's also a command line based setup tool called \texttt{ledgersmb-admin};\index{ledgersmb-admin} it's covered as part of the section \lq\hyperref[part-administration]{Administration}\rq}
 database administration interface to LedgerSMB. This tool can be used to create
 company databases as well as backups of existing ones.
 
@@ -67,14 +67,14 @@ a large amount of server processing before the next screen can be presented.
 \label{subsec-create-setup-login}
 
 Jack installed LedgerSMB using the default installation instructions, which means
-the url for his setup.pl is \url{https://example.com/setup.pl}.
+the url for his \texttt{setup.pl} is \url{https://example.com/setup.pl}.
 \figref{fig:setup-step1} shows the login screen for the tool.
 
-\begin{quotation}
+\begin{quote}
 Please note that in version 1.7 and earlier you can't be logged into the administration tool
-(setup.pl) and the webapp through the same browser at the same time due to limitations of the
-implementation.
-\end{quotation}
+(\texttt{setup.pl}) and the webapp through the same browser at the same time due to limitations of the
+implementation.\index{setup.pl}
+\end{quote}
 
 The login screen shows three fields: (a) a user, (b) a password and (c) a database name.
 
@@ -83,17 +83,26 @@ right to create databases and other users; the \texttt{postgres} super user has 
 and more, so it's generally convenient (but not very secure) to use it.
 
 The password must be the same as that used to log in from the command line using the
-``psql'' tool or the password you assigned on user creation using the ``createuser'' tool
+\texttt{psql} \index{psql} tool or the password you assigned on user creation 
+using the \texttt{createuser} \index{createuser} tool
 \footnote{Most PostgreSQL deployments need configuration changes for this to work, if
 you're installing LedgerSMB yourself. See \url{https://ledgersmb.org} for installation
-instructions.}. Both ``psql'' and ``createuser'' are PostgreSQL tools (not LedgerSMB tools).
+instructions.}. Both \texttt{psql} and \texttt{createuser} are PostgreSQL tools (not LedgerSMB tools).
 
 The third field is the name of the company database to be created. For practical reasons
 it's best to use only lower case letters, numbers and the underscore (\_).
 
-\begin{figure}[h]
+The ``Login'' button is used when the company database already exists.  The user can then
+perform some administrative tasks on the existing database.
+
+The ``Create'' button is used to create a new company.
+
+\begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{dmc-create-step1.png}
+% \includegraphics[width=0.8\textwidth]{dmc-create-step1.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+% \includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-login.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-login.png}
 \caption{setup.pl login screen}
 \label{fig:setup-step1}
 \end{figure}
@@ -111,35 +120,39 @@ When creating a company database, there are a few things that are of importance:
 % \item ### others?
 \end{itemize}
 
-After choosing ``example\_inc'' as his company name, Jack clicks the Login button at which
-time the screen from \figref{fig:setup-step2} shows up. The screen says the database doesn't yet exist and offers its creation.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=7cm]{dmc-create-step2.png}
-\caption{setup.pl company creation screen}
-\label{fig:setup-step2}
-\end{figure}
-
-Jack clicks ``Yes'' to create the database and load it with LedgerSMB's database
+After choosing ``example\_inc'' as his company name,
+Jack clicks ``Create'' to create the database and load it with LedgerSMB's database
 schema, authorization rules and stored
 procedures\footnote{Parts of the program inside the database.}. It may
 take a while (30 seconds or more) for the next screen to appear\footnote{Note 
-that during the creation of the database, logs are kept so that in case of
-errors these can be reviewed either by the person running the installation or by
-support personnel.  On Linux/Unix systems these are stored, by default, in
-/tmp/ledgersmb/ and named dblog, dblog\_stderr and dblog\_stdout.}.
+    that during the creation of the database, logs are kept so that in case of
+    errors these can be reviewed either by the person running the installation or by
+    support personnel.  On Linux/Unix systems these are stored, by default, in the
+    ``/tmp/ledgersmb/'' directory and named ``dblog'', ``dblog\_stderr'' and ``dblog\_stdout''.}
+
+After the delay the screen from \figref{fig:setup-step2} shows up.
+
+\begin{figure}[H]
+\centering
+%\includegraphics[width=0.8\textwidth]{dmc-create-step2.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+%\includegraphics[width=\graphicswidth,  trim={0pt 600 0 150}, clip]{\autoscreenshotdir/setup-pl-select-coa-country.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-select-coa-country.png}
+\caption{Chart of accounts - country selection}
+\label{fig:setup-step2}
+\end{figure}
+
 
 \subsection{Step 3: Selection of a Chart of Accounts}
 \label{subsec-create-setup-select-coa}
 
 LedgerSMB comes with numerous predefined charts of accounts\index{chart of accounts}. These have been grouped
-per country making the selection of a chart a two-step procedure. setup.pl allows for
+per country making the selection of a chart a two-step procedure. \texttt{setup.pl} allows for
 users wanting to define their own charts by offering a ``Skip'' button. This button
 skips the process of loading a chart.
 
 \begin{quote}
-Note that you need to define a chart of accounts before you can meaningfully do anything
+Note that you need to define a chart of accounts \index{chart of accounts}before you can meaningfully do anything
 inside LedgerSMB. If you don't load a pre-defined one you'll need to create or upload
 your own from inside the application once setup has completed.
 \end{quote}
@@ -151,26 +164,22 @@ an accountant if no default chart of accounts is included for your country.
 
 As Jack runs his company in the United States, that's what he selects.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=7cm]{dmc-create-step3.png}
-\caption{Chart of accounts - Country selection}
+%\includegraphics[width=0.8\textwidth]{dmc-create-step3.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+%\includegraphics[width=\graphicswidth,  trim={0pt 150 0 0}, clip]{\autoscreenshotdir/setup-pl-select-coa.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-select-coa.png}
+\caption{Chart of accounts - selection}
 \label{fig:setup-step3}
 \end{figure}
 
 \figref{fig:setup-step4} shows the second screen in the chart of accounts selection procedure.
-The drop down contains a list of all charts of accounts defined for the selected country.
+The drop down contains a list of all charts of accounts \index{chart of accounts}defined for the selected country.
 
 Jack selects the \texttt{GeneralHierarchical.xml} chart of accounts: that will
 leave him enough room to specialize the setup later if he has to, but for the time
 being offers a broadly usable setup.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=7cm]{dmc-create-step4.png}
-\caption{Chart of accounts - Chart selection}
-\label{fig:setup-step4}
-\end{figure}
 
 \subsection{Step 4: Load template}
 \label{subsec-create-setup-load-template}
@@ -182,18 +191,29 @@ Jack is now presented with the screen to load templates. LedgerSMB \ledgerSMBver
         \item  \texttt{demo} -- Example template set for various output formats including PDF, HTML and Excel
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    %\includegraphics[width=0.8\textwidth]{dmc-create-step4.png}
+    % HTML processing does not handle cropping of this image, need to figure out why?
+    %\includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-load-templates.png}
+    \includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-load-templates.png}
+    \caption{Template selection}
+    \label{fig:setup-step4}
+\end{figure}
+
 \subsection{Step 5: Initial user}
 \label{subsec-create-setup-initial-user}
 
 In the previous step, the technical part of the company creation procedure
 was completed. However, it's not possible to log in to the company yet. 
 \figref{fig:setup-step5} shows the next step in the setup process:
- the user creation screen. The fields shown have
+ the user creation screen.\index{user creation} The fields shown have
 the same meaning as those discussed as part of user management in \secref{sec-user-creation}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
-\includegraphics[width=7cm]{dmc-create-step5.png}
+%\includegraphics[width=0.8\textwidth]{dmc-create-step5.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-create-user.png}
 \caption{setup.pl initial user creation screen}
 \label{fig:setup-step5}
 \end{figure}
@@ -207,11 +227,11 @@ Note that none of the fields in this screen are optional. If the name of the use
 isn't already used with other companies, leave the \texttt{Import} option set to \texttt{No},
 otherwise please read the chapter on user creation mentioned above.
 
-\begin{quotation}
-Note: The password you enter here is a temporary one which will remain in effect
+\begin{quote}
+Note: The password\index{password} you enter here is a temporary one which will remain in effect
 \textbf{for 24 hours only}. Be sure to execute the steps in \secref{sec-first-login-ramp-up} before
 these 24 hours elapse, because the user will be disabled after that.
-\end{quotation}
+\end{quote}
 
 Jack proceeds to enter the values as follows:
 \begin{longtable}{ llp{6cm} }
@@ -234,10 +254,10 @@ Jack proceeds to enter the values as follows:
         \label{tbl:setupp-step5-user-entry-data}
 \end{longtable}
 
-@@@TODO: Replace figure below: it looks different these days (missing statistics section)
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=7cm]{dmc-create-step6.png}
+% \includegraphics[width=0.8\textwidth]{dmc-create-step6.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/setup-pl-create-user-completion.png}
 \caption{setup.pl successful completion screen}
 \label{fig:setup-step6}
 \end{figure}
@@ -282,10 +302,10 @@ If this screen is not shown then Jack navigates to
 \subsection{Login screen}
 \label{subsec-first-login-screen}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 % \includegraphics[width=7cm]{dmc-create-final.png}
-\includegraphics[width=9cm]{auto-screenshots/login.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/login.png}
 \caption{login.pl opening screen}
 \label{fig:login-screen}
 \end{figure}
@@ -318,7 +338,7 @@ After successful login, the system shows the Welcome to LedgerSMB  screen as dep
 \begin{figure}[h]
         \centering
         % \includegraphics[width=7cm]{welcome.png}
-        \includegraphics[width=11cm]{auto-screenshots/welcome.png}
+        \includegraphics[width=\graphicswidth]{\autoscreenshotdir/welcome.png}
         \caption{login.pl welcome screen}
         \label{fig:login-welcome-screen}
 \end{figure}
@@ -338,7 +358,9 @@ Not clicking the \texttt{Save} button means the password remains unchanged and t
 \begin{figure}[H]
 \centering
 %\includegraphics[width=7cm]{user-password.png}
-\includegraphics[width=11cm, trim={3pt 300 2 4}, clip]{auto-screenshots/preferences-password.png}
+% HTML processing does not handle cropping of this image, need to figure out why?
+%\includegraphics[width=\graphicswidth, trim={3pt 300 2 4}, clip]{\autoscreenshotdir/preferences-password.png}
+\includegraphics[width=\graphicswidth]{\autoscreenshotdir/preferences-password.png}
 \caption{Password change screen}
 \label{fig:first-user-password}
 \end{figure}
@@ -378,7 +400,7 @@ as depicted in \figref{fig:user-preferences}
 \begin{figure}[H]
         \centering
         %\includegraphics[width=7cm]{user-preferences.png}
-        \includegraphics[width=11cm]{auto-screenshots/preferences-preferences.png}
+        \includegraphics[width=\graphicswidth]{\autoscreenshotdir/preferences-preferences.png}
         \caption{User preferences}
         \label{fig:first-user-preferences}
 \end{figure}
@@ -394,7 +416,7 @@ In order to do so, Jack navigates to \menupath{System \ma Defaults} and sees the
 \begin{figure}[H]
         \centering
         % \includegraphics[width=7cm]{system-defaults.png}
-        \includegraphics[width=11cm]{auto-screenshots/system--defaults.png}
+        \includegraphics[width=\graphicswidth]{\autoscreenshotdir/system--defaults.png}
         \caption{System defaults}
         \label{fig:first-user-system-defaults}
 \end{figure}
@@ -736,11 +758,11 @@ in \figref{fig:rfq-entry-screen}) for entering a new \gls{rfq} .
 \label{fig:bus-rfq-entry-screen}
 \end{figure}
 
-\begin{quotation}
+\begin{quote}
 \textbf{Remark} Note that the \gls{rfq} entry screen contains prices; this is misleading
 at least: the printed output to be sent to the vendor does not. The fact that this screen
 allows entry of prices could be considered a bug.
-\end{quotation}
+\end{quote}
 
 After filling out the form in accordance with the description in \secref{sec-business-processes-quotations-creation},
 Jack expedites his \gls{rfq} to his vendor through e-mail by clicking the ``E-mail'' button. He finds

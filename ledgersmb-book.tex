@@ -20,13 +20,18 @@
  
 \documentclass[10pt,a4paper]{book}
 
+% Use block style paragraphs, not initial indent
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
 \usepackage{lmodern}
 \usepackage{url, palatino, color}
 % \usepackage[colorlinks, linkcolor=black, urlcolor=black]{hyperref}
 \usepackage{graphicx}
 \usepackage{longtable}
-\graphicspath{{images/}}
-
+\graphicspath{{images/}}	% This is the old path
+\newcommand{\graphicswidth}{0.8\textwidth}
+\newcommand{\autoscreenshotdir}{auto-screenshots}
 
 % For use of next line in description list
 \usepackage{enumitem}
