@@ -48,13 +48,17 @@ SQL
 
 # Basic characater conversion for tex characters that must be escaped.
 # For example in tex a bare '_' must be excaped to '\_'.
+# Normally these characters need escape: \ { } _ ^ # & $ % ~
 sub to_tex($text_in) {
-    # Key can only be a single character.
+    # Key can only be a single character. 
     my %map = (
         '_' => '\_',
         '<' => '\textless{}',
         '>' => '\textgreater{}',
-        '*' => '$\ast$'
+        '*' => '$\ast$',
+        '&' => '\&',
+        '$' => '\$',
+        '%' => '\%'
     );
     my $match_chars = join '', keys %map;
     my $result = $text_in =~ s/([$match_chars])/$map{$1}/gr;
@@ -112,7 +116,7 @@ SQL
     my $sth = $conn->prepare($sql);
     $sth -> execute($role_name_format);
     while (my $ref = $sth->fetchrow_hashref('NAME_lc') ) {
-        print "Found Before: $ref->{rolename} -> '$ref->{desc}'\n";
+        print "Found Before Processing: $ref->{rolename} -> '$ref->{desc}'\n";
         my $role_name = to_tex($ref->{rolename});
         my $role_desc = to_tex($ref->{desc});
 
@@ -122,7 +126,7 @@ SQL
         # Create an index for the role name
         my $index = $ref->{rolename} =~ s/_/ /gr;
 
-        print "Found Afte: $role_name -> '$role_desc'\n\n";
+        print "Found After Processing: $role_name -> '$role_desc'\n\n";
         push(@tex_array, "\\item [$role_name] \\htmlspacing $role_desc \\index{$index}");
     }
     push(@tex_array, description_epilog());
