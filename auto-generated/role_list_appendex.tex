@@ -1,34 +1,98 @@
-% Auto generated using LedgerSMB version 1.11.0-dev on May  1, 17:50:39 2023 CDT.
+% Auto generated using LedgerSMB version 1.11.0-dev on July 15, 07:24:54 2023 CDT.
 \begin{description}[style=nextline]
-\item [account\_all] \htmlspacing @@@ \index{account all}
-\item [account\_create] \htmlspacing @@@ \index{account create}
-\item [account\_delete] \htmlspacing @@@ \index{account delete}
-\item [account\_edit] \htmlspacing @@@ \index{account edit}
-\item [account\_link\_description\_create] \htmlspacing @@@ \index{account link description create}
-\item [ap\_all] \htmlspacing @@@ \index{ap all}
-\item [ap\_all\_transactions] \htmlspacing @@@ \index{ap all transactions}
-\item [ap\_all\_vouchers] \htmlspacing @@@ \index{ap all vouchers}
-\item [ap\_invoice\_create] \htmlspacing @@@ \index{ap invoice create}
-\item [ap\_invoice\_create\_voucher] \htmlspacing @@@ \index{ap invoice create voucher}
-\item [ap\_transaction\_all] \htmlspacing @@@ \index{ap transaction all}
-\item [ap\_transaction\_create] \htmlspacing @@@ \index{ap transaction create}
-\item [ap\_transaction\_create\_voucher] \htmlspacing @@@ \index{ap transaction create voucher}
-\item [ap\_transaction\_list] \htmlspacing @@@ \index{ap transaction list}
-\item [ar\_all] \htmlspacing @@@ \index{ar all}
-\item [ar\_invoice\_create] \htmlspacing @@@ \index{ar invoice create}
-\item [ar\_invoice\_create\_voucher] \htmlspacing @@@ \index{ar invoice create voucher}
-\item [ar\_transaction\_all] \htmlspacing @@@ \index{ar transaction all}
-\item [ar\_transaction\_create] \htmlspacing @@@ \index{ar transaction create}
-\item [ar\_transaction\_create\_voucher] \htmlspacing @@@ \index{ar transaction create voucher}
-\item [ar\_transaction\_list] \htmlspacing @@@ \index{ar transaction list}
-\item [ar\_voucher\_all] \htmlspacing @@@ \index{ar voucher all}
-\item [assembly\_stock] \htmlspacing @@@ \index{assembly stock}
-\item [assets\_administer] \htmlspacing @@@ \index{assets administer}
-\item [assets\_approve] \htmlspacing @@@ \index{assets approve}
-\item [assets\_depreciate] \htmlspacing @@@ \index{assets depreciate}
-\item [assets\_enter] \htmlspacing @@@ \index{assets enter}
-\item [audit\_trail\_maintenance] \htmlspacing @@@ \index{audit trail maintenance}
-\item [auditor] \htmlspacing @@@ \index{auditor}
+\item [account\_all] \htmlspacing 
+                         This role combines all \gls{GL} \index{GL}\index{General Ledger} account and GIFI code rights.
+                          \index{account all}
+\item [account\_create] \htmlspacing 
+                         This role allows creation of new \gls{GL} \index{GL}\index{General Ledger} accounts.
+                          \index{account create}
+\item [account\_delete] \htmlspacing 
+                         This role allows deletion of \gls{GL} \index{GL}\index{General Ledger} accounts.
+                         Please note that there are only very few circumstances
+                         where a \gls{GL} \index{GL}\index{General Ledger} account can be deleted.  Instead of deleting
+                         the account, the user is advised to mark the account
+                         as 'obsolete'.
+                          \index{account delete}
+\item [account\_edit] \htmlspacing 
+                         This role allows modification of \gls{GL} \index{GL}\index{General Ledger} accounts.
+                          \index{account edit}
+\item [account\_link\_description\_create] \htmlspacing 
+                         This role allows creating new use-cases for \gls{GL} \index{GL}\index{General Ledger}
+                         accounts (so called "account link descriptions").
+                          \index{account link description create}
+\item [ap\_all] \htmlspacing 
+                         This role combines all (batches of) purchase transaction and invoices permissions.
+                          \index{ap all}
+\item [ap\_invoice\_create] \htmlspacing 
+                         This role allows creation of new purchase invoices (not purchase transactions).
+                          \index{ap invoice create}
+\item [ap\_invoice\_create\_voucher] \htmlspacing 
+                         This role allows creation of batches of new purchase invoices (not purchase transactions).
+                          \index{ap invoice create voucher}
+\item [ap\_transaction\_all] \htmlspacing 
+                         This role allows creating and viewing purchase transactions and accounts as well as creating attachments.
+                          \index{ap transaction all}
+\item [ap\_transaction\_create] \htmlspacing 
+                         This role allows creation of purchase transactions (not invoices).
+                          \index{ap transaction create}
+\item [ap\_transaction\_create\_voucher] \htmlspacing 
+                         This role allows creation of batches of new purchase transactions (not invoices).
+                          \index{ap transaction create voucher}
+\item [ap\_transaction\_list] \htmlspacing 
+                         This role allows viewing of purchase transactions and invoices.
+                          \index{ap transaction list}
+\item [ap\_voucher\_all] \htmlspacing 
+                         This role allows creation of batches of both purchase transactions and invoices.
+                          \index{ap voucher all}
+\item [ar\_all] \htmlspacing 
+                         This role combines all (batches of) sales transaction and invoices permissions.
+                          \index{ar all}
+\item [ar\_invoice\_create] \htmlspacing 
+                         This role allows creation of new sales invoices (not sales transactions).
+                          \index{ar invoice create}
+\item [ar\_invoice\_create\_voucher] \htmlspacing 
+                         This role allows creation of batches of new sales invoices (not sales transactions).
+                          \index{ar invoice create voucher}
+\item [ar\_transaction\_all] \htmlspacing 
+                         This role allows creating and viewing sales transactions and accounts as well as creating attachments.
+                          \index{ar transaction all}
+\item [ar\_transaction\_create] \htmlspacing 
+                         This role allows creation of new sales transactions (not nvoices).
+                          \index{ar transaction create}
+\item [ar\_transaction\_create\_voucher] \htmlspacing 
+                         This role allows creation of batches of new sales transactions (not invoices).
+                          \index{ar transaction create voucher}
+\item [ar\_transaction\_list] \htmlspacing 
+                         This role allows viewing of sales transactions and invoices.
+                          \index{ar transaction list}
+\item [ar\_voucher\_all] \htmlspacing 
+                         This role allows creation of batches of both sales transactions and invoices.
+                          \index{ar voucher all}
+\item [assembly\_stock] \htmlspacing 
+                         This role allows triggering a stocking action on assemblies.
+
+                         Stocking assemblies means converting labor and parts to stocked assemblies.
+                          \index{assembly stock}
+\item [assets\_administer] \htmlspacing 
+                         This role combines all assets rights.
+                          \index{assets administer}
+\item [assets\_approve] \htmlspacing 
+                         This role allows approving the output of the
+                         depreciation procedure.
+                          \index{assets approve}
+\item [assets\_depreciate] \htmlspacing 
+                         This role allows running the asset depreciation
+                         procedure.
+                          \index{assets depreciate}
+\item [assets\_enter] \htmlspacing 
+                         This role allows creation of new assets.
+                          \index{assets enter}
+\item [audit\_trail\_maintenance] \htmlspacing 
+                         This role grants delete access to the audit trail table.
+                          \index{audit trail maintenance}
+\item [auditor] \htmlspacing 
+                         This role grants read access to the audit trail table.
+                          \index{auditor}
 \item [base\_user] \htmlspacing 
   Users need to be given this role in order to be granted access to the database schema which holds all LedgerSMB objects.
 
@@ -37,7 +101,9 @@
 \item [batch\_create] \htmlspacing 
                          This role allows creation of new batches and vouchers.
                           \index{batch create}
-\item [batch\_list] \htmlspacing @@@ \index{batch list}
+\item [batch\_list] \htmlspacing 
+                         This role allows listing existing batches.
+                          \index{batch list}
 \item [batch\_post] \htmlspacing 
                          This role allows posting batches of e.g. transactions, payments and invoices.
                           \index{batch post}
@@ -53,13 +119,24 @@
 \item [budget\_view] \htmlspacing 
                          This role allows searching and viewing of budgets.
                           \index{budget view}
-\item [business\_type\_all] \htmlspacing @@@ \index{business type all}
-\item [business\_type\_create] \htmlspacing @@@ \index{business type create}
-\item [business\_type\_edit] \htmlspacing @@@ \index{business type edit}
+\item [business\_type\_all] \htmlspacing 
+                         This role combines the create and edit righs for
+                         'type of business' classes.
+                          \index{business type all}
+\item [business\_type\_create] \htmlspacing 
+                         This role allows creation of new 'type of business'
+                         classes.
+                          \index{business type create}
+\item [business\_type\_edit] \htmlspacing 
+                         This role allows modification of 'type of business'
+                         classes.
+                          \index{business type edit}
 \item [business\_units\_manage] \htmlspacing 
                          This role allows searching, viewing, creation and editing of business (reporting) classes and their members.
                           \index{business units manage}
-\item [cash\_all] \htmlspacing @@@ \index{cash all}
+\item [cash\_all] \htmlspacing 
+                         This role combines the all reconciliation rights with the rights to enter payments and receipts.
+                          \index{cash all}
 \item [contact\_all\_rights] \htmlspacing 
                          This role combines all 'contact\_class\_$\ast$' and 'contact\_$\ast$' roles and grants all access rights to all contact classes.
                           \index{contact all rights}
@@ -118,7 +195,7 @@
                          creation of new entities, persons and companies (contacts).
 
                          Each contact\_class\_\textless{}resource\textgreater{} role, when paired with contact\_read, enables
-                         this access for the specific \textless{}resource\textgreater{}. On it's own, the contact\_read-role
+                         this access for the specific \textless{}resource\textgreater{}. On it's own, the contact\_create-role
                          does not provide any rights.
                           \index{contact create}
 \item [contact\_delete] \htmlspacing 
@@ -129,7 +206,7 @@
                          needs to be assigned the 'contact\_read' role.
 
                          Each contact\_class\_\textless{}resource\textgreater{} role, when paired with contact\_read, enables
-                         this access for the specific \textless{}resource\textgreater{}. On it's own, the contact\_read-role
+                         this access for the specific \textless{}resource\textgreater{}. On it's own, the contact\_delete-role
                          does not provide any rights.
                           \index{contact delete}
 \item [contact\_edit] \htmlspacing 
@@ -137,7 +214,7 @@
                          editing of existing entities, persons and companies (contacts).
 
                          Each contact\_class\_\textless{}resource\textgreater{} role, when paired with contact\_read, enables
-                         this access for the specific \textless{}resource\textgreater{}. On it's own, the contact\_read-role
+                         this access for the specific \textless{}resource\textgreater{}. On it's own, the contact\_edit-role
                          does not provide any rights.
                           \index{contact edit}
 \item [contact\_read] \htmlspacing 
@@ -148,9 +225,15 @@
                          this access for the specific \textless{}resource\textgreater{}. On it's own, the contact\_read-role
                          does not provide any rights.
                           \index{contact read}
-\item [country\_all] \htmlspacing @@@ \index{country all}
-\item [country\_create] \htmlspacing @@@ \index{country create}
-\item [country\_edit] \htmlspacing @@@ \index{country edit}
+\item [country\_all] \htmlspacing 
+                         This role combines all rights for countries.
+                          \index{country all}
+\item [country\_create] \htmlspacing 
+                         This role allows creation of new countries.
+                          \index{country create}
+\item [country\_edit] \htmlspacing 
+                         This role allows modification of countries.
+                          \index{country edit}
 \item [draft\_modify] \htmlspacing 
                          This role allows modification of existing draft (= saved) transactions.
                           \index{draft modify}
@@ -184,72 +267,229 @@
 \item [file\_upload] \htmlspacing 
                          This role allows uploading of files through the system menu.
                           \index{file upload}
-\item [financial\_reports] \htmlspacing @@@ \index{financial reports}
-\item [gifi\_create] \htmlspacing @@@ \index{gifi create}
-\item [gifi\_edit] \htmlspacing @@@ \index{gifi edit}
-\item [gl\_all] \htmlspacing @@@ \index{gl all}
-\item [gl\_reports] \htmlspacing @@@ \index{gl reports}
-\item [gl\_transaction\_create] \htmlspacing @@@ \index{gl transaction create}
-\item [gl\_voucher\_create] \htmlspacing @@@ \index{gl voucher create}
-\item [inventory\_adjust] \htmlspacing @@@ \index{inventory adjust}
-\item [inventory\_all] \htmlspacing @@@ \index{inventory all}
-\item [inventory\_approve] \htmlspacing @@@ \index{inventory approve}
-\item [inventory\_receive] \htmlspacing @@@ \index{inventory receive}
-\item [inventory\_reports] \htmlspacing @@@ \index{inventory reports}
-\item [inventory\_ship] \htmlspacing @@@ \index{inventory ship}
-\item [inventory\_transfer] \htmlspacing @@@ \index{inventory transfer}
-\item [language\_create] \htmlspacing @@@ \index{language create}
-\item [language\_edit] \htmlspacing @@@ \index{language edit}
-\item [orders\_generate] \htmlspacing @@@ \index{orders generate}
-\item [orders\_manage] \htmlspacing @@@ \index{orders manage}
-\item [orders\_purchase\_consolidate] \htmlspacing @@@ \index{orders purchase consolidate}
-\item [orders\_sales\_consolidate] \htmlspacing @@@ \index{orders sales consolidate}
-\item [orders\_sales\_to\_purchase] \htmlspacing @@@ \index{orders sales to purchase}
-\item [part\_create] \htmlspacing @@@ \index{part create}
-\item [part\_delete] \htmlspacing @@@ \index{part delete}
-\item [part\_edit] \htmlspacing @@@ \index{part edit}
-\item [payment\_process] \htmlspacing @@@ \index{payment process}
-\item [pricegroup\_create] \htmlspacing @@@ \index{pricegroup create}
-\item [pricegroup\_edit] \htmlspacing @@@ \index{pricegroup edit}
-\item [purchase\_order\_create] \htmlspacing @@@ \index{purchase order create}
-\item [purchase\_order\_delete] \htmlspacing @@@ \index{purchase order delete}
-\item [purchase\_order\_edit] \htmlspacing @@@ \index{purchase order edit}
-\item [purchase\_order\_list] \htmlspacing @@@ \index{purchase order list}
-\item [receipt\_process] \htmlspacing @@@ \index{receipt process}
-\item [reconciliation\_all] \htmlspacing @@@ \index{reconciliation all}
-\item [reconciliation\_approve] \htmlspacing @@@ \index{reconciliation approve}
-\item [reconciliation\_enter] \htmlspacing @@@ \index{reconciliation enter}
-\item [recurring] \htmlspacing @@@ \index{recurring}
-\item [rfq\_create] \htmlspacing @@@ \index{rfq create}
-\item [rfq\_delete] \htmlspacing @@@ \index{rfq delete}
-\item [rfq\_list] \htmlspacing @@@ \index{rfq list}
-\item [sales\_order\_create] \htmlspacing @@@ \index{sales order create}
-\item [sales\_order\_delete] \htmlspacing @@@ \index{sales order delete}
-\item [sales\_order\_edit] \htmlspacing @@@ \index{sales order edit}
-\item [sales\_order\_list] \htmlspacing @@@ \index{sales order list}
-\item [sales\_quotation\_create] \htmlspacing @@@ \index{sales quotation create}
-\item [sales\_quotation\_delete] \htmlspacing @@@ \index{sales quotation delete}
-\item [sales\_quotation\_list] \htmlspacing @@@ \index{sales quotation list}
-\item [sic\_all] \htmlspacing @@@ \index{sic all}
-\item [sic\_create] \htmlspacing @@@ \index{sic create}
-\item [sic\_edit] \htmlspacing @@@ \index{sic edit}
-\item [system\_admin] \htmlspacing @@@ \index{system admin}
-\item [system\_settings\_change] \htmlspacing @@@ \index{system settings change}
-\item [system\_settings\_list] \htmlspacing @@@ \index{system settings list}
-\item [tax\_form\_save] \htmlspacing @@@ \index{tax form save}
-\item [taxes\_set] \htmlspacing @@@ \index{taxes set}
-\item [template\_edit] \htmlspacing @@@ \index{template edit}
-\item [timecard\_add] \htmlspacing @@@ \index{timecard add}
-\item [timecard\_list] \htmlspacing @@@ \index{timecard list}
-\item [timecard\_order\_generate] \htmlspacing @@@ \index{timecard order generate}
-\item [transaction\_template\_delete] \htmlspacing @@@ \index{transaction template delete}
-\item [translation\_create] \htmlspacing @@@ \index{translation create}
-\item [users\_manage] \htmlspacing @@@ \index{users manage}
+\item [financial\_reports] \htmlspacing 
+                         This role allows running of financial reports:
+                         Income Statement, Balance Sheet, Trial Balance and
+                         Inventory \& COGS.
+                          \index{financial reports}
+\item [gifi\_create] \htmlspacing 
+                         This role allows creation of new GIFI codes.
+                          \index{gifi create}
+\item [gifi\_edit] \htmlspacing 
+                         This role allows modification of GIFI codes.
+                          \index{gifi edit}
+\item [gl\_all] \htmlspacing 
+                         This role combines \gls{GL} \index{GL}\index{General Ledger} transaction and batch creation
+                         with \gls{GL} \index{GL}\index{General Ledger} reporting and year-end processing.
+                          \index{gl all}
+\item [gl\_reports] \htmlspacing 
+                         This role allows searching transactions in the general ledger.
+                          \index{gl reports}
+\item [gl\_transaction\_create] \htmlspacing 
+                         This role allows creation of new and updating of saved \gls{GL} \index{GL}\index{General Ledger} transactions.
+                          \index{gl transaction create}
+\item [gl\_voucher\_create] \htmlspacing 
+                         This role allows creation of batches of \gls{GL} \index{GL}\index{General Ledger} transactions.
+                          \index{gl voucher create}
+\item [inventory\_adjust] \htmlspacing 
+                         This role allows adjusting inventory by creating inventory adjustment reports.
+                          \index{inventory adjust}
+\item [inventory\_all] \htmlspacing 
+                         This role grants all rights to manage warehouse configuration, stock receipt, shipping and transfer.
+                          \index{inventory all}
+\item [inventory\_approve] \htmlspacing 
+                         This role allows confirmation of inventory adjustments by approval of inventory adjustment reports.
+                          \index{inventory approve}
+\item [inventory\_receive] \htmlspacing 
+                         This role allows receiving of parts into stock.
+                          \index{inventory receive}
+\item [inventory\_reports] \htmlspacing 
+                         This role allows searching for and reading existing inventory adjustment reports.
+                          \index{inventory reports}
+\item [inventory\_ship] \htmlspacing 
+                         This role allows shipping of stocked parts.
+                          \index{inventory ship}
+\item [inventory\_transfer] \htmlspacing 
+                         This role allows moving stock between warehouses.
+                          \index{inventory transfer}
+\item [language\_create] \htmlspacing 
+                         This role allows creation of new languages.
+                          \index{language create}
+\item [language\_edit] \htmlspacing 
+                         This role allows modification of languages.
+                          \index{language edit}
+\item [orders\_generate] \htmlspacing 
+                         This role combines the rights to generate orders from
+                         time cards, purchase orders from sales orders
+                         and consolidate (purchase and sales) orders.
+                          \index{orders generate}
+\item [orders\_manage] \htmlspacing 
+                         This role combines all order generation and
+                         consolidation rights.
+                          \index{orders manage}
+\item [orders\_purchase\_consolidate] \htmlspacing 
+                         This role allows generating consolidated purchase
+                         orders from multiple outstanding purchase orders.
+                          \index{orders purchase consolidate}
+\item [orders\_sales\_consolidate] \htmlspacing 
+                         This role allows generating consolidated sales
+                         orders from multiple outstanding sales orders.
+                          \index{orders sales consolidate}
+\item [orders\_sales\_to\_purchase] \htmlspacing 
+                         This role allows generating purchase orders
+                         from sales orders.
+                          \index{orders sales to purchase}
+\item [part\_create] \htmlspacing 
+                         This role allows creation of new parts.
+
+                         So as to let the user of this role see/manage pricing per customer, this role includes
+                         the ability to read contacts.
+                          \index{part create}
+\item [part\_delete] \htmlspacing 
+                         This role allows deletion of existing parts.
+                          \index{part delete}
+\item [part\_edit] \htmlspacing 
+                         This role allows changing existing parts.
+                          \index{part edit}
+\item [payment\_process] \htmlspacing 
+                         This role allows entry of payments to vendors.
+                          \index{payment process}
+\item [pricegroup\_create] \htmlspacing 
+                         This role allows creation of new price groups.
+                          \index{pricegroup create}
+\item [pricegroup\_edit] \htmlspacing 
+                         This role allows changing existing price groups.
+                          \index{pricegroup edit}
+\item [purchase\_order\_create] \htmlspacing 
+                         This role allows creating purchase orders.
+                          \index{purchase order create}
+\item [purchase\_order\_delete] \htmlspacing 
+                         This role allows (searching for and) deleting existing purchase orders.
+                          \index{purchase order delete}
+\item [purchase\_order\_edit] \htmlspacing 
+                         This role allows (searching for and) modifying existing purchase orders.
+                          \index{purchase order edit}
+\item [purchase\_order\_list] \htmlspacing 
+                         This role allows searching and viewing sales orders.
+                          \index{purchase order list}
+\item [receipt\_process] \htmlspacing 
+                         This role allows entry of receipts from customers.
+                          \index{receipt process}
+\item [reconciliation\_all] \htmlspacing 
+                         This role combines creation, updating and approval rights for reconciliation reports.
+                          \index{reconciliation all}
+\item [reconciliation\_approve] \htmlspacing 
+                         This role allows approval of reconciliation reports.
+                          \index{reconciliation approve}
+\item [reconciliation\_enter] \htmlspacing 
+                         This role allows creation and updating of reconciliation reports.
+                          \index{reconciliation enter}
+\item [recurring] \htmlspacing 
+                         This role allows access to the Recurring Transactions
+                         menu; it does not grant rights to list or create
+                         transactions.
+                          \index{recurring}
+\item [rfq\_create] \htmlspacing 
+                         This role allows creating (purchase) requests for quotation.
+                          \index{rfq create}
+\item [rfq\_delete] \htmlspacing 
+                         This role allows (searching for and) deleting existing requests for quotation.
+                          \index{rfq delete}
+\item [rfq\_list] \htmlspacing 
+                         This role allows searching and viewing (purchase) requests for quotation.
+                          \index{rfq list}
+\item [sales\_order\_create] \htmlspacing 
+                         This role allows creating sales orders.
+                          \index{sales order create}
+\item [sales\_order\_delete] \htmlspacing 
+                         This role allows (searching for and) deleting existing sales orders.
+                          \index{sales order delete}
+\item [sales\_order\_edit] \htmlspacing 
+                         This role allows (searching for and) modifying existing sales orders.
+                          \index{sales order edit}
+\item [sales\_order\_list] \htmlspacing 
+                         This role allows searching and viewing sales orders.
+                          \index{sales order list}
+\item [sales\_quotation\_create] \htmlspacing 
+                         This role allows creating sales quotations.
+                          \index{sales quotation create}
+\item [sales\_quotation\_delete] \htmlspacing 
+                         This role allows (searching for and) deleting existing sales quotations.
+                          \index{sales quotation delete}
+\item [sales\_quotation\_list] \htmlspacing 
+                         This role allows searching and viewing sales quotations.
+                          \index{sales quotation list}
+\item [sic\_all] \htmlspacing 
+                         This role combines all rights for Standardized Industry
+                         Codes (SIC).
+                          \index{sic all}
+\item [sic\_create] \htmlspacing 
+                         This role allows creation of new Standardized Industry
+                         Codes (SIC).
+                          \index{sic create}
+\item [sic\_edit] \htmlspacing 
+                         This role allows modification of Standardized Industry
+                         Codes (SIC).
+                          \index{sic edit}
+\item [system\_admin] \htmlspacing 
+                         This role combines the rights to manage settings,
+                         \gls{GL} \index{GL}\index{General Ledger} accounts, types of business, SIC, users and tax
+                         forms.
+                          \index{system admin}
+\item [system\_settings\_change] \htmlspacing 
+                         This role allow changing items in the
+                         System \textgreater{} Defaults menu.
+                          \index{system settings change}
+\item [system\_settings\_list] \htmlspacing 
+                         This role allows viewing items in the System \textgreater{} Defaults
+                         menu.
+                          \index{system settings list}
+\item [tax\_form\_save] \htmlspacing 
+                         This role allows modification of tax forms.
+                          \index{tax form save}
+\item [taxes\_set] \htmlspacing 
+                         This role allows changing tax rates on tax accounts.
+                          \index{taxes set}
+\item [template\_edit] \htmlspacing 
+                         This role allows modification of document
+                         (e.g. invoice) templates.
+                          \index{template edit}
+\item [timecard\_add] \htmlspacing 
+                         This role allows adding time cards for which it needs
+                         read access to customers.
+                          \index{timecard add}
+\item [timecard\_list] \htmlspacing 
+                         This role allows viewing the list of time cards;
+                         for which it needs read access to customers.
+                          \index{timecard list}
+\item [timecard\_order\_generate] \htmlspacing 
+                         This role allows generating orders from time cards.
+                          \index{timecard order generate}
+\item [transaction\_template\_delete] \htmlspacing 
+                         This role allows deletion of template (i.e. unposted)
+                         transactions.
+                          \index{transaction template delete}
+\item [translation\_create] \htmlspacing 
+                         This role allows creation of translations for parts,
+                         parts groups and reporting units.
+                          \index{translation create}
+\item [users\_manage] \htmlspacing 
+                         This role allows addition and removal of users to
+                         the current company.
+                          \index{users manage}
 \item [voucher\_delete] \htmlspacing 
                          This role allows deletion of vouchers (i.e. groups of e.g. payments).
                           \index{voucher delete}
-\item [warehouse\_create] \htmlspacing @@@ \index{warehouse create}
-\item [warehouse\_edit] \htmlspacing @@@ \index{warehouse edit}
-\item [yearend\_reopen] \htmlspacing @@@ \index{yearend reopen}
-\item [yearend\_run] \htmlspacing @@@ \index{yearend run}
+\item [warehouse\_create] \htmlspacing 
+                         This role allows creation of (configuration of) new warehouses.
+                          \index{warehouse create}
+\item [warehouse\_edit] \htmlspacing 
+                         This role allows updating of (configuration of) existing warehouses.
+                          \index{warehouse edit}
+\item [yearend\_reopen] \htmlspacing 
+                         This role allows undoing a prior year-end run by reversing the year-end transaction.
+                          \index{yearend reopen}
+\item [yearend\_run] \htmlspacing 
+                         This role allows running the year-end process, i.e. clearing the P\&L.
+                          \index{yearend run}
 \end{description}
