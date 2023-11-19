@@ -58,5 +58,9 @@ To execute these scripts the following are required:
 
 * Perl v5.34.1 or later - Earlier versions may work, but have not been tested
 * Selenium::Firefox - Tested with version 1.49
-* DBI - Tested with version 1.643
+* DBI - Tested with version 1.643 
 * Access to a running LedgerSMB server with access to both the LSMB server and direct access to its database
+
+On Ubuntu 22.10:
+
+* libdbi-perl, libdbd-pg-perl
