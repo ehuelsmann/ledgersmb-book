@@ -94,7 +94,7 @@ mv ledgersmb-book.pdf ${dest_path}
 
 
 # echo 'Clean up the latex files'
-# This means everything will be rebuild from scratch next time.
+# This means everything will be rebuilt from scratch next time.
 # Probably a better way to do this like moving the aux files to /tmp.
 # latexmk -C
 
