@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # For local build and testing
 set -e 
@@ -8,8 +8,12 @@ img_path=$base_path/images
 dest_path=$base_path/scripts/local-build
 tmp_path=/tmp
 
-# Backup to the main directory for processing
+# Backup to the root directory for processing
 cd ..
+
+# Older versions of this script had this directory at the root,
+# which is no longer used.
+rm -rfv local-build
 
 # Make sure the destination exists
 mkdir -p $dest_path
