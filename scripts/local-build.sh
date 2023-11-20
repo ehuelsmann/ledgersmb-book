@@ -1,18 +1,27 @@
-#!/bin/sh
+#!/bin/bash
 
 # For local build and testing
 set -e 
 
 base_path=.
 img_path=$base_path/images
-dest_path=$base_path/local-build
+dest_path=$base_path/scripts/local-build
 tmp_path=/tmp
 
+# Backup to the root directory for processing
+cd ..
+
+# Older versions of this script had this directory at the root,
+# which is no longer used.
+rm -rfv local-build
+
+# Make sure the destination exists
 mkdir -p $dest_path
-cd $base_path
 
 if [[ $1 = '--use-pdf-latex' ]]; then
 
+    # Builds everything needed or not
+    
     # Set the stage for building the glossaries
     pdflatex -file-line-error ledgersmb-book.tex
     # Build the glossaries
@@ -22,25 +31,22 @@ if [[ $1 = '--use-pdf-latex' ]]; then
 
 elif [[ $1 = '--use-latex-mk' ]]; then
 
-    # Make PDF
-    # Not able to get latexmk to process glossaries correctly right now.
+    # Only builds files that have changed
+    #    -diagnostics \
+    
     latexmk -dvi- \
-        -gg \
         -interaction=nonstopmode \
         -pdf \
         -silent \
-        -pdflatex \
-        # -aux-directory=${tmp_path} \
-        # -output-directory=${base_path}
         ledgersmb-book.tex
 
 else
 
-    # Check for help or no args to provide help.
+    # Show help when one of --use-latex-mk or --use-pdf-latex is not provided.
     echo "Required options to $0 are one of:"
     echo "  --help"
-    echo "  --use-pdf-latex"
-    echo "  --use-latex-mk # FIXME: Not working right now."
+    echo "  --use-pdf-latex (not recommended anymore)"
+    echo "  --use-latex-mk"
     if [[ $1 != '--help' ]]; then
         echo "One arg must be specified."
         exit 1
@@ -49,9 +55,12 @@ else
 
 fi
 
+# move the pdf so it does not get cleaned up
+mv ledgersmb-book.pdf ${dest_path}
+
 echo 'Make XML'
 latexml --inputencoding=utf-8 \
-        --path=$img_path/ \
+        --path=${base_path}/$img_path/ \
         --destination=book.xml \
         --verbose \
         $base_path/ledgersmb-book.tex
@@ -89,15 +98,9 @@ for i in full-book split-book ; do
   mv $tmp_path/$i $dest_path
 done
 
-# move the pdf so it does not get cleaned up
-mv ledgersmb-book.pdf ${dest_path}
-
-
 # echo 'Clean up the latex files'
-# This means everything will be rebuild from scratch next time.
-# Probably a better way to do this like moving the aux files to /tmp.
+# This means everything will be rebuilt from scratch next time.
 # latexmk -C
-
 
 echo "The full book can be found at: $dest_path/full-book/index.html"
 echo "The split book can be found at: $dest_path/split-book/index.html"

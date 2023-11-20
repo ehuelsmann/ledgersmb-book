@@ -2,7 +2,7 @@
 
 For LedgerSMB Small and Medium business accounting and ERP
 
-# DESCRIPTION
+## DESCRIPTION
 
 The LedgerSMB Book is the documentation for the open source [LedgerSMB](https://ledgersmb.org) small and medium business accounting and ERP system.
 
@@ -10,7 +10,7 @@ The source for the LedgerSMB accounting system can be found on [github](https://
 
 The source for the LedgerSMB Book can be found on [github](https://github.com/ehuelsmann/ledgersmb-book).
 
-# Build Requirements
+## Build Requirements
 
 The book should build with any recent LaTeX installation. The book is expected to produce both HTML and PDF and is currently tested with:
 
@@ -26,7 +26,7 @@ The Book also builds in PDF format without using the `local-build.sh` script usi
 
 The first time the book is built in a clean repository using TeXstudio or TeXShop the glossary or index build may error out or not be included into the PDF. This is normally fixed by making sure that TeXstudio or TeXShop are using `latexmk` instead of `pdflatex` for the build command.
 
-# Development Requirements
+## Development Requirements
 
 Since the build process uses LaTeXML the only packages that can be in the LaTeX source are those compatible with LaTeXML.  The acceptable package list can be found at [LaTeXML Bindings](https://math.nist.gov/~BMiller/LaTeXML/manual/included.bindings/).
 
@@ -50,7 +50,7 @@ Used as follows:
 Additional technical documentation which is useful when writing documentation can be found at:
 [https://docs.ledgersmb.org](https://docs.ledgersmb.org)
 
-# Scripts Directory
+## Scripts Directory
 
 The directory `scripts` contains Perl scripts used to manually retrieve information from various sources for inclusion in the book.
 
