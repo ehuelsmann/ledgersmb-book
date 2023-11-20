@@ -2,6 +2,36 @@
 
 Collected notes about development in this repository.
 
+## Local Test Environment
+
+Using `ubuntu-20.04.6-live-server-amd64.iso` as the base run the following:
+
+```bash
+#!/bin/bash
+set -e
+set -x
+
+# Setup Ubuntu to make LSMB Book 
+sudo apt update
+sudo apt -y upgrade
+
+# These installs are from the book github action, which should always be consulted for changes.
+# https://github.com/ehuelsmann/ledgersmb-book/blob/master/.github/workflows/typeset.yml
+sudo apt-get install -y gcc make cpanminus libxslt1-dev libxml-libxml-perl 
+sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended libxml-perl latexml
+
+# For local-build.sh
+sudo apt-get install -y latexmk
+
+# For `gather-db-info.pl`
+
+# For `get-screen-shots.pl`
+
+git clone https://github.com/neilt/ledgersmb-book.git
+				
+sudo shutdown -r now
+```
+
 ## Experimenting with alternative converters to HTML
 
 ### LaTeXML
