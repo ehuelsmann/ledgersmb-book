@@ -1,5 +1,7 @@
 # LedgerSMB Book Development Notes
 
+Collected notes about development in this repository.
+
 ## Experimenting with alternative converters to HTML
 
 ### LaTeXML
