@@ -4,9 +4,9 @@ Collected notes about development in this repository.
 
 ## Local Test Environment
 
-Using `ubuntu-20.04.6-live-server-amd64.iso` as the base run the following:
+Using `ubuntu-22.04.3-live-server-amd64.iso` as the base run the following:
 
-```bash
+```bash 
 #!/bin/bash
 set -e
 set -x
@@ -15,10 +15,11 @@ set -x
 sudo apt update
 sudo apt -y upgrade
 
-# These installs are from the book github action, which should always be consulted for changes.
+# From the book github action, which should always be consulted for changes.
 # https://github.com/ehuelsmann/ledgersmb-book/blob/master/.github/workflows/typeset.yml
 sudo apt-get install -y gcc make cpanminus libxslt1-dev libxml-libxml-perl 
 sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended libxml-perl latexml
+sudo cpanm --notest LaTeXML
 
 # For local-build.sh
 sudo apt-get install -y latexmk
