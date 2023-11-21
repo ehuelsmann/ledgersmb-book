@@ -25,8 +25,10 @@ sudo cpanm --notest LaTeXML
 sudo apt-get install -y latexmk
 
 # For `gather-db-info.pl`
+sudo apt-get install -y libdbi-perl libdbd-pg-perl 
 
 # For `get-screen-shots.pl`
+sudo apt-get install -y libtest-www-selenium-perl
 
 git clone https://github.com/neilt/ledgersmb-book.git
 				

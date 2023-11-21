@@ -110,7 +110,7 @@ SQL
     # Accumulate the Latex to write to file.
     my $date = localtime->strftime('%B %e, %X %Y %Z');
     my $lsmb_version = get_lsmb_db_version($conn);
-    my @tex_array = "% Auto generated using LedgerSMB version ${lsmb_version} on $date.";
+    my @tex_array = "\nAuto generated using LedgerSMB version ${lsmb_version} on $date.\n";
     push (@tex_array, description_prolog());
 
     my $sth = $conn->prepare($sql);
@@ -137,7 +137,7 @@ SQL
 # Main
 #------------
 print "Example Usage:\n";
-print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='jack' PGUSER='postgres' PGPASSWORD='abc' perl gather-db-info.pl\n";
+print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='example_inc' PGUSER='postgres' PGPASSWORD='abc' perl gather-db-info.pl\n";
 
 # use environment variables for authentication
 # host         PGHOST                  local domain socket
