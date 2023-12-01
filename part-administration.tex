@@ -300,7 +300,7 @@ The other fields in this section of the screen are optional:
 \item [Drawing]
 \item [Microfiche]
 \item [Unit] A five-character field shown on the invoice
-\item [Weight] Informational; can be used by \glspl{add-on} or customizations
+\item [Weight] Informational; can be used by \glspl{add-on} or when customizing
 \item [ROP] Reorder point - when the inventory drops below this number,
      the part will show up in ``Short parts'' reports
 \item [Bin] The storage location in the warehouse
@@ -309,7 +309,7 @@ The other fields in this section of the screen are optional:
 
 Apart from these fields, there are also the Make and Model paired fields. Every part
 can have as many Make/Model lines as required. They are informational, but can be used
-in customizations of the software.
+when customizing the software.
 
 The Average Cost and On Hand fields are output-only calculated fields. Average Cost is
 calculated from the historic buying prices. On Hand is the current inventory, which is
@@ -326,7 +326,7 @@ and rate. E.g. in the Netherlands, there's one VAT tax type (BTW) which has two 
 one of which applies to every product. This setup requires two accounts. There's more
 on the subject of sales taxes in \charef{cha-taxes}.
 
-By checking the checkmark on an account, the system is signalled to calculate that
+By checking the check mark on an account, the system is signaled to calculate that
 kind of tax for the part {\it if the customer (or vendor) has the appropriate setup}
 as described in section
 
@@ -339,7 +339,7 @@ purchased, with purchasing information for the given vendor:
 
 \begin{description}[style=nextline]
 \item [Vendor code] Code used by the vendor to identify the good, to be used by
-    customizations and future enhancements (currently informational only)
+     and future customization and enhancements (currently informational only)
 \item [Lead time] Lead time of the part from the vendor in days
 \item [Last cost] Last price at which the good was purchased from the vendor
 \item [Currency] The currency belonging to the Last cost field
@@ -367,14 +367,13 @@ attaching files to quotations, which is covered in \secref{sec-business-processe
 \subsection{Definition of part groups}
 \label{subsec-parts-groups}
 
-All goods and services can be categorized in 'part groups'. Upon lookup, these can
-help to limit the number of matches when searching for a partial part number.
+When adding parts, services, or overhead in Goods and Services they can be categorized in 'part groups' \index{part group}.
+When searching, the part group can help to limit the number of matches.  Currently, this is the only use of 'part groups'.
 
-As long as no part groups have been defined, the part group assignment field doesn't
-show up on the goods entry screens.
+When no part groups have been defined, the part group assignment field doesn't
+show up on any of the goods entry screens. Part groups never show up on the add assembly screen.
 
-There's no requirement that a good be assigned to any specific part group if part
-groups have been configured, however, a good can be assigned to more than one part group.
+There's no requirement that a good be assigned to any specific part group.
 
 \subsection{Definition of assemblies}
 \label{subsec-assemblies-definition}
