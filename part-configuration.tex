@@ -56,17 +56,103 @@ LedgerSMB version numbers \index{version number} are in the form of Major.Minor.
 \item [Optional Tag] Common values include dev, beta, or alpha. Typically, these are only used internally by the LedgerSMB developers.
 \end{description}
 
-\section{LedgerSMB}
+\section{LedgerSMB Configuration}
 \label{sec-global-config-ledgersmb}
 
-LedgerSMB configuration using 'ledgersmb.conf' is deprecated as of 1 Jan 2023. New functionality may only available when using `ledgersmb.yaml` configuration file.
+LedgerSMB configuration using \texttt{ledgersmb.conf} \index{ledgersmb.conf} is deprecated as of 1 Jan 2023. New functionality may only available when using \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} configuration file.
 
 For the time being there is a conversion step that converts the old 'ledgersmb.conf' to `ledgersmb.yaml`, but the old conf file does not support new functionality.
 
 \subsection{ledgersmb.yaml}
 \label{subsec-global-config-ledgersmb-yaml}
 
+For the default, non debug \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} see  \url{https://github.com/ledgersmb/LedgerSMB/blob/master/doc/conf/ledgersmb.yaml}
 
+\subsubsection{\texttt{cookie}}
+ @@@TODO
+
+\subsubsection{\texttt{db}}
+ @@@TODO
+
+\subsubsection{\texttt{default\_locale}}
+@@@TODO
+
+\subsubsection{\texttt{environment\_variables}}
+ @@@TODO
+
+\subsubsection{\texttt{extra\_middleware}}
+@@@TODO
+
+\subsubsection{\texttt{logging}}
+@@@TODO
+
+\subsubsection{\texttt{login\_settings}}
+@@@TODO
+
+\subsubsection{\texttt{mail}}
+
+Email \index{mail} can be configured by selecting which of the two available transports to use. The default \texttt{ledgersmb.yaml} file contains examples of both.
+
+\begin{description}
+\item{\texttt{Email::Sender::Transport::Sendmail}} – The email is sent using the local server's \texttt{sendmail} \index{sendmail} binary. The options are:
+    \begin{description}
+        \item{\texttt{transport:\$class}} – The required transport to use.
+        \item{\texttt{transport:path}} – optionally provide a path to the directory that contains the 'sendmail' binary.
+    \end{description}
+    
+\item{ LedgerSMB::Mailer::TransportSMTP} - This email \index{email} is sent using a remove SMTP server.  The options are:
+    \begin{description}
+        \item{\texttt{transport:\$class}} – The required transport to use.
+        \item {\texttt{transport:host}} – The required host name of the smtp \index{ SMTP} server.
+        \item {\texttt{transport:port}} – The required port number of the smtp server. Note this might vary depending on whether TLS or SSL is used.
+        \item {\texttt{sasl\_username:\$class}} – The required smtp server authentication method
+        \item {\texttt{sasl\_username:mechanism}} – @@@TODO What options are available here?
+        \item {\texttt{sasl\_username:callback:user}} – The required SMTP user name.  @@@TODO I assume 'the-user' is just a place holder.
+        \item {\texttt{sasl\_username:callback:pass}} – The required SMTP password.  @@@TODO what does 'SECURITY-FIRST' mean?  Is this just a place holder or does it have meaning to pick up the password from some other place?
+    \end{description}
+    
+\end{description}
+
+\subsubsection{\texttt{miscellaneous}}
+@@@TODO
+
+\subsubsection{\texttt{output\_formatter}}
+@@@TODO  I really don't have a good way to format lists explanations.  See below at \texttt{paths:config:workflows} for an example. Guidance welcome.
+
+\subsubsection{\texttt{paths}}
+
+This section configures the various paths used by LedgerSMB. The configuration parameters are:
+
+\begin{description}
+    \item {\texttt{config:locale}} – Path to locale files. Defaults to \texttt{locale/po}.
+    \item {\texttt{config:sql}} – @@@TODO
+    \item {\texttt{config:sql\_data}} – @@@TODO
+    \item {\texttt{config:templates}} – Templates base directory. Typically set to \texttt{templates}.
+    \item {\texttt{config:UI}} – @@@TODO
+    \item {\texttt{config:UI\_cache}} – @@@TODO
+    \item {\texttt{config:workflows}} – A list of the Directories where workflow files are stored. Contains the default and custom workflows.  Custom workflows are used to override behavior of the default workflows by providing actions, conditions, etc. with the same name and type or by providing workflows of the same type with additional states and actions. Default workflows defaults to \texttt{workflows}. Custom workflows defaults to \texttt{custom\_workflows}. Default workflow path must precede all the custom workflow paths. @@@TODO is the last statement correct?  Can there be more than 2 paths?
+\end{description}
+
+\subsubsection{\texttt{printers}}
+This section contains a list of printers \index{printing} and their definition.
+
+The default  \texttt{ledgersmb.yaml} file shows two printers named 'Laser' and 'Epson' with the printers defined using the linux \texttt{lpr} command and its arguments. 
+
+This default definition will provide for the selection of the printers named  'Laser' and 'Epson' in the LedgerSMB user interface.
+
+For more information search the internet for 'linux lpr command' or use \texttt{man lpr} at the linux command line.
+
+\subsubsection{\texttt{reconciliation\_importer}}
+ @@@TODO
+
+\subsubsection{\texttt{setup\_settings}}
+@@@TODO
+
+\subsubsection{\texttt{ui}}
+@@@TODO
+
+\subsubsection{\texttt{workflows}}
+@@@TODO
 
 \chapter{Per company configuration}
 \label{cha-company-config}
@@ -295,7 +381,7 @@ holes.
 \subsubsection{Default E-mail addresses}
 \label{subsubsec-company-config-defaults-email}
 
-These addresses will be used to send e-mails from the system.
+These addresses will be used to send e-mails \index{email} from the system.
 Note that the ``Default Email From'' address should be configured in order to make sure
 e-mail doesn't look like it's coming from your webserver. The format to be used is \texttt{``Name'' <e-mail address>} where the e-mail address should be inserted between the
 ``$\langle$'' and ``$\rangle$''.
