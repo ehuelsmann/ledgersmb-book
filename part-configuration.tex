@@ -12,9 +12,9 @@
 \section{Introduction}
 \label{sec-config-overview-introduction}
 This section of the book describes how to set up LedgerSMB and its components.
-Configuration is assumed to be mostly one-off and rather technical in nature.  To find
+Configuration \index{configuration} is assumed to be mostly one-off and rather technical in nature.  To find
 out which tasks might need to be performed in order to keep the application in good
-health the reader is referred to the section ``Administration''. 
+health the reader is referred to the 'Administration Introduction', \secref{sec-administration-introduction}.
 
 \chapter{Global configuration}
 \label{cha-global-configuration}
@@ -22,14 +22,16 @@ health the reader is referred to the section ``Administration''.
 \section{Apache}
 \label{sec-global-config-apache}
 
-Section about installing on Apache 2+
+Section about installing on \index{apache} Apache 2+
 
 items to be discussed:
 
-Forwarding of authentication \\
-PSGI configuration \\
-performance: cgiD configuration: don't (yet) [but will be supported once all legacy code is gone] \\
-security: suEXEC environment \\
+\begin{description}[style=nextline]
+\item [Forwarding of authentication] @@@TODO
+\item [PSGI configuration] @@@TODO
+\item [performance] cgiD configuration: don't (yet) [but will be supported once all legacy code is gone] @@@TODO
+\item [security] suEXEC environment @@@TODO
+\end{description}
 
 \subsection{Differences between Apache 1.3 and 2+}
 \label{subsec-global-config-apache-13-vs-2}
@@ -39,9 +41,11 @@ Explain how to use lsmb with 1.3 instead of 2+.
 \section{PostgreSQL}
 \label{sec-global-config-postgresql}
 
-@@@TODO pg\_hba.conf: authentication \\
-@@@TODO security: local vs IP connections \\
-
+\begin{description}[style=nextline]
+\item [pg\_hba.conf] authentication @@@TODO \index{pg\_hba.conf}
+\item [security] local vs IP connections @@@TODO 
+\index{Postgres} \index{Postgres Security}
+\end{description}
 
 
 \section{LedgerSMB version numbers}
