@@ -70,7 +70,7 @@ For the time being there is a conversion step that converts the old 'ledgersmb.c
 \subsection{ledgersmb.yaml}
 \label{subsec-global-config-ledgersmb-yaml}
 
-For the default, non debug \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} see  \url{https://github.com/ledgersmb/LedgerSMB/blob/master/doc/conf/ledgersmb.yaml}
+For an example of the default, non debug \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} see  \url{https://github.com/ledgersmb/LedgerSMB/blob/master/doc/conf/ledgersmb.yaml}
 
 \subsubsection{\texttt{cookie}}
  @@@TODO
@@ -95,26 +95,32 @@ For the default, non debug \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} see  \
 
 \subsubsection{\texttt{mail}}
 
-Email \index{mail} can be configured by selecting which of the two available transports to use. The default \texttt{ledgersmb.yaml} file contains examples of both.
+Email \index{mail} can be configured by selecting which of the three available transports to use. The default \texttt{ledgersmb.yaml} file contains examples for the first two.
 
 \begin{description}
-\item{\texttt{Email::Sender::Transport::Sendmail}} – The email is sent using the local server's \texttt{sendmail} \index{sendmail} binary. The options are:
+    
+    \item{\texttt{Email::Sender::Transport::Sendmail}} – Emails are sent using the local server's \texttt{sendmail} \index{sendmail} binary. The configuration parameters are:
     \begin{description}
-        \item{\texttt{transport:\$class}} – The required transport to use.
+        \item{\texttt{transport:\$class}} – \texttt{Email::Sender::Transport::Sendmail}
         \item{\texttt{transport:path}} – optionally provide a path to the directory that contains the 'sendmail' binary.
     \end{description}
     
-\item{ LedgerSMB::Mailer::TransportSMTP} - This email \index{email} is sent using a remove SMTP server.  The options are:
+    \item{\texttt{LedgerSMB::Mailer::TransportSMTP}} - Emails \index{email} are sent using a remote SMTP \index{SMTP} server.  The configuration parameters are:
     \begin{description}
-        \item{\texttt{transport:\$class}} – The required transport to use.
+        \item{\texttt{transport:\$class}} – \texttt{LedgerSMB::Mailer::TransportSMTP}
         \item {\texttt{transport:host}} – The required host name of the smtp \index{ SMTP} server.
         \item {\texttt{transport:port}} – The required port number of the smtp server. Note this might vary depending on whether TLS or SSL is used.
-        \item {\texttt{sasl\_username:\$class}} – The required smtp server authentication method
-        \item {\texttt{sasl\_username:mechanism}} – @@@TODO What options are available here?
-        \item {\texttt{sasl\_username:callback:user}} – The required SMTP user name.  @@@TODO I assume 'the-user' is just a place holder.
-        \item {\texttt{sasl\_username:callback:pass}} – The required SMTP password.  @@@TODO what does 'SECURITY-FIRST' mean?  Is this just a place holder or does it have meaning to pick up the password from some other place?
+        \item {\texttt{sasl\_username:\$class}} – The required smtp server authentication method. The values can be `Authen::SASL` or `Authen::SASL::SCRAM`.
+        \item {\texttt{sasl\_username:mechanism}} –  The available mechanism are defined at \url{https://metacpan.org/dist/Authen-SASL} or \url{ https://metacpan.org/dist/Authen-SASL-SCRAM} depending on the selected `\$class`.
+        \item {\texttt{sasl\_username:callback:user}} – The required SMTP user name.   'the-user' in the default file is a place holder and must be replaced.
+        \item {\texttt{sasl\_username:callback:pass}} – The required SMTP password.  'SECURITY-FIRST' in the default file is a place holder and must be replaced.
     \end{description}
     
+    \item{\texttt{Email::Sender::Transport::DevNull}} -  Emails are sent to \texttt{/dev/null}, in other words emails are not sent anyplace. This prevents errors in the user interface, but throws away any mail.  There is only one configuration parameter.  This is not a recommended production configuration. It is usually used for testing.
+    \begin{description}
+        \item{\texttt{transport:\$class}} – \texttt{Email::Sender::Transport::DevNull}
+    \end{description}
+
 \end{description}
 
 \subsubsection{\texttt{miscellaneous}}
@@ -128,19 +134,19 @@ Email \index{mail} can be configured by selecting which of the two available tra
 This section configures the various paths used by LedgerSMB. The configuration parameters are:
 
 \begin{description}
-    \item {\texttt{config:locale}} – Path to locale files. Defaults to \texttt{locale/po}.
-    \item {\texttt{config:sql}} – @@@TODO
-    \item {\texttt{config:sql\_data}} – @@@TODO
-    \item {\texttt{config:templates}} – Templates base directory. Typically set to \texttt{templates}.
-    \item {\texttt{config:UI}} – @@@TODO
-    \item {\texttt{config:UI\_cache}} – @@@TODO
-    \item {\texttt{config:workflows}} – A list of the Directories where workflow files are stored. Contains the default and custom workflows.  Custom workflows are used to override behavior of the default workflows by providing actions, conditions, etc. with the same name and type or by providing workflows of the same type with additional states and actions. Default workflows defaults to \texttt{workflows}. Custom workflows defaults to \texttt{custom\_workflows}. Default workflow path must precede all the custom workflow paths. @@@TODO is the last statement correct?  Can there be more than 2 paths?
+    \item {\texttt{config:locale}} – Path to locale \index{locale path} files. Defaults to \texttt{locale/po}.
+    \item {\texttt{config:sql}} – Path to the SQL schema \index{SQL schema path} definition files. 
+    \item {\texttt{config:sql\_data}} – Path to the reference and initial SQL database load \index{database load path} files. For example, the names of the countries.
+    \item {\texttt{config:templates}} – Path to the templates \index{template path} base directory. Typically set to \texttt{templates}.
+    \item {\texttt{config:UI}} – Path to the UI HTML \index{HTML path} files. Defaults to \texttt{./UI/}
+    \item {\texttt{config:UI\_cache}} – Path to the location of the UI template cache \index{template cache path}. These are cached after they have been parsed and translated. This improves performance.
+    \item {\texttt{config:workflows}} – A list of the Directories where workflow files \index{workflow path} are stored. Contains the default and custom workflows.  Custom workflows are used to override behavior of the default workflows by providing actions, conditions, etc. with the same name and type or by providing workflows of the same type with additional states and actions. Default workflows defaults to \texttt{workflows}. Custom workflows defaults to \texttt{custom\_workflows}. Default workflow path must precede all the custom workflow paths. @@@TODO is the last statement correct?  Can there be more than 2 paths?
 \end{description}
 
 \subsubsection{\texttt{printers}}
 This section contains a list of printers \index{printing} and their definition.
 
-The default  \texttt{ledgersmb.yaml} file shows two printers named 'Laser' and 'Epson' with the printers defined using the linux \texttt{lpr} command and its arguments. 
+The default  \texttt{ledgersmb.yaml} file shows two printers \index{printer configuration} named 'Laser' and 'Epson' with the printers defined using the linux \texttt{lpr} command and its arguments. 
 
 This default definition will provide for the selection of the printers named  'Laser' and 'Epson' in the LedgerSMB user interface.
 
