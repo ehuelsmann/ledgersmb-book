@@ -12,9 +12,9 @@
 \section{Introduction}
 \label{sec-config-overview-introduction}
 This section of the book describes how to set up LedgerSMB and its components.
-Configuration is assumed to be mostly one-off and rather technical in nature.  To find
+Configuration \index{configuration} is assumed to be mostly one-off and rather technical in nature.  To find
 out which tasks might need to be performed in order to keep the application in good
-health the reader is referred to the section ``Administration''. 
+health the reader is referred to the 'Administration Introduction', \secref{sec-administration-introduction}.
 
 \chapter{Global configuration}
 \label{cha-global-configuration}
@@ -22,14 +22,16 @@ health the reader is referred to the section ``Administration''.
 \section{Apache}
 \label{sec-global-config-apache}
 
-Section about installing on Apache 2+
+Section about installing on \index{apache} Apache 2+
 
 items to be discussed:
 
-Forwarding of authentication \\
-PSGI configuration \\
-performance: cgiD configuration: don't (yet) [but will be supported once all legacy code is gone] \\
-security: suEXEC environment \\
+\begin{description}[style=nextline]
+\item [Forwarding of authentication] @@@TODO
+\item [PSGI configuration] @@@TODO
+\item [performance] cgiD configuration: don't (yet) [but will be supported once all legacy code is gone] @@@TODO
+\item [security] suEXEC environment @@@TODO
+\end{description}
 
 \subsection{Differences between Apache 1.3 and 2+}
 \label{subsec-global-config-apache-13-vs-2}
@@ -39,9 +41,11 @@ Explain how to use lsmb with 1.3 instead of 2+.
 \section{PostgreSQL}
 \label{sec-global-config-postgresql}
 
-@@@TODO pg\_hba.conf: authentication \\
-@@@TODO security: local vs IP connections \\
-
+\begin{description}[style=nextline]
+\item [pg\_hba.conf] authentication @@@TODO \index{pg\_hba.conf}
+\item [security] local vs IP connections @@@TODO 
+\index{Postgres} \index{Postgres Security}
+\end{description}
 
 
 \section{LedgerSMB version numbers}
@@ -56,17 +60,109 @@ LedgerSMB version numbers \index{version number} are in the form of Major.Minor.
 \item [Optional Tag] Common values include dev, beta, or alpha. Typically, these are only used internally by the LedgerSMB developers.
 \end{description}
 
-\section{LedgerSMB}
+\section{LedgerSMB Configuration}
 \label{sec-global-config-ledgersmb}
 
-LedgerSMB configuration using 'ledgersmb.conf' is deprecated as of 1 Jan 2023. New functionality may only available when using `ledgersmb.yaml` configuration file.
+LedgerSMB configuration using \texttt{ledgersmb.conf} \index{ledgersmb.conf} is deprecated as of 1 Jan 2023. New functionality may only available when using \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} configuration file.
 
 For the time being there is a conversion step that converts the old 'ledgersmb.conf' to `ledgersmb.yaml`, but the old conf file does not support new functionality.
 
 \subsection{ledgersmb.yaml}
 \label{subsec-global-config-ledgersmb-yaml}
 
+For an example of the default, non debug \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} see  \url{https://github.com/ledgersmb/LedgerSMB/blob/master/doc/conf/ledgersmb.yaml}
 
+\subsubsection{\texttt{cookie}}
+ @@@TODO
+
+\subsubsection{\texttt{db}}
+ @@@TODO
+
+\subsubsection{\texttt{default\_locale}}
+@@@TODO
+
+\subsubsection{\texttt{environment\_variables}}
+ @@@TODO
+
+\subsubsection{\texttt{extra\_middleware}}
+@@@TODO
+
+\subsubsection{\texttt{logging}}
+@@@TODO
+
+\subsubsection{\texttt{login\_settings}}
+@@@TODO
+
+\subsubsection{\texttt{mail}}
+
+Email \index{mail} can be configured by selecting which of the three available transports to use. The default \texttt{ledgersmb.yaml} file contains examples for the first two.
+
+\begin{description}
+    
+    \item{\texttt{Email::Sender::Transport::Sendmail}} – Emails are sent using the local server's \texttt{sendmail} \index{sendmail} binary. The configuration parameters are:
+    \begin{description}
+        \item{\texttt{transport:\$class}} – \texttt{Email::Sender::Transport::Sendmail}
+        \item{\texttt{transport:path}} – optionally provide a path to the directory that contains the 'sendmail' binary.
+    \end{description}
+    
+    \item{\texttt{LedgerSMB::Mailer::TransportSMTP}} - Emails \index{email} are sent using a remote SMTP \index{SMTP} server.  The configuration parameters are:
+    \begin{description}
+        \item{\texttt{transport:\$class}} – \texttt{LedgerSMB::Mailer::TransportSMTP}
+        \item {\texttt{transport:host}} – The required host name of the smtp \index{ SMTP} server.
+        \item {\texttt{transport:port}} – The required port number of the smtp server. Note this might vary depending on whether TLS or SSL is used.
+        \item {\texttt{sasl\_username:\$class}} – The required smtp server authentication method. The values can be `Authen::SASL` or `Authen::SASL::SCRAM`.
+        \item {\texttt{sasl\_username:mechanism}} –  The available mechanism are defined at \url{https://metacpan.org/dist/Authen-SASL} or \url{ https://metacpan.org/dist/Authen-SASL-SCRAM} depending on the selected `\$class`.
+        \item {\texttt{sasl\_username:callback:user}} – The required SMTP user name.   'the-user' in the default file is a place holder and must be replaced.
+        \item {\texttt{sasl\_username:callback:pass}} – The required SMTP password.  'SECURITY-FIRST' in the default file is a place holder and must be replaced.
+    \end{description}
+    
+    \item{\texttt{Email::Sender::Transport::DevNull}} -  Emails are sent to \texttt{/dev/null}, in other words emails are not sent anyplace. This prevents errors in the user interface, but throws away any mail.  There is only one configuration parameter.  This is not a recommended production configuration. It is usually used for testing.
+    \begin{description}
+        \item{\texttt{transport:\$class}} – \texttt{Email::Sender::Transport::DevNull}
+    \end{description}
+
+\end{description}
+
+\subsubsection{\texttt{miscellaneous}}
+@@@TODO
+
+\subsubsection{\texttt{output\_formatter}}
+@@@TODO  I really don't have a good way to format lists explanations.  See below at \texttt{paths:config:workflows} for an example. Guidance welcome.
+
+\subsubsection{\texttt{paths}}
+
+This section configures the various paths used by LedgerSMB. The configuration parameters are:
+
+\begin{description}
+    \item {\texttt{config:locale}} – Path to locale \index{locale path} files. Defaults to \texttt{locale/po}.
+    \item {\texttt{config:sql}} – Path to the SQL schema \index{SQL schema path} definition files. 
+    \item {\texttt{config:sql\_data}} – Path to the reference and initial SQL database load \index{database load path} files. For example, the names of the countries.
+    \item {\texttt{config:templates}} – Path to the templates \index{template path} base directory. Typically set to \texttt{templates}.
+    \item {\texttt{config:UI}} – Path to the UI HTML \index{HTML path} files. Defaults to \texttt{./UI/}
+    \item {\texttt{config:UI\_cache}} – Path to the location of the UI template cache \index{template cache path}. These are cached after they have been parsed and translated. This improves performance.
+    \item {\texttt{config:workflows}} – A list of the Directories where workflow files \index{workflow path} are stored. Contains the default and custom workflows.  Custom workflows are used to override behavior of the default workflows by providing actions, conditions, etc. with the same name and type or by providing workflows of the same type with additional states and actions. Default workflows defaults to \texttt{workflows}. Custom workflows defaults to \texttt{custom\_workflows}. Default workflow path must precede all the custom workflow paths. @@@TODO is the last statement correct?  Can there be more than 2 paths?
+\end{description}
+
+\subsubsection{\texttt{printers}}
+This section contains a list of printers \index{printing} and their definition.
+
+The default  \texttt{ledgersmb.yaml} file shows two printers \index{printer configuration} named 'Laser' and 'Epson' with the printers defined using the linux \texttt{lpr} command and its arguments. 
+
+This default definition will provide for the selection of the printers named  'Laser' and 'Epson' in the LedgerSMB user interface.
+
+For more information search the internet for 'linux lpr command' or use \texttt{man lpr} at the linux command line.
+
+\subsubsection{\texttt{reconciliation\_importer}}
+ @@@TODO
+
+\subsubsection{\texttt{setup\_settings}}
+@@@TODO
+
+\subsubsection{\texttt{ui}}
+@@@TODO
+
+\subsubsection{\texttt{workflows}}
+@@@TODO
 
 \chapter{Per company configuration}
 \label{cha-company-config}
@@ -295,7 +391,7 @@ holes.
 \subsubsection{Default E-mail addresses}
 \label{subsubsec-company-config-defaults-email}
 
-These addresses will be used to send e-mails from the system.
+These addresses will be used to send e-mails \index{email} from the system.
 Note that the ``Default Email From'' address should be configured in order to make sure
 e-mail doesn't look like it's coming from your webserver. The format to be used is \texttt{``Name'' <e-mail address>} where the e-mail address should be inserted between the
 ``$\langle$'' and ``$\rangle$''.
