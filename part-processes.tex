@@ -778,6 +778,27 @@ pay off invoices at a later date.
 \section{Using over payments}
 \label{sec-business-processes-payment-processing-overpayments}
 
+Currently, it is not recommended to use the over payment \index{over payment} functionality.
+
+If over payments are used, the "stored" amounts for later use are not tracked in the normal places. Once over payments have been applied to AR/AP transactions they will be visible, and the totals will show up in balance sheets under the correct asset/liability, but running AR/AP reports for individual vendors/customers will not flag that there are over payments outstanding. The only place to find them is in the specific "Use [AR] Over payments" screen.
+
+To work around the current limitations use transactions and debit/credit notes as follows.
+
+For AR:
+\begin{enumerate}
+    \item Create an AR transaction for the overpaid amount
+    \item Create a credit note for the same overpaid amount
+    \item Receive the extra payment with the AR transaction, and the credit note shows up on the payment screen where you can apply it to another invoice
+\end{enumerate}
+
+For AP:
+\begin{enumerate}
+    \item Create an AP transaction for the overpaid amount
+    \item Create a debit note for the same overpaid amount
+    \item Receive the extra payment with the AP transaction, and the debit note shows up on the receipt screen where you can apply it to another invoice
+\end{enumerate}
+
+
 \section{Receipt and payment reversal}
 \label{sec-business-processes-payment-processing-reversal}
 % Cash/Vouchers/Reverse Payment
@@ -786,7 +807,9 @@ pay off invoices at a later date.
 \section{Over payment reversal}
 \label{sec-business-processes-payment-processing-overpayment-reversal}
 
-Reversal of over payments is a weak spot in LedgerSMB 1.3: there's no way
+Currently, it is not recommended to use the over payment functionality.
+
+Reversal of over payments \index{over payment} is a weak spot in LedgerSMB 1.3: there's no way
 to reverse or ``undo'' an over payment incorrectly entered.  By consequence
 this section describes the workaround that's required to achieve the same
 effect.
