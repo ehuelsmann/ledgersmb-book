@@ -799,6 +799,9 @@ For AP:
 \end{enumerate}
 
 
+Note that this approach triggers two movements on the tax account, in case taxes apply to the customer or vendor. One movement to charge taxes and one to nullify the previous charge.  Additionally one should be careful about invoice numbering when applying this procedure: the two transactions are synthetic (not real invoices) and should probably have invoice numbers outside of the regular numbering range (e.g. with a specific prefix or suffix such as 'OVP-') to prevent the need to report on these invoices to the tax authorities -- especially if your jurisdiction requires gapless invoice numbering.
+
+
 \section{Receipt and payment reversal}
 \label{sec-business-processes-payment-processing-reversal}
 % Cash/Vouchers/Reverse Payment
