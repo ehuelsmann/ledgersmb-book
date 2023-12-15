@@ -373,7 +373,9 @@ This is an integer value field measuring the validity period in days for passwor
 the user's \texttt{Preferences} screen. If this field is empty, passwords set through that method
 won't expire.
 
-A user will receive password expiration reminders upon logging starting a week before password
+The user has to log into LedgerSMB after this field is changed and prior to the expiration of the previous setting in order for the new duration to take effect.
+
+A user will receive password \index{password duration} expiration reminders upon logging starting a week before password
 expiry. When not acted upon, starting two days before expiry an hourly popup will appear
 requesting the user to change the password.
 
@@ -381,7 +383,7 @@ The application behaves this way because users with expired passwords won't be a
 their password will need to be reset by a user admin.
 
 \begin{quote}
-Note that passwords set by admins for other users expire within 24 hours after setting them.
+Note that passwords set by admins for other users expire \index{password expiration} within 24 hours after setting them.
 This value is hard coded and can't be overruled. This is a security measure taken to make
 sure as few unused accounts as possible exist: Existence of such accounts could open up security
 holes.
