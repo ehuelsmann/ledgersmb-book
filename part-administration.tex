@@ -370,6 +370,12 @@ attaching files to quotations, which is covered in \secref{sec-business-processe
 When adding parts, services, or overhead in Goods and Services they can be categorized in 'part groups' \index{part group}.
 When searching, the part group can help to limit the number of matches.  Currently, this is the only use of 'part groups'.
 
+Parts groups have a name and an -- optional -- parent. When
+selecting a parent, this creates a hierarchy of parts groups\index{part hierarchy} which
+can be used when searching for parts: selecting a parent parts
+group as a filter on parts search will include all parts in the 
+groups for which the selected group is the parent.
+
 When no part groups have been defined, the part group assignment field doesn't
 show up on any of the goods entry screens. Part groups never show up on the add assembly screen.
 
