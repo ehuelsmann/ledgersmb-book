@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  BOOK_VERSION: '1.10'
+  BOOK_VERSION: 'dev'
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
