@@ -746,19 +746,27 @@ Tax forms have three fields.
 \section{Introduction}
 \label{sec-pricing-introduction}
 
-In the application there are four reasons for an invoice to include a discount:
+There are a number of mechanisms which interact to create a price for an item
+on an invoice, order or quote:
 
 \begin{enumerate}
-\item Because a discount is entered by the sales person creating the quotation,
-  sales order or sales invoice
-\item Because the \gls{customer}'s payment terms include a discount for paying early
-\item Because the customer belongs to a type of business which is entitled to discounts
-\label{item:PricingBusinessType}
-\item Because the customer has been assigned a price matrix leading to discounts
-\label{item:PricingPriceMatrix}
+	\item Through direct entry on the document being created (either the price, the discount or both)
+	\item Using the ``Sellprice'' (or ``Last cost'' @@@ really?) on the parts entry screen
+	\item Using a ``Type of Business'' associated discount
+	\item Using the price matrix\index{price matrix} functionality, which combines (for customers), from least to most specific:
+		\begin{enumerate}
+			\item A price group
+			\item A customer
+			\item A minimum order quantity
+		\end{enumerate}
+		The price matrix for vendors is simpler and only includes the vendor as a selection criterion.
 \end{enumerate}
 
-This section deals with items \ref{item:PricingBusinessType} and \ref{item:PricingPriceMatrix} only.
+The price matrix can be used to set a price, a discount\index{discount} or both.  Do note that the \gls{customer}'s payment
+terms may cause another discount to be applied for early payment.  This type of discount is not part of the
+topic at hand. 
+
+This chapter deals with items \ref{item:PricingBusinessType} and \ref{item:PricingPriceMatrix} only.
 
 @@@ types of business are 'old school'; price groups have been introduced to replace types of business with a more fine-grained structure.
 
@@ -770,8 +778,121 @@ which allows them to be identified in the \gls{customer} account screen and a di
 percentage which is applied across the board. I.e. all invoices to the customer
 will have that discount applied.
 
-\section{Definition of price groups / price matrix}
+\section{Definition of price groups\index{price group}}
 \label{sec-pricing-price-groups}
+
+Price groups feature only a description and constitute a category. Customers can be assigned a price group
+(but this is optional). In case a customer is in a price group, this price group is taken into account when
+determining a price for an item through the price matrix.
+
+\section{Using the price matrix\index{price matrix}}
+
+At the lower half of the parts and services definition screen, there are two sections; one with the first
+heading being ``Vendor'' and the other with the first heading being ``Customer''.  These are the vendor and
+customer price matrix sections for the given item. As the customer price matrix is both more complex 
+\textit{and} much more interesting from a functional perspective, this section will only cover the customer
+side.
+
+The customer price matrix lists the following fields:
+
+\begin{itemize}
+	\item Customer (and customer account)
+	\item Price group
+	\item Discount (optional)
+	\item Sell price (optional)
+	\item Currency
+	\item From (date)
+	\item To (date)
+	\item Minimum quantity
+\end{itemize}
+
+At most one of the ``Customer'' and ``Price group'' values should be set; in case a price group has been selected,
+the row applies to all customers which have been assigned that group in the customer ``Account'' page. If there
+is a row listing the customer explicitly as well as one for the customer's price group, the most specific one --
+the customer -- is taken. If neither a customer nor a price group has been entered, the row applies to all customers.
+
+When applying the price matrix algorithm, the Currency, From, To and Minimum quantity values restrict applicability
+of the row: the invoice's currency needs to match, the invoice date must be between From (inclusive) and To (inclusive).
+The row with the highest value in Minimum quantity which is lower than the total number of items specified on the invoice
+is selected.
+
+To visualize the algorithm, please consider the following examples.
+
+\subsection{Price matrix example: simple pricing}
+
+Consider customers A and B and a part with a generic ``Sell price'' of 110.00.
+The simplest for of a price matrix for a part, could look like:
+
+\begin{table}[H]
+		\caption{Price matrix configuration}
+\begin{tabular}{|ccrrcrrr|}
+	\hline
+	\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
+	\hline
+	B & \footnote{This value is mutually exclusive with Customer} & & 99.00 & & & & \\
+	\hline
+\end{tabular}
+\end{table}
+
+When creating an invoice for customer A, the part will be listed at 110 while at the
+same time an invoice for customer B lists it at 99.00.
+
+If customer B had been in the ``Frequenters'' price group, and the matrix had looked like this:
+
+\begin{table}[H]
+	\caption{Price matrix configuration}
+	\begin{tabular}{|ccrrcrrr|}
+		\hline
+		\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
+		\hline
+		 & Frequenters & & 99.00 & & & & \\
+		\hline
+	\end{tabular}
+\end{table}
+
+The outcome would have been exactly the same. Discounts are determined exactly the same way
+as absolute prices, when the ``Discount'' field is set.
+
+
+\subsection{Price matrix example: Quantity pricing}
+
+Consider a part with a generic ``Sell price'' of 110.00 and the price matrix below, which includes
+``Minimum quantity'' pricing:
+
+\begin{table}[H]
+	\caption{Price matrix configuration}
+	\begin{tabular}{|ccrrcrrr|}
+		\hline
+		\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
+		\hline
+		 & & & 99.00 & & & & 200 \\
+		\hline
+         & & & 90.00 & & & & 400 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+With this price matrix in place, any customer ordering up to 199 items will pay 110.00 per item, whereas orders of over
+400 items will cost 90.00 per item and every order in between will be 99.00.
+
+\subsection{Price matrix example: Time-based (Sale) pricing}
+
+Consider a part with a generic ``Sell price'' of 100.00 and the price matrix below, which includes time-based pricing:
+
+\begin{table}[H]
+	\caption{Price matrix configuration}
+	\begin{tabular}{|ccrrcrrr|}
+		\hline
+		\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
+		\hline
+		& & 30\% & & & Oct 15 & Oct 31 & \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Any invoice outside the interval Oct 15th through Oct 31st will list
+the part at a price of 100.00.  During the interval the listed price
+will be 70.00.
 
 \chapter{Auditing}
 \label{cha-auditing}
