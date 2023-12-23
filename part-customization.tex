@@ -17,24 +17,41 @@ At the bottom of most report views there is a '[permalink]'. The idea of a \gls{
 \part{Customization}
 \label{part-customization}
 
+\chapter{Overview}
+\label{cha-customization-overview}
+
+\section{Introduction}
+\label{sec-customization-overview-introduction}
+
+Customization\index{customization} is about adding or changing behavior of an application in ways that were not foreseen when written.  It differs from configuration\index{configuration}, because the latter can be used to select between planned behaviors.  Since the functionality or behavior to be added wasn't foreseen, this means that customization implies application code being added or changed.  Especially changing existing behavior has proven problematic (in the IT industry at large) in terms of being able to later upgrade the underlying software to newer releases.  This problem can be mitigated by creation of specific ``extension points''\index{extension points}: places in the software which are designed to expand or replace existing behaviors.
+
+LedgerSMB has several such ``extension points'':
+
+\begin{itemize}
+	\item Workflow configuration
+	\item Dependency-injection based configuration:
+		\begin{itemize}
+			\item Document formatters
+			\item Bank statement importers
+			\item HTTP request handlers/interceptors
+			\item Outgoing mail transport
+		\end{itemize}
+	\item Sales/VAT tax calculation
+\end{itemize}
+
+Each bank has its own format for bank statement\index{bank statements} exports, making it impossible to develop import functionality that's generically usable.  Some default importers come with LedgerSMB - mostly as example code for those developing their own.  The dependency injection-based configuration supports adding these user-specific developments without changing any of the files that come in the standard distribution.
+
+Another example is changing ``Workflow configuration''\index{workflow configuration}, by which the life cycle of invoices and GL transactions can be changed.  This way, additional steps can be introduced into the life cycle, or steps can be combined (from a user perspective) by automatically executing steps after another has been triggered manually.
+
+
+
 \chapter{Batch data import methods}
 \label{cha-customization-batch-import}
-
-LedgerSMB 1.3 doesn't have batch data imports built in out of the box,
-except for bank statement imports for reconciliation purposes. This
-chapter starts to explain how to use the one import that is supported
-out of the box. It then goes on to highlight some often-used customizations: 
-It is quite easy to customize a LedgerSMB 1.3 instance using
-the LedgerSMB 1.4-built-in data import routines to create a variety
-of file-upload based data imports.
 
 \section{Custom bank statement import}
 \label{sec-customization-batch-import-bank-statement}
 
-\section{Data imports back port from 1.4}
-\label{sec-customization-import-routines-from-14}
-
-\subsection{Chart of Accounts import}
+\section{Chart of Accounts import}
 \label{subsec-customization-import-coa}
 
 This function allows bulk import of an entire chart of accounts using a
@@ -58,7 +75,7 @@ import routine expects the columns as presented in (table name).
 ``1'' is a tax account.
 \item [link] A colon (':') separated list of account check-mark values (links) as described
     in \secref{subsec-coa-account-links}, or ``AR'', ``AP'' or ``IC'' for the specified summary accounts
-\item [heading] Id of the heading to group the account (or heading) under
+\item [heading] ``accno'' of the heading to group the account (or heading) under
 \item [gifi] \gls{gifi} account number
 \end{description}
 
