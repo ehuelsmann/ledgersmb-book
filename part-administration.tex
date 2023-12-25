@@ -947,14 +947,16 @@ additional steps described in \appref{sec-migration-postrgesql} will be required
 \section{Introduction}
 \label{sec-updates-introduction}
 
-This chapter describes patch release updates. Upgrades from older versions (e.g. 1.1 or 1.2)
-are covered in \appref{app-migration}. The same is true for upgrades from SQL Ledger 2.6 or 2.8.
+This chapter describes patch and minor version release updates from 1.4 or higher.
+Upgrades from older versions (e.g. 1.2 or 1.3) are covered in \appref{app-migration}.
+The same is true for upgrades from SQL Ledger 2.6 or 2.8.
 
-The remainder of the chapter discusses the steps to be executed. Please note that the instructions
-below mean a window where the application can't be used during the entire execution of the procedure.
+The remainder of this chapter discusses the steps to be executed. Please note that during execution of the instructions below the application isn't to be used.
 
 \section{Backups}
 \label{sec-updates-backups}
+
+All upgrades should start by creating backups of the system as it runs.  This means:
 
 \begin{itemize}
 \item Backup database roles (authorizations)
@@ -962,17 +964,55 @@ below mean a window where the application can't be used during the entire execut
 \item Backup software and settings files
 \end{itemize}
 
+The database backups can be created through the \texttt{setup.pl} web interface.  The
+database content backup can also be created using the \texttt{ledgersmb-admin} administration
+command line tool.
 
+A backup of the software itself is only relevant when using a source installation. When using
+the (recommended) Docker installation, this step can be skipped; it \textit{is} important to
+record which image version the container is based on. For source installs the backup can simply
+be performed by recursively copying the containing directory: 
+\texttt{cp -Rp /srv/ledgersmb /srv/ledgersmb.bak}
 
 \section{Software upgrade}
 \label{sec-updates-software-upgrades}
 
-@@@ Untar / use package manager
+When using Docker, the upgrade is as simple as spinning up a container with the new version.
+For source installation the procedure is simple as well: The tarball needs to be unpacked,
+replacing the existing sources.  From the archive directory, the file \texttt{ledgersmb.yaml}
+(or \texttt{ledgersmb.conf}) must be copied.  The same needs to be done for any custom CSS
+theme files in the \texttt{UI/css} directory.
+
+If your setup is using the deprecated \texttt{ledgersmb.conf} INI-style configuration
+file, you should use the migration utility \texttt{utils/migration/convert-ini-to-di}
+to generate the new YAML-based configuration format \texttt{ledgersmb.yaml}.
 
 \section{Database upgrade}
 \label{sec-updates-database-upgrades}
 
-@@@ go to setup.pl and ``Rebuild''
+After upgrading the installed software, all LedgerSMB company databases need to be
+upgraded in order to become compatible with the new software.  This upgrade is
+performed by logging into the database through \texttt{setup.pl}.  After successful
+login, the question "LedgerSMB X.YY db found. Rebuild/Upgrade?" with a \texttt{Yes}
+button right below. "X.YY" is the version you had running before starting the upgrade
+process.
+
+After clicking the \texttt{Yes} button a series of database upgrade scripts will be
+executed.  Prior to executing each script, checks will be performed to test whether
+the upgrade can be successful.  If these checks find problems that need to be resolved
+before running the script, it will show a webpage listing offending data with instructions
+on how to resolve the situation.
+
+\textbf{Important} This database upgrade process is one-directional.  Once started
+there are no scripts to reverse the process.  The only option to back out of the
+upgrade is by restoring the backup created at the start of the process.
+
+The community is always interested in improving the upgrade experience, so when stuck
+it's highly advised to contact the developers on their mailing list
+(\texttt{devel@lists.ledgersmb.org}), log an issue in the issue tracker
+(\texttt{\url{https://github.com/ledgersmb/LedgerSMB/issues}}) or join the chat channel
+(\texttt{\url{https://app.element.io/\#/room/\#ledgersmb:matrix.org}})
+to report the problem.
 
 \chapter{Optional Features}
 \label{cha-options}
