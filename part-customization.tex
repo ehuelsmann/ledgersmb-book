@@ -43,7 +43,156 @@ Each bank has its own format for bank statement\index{bank statements} exports, 
 
 Another example is changing ``Workflow configuration''\index{workflow configuration}, by which the life cycle of invoices and GL transactions can be changed.  This way, additional steps can be introduced into the life cycle, or steps can be combined (from a user perspective) by automatically executing steps after another has been triggered manually.
 
+Customization usually means additional or modified Perl code needs to be loaded. 
 
+@@@TODO: describe where to store this new or overriding code...
+
+\section{Workflow configuration}
+
+LedgerSMB uses the concept of workflows\index{workflows} to manage the document life cycle.
+An invoice for example may be \texttt{saved}, \texttt{posted} or \texttt{reversed}.  These
+are states in the life cycle of the invoice.  Each state may have associated actions.  In
+case of the invoice an example may be to \texttt{Post} it when it's \texttt{saved} or to
+\texttt{E-mail} it when it's \texttt{posted}.
+
+Actions associated with a state may be available or not determined by one or more conditions.
+An examples are ``is the posting date of the transaction in a closed period''
+and ``is the current user allowed to post transactions''.
+
+Workflows are stored in the \texttt{workflows/} directory.  Each workflow consists of
+several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.}):
+
+\begin{enumerate}
+	\item [\texttt{actions.xml}] (optional) names the list of available transitions
+	in the workflow naming Perl code to be executed
+	\item [\texttt{conditions.xml}] (optional) names the list of conditions to be used
+	in the workflow naming Perl code to evaluate
+	\item [\texttt{persisters.xml}] (optional) defines the Perl mechanism to load and store
+	workflow instances
+	\item [\texttt{workflow.xml}] (required) defines the life cycle (states, actions
+	and conditions) with the allowed transitions per state (actions).
+\end{enumerate}
+
+Customized versions of workflow definition files must be stored in
+ \texttt{./customized\_workflows/}\footnote{See
+ 	\secref{subsubsec-global-config-ledgersmb-yaml-workflows} on how to configure
+ these paths}.  Files stored in this location will be used to override the ones in
+the standard location \texttt{./workflows}.  No changes should be made directly to
+the standard files because of the risk that those files will be overwritten on upgrade
+-- loosing the changes.
+
+Next to the per-workflow files, there is a generic definition file for actions,
+conditions and persisters.  Elements defined in these files can be used in all
+workflows; those elements defined in the per-workflow files can only be used
+in the specific workflow.
+
+The engine driving workflow state management is the
+Workflow\footnote{\url{https://metacpan.org/pod/Workflow}} library.  See its
+documentation on MetaCPAN as well as the built-in workflows as examples of how
+to define one's own.
+
+\subsection{Workflow observers}
+
+Particularly interesting is the concept of observers\index{workflow observers}:
+this functionality allows the application to be extended based a specific action
+occurring without changing the life cycle.  An example could be to create a PayPal
+payment request when an invoice is posted: an observer could be ``listening'' to
+``AR/AP'' workflow events which at some point will flag the state of the invoice
+becoming \texttt{posted}.
+
+\subsubsection{Notes on Quote, Order, AR, AP and GL workflow customization}
+
+The actions in the workflows \texttt{order-quote}, \texttt{ar-ap} and \texttt{gl} are
+hard coded\footnote{This is not a permanent situation, but rather a consequence of
+these workflows being used in \gls{oldcode}}.  This means that the list of actions is restricted to those defined in the
+files \texttt{order-quote.actions.xml}, \texttt{ar-ap.actions.xml} and
+\texttt{gl.actions.xml}.  It's not necessary to use all actions in the workflow, but
+additional ones cannot be created -- contrary to what is in the \texttt{Workflow}
+documentation.
+
+The \texttt{class} attribute for most actions in these workflows is set to the value
+\texttt{LedgerSMB::Workflow::Action::Null}.  This means it does nothing.  Rather, it
+doesn't do anything \textit{in addition to} what the action already does in its hard
+coded implementation.  Setting the action's class attribute to some other value allows
+the developer to add behavior on top of what's hard coded.
+
+\section{Document formatters}
+
+Document formatters transform templates into output documents; e.g. an HTML invoice
+template can be transformed into an HTML file with the details of the invoice filled
+out.  LedgerSMB comes with a number of built-in formatters.  Additional ones could be
+implemented to transform HTML documents to PDF (replacing the traditional \LaTeX to PDF)
+or the creation of eInvoices\index{eInvoice} in the format of the local jurisdiction.
+
+The generation of output entails these steps (preceded by the process to find a
+suitable document formatter):
+
+\begin{itemize}
+	\item Loading the input template from the database
+	\item Preprocessing the input variables using the formatter's \texttt{encode}
+		function
+	\item Initializing the template expansion using the formatter's \texttt{setup} function
+	\item Expanding the template using \texttt{Template::Toolkit}
+	\item Post-processing the expanded output using the formatter's \texttt{postprocess}
+\end{itemize}
+
+A custom formatter needs to implement the protocol as documented at \url{https://docs.ledgersmb.org/perl-api/1.11.0/LedgerSMB/Template.pm.html#FORMATS}.
+
+\section{Bank statement importers}
+
+LedgerSMB comes with three bank statement importers built-in:
+
+\begin{itemize}
+	\item [CAMT.053] The \gls{ISO20022} ``Cash Management'' message 053
+		(Bank-to-Customer account statement)
+	\item [\gls{OFX}] A standard to exchange data describing financial transactions
+	\item [CSV] 
+\end{itemize}
+
+The bank statement importer is a Perl class implementing the
+\texttt{LedgerSMB::Reconciliation::Format} role; it parses a file with bank
+transactions, extracting the fields expected by the bank reconciliation procedure:
+
+\begin{itemize}
+	\item [amount] The amount involved in the transaction; negative if the bank
+		reports a credit amount, positive when it's a debit
+	\item [date] The date on which the amount contributed to the bank account balance
+	\item [source] An identifier by which the bank identifies the transaction; to be
+		used for matching with the ``Source'' field in the bank ledger
+	\item [type] Information clarifying the transaction; e.g. Cash, ACH, etc.
+\end{itemize}
+
+The CSV parser has many options to accommodate the tremendous variance that can be
+observed in CSV files.  When using a custom bank reconciliation procedure \textit{or}
+when the bank makes a more exotic format available, customization of the bank statement
+importer may be necessary.
+
+\section{HTTP request interceptors}
+
+@@@TODO: describe how to add \texttt{Plack::Middleware} instances in the request processing
+
+\section{Outgoing mail transport}
+
+The library used for sending e-mail (\texttt{Email::Sender})
+includes a wide variety of transports that can be used to configure the library to (pretend to) send
+e-mail messages.  For a list of available transports, see \url{https://metacpan.org/dist/Email-Sender}.
+
+Should a different delivery method be required even considering the list of available transports,
+this can be achieved by implementing a custom \texttt{Email::Sender::Transport}.
+
+\section{Sales/VAT tax calculation}
+
+Tax calculations performed for VAT and/or sales taxes have been abstracted into so-called
+``tax modules''.  An example of a custom tax module can be found in the directory
+\texttt{utils/wa-tax-service} in the source repository.
+
+Before tax modules can be used, they need to be registered in the \texttt{taxmodule} table.
+
+\textbf{Important:} Please note that there is a tight integration between the database "pointing"
+to the tax module and the web server which expects to be able to \textit{load} this Perl code to
+perform the prescribed calculations.
+If for some reason the application looses the ability to load the Perl module, this will break
+the ability to create or view invoices.
 
 \chapter{Batch data import methods}
 \label{cha-customization-batch-import}
