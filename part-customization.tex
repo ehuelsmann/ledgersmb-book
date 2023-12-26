@@ -56,10 +56,10 @@ case of the invoice an example may be to \texttt{Post} it when it's \texttt{save
 \texttt{E-mail} it when it's \texttt{posted}.
 
 Actions associated with a state may be available or not determined by one or more conditions.
-An examples are ``is the posting date of the transaction in a closed period''
+Examples are ``is the posting date of the transaction in a closed period''
 and ``is the current user allowed to post transactions''.
 
-Workflows are stored in the \texttt{workflows/} directory.  Each workflow consists of
+Workflows are stored in the \texttt{./workflows/} directory.  Each workflow consists of
 several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.}):
 
 \begin{enumerate}
@@ -77,9 +77,11 @@ Customized versions of workflow definition files must be stored in
  \texttt{./customized\_workflows/}\footnote{See
  	\secref{subsubsec-global-config-ledgersmb-yaml-workflows} on how to configure
  these paths}.  Files stored in this location will be used to override the ones in
-the standard location \texttt{./workflows}.  No changes should be made directly to
-the standard files because of the risk that those files will be overwritten on upgrade
--- loosing the changes.
+the standard location \texttt{./workflows/}: the file
+\texttt{./custom\_workflows/ar-ap.workflow.xml} will replace the built-in workflow
+from \texttt{./workflows/ar-ap.workflow.xml} used for invoices and AR/AP transactions.
+No changes should be made directly to the standard files because of the risk that those
+files will be overwritten on upgrade -- loosing the changes.
 
 Next to the per-workflow files, there is a generic definition file for actions,
 conditions and persisters.  Elements defined in these files can be used in all
