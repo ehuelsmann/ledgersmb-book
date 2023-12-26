@@ -964,8 +964,8 @@ All upgrades should start by creating backups of the system as it runs.  This me
 \item Backup software and settings files
 \end{itemize}
 
-The database backups can be created through the \texttt{setup.pl} web interface.  The
-database content backup can also be created using the \texttt{ledgersmb-admin} administration
+The database content and roles backups can be created through the \texttt{setup.pl} web interface.
+The database content backup can also be created using the \texttt{ledgersmb-admin} administration
 command line tool.
 
 A backup of the software itself is only relevant when using a source installation. When using
@@ -991,7 +991,13 @@ to generate the new YAML-based configuration format \texttt{ledgersmb.yaml}.
 \label{sec-updates-database-upgrades}
 
 After upgrading the installed software, all LedgerSMB company databases need to be
-upgraded in order to become compatible with the new software.  This upgrade is
+upgraded in order to become compatible with the new software.  This applies to minor
+as well as to patch releases: next to tables the schema
+also contains a large number of functions.  While it's policy for the project not to
+change the table structure in patch releases, these functions may need to be changed
+as part of a patch release.
+
+The upgrade is
 performed by logging into the database through \texttt{setup.pl}.  After successful
 login, the question "LedgerSMB X.YY db found. Rebuild/Upgrade?" with a \texttt{Yes}
 button right below. "X.YY" is the version you had running before starting the upgrade
