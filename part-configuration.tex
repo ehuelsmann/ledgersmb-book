@@ -429,8 +429,10 @@ The other special accounts are used as follows:
     \item Inventory - Used to summarize the inventory value on the balance sheet.
     \item Income - Used to summarize income on the Income Statement.
     \item Cost of Goods Sold - Used to summarize the cost of goods on the Income Statement.
-    \item Foreign Exchange Gain - @@@ TODO
-    \item Foreign Exchange Loss - @@@ TODO
+    \item Foreign Exchange Gain - Accounts for the gain in value differences in foreign currencies when recording payments to invoices in foreign currencies.
+    In case an invoice is issued at 1 EUR == 1 USD, but payments arrive when 1 EUR == 0.80 USD, the amount of USD paid is still the invoiced amount, but the EUR amount differs. 
+    The EUR difference ends up in the Foreign Exchange\index{foreign exchange} Gain or Foreign Exchange Loss accounts. See \secref{sec-business-processes-payment-processing-fx-payments} for more information.
+    \item Foreign Exchange Loss - Accounts for the loss in value differences in foreign currencies when recording payments to invoices in foreign currencies. See \secref{sec-business-processes-payment-processing-fx-payments} for more information.
 \end{itemize}
 
 \subsection{Importing chart of accounts}
