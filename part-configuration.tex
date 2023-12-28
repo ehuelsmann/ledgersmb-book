@@ -202,7 +202,8 @@ This section describes the various configuration options available when creating
 \label{sec-coa-predefined}
 
 LedgerSMB provides predefined Chart of Accounts\index{Chart of Accounts predefined} that can be used out of the box for many businesses.
-Most new LedgerSMB setups start with one of the predefined Chart of Accounts and add or delete as necessary to customize it for their business.
+Most new LedgerSMB setups start with one of the predefined Charts of Accounts and add or delete as necessary to customize it for their business.
+
 
 There is also an option to import a Chart of Accounts. Importing is described in \secref{subsec-coa-importing}.
 
@@ -239,7 +240,8 @@ can themselves be assigned to other headers resulting in hierarchies of account 
 
 There are multiple reasons for wanting to use hierarchies. One of those reasons is that expense accounts in prior versions were listed as one long list under Expenses while income accounts are listed as a -usually shorter- list under Income. Personnel expenses are usually spread across multiple expense accounts. With lots of other expense accounts also listed, what's the total expense on personnel?
 
-Another use-case for using hierarchies might be because you're running a "margin business". That is, you're only buying what you're selling and the cost of goods sold is the large part of your expenses. In cases like this it can be a good idea to use a different setup of the income statement: one where cost of goods sold is immediately subtracted from income, leaving gross margin to cover all other expenses in the company.
+Another use-case for using hierarchies might be because you're running a "margin business". That is, you're only buying what you're selling and the cost of goods sold is the largest part of your expenses. In cases like this it can be a good idea to use a different setup of the income statement: one where cost of goods sold is immediately subtracted from income, leaving gross margin to cover all other expenses in the company.
+
 
 In order to set a heading's parent, go to the \menupath{General Journal \ma Chart of Accounts}. Click on the account number. If the account is a heading account that has a parent heading, the resulting screen shown in \figref{fig:config-coa-hierarchy}.
 
@@ -314,7 +316,8 @@ Each account may have zero, one or more of the following options selected.
     the original asset (debit) value to get the current asset value.
     \item[Recon] This checkmark identifies the account as one which needs reconciliation\index{reconciliation} as
     described in \secref{sec-business-processes-accounting-reconciliation}.
-    \item[Tax] This checkmark identifies the account as a Tax (VAT)\index{tax} account. Tax accounts need
+    \item[Tax] This checkmark identifies the account as a Tax (VAT/Sales)\index{tax} account. Tax accounts need
+
     to be further configured. See \charef{cha-taxes} for further discussion of the
     subject.
     \item[Obsolete] This checkmark identifies the account as not being usable going forward.  The account cannot be deleted because it may
@@ -333,16 +336,19 @@ In order to enhance the user interface accounts may be added to drop down menus 
 
 \begin{description}[style=nextline]
     \item[Income (AR\_amount)] This check mark adds the account to the list of accounts
-    in the transaction and invoice screens which are used to post income on.
+    in the transaction screens which are used to post income on.
+
     \item[Payment (AR\_paid)] This check mark adds the account to the list of accounts
-    to choose from in the Receipts (AR) and Payments (AP) screens. Additionally, it
+    to choose from in the Receipts (AR) and Payments (AP) screens as well as the payments lines on invoices and transactions. Additionally, it
+
     adds the account to the part entry screen as described in \secref{subsec-products-parts-definition}.
     \item[Tax (AR\_tax)] This check mark makes the account show up as a check mark on the
     \gls{customer} (AR) or vendor (AP) entry screen. See \charef{cha-taxes} for further discussion.
     \item[Overpayment (AR\_overpayment)] Adds the account to the receipts screen as discussed
     in \secref{sec-business-processes-payment-processing-overpayments}.
     \item[Discount (AR\_discount)] Adds the account to the customer entry screen's selection
-    list for accounts to post 
+    list for accounts to post payment term discounts on.
+
 \end{description}
 
 \subsubsection{Payables checkmarks}
