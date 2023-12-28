@@ -288,7 +288,7 @@ The main setup consists of the following:
     \item[Description] Should be a relative short, easy to understand description of what the account is used for.
     \item[Account Type] Asset, Liability, Equity, Equity temporary, Income or Expense.
     \item[Heading] Optional entry. Used if this account is a child of a heading account.
-    \item[Negative balance heading] @@@ TODO
+    \item[Negative balance heading] Balance sheet account balances should - generally - not be reported as negative amounts\footnote{Notable exception here are "cumulative depreciation" accounts in fixed asset accounting, but these are usually marked as "Contra" -- causing them to be reported as positive numbers..}: a negative asset is in fact a liability. This functionality reports the given account under the primary header as long as the asset/liability is positive and reports it under the "negative balance heading" as soon as the asset/liability turns negative (the expectation is that the alternative header is a liability/asset header instead of an asset/liability header).
 \end{description}
 
 \subsubsection{Account configuration}
