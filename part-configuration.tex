@@ -206,6 +206,12 @@ Most new LedgerSMB setups start with one of the predefined Chart of Accounts and
 
 There is also an option to import a Chart of Accounts. Importing is described in \secref{subsec-coa-importing}.
 
+The predefined \gls{CoA} files are \gls{XML} format files.
+
+LedgerSMB provides an \gls{XSD} \index{XSD}\index{CoA XSD}file, which might help in developing a custom CoA XML file,  located at \url{https://github.com/ledgersmb/LedgerSMB/blob/master/doc/company-setup/configuration.xsd}.  
+
+To use a custom \gls{CoA} \gls{XML} file, it will need to be placed in the correct directory prior to running \texttt{setup.pl}. The correct directory will be one of the locale sub-directories in \texttt{locale/coa}.
+
 The predefined Chart of Accounts are organized by country and localized. For the United States the following predefined Chart of Accounts are available:
 \begin{itemize}
     \item General.xml
