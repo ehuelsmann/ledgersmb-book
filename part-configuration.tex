@@ -187,20 +187,245 @@ Contact the \href{https://ledgersmb.org}{development team} for other business pr
 \section{Administrative user}
 \label{sec-company-config-admin-user}
 
-\section{Chart of accounts}
+@@@ TODO Need to add content explaining the administrative user.
+
+\section{Chart of Accounts}
 \label{sec-company-config-coa}
 
-@@@ Should refer to the 'administration' section???
+% \chapter{Chart of accounts}
+% \label{cha-chart-of-accounts}
+
+The Chart of Accounts or \gls{CoA}\index{Chart of Accounts}\index{CoA} defines how financial reports are organized and summarized.
+This section describes the various configuration options available when creating or editing the \gls{CoA}.
+
+\subsection{Predefined Chart of Accounts}
+\label{sec-coa-predefined}
+
+LedgerSMB provides predefined Chart of Accounts\index{Chart of Accounts predefined} that can be used out of the box for many businesses.
+Most new LedgerSMB setups start with one of the predefined Chart of Accounts and add or delete as necessary to customize it for their business.
+
+There is also an option to import a Chart of Accounts. Importing is described in \secref{subsec-coa-importing}.
+
+The predefined Chart of Accounts are organized by country and localized. For the United States the following predefined Chart of Accounts are available:
+\begin{itemize}
+    \item General.xml
+    \item GeneralHierarchical.xml
+    \item Manufacturing.xml
+    \item Service.xml
+    \item UCOA-Form990.xml
+    \item UCOA-Form990EZ.xml
+\end{itemize}
+
+Similar predefined Charts of Accounts are available for other countries and languages.
+
+See \secref{subsec-create-setup-select-coa} for instructions on using these predefined accounts.
+
+The following examples use the \texttt{GeneralHierarchical.xml} account structure.
+This file can be found at \url{https://github.com/ledgersmb/LedgerSMB/blob/master/locale/coa/us/GeneralHierarchical.xml}.
+
+\subsection{Account structure}
+\label{sec-coa-accounts-structure}
+
+The system allows ordering accounts into groups by assigning accounts to headers. Headers
+can themselves be assigned to other headers resulting in hierarchies of account groups.\footnote{Although the
+    database structure supports this type of account hierarchy from  1.3, it was not fully in use in reports until  1.4.17. In 1.3 accounts can be assigned a header,
+    but headers can't be assigned to headers themselves.}
+
+There are multiple reasons for wanting to use hierarchies. One of those reasons is that expense accounts in prior versions were listed as one long list under Expenses while income accounts are listed as a -usually shorter- list under Income. Personnel expenses are usually spread across multiple expense accounts. With lots of other expense accounts also listed, what's the total expense on personnel?
+
+Another use-case for using hierarchies might be because you're running a "margin business". That is, you're only buying what you're selling and the cost of goods sold is the large part of your expenses. In cases like this it can be a good idea to use a different setup of the income statement: one where cost of goods sold is immediately subtracted from income, leaving gross margin to cover all other expenses in the company.
+
+In order to set a heading's parent, go to the \menupath{General Journal \ma Chart of Accounts}. Click on the account number. If the account is a heading account that has a parent heading, the resulting screen shown in \figref{fig:config-coa-hierarchy}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\graphicswidth]{images/gl-coa-heading.png}
+    \caption{Configure Account Hierarchy}
+    \label{fig:config-coa-hierarchy}
+\end{figure}
+
+If the account is a not a heading account, but has a parent heading, then the result is shown in \figref{fig:coa-account-setup}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/gl-coa.png}
+    \caption{Account Setup}
+    \label{fig:coa-account-setup}
+\end{figure}
+
+When creating "Income Statement" \index{income statement} or "Balance Sheet" \index{balance sheet}reports, for example, \menupath{Reports \ma Income Statement} you can select to report using the full hierarchy or just the account category.  See \figref{fig:config-report-hierarchy}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\graphicswidth]{images/reports-select-hierarchy.png}
+\caption{Report Using Hierarchy}
+\label{fig:config-report-hierarchy}
+\end{figure}
+
+\subsection{Account setup}
+\label{sec-coa-account-setup}
+
+Headers don't have any configuration, other than their number and description. 
+
+Accounts also
+have a number and description, but require additional configuration for the application to work
+correctly. 
+
+The settings, which are shown in \figref{fig:coa-account-setup} are described in the following paragraphs.
+
+The main setup consists of the following:
+
+\begin{description}[style=nextline]
+    \item[Account Number] Income statements and balance sheets reports are ordered by account number. Traditionally, account numbers are 4 digits with accounts being grouped by the first digit, but this type of grouping is not enforced by LedgerSMB. Grouping is handled using headings as explained in \secref{sec-coa-accounts-structure}.
+    \item[Description] Should be a relative short, easy to understand description of what the account is used for.
+    \item[Account Type] Asset, Liability, Equity, Equity temporary, Income or Expense.
+    \item[Heading] Optional entry. Used if this account is a child of a heading account.
+    \item[Negative balance heading] @@@ TODO
+\end{description}
+
+\subsubsection{Account configuration}
+\label{subsec-coa-account-configuration}
+
+The items in the configuration box as shown in \figref{fig:coa-account-setup} are used to configure the account for use in LedgerSMB.
+
+There are currently three types of optional summary accounts:
+
+\begin{description}[style=nextline]
+    \item [AR] Marking an account as a summary account for AR means that all outstanding
+    receivable amounts will be posted to this account. The Accounts Receivable administration
+    will contain the details of which amount is owed by which \gls{customer}.
+    \item [AP] Same as the AR account, except for amounts owed to vendors.
+    \item [Inventory] This account holds the monetary value equal to the items on stock.
+\end{description}
+
+Each account may have zero, one or more of the following options selected.
+
+\begin{description}[style=nextline]
+    \item[Contra] This checkmark identifies the account as a \gls{contra}\index{contra}account, which means
+    that the account is going to hold the opposite of an account it's associated with.
+    A good example of this kind would be the depreciation account associated with a fixed
+    asset account where the depreciation account contains the credit amount to be added to
+    the original asset (debit) value to get the current asset value.
+    \item[Recon] This checkmark identifies the account as one which needs reconciliation\index{reconciliation} as
+    described in \secref{sec-business-processes-accounting-reconciliation}.
+    \item[Tax] This checkmark identifies the account as a Tax (VAT)\index{tax} account. Tax accounts need
+    to be further configured. See \charef{cha-taxes} for further discussion of the
+    subject.
+    \item[Obsolete] This checkmark identifies the account as not being usable going forward.  The account cannot be deleted because it may
+    contain data.
+    \label{item:AccountOptionsTax}
+\end{description}
+
+
+\subsubsection{Include in drop-down menus}
+\label{subsec-coa-account-links}
+
+In order to enhance the user interface accounts may be added to drop down menus throughout LedgerSMB.
+
+\subsubsection{Receivables checkmarks}
+\label{subsubsec-coa-AR-checkmarks}
+
+\begin{description}[style=nextline]
+    \item[Income (AR\_amount)] This check mark adds the account to the list of accounts
+    in the transaction and invoice screens which are used to post income on.
+    \item[Payment (AR\_paid)] This check mark adds the account to the list of accounts
+    to choose from in the Receipts (AR) and Payments (AP) screens. Additionally, it
+    adds the account to the part entry screen as described in \secref{subsec-products-parts-definition}.
+    \item[Tax (AR\_tax)] This check mark makes the account show up as a check mark on the
+    \gls{customer} (AR) or vendor (AP) entry screen. See \charef{cha-taxes} for further discussion.
+    \item[Overpayment (AR\_overpayment)] Adds the account to the receipts screen as discussed
+    in \secref{sec-business-processes-payment-processing-overpayments}.
+    \item[Discount (AR\_discount)] Adds the account to the customer entry screen's selection
+    list for accounts to post 
+\end{description}
+
+\subsubsection{Payables checkmarks}
+\label{subsubsec-coa-AP-checkmarks}
+
+The payables UI works the same way as the receivables described in the previous list. The difference is
+that the technical names of the configuration identifiers are prefixed by AP\_ instead
+of AR\_.
+
+\subsubsection{Tracking Items}
+\label{subsubsec-coa-tracking-items}
+
+The items on this line relate to stocked items, i.e. those tracked for inventory: parts and
+assemblies.
+
+\begin{description}[style=nextline]
+    \item[Income (IC\_sale)] Adds the account to the selection list of income accounts on the
+    part and assembly definition screens.
+    \item[COGS (IC\_cogs)] Adds the account to the selection list of COGS @@@ accounts on the
+    part, assembly and overhead definition screen.
+    \item[Tax (IC\_taxpart)] Adds a check mark to the part and assembly definition screen
+    for the applicable account. See \charef{cha-taxes} for more details on how taxes
+    work in LedgerSMB.
+    \item[Returns (@@@ Need help here)] @@@
+\end{description}
+
+@@@ Question: Labor/Overhead accounts == inventory accounts??  These notes were in the original file and I don't know if they are still applicable.
+
+@@@ Labor/Overhead has an inventory and expense account but no income account. Chris T
+
+\subsubsection{Non-tracking items}
+\label{subsubsec-coa-non-tracking-items}
+
+The items on this line relate to untracked (non stocked) items, i.e. services.
+
+\begin{description}[style=nextline]
+    \item[Income (IC\_income)] Adds the account to the income account selection list in
+    the service definition screen.
+    \item[Expense (IC\_expense)] Adds the account to the expense account selection list in
+    the service definition screen.
+    \item[Tax (IC\_taxservice)] Adds a check mark to the service definition screen for the
+    applicable account. See \charef{cha-taxes} for more details on how taxes work in LedgerSMB.
+\end{description}
+
+\subsubsection{Fixed assets}
+\label{subsubsec-coa-fixed-assets}
+
+\begin{description}[style=nextline]
+    \item[Fixed asset (Fixed\_Asset)] Marks the account as holding the original asset value for the fixed
+    assets module, for some classes of fixed assets.
+    \item[Depreciation (Asset\_Dep)] Marks the account as holding the cumulative depreciation amount
+    for the fixed assets module, for some classes of fixed assets.
+    \item[Expense (asset\_expense)] Adds the expense account to the selection list of the fixed assets
+    accounting module. See \secref{sec-business-processes-accounting-fixed-asset-accounting} for more details.
+    \item[Gain (asset\_gain)] Account to hold book value gain upon disposal of a fixed asset.
+    \item[Loss (asset\_loss)] Account to hold book value loss upon disposal of a fixed asset.
+\end{description}
 
 \subsection{Special accounts}
 \label{subsec-company-config-coa-special-accounts}
 
+Special accounts are set by going to \menupath{System \ma Defaults} and scrolling down to "Default Accounts".
+
+As you can see, in \figref{fig:system-default-accounts} the heading "3999 -- NET MARGIN" has been selected and is the heading which is used as the highest level for the P\&L and lowest level at which income and expenses are being reported in the balance sheet.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\graphicswidth]{images/system-default-accounts.png}
+    \caption{System Default Accounts}
+    \label{fig:system-default-accounts}
+\end{figure}
+
+The other special accounts are used as follows:
+
 \begin{itemize}
-\item AR/AP summary accounts
-\item 5 other special purpose accounts, see ``Defaults'' screen discussion
-\item sales tax accounts
+    \item Current earnings - Used to summarize the P\&L result as a single line on the Balance Sheet,
+    \item Inventory - Used to summarize the inventory value on the balance sheet.
+    \item Income - Used to summarize income on the Income Statement.
+    \item Cost of Goods Sold - Used to summarize the cost of goods on the Income Statement.
+    \item Foreign Exchange Gain - @@@ TODO
+    \item Foreign Exchange Loss - @@@ TODO
 \end{itemize}
 
+\subsection{Importing chart of accounts}
+\label{subsec-coa-importing}
+
+A custom Chart of Accounts \index{Chart of Accounts Import}\index{import Chart of Accounts}can be imported in CSV format by going to \menupath{General Journal \ma Import Chart} and selecting the import file.
+
+The import screen list the required fields. Field content definitions are explained above.
 
 \section{System menu settings}
 \label{sec-company-config-system-menu}
@@ -258,7 +483,7 @@ triggers so this setting does nothing.  --CT
 \label{subsec-company-config-taxes}
 
 
-This page lists all accounts which have the ``Tax'' account option enabled as discussed in \secref{sec-coa-account-options}.
+This page lists all accounts which have the ``Tax'' account option enabled as discussed in \secref{sec-coa-account-setup}.
 
 Each account is listed at least once, but can be listed many times, if it has had different
 settings applied over different time periods. E.g. if one of the current VAT rates is 19\%,

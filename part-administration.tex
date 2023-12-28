@@ -436,133 +436,6 @@ allowing for a semi-automated way to convert stock from one type of inventory to
 \subsection{Taxation of services}
 \label{subsec-products-services-taxation}
 
-
-
-\chapter{Chart of accounts}
-\label{cha-chart-of-accounts}
-
-\section{Accounts and headers}
-\label{sec-coa-accounts-and-headers}
-
-The system allows ordering accounts into groups by assigning accounts to headers. Headers
-can themselves be assigned to other headers resulting in trees of account groups.\footnote{Although the
-         database structure supports this type of account hierarchy from  1.3, it was not fully in use in reports until  1.4.17. In 1.3 accounts can be assigned a header,
-but headers can't be assigned to headers themselves.}
-
-
-
-\section{Account configuration}
-\label{sec-coa-account-configuration}
-
-Headers don't have any configuration, other than their number and description. Accounts also
-have a number and description, but require additional configuration for the application to work
-correctly. The settings are described in the sections that follow.
-
-\subsection{Account options}
-\label{sec-coa-account-options}
-\begin{description}[style=nextline]
-\item[Contra] This checkmark identifies the account as a \gls{contra} account, which means
-   that the account is going to hold the opposite of an account it's associated with.
-   A good example of this kind would be the depreciation account associated with a fixed
-   asset account where the depreciation account contains the credit amount to be added to
-   the original asset (debit) value to get the current asset value.
-\item[Recon] This checkmark identifies the account as one which needs reconciliation as
-   described in \secref{sec-business-processes-accounting-reconciliation}.
-\item[Tax] This checkmark identifies the account as a Tax (VAT) account. Tax accounts need
-   to be further configured. See \charef{cha-taxes} for further discussion of the
-   subject.
-   \label{item:AccountOptionsTax}
-\end{description}
-
-\subsection{Summary accounts}
-\label{subsec-coa-summary-accounts}
-
-There are currently three types of summary accounts:
-
-\begin{enumerate}
-\item AR Marking an account as a summary account for AR means that all outstanding
-   receivable amounts will be posted to this account. The Accounts Receivable administration
-   will contain the details of which amount is owed by which \gls{customer}.
-\item AP Same as the AR account, except for amounts owed to vendors.
-\item Inventory This account holds the monetary value equal to the items on stock.
-\end{enumerate}
-
-\subsection{Account inclusion in drop down lists}
-\label{subsec-coa-account-links}
-@@@ Add summary
-
-\subsubsection{Receivables \& payables UI}
-\label{subsubsec-coa-AR-AP-checkmarks}
-
-\begin{description}[style=nextline]
-\item[Income (AR\_amount)] This check mark adds the account to the list of accounts
-   in the transaction and invoice screens which are used to post income on.
-\item[Payment (AR\_paid)] This check mark adds the account to the list of accounts
-   to choose from in the Receipts (AR) and Payments (AP) screens. Additionally, it
-   adds the account to the part entry screen as described in \secref{subsec-products-parts-definition}.
-\item[Tax (AR\_tax)] This check mark makes the account show up as a check mark on the
-   \gls{customer} (AR) or vendor (AP) entry screen. See \charef{cha-taxes} for further discussion.
-\item[Overpayment (AR\_overpayment)] Adds the account to the receipts screen as discussed
-   in \secref{sec-business-processes-payment-processing-overpayments}.
-\item[Discount (AR\_discount)] Adds the account to the customer entry screen's selection
-   list for accounts to post 
-\end{description}
-
-The payables UI works the same way as the receivables UI. The difference is
-that the technical names of the configuration identifiers are prefixed by AP\_ instead
-of AR\_.
-
-\subsubsection{Tracking Items}
-\label{subsubsec-coa-tracking-items}
-
-The items on this line relate to stocked items, i.e. those tracked for inventory: parts and
-assemblies.
-
-\begin{description}[style=nextline]
-\item[Income (IC\_sale)] Adds the account to the selection list of income accounts on the
-   part and assembly definition screens.
-\item[COGS (IC\_cogs)] Adds the account to the selection list of COGS @@@ accounts on the
-   part, assembly and overhead definition screen.
-\item[Tax (IC\_taxpart)] Adds a check mark to the part and assembly definition screen
-   for the applicable account. See \charef{cha-taxes} for more details on how taxes
-   work in LedgerSMB.
-\end{description}
-
-@@@ Question: Labor/Overhead accounts == inventory accounts??
-  % Labor/Overhead has an inventory and expense account but no income account.
-  % Chris T
-
-\subsubsection{Non-tracking items}
-\label{subsubsec-coa-non-tracking-items}
-
-The items on this line relate to untracked (non stocked) items, i.e. services.
-
-\begin{description}[style=nextline]
-\item[Income (IC\_income)] Adds the account to the income account selection list in
-   the service definition screen.
-\item[Expense (IC\_expense)] Adds the account to the expense account selection list in
-   the service definition screen.
-\item[Tax (IC\_taxservice)] Adds a check mark to the service definition screen for the
-   applicable account. See \charef{cha-taxes} for more details on how taxes work in LedgerSMB.
-\end{description}
-
-\subsubsection{Fixed assets}
-\label{subsubsec-coa-fixed-assets}
-
-\begin{description}[style=nextline]
-\item[Fixed asset (Fixed\_Asset)] Marks the account as holding the original asset value for the fixed
-   assets module, for some classes of fixed assets.
-\item[Depreciation (Asset\_Dep)] Marks the account as holding the cumulative depreciation amount
-   for the fixed assets module, for some classes of fixed assets.
-\item[Expense (asset\_expense)] Adds the expense account to the selection list of the fixed assets
-   accounting module. See \secref{sec-business-processes-accounting-fixed-asset-accounting} for more details.
-\item[Gain (asset\_gain)] Account to hold book value gain upon disposal of a fixed asset.
-\item[Loss (asset\_loss)] Account to hold book value loss upon disposal of a fixed asset.
-\end{description}
-
-\subsubsection{Importing chart of accounts}
-\label{subsubsec-coa-importing}
-
 \section{Alternative accounts (GIFI)}
 \label{sec-coa-gifi}
 
@@ -609,7 +482,7 @@ I believe that in the "General Journal > Search" search options, you may need to
 \section{Overview}
 \label{sec-tax-overview}
 
-When an account has been marked as a Tax account (see \secref{sec-coa-account-options}, item
+When an account has been marked as a Tax account (see \secref{sec-coa-account-setup}, item
 \ref{item:AccountOptionsTax}) several things happen:
 
 \begin{itemize}
