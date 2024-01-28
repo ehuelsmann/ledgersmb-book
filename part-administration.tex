@@ -31,7 +31,7 @@ Maintenance may require different types of system access for different types of 
 \begin{enumerate}
 \item Within application tasks, such as user management, require an appropriately authorized
    application login
-\item Database administration tasks, such as creation of backups and application upgrades,
+\item Database administration tasks, such as creation of backups \index{backup} and application upgrades,
    require a database level login to be used with (amongst others) 'setup.pl'
 \item Other system-level maintenance tasks, such as updating PostgreSQL or Apache, which
    require user accounts on the server hosting LedgerSMB
@@ -792,18 +792,18 @@ There's another thing with LedgerSMB that helps auditability: transactions can't
 \section{Backup and restore}
 \label{sec-contingency-backup-restore}
 
-\subsection{Backup using setup.pl}
+\subsection{Backup using setup.pl}\index{backup}
 \label{subsec-contingency-backup-setup-pl}
 
 
-\subsection{Backup using PostgreSQL administration tools}
+\subsection{Backup using PostgreSQL administration tools}\index{restore}
 \label{subsec-contingency-backup-psql}
 
 \subsection{Restore}
 \label{subsec-contingency-restore}
 
 \begin{quote}
-Note that if the database being restored is a backup from a different (earlier) PostgreSQL version,
+Note that if the database being restored is a backup\index{backup} from a different (earlier) PostgreSQL version,
 additional steps described in \appref{sec-migration-postrgesql} will be required.
 \end{quote}
 
@@ -829,7 +829,7 @@ The remainder of this chapter discusses the steps to be executed. Please note th
 \section{Backups}
 \label{sec-updates-backups}
 
-All upgrades should start by creating backups of the system as it runs.  This means:
+All upgrades should start by creating backups \index{backup} of the system as it runs.  This means:
 
 \begin{itemize}
 \item Backup database roles (authorizations)

@@ -105,7 +105,7 @@ migrations: when the data
 in your older version is not consistent, it won't fit into the new data model and
 will need to be fixed first.
 
-Especially if your database has a very long line of history, being migrated trough
+Especially if your database has a very long line of history, being migrated through
 lots of SQL-Ledger and LedgerSMB versions, you may want to consider asking for help
 from a professional party. It could save you a lot of time.
 
@@ -175,6 +175,7 @@ some entities are \emph{Person}s - natural persons.
 \label{subsec-migration-others-products}
 
 \subsection{Migrating the balance}
+\label{subsec-migration-others-balance}
 
 The strategy that I used when migrating to LedgerSMB is the following:
 
@@ -202,41 +203,105 @@ What I did is post the transaction from the last step on the day before I wanted
 \section{Migrating between PostgreSQL versions}
 \label{sec-migration-postrgesql}
 
-If you're migrating between PostgreSQL versions, there are a few things to take
-into account.
+There are generally 2 ways to upgrade PostgreSQL\index{PostgreSQL upgrade} that apply to normal LSMB installations. 
+Both are described in the current PostgreSQL documentation at \url{https://www.postgresql.org/docs/current/index.html}.
+\begin{enumerate}
+    \item Dump\index{dump} and restore\index{restore} -
+        Described in more detail below.
+        Note that the roles must be restored before database creation and the data restore.
+    \item Upgrade in place using \texttt{pg\_upgrade}\index{pg\_upgrade} - When doing an upgrade in place, there are no specific LedgerSMB requirements.
+        Beware, upgrade in place requires both versions of the PostgreSQL to be installed and working. It is therefore more complex.
+\end{enumerate}
 
-% pg_dump: use the NEW pg_dump utility against the old database
-% pg_upgrade: <TODO>
-% pg_<migratecluster>: <TODO>; in case of unclean extension upgrade,
-%              possible need to issue ``CREATE EXTENSION tablefunc FROM UNPACKAGED''
+LedgerSMB versions prior to version 1.9.16 did not support PostgreSQL 14 or higher due to a backward incompatible change in PostgreSQL 14.
 
-\subsubsection{Notes on migration from 8.3 (or earlier) to 8.4 (or later)}
+The following examples use the  \texttt{lsmb\_dbadmin} for the database administrative user. 
+Recent LedgerSMB installs do not automatically create an  \texttt{lsmb\_dbadmin}\index{lsmb\_dbadmin} user.
+This has to be created manually.  You may have to use the \texttt{postgres} user depending on how your database was installed.
+
+The following upgrade procedure should not be used when upgrading a cloud provided PostgreSQL installation.
+In this case, the cloud provider's instructions have to be consulted to determine the proper upgrade procedure.
+
+The upgrade procedure when using dump and restore with a local LSMB native or docker installation  is:
+\begin{enumerate}
+    \item Stop users from accessing the current LSMB installation and make sure all users are logged off. 
+        The instructions for this step vary depending on how LSMB was installed. 
+        Note that access to \texttt{setup.pl} will be needed to create backups.
+    \item Make sure the current LedgerSMB installation is using the latest version.  
+        If not, see the \secref{sec-migration-from-older-ledgersmb} for instructions on upgrading LSMB.
+    \item Make a dump of both the roles and data using \texttt{setup.pl}.
+    \item Inspect the backup to make sure it is complete. 
+        Ideally, this inspection would include restoring the backup to temporary LedgerSMB installation with the same versions as the existing installation.
+        Then make sure it is complete by logging into the temporary LedgerSMB installation and inspecting reports, accounts, etc. 
+        Do not proceed unless you are sure your backups can be restored completely and accurately.
+    \item Create a new LedgerSMB installation with the new version PostgreSQL. 
+        The instructions for a new install are at \url{https://ledgersmb.org/installation}\index{installation}.
+    \item The next 3 restore steps, using \texttt{psql}, came from \url{https://ledgersmb.org/faq/how-do-i-restore-my-data}\index{faq database restore}\index{database restore}, which these instructions supersede. 
+        Other restore tools might work, but they have not been tested.
+    \item Restore the "roles" backup. The \texttt{psql} syntax is:
+        
+        \texttt{\$ psql -h [database host] -U [database admin user] < [roles backup file]}
+        
+        For example:
+        
+        \texttt{\$ psql -h localhost -U lsmb\_dbadmin < lsmb-roles.sqlc}
+    \item Create a new database. 
+        The database name is usually very similar to the company name. 
+        Do not create the database using \texttt{setup.pl} as the restore in the next step will setup the company.   The \texttt{psql} syntax is:
+        
+        \texttt{\$ psql -h [database host] -U [database admin user] -c 'CREATE DATABASE [new company name]'}
+        
+        For example:
+        
+        \texttt{\$ psql -h localhost -U lsmb\_dbadmin -c 'CREATE DATABASE newcompany'}
+    \item Restore the "data" backup. The \texttt{psql} syntax is:
+    
+        \texttt{\$ psql -h [database host] -U [database admin user] [new company name] < [company backup file]}
+        
+        For example:
+        
+        \texttt{\$ psql -h localhost -U lsmb\_dbadmin newcompany < lsmb-db.sqlc}
+    \item Read the beginning section of the PostgreSQL release notes for each PostgreSQL version from the old to the new and determine
+        if there are any additional steps that must be performed on the database after the restore. 
+        If there are, do them now.
+    \item Verify everything restored correctly.
+    \item Replace the old LSMB installation with the new installation. 
+        The exact steps to accomplish this varies based on how LSMB was originally installed.
+    \item Allow users to use LSMB.
+\end{enumerate}
+
+\subsection{Notes on migration from PostgreSQL 8.3 (or earlier) to 8.4 - deprecated }
 \label{subsec-migration-pre84-to84plus}
 
-% Performance benefit due to built in support for recursive queries only available
-% after the next setup.pl run
-% Also, after next setup.pl run, one should uninstall the tablefunc extension
+\vspace{5mm}
+\begin{center}
+\large{The content of this sub-section is deprecated, unedited, and only remains for historical reference purposes.}
+\end{center}
+\vspace{5mm}
 
-% 9.1+ DROP EXTENSION tablefunc;
-% 8.4, 9.0: use uninstall_tablefunc.sql from the contrib directory
+Performance benefit due to built in support for recursive queries only available
+after the next setup.pl run
+Also, after next setup.pl run, one should uninstall the tablefunc extension
 
-LedgerSMB 1.3 uses some extension modules for versions 8.3 and before for functionality
-that has been built into 8.4 and later. To make use of the (faster) built in version
+In 9.1+ may need to \texttt{DROP EXTENSION tablefunc;}.
+
+In 8.4, to 9.0 may need to  \texttt{uninstall\_tablefunc.sql} from the PostgreSQL contrib directory.
+
+LedgerSMB 1.3 uses some extension modules for versions PostgreSQL 8.3 and before for functionality
+that has been built into PostgreSQL 8.4 and later. To make use of the (faster) built in version
 of that functionality, the following restore procedure should be used.
 
 \begin{enumerate}
-\item Migrate the database to the new function as described in section @@@ TODO
+\item Migrate the database to the new function as described in section
 \item If you're using 9.1 and up, issue the command ``CREATE EXTENSION tablefunc FROM UNPACKAGED''
    from a psql prompt when connected to the company database
 \item Run 'setup.pl' from your browser to upgrade the database's routines; this command will
    install routines optimized for your version of PostgreSQL
-\item Run the command
+\item To clean up functions and procedures in the database which are no longer used you may need to run one of the commands below:
         \begin{description}
-        \item [8.4 or 9.0] \$ psql ... -f uninstall\_tablefunc.sql
-        \item [9.1 and up] ``DROP EXTENSION tablefunc;'' from a psql session connected
-                to the company database
+        \item [8.4 or 9.0]   \texttt{psql ... -f uninstall\_tablefunc.sql} in a shell
+        \item [9.1  to 9.5] \texttt{DROP EXTENSION tablefunc;} from a psql session connected to the company database
         \end{description}
-        to clean up functions and procedures in the database which are no longer used
 \end{enumerate}
 
 
