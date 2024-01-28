@@ -247,7 +247,8 @@ The upgrade procedure when using dump and restore with a local LSMB native or do
         \texttt{\$ psql -h localhost -U lsmb\_dbadmin < lsmb-roles.sqlc}
     \item Create a new database. 
         The database name is usually very similar to the company name. 
-        Do not create the database using \texttt{setup.pl} as the restore in the next step will setup the company.   The \texttt{psql} syntax is:
+        Do not create the database using \texttt{setup.pl} as that creates the company structure inside the database, which will interfere with the restore.   The \texttt{psql} syntax is:
+
         
         \texttt{\$ psql -h [database host] -U [database admin user] -c 'CREATE DATABASE [new company name]'}
         
