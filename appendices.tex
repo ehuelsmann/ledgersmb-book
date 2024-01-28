@@ -214,10 +214,10 @@ Both are described in the current PostgreSQL documentation at \url{https://www.p
 \end{enumerate}
 
 LedgerSMB versions prior to version 1.9.16 did not support PostgreSQL 14 or higher due to a backward incompatible change in PostgreSQL 14.
+Best practice in this situation is to update to at least LSMB 1.10. prior to upgrading to any version of PostgreSQL 14 or higher.
 
-The following examples use the  \texttt{lsmb\_dbadmin} for the database administrative user. 
-Recent LedgerSMB installs do not automatically create an  \texttt{lsmb\_dbadmin}\index{lsmb\_dbadmin} user.
-This has to be created manually.  You may have to use the \texttt{postgres} user depending on how your database was installed.
+The following upgrade procedure uses \texttt{lsmb\_dbadmin}\index{lsmb\_dbadmin} for the database administrative user.\footnote{Default LedgerSMB installations do not automatically create an  \texttt{lsmb\_dbadmin} user. This user is created manually during the initial database installation. For an example see, \url{https://ledgersmb.org/index.php/content/installing-ledgersmb-111}.}
+But if the original database installation did not follow the recommended installation practice, then the \texttt{postgres} superuser may have to be used. Using the \texttt{postgres} superuser is not considered best practice.
 
 The following upgrade procedure should not be used when upgrading a cloud provided PostgreSQL installation.
 In this case, the cloud provider's instructions have to be consulted to determine the proper upgrade procedure.
@@ -264,7 +264,7 @@ The upgrade procedure when using dump and restore with a local LSMB native or do
     \item Read the beginning section of the PostgreSQL release notes for each PostgreSQL version from the old to the new and determine
         if there are any additional steps that must be performed on the database after the restore. 
         If there are, do them now.
-    \item Verify everything restored correctly.
+    \item Verify all data restored and that LedgerSMB is working correctly.
     \item Replace the old LSMB installation with the new installation. 
         The exact steps to accomplish this varies based on how LSMB was originally installed.
     \item Allow users to use LSMB.
