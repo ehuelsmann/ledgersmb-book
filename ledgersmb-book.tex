@@ -5,7 +5,7 @@
 
 % Formatting & Source Notes
 % ---------------------------
-% To do's are represneted by the string @@@TODO
+% To do's are represented by the string @@@TODO
 %
 % Any packages added to this book must be supported in LaTeXML. See
 % the following URL for the details:
@@ -13,11 +13,43 @@
 %
 % All indentation should use space characters.
 % 
-% EOL - End of line is CRLF (for historical reasons).
-% 
 % All lists should be indented.
- %
- 
+% 
+% EOL - End of line is CRLF (for historical reasons).
+%
+% Names for buttons, fields, etc. should be shown in \texttt{} instead of single or double quotes
+% These names are used a lot and having so many quoted names is tiring to the eye.
+%
+% Navigation should use the menupath command. For example,
+%     \menupath{System \ma Defaults} where \ma is the menu arrow defined below.
+%
+% Data that is to be entered into a screen should be quoted using \texttt{} 
+%    and should use a table. For example,
+%        \begin{longtable}{ llp{6cm} }
+%            Field Name & Field Value & Description \\ \hline
+%            \endhead
+%            Company Name & \texttt{Example Inc.} & Some notes if applicable \\
+%             & & \\
+%        \caption{First Login - Change user defaults data}
+%        \label{fig:first-user-user-default-data}
+%        \end{longtable}
+%
+% Remakrs or notes should be formatted as follows:
+%    \begin{quote}
+%        \textbf{Remark} Note that the \gls{rfq} entry screen contains prices; this is misleading
+%        at least: the printed output to be sent to the vendor does not. The fact that this screen
+%        allows entry of prices could be considered a bug.
+%    \end{quote}
+%
+% Tables of definitions or options should be formatted as follows:
+%    \begin{description}[style=nextline]
+%        \item [Major] An increment in the major release number \index{release number} can mean significant architectural, 
+%            \gls{API}, functional, or usage 
+%            changes. It is expected that an upgrade to a new Major version is  going to be planned and tested 
+%            by the user organization before upgrading.
+%    \end{description}
+%
+
 \documentclass[10pt,a4paper]{book}
 
 % Use block style paragraphs, not initial indent
