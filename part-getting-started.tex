@@ -852,11 +852,106 @@ be recorded until invoices have been posted.
 \chapter{Ramping up to the first sale}
 \label{cha-ramping-up-to-the-first-sale}
 
+\section{Creating a customer}
+\label{sec-ramping-creating-a-customer}
+
+A customer\index{customer} is considered type of \gls{entity}\index{entity} or \gls{counterparty}\index{counterparty}\footnote{The terms "counterparty" and "entity" mean the same thing in  LSMB.}.
+There are two types of \glspl{counterparty}, "company"\index{company} and "person"\index{person}. A "company" entity is legalized by the state and typically incorporated, a sole proprietorship, or an LLC. A "person" is considered an unincorporated entity.
+
+The first step in creating a customer is to create the \gls{counterparty}, then annotate the \gls{counterparty} as a "customer".\footnote{ A single counterparty can also be annotated as a vendor allowing both sales to and purchasing from a single entity.}
+
+Jack is going to setup a company as a customer and starts by navigating to add contact screen using the menu path \menupath{Contacts \ma Add Contact \ma Company}. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{auto-screenshots/contacts--add-contact.png}
+    \caption{Add contact screen}
+    \label{fig:contacts-add-contact-screen}
+\end{figure}
+
+Referencing the workflow defined at \secref{sec-business-processes-creating-customers-and-vendors} Jack creates the company using the
+screen shown in \figref{fig:contacts-add-contact-screen}. 
+
+Jack does the minimum to set up the  \gls{counterparty} by making these changes to the screen:
+
+\begin{longtable}{ llp{6cm} }
+    Field Name & Field Value & Notes \\ \hline
+    \endhead
+    Name & \texttt{ABC, Inc.} & \\
+    Class & \texttt{Customer} & \\
+    Country & \texttt{United States} & \\
+    & & \\
+    \caption{Company data}
+    \label{fig:ramping-add-company-data}
+\end{longtable}
+
+When Jack is done entering the data he clicks the \texttt{Generate Control Code}, 
+then clicks the \texttt{Save} button, 
+which brings up the screen shown in \figref{fig:contacts-credit-account-screen}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/contact-credit-accounts-1.png}
+    \caption{Credit account screen}
+    \label{fig:contacts-credit-account-screen}
+\end{figure}
+
+This brings up the "Credit Accounts"\index{credit account} screen \figref{fig:contacts-credit-account-screen} where Jack can make this company \gls{counterparty} a customer.
+
+Jack does the minimum to set up the customer by making these changes to the screen:
+\begin{longtable}{ llp{6cm} }
+    Field Name & Field Value & Notes \\ \hline
+    \endhead
+    Number &\texttt{1} & There can be multiple credit accounts associated with this \gls{counterparty}. This is the first of those accounts. The number must be unique to the  \gls{counterparty}. \\
+    'Pay To & \texttt{ABC, Inc.} & \\
+    & & \\
+    \caption{Credit Accounts data}
+    \label{fig:ramping-credit-accounts-data}
+\end{longtable}
+
+When complete jack clicks the \texttt{Save New} button.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/contact-credit-accounts-2.png}
+    \caption{Credit account 2nd screen}
+    \label{fig:contacts-credit-account2-screen}
+\end{figure}
+
+Now that the customer credit account\index{credit account} is setup, Jack wants to add the customers address. He clicks the \texttt{Addresses} tab at the top of the screen and sees the screen shown in \figref{fig:contacts-addresses-screen}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/contact-addresses.png}
+    \caption{Addresses screen}
+    \label{fig:contacts-addresses-screen}
+\end{figure}
+
+Jack has to decide where to attach his customer's address. An address\index{address} on the "entity", which is also called a \gls{counterparty}, is an address that applies to all accounts associated with that entity. An address on a "credit account" applies to that specific customer/vendor instance. One entity may have multiple customers, multiple locations, multiple departments, etc., each with their own address details
+
+Jack enters the address by making these changes to the screen:
+
+\begin{longtable}{ llp{6cm} }
+       Field Name & Field Value & Notes \\ \hline
+        \endhead
+        Attached To & \texttt{Entity} & This company has only 1 address\\
+        Type & \texttt{Billing} & \\
+        Address & \texttt{123 Main St} & In the first address field\\
+        City & \texttt{Augusta} &\\
+        State/Province & \texttt{Mariana Islands} & \\
+        Zip/Post Code & \texttt{00000} & \\
+        & & \\
+    \caption{First company address data}
+    \label{fig:ramping-company-address-data}
+\end{longtable}
+
+When Jack is done entering the data he clicks the \texttt{Save New Location} button.
+
 \section{Sending out a quote} 
-\label{sec-sending-a-quote}
+\label{sec-ramping-sending-a-quote}
 
 \section{Sending out a sales order}
-\label{sec-sending-a-sales-order}
+\label{sec-ramping-sending-a-sales-order}
 
 
 
