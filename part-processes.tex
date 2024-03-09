@@ -947,56 +947,71 @@ scn = Source Coding Number
 \section{Period closing}
 \label{sec-business-processes-accounting-period-closing}
 
-Period closing is a concept used by accountants to ensure that audited and
-known-correct accounting data stays correct by ``freezing'' it: by closing
-an accounting period no modifications can be made to the accounting data
-before a certain date.
+Period closing\index{closing}\index{period closing} is a concept used by accountants to ensure that accounting data is not allowed to change without proper authority.
+This helps protect against errors when entering new transactions and fraud. 
+The best practice is to close an accounting period, usually monthly, as soon as it is reconciled.
 
-LedgerSMB supports this concept through the \menupath{System \ma Audit Control}
-menu, where you'll find the ``Close Books up to'' item. By filling out a date
-in the input field and hitting Continue posting to dates before the entered
-date will be disallowed.
+When a period is closed no transactions can be entered prior to the end date of the period, including previous periods.
 
-% @@@ screenshot
+To open or close a period the user must have be assigned the \texttt{yearend\_run}\index{yearend\_run} role, then they can navigate to the screen "Period closing dates" using \menupath{General Journal \ma Year End}.
+For an example, see \figref{fig:sec-year-end-closing}.
 
-\begin{quote}
-Note that due to a design limitation in LedgerSMB 1.3 - to be lifted with the
-general AR/AP redesign - invoices in foreign currencies can't be reversed on
-other dates than their original posting date. That is: they can, but their
-reversal will result in P\&L and balance sheet effects which presumably isn't
-desirable. Since period closing disables posting before a certain date this
-functionality may have negative side effects in some set ups.
+In the bottom part of the screen the user can add a date
+in the input field and hit the corresponding button \texttt{Close Period} to close all periods prior to that date.
+Note that periods are normally closed one-by-one in successive order.
 
-Also note that this pertains exclusively to invoices and transactions in foreign
-currencies and has no effect in case of invoices and transactions in the default
-currency.
-\end{quote}
+Re-opening a period also opens all succeeding periods.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\graphicswidth]{images/gl-year-end-closing.png}
+	\caption{Period and Year End Closing}
+	\label{fig:sec-year-end-closing}
+\end{figure}
+
+Note that due to a design limitation prior to the release of LedgerSMB 1.7, 
+invoices in foreign\index{foreign currency} currencies\footnote{This pertains exclusively
+	to invoices and transactions in foreign
+	currencies and has no effect in case of invoices and transactions in the default
+	currency.} can't be reversed\index{transaction reversal} on dates
+other than their original posting date. That is: they can, but their
+reversal will result in P\&L and balance sheet effects which are not desirable. 
+Since period closing disables posting before a certain date this
+functionality may have negative side effects in versions prior to 1.7.
+
 
 \section{Year-end processing}
 \label{sec-business-processes-accounting-year-end-processing}
 
-Year end closing is a concept which prepares the accounting books for the next
-accounting year. Note that this is unrelated to the calendar year but to the
-accounting year of the company instead. To muddy the waters even more: there's
-no inherent requirement for this process to be run at least once a year. If the
-first book year of the company spans more than a year, then this procedure will
-be run more than a year after starting up the company.
+Year end closing\index{year end} is a concept which prepares the accounting books for the next
+accounting year\footnote{Not the calendar year.}\index{accounting year}. There's
+no inherent requirement for this process to be run at least once a year. 
+This procedure closes the books up to the given date. 
+If the first book year of the company spans more than a year, 
+then the closing will span more than a given year.
+If it has been more than a year since the last year end close then
+this closing will span all data since the last year end close.
 
-This procedure freezes the accounting data in the year to be closed as described
-in the previous section. Additionally it clears out the profit and loss accounts:
-setting all the account
-balances to zero by posting their balance to the retained earnings account. Some
-businesses prefer to create a retained earnings account for each book year they
+This procedure freezes the accounting data as described in \secref{sec-business-processes-accounting-period-closing}. Additionally it clears out all of the profit and loss accounts by
+setting the balances to zero and posting their balance to the retained earnings account. 
+
+Some businesses prefer to create a retained earnings account for each book year they
 close. LedgerSMB supports that use-case by allowing the user to select which
 retained earnings account the balance should be posted to.
 
-Some companies want may to include additional transactions related to dividend
-payment regarding the current year: reduce the equity by the amount paid as
-dividends in transactions marked as ``year-end transaction''. Support
-for this use case isn't available in LedgerSMB 1.3.
+In order to run year end closing the user must have the role  \texttt{yearend\_run}\index{yearend\_run}. 
 
-% @@@ screenshot
+In order to re-open a year end closing the user must have the role \texttt{yearend\_reopen}\index{yearend\_reopen}.
+Typically the role to re-open an accounting period is reserved for upper management as any changes to previous periods may have tax, legal, or other government reporting impacts.
 
+The year procedure is run by filling in the data in the top part of the "Period closing dates" view, then clicking the button \texttt{Post Yearend}. For example, see \figref{fig:sec-year-end-closing}.
+
+Be careful here, because the UI default value is the first G/L account available for this procedure, 
+not necessary the correct retained earnings account.
+
+Some companies want may to include additional transactions in the year end close.
+Direct support for this use case isn't currently available.
+Use a manual G/L transactions to accomplish this.
 
 
 \section{Fixed asset accounting}
