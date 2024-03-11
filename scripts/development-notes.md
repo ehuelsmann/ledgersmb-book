@@ -37,21 +37,72 @@ sudo shutdown -r now
 
 ## Experimenting with alternative converters to HTML
 
+See [https://texfaq.org/FAQ-LaTeX2HTML](https://texfaq.org/FAQ-LaTeX2HTML)
+
+### TeX4ht
+
+Not tested.
+
 ### LaTeXML
 
-LaTeXML version 0.8.7 has problems with TeX Live 2023. The conversion hangs. The problem is known at LaTeXML upstream, but as of 19 Nov 2023 no solution has been released.
-
-[Issue 2109](https://github.com/brucemiller/LaTeXML/pull/2109)
-
-[Issue 2151](https://github.com/brucemiller/LaTeXML/pull/2151)
+LaTeXML version 0.8.7 has problems with TeX Live 2023. The conversion hangs. The problem is known at LaTeXML upstream, but as of 9 March 2024 no solution has been released.
 
 [Issue 2064](https://github.com/brucemiller/LaTeXML/issues/2064)
 
+[Issue 2109](https://github.com/brucemiller/LaTeXML/pull/2109)
+
 [Issue 2124](https://github.com/brucemiller/LaTeXML/issues/2124)
 
-Fixes have been merged, waiting on release.
+[Issue 2151](https://github.com/brucemiller/LaTeXML/pull/2151)
 
-### hevea (19 Nove 2023)
+Fixes have been merged, waiting on release. Release 0.8.8 did not complely fix the problem for LSMB.  Still takes a long time to run?
+
+### lwarp
+
+lwarp does not handle items like:
+
+```
+\begin{description}[style=nextline]
+\item[Balance Sheet] Provides a snapshot of the .....
+\end{description}
+```
+Does seem to work when when `style=standard`.
+
+Multipage HTML not working.
+
+### LaTeX2HTML (19 Nov 2023)
+
+[Github Source](https://github.com/latex2html/latex2html)
+
+[Home Page CTAN](https://www.ctan.org/pkg/latex2html)
+
+[Home Page](https://www.latex2html.org)
+
+```bash
+latex2html -help
+perldoc latex2html
+
+LaTeX2HTML ledgersmb-book.tex
+
+*********** WARNINGS ***********  
+No implementation found for style `lmodern'
+No implementation found for style `url'
+No implementation found for style `palatino'
+No implementation found for style `enumitem'
+No implementation found for style `makecell'
+No implementation found for style `glossaries'
+No implementation found for style `metalogo'
+
+Substitution of arg to newlabelxx delayed.
+
+? brace missing for \oldnewlabel
+
+Unknown commands: acrshort footref printglossary setlist makecell else makeglossaries protected_at_file_at_percent LaTeXML ifdefined protected cleardoublepage fi ifpdf bullet XeLaTeX newacronym glspl newglossaryentry gls hypersetup 
+Done.
+
+```
+
+### hevea (19 Nov 2023)
 
 [Github Source](https://github.com/maranget/hevea)
 
@@ -91,34 +142,14 @@ Adios
 
 ```
 
-### LaTeX2HTML (19 Nove 2023)
+### TtH
 
-[Github Source](https://github.com/latex2html/latex2html)
+However the resulting HTML does not really reach modern standards, and only very simple mathematics can be converted.
 
-[Home Page CTAN](https://www.ctan.org/pkg/latex2html)
+### plasTeX
 
-[Home Page](https://www.latex2html.org)
+Python based, not interested in adding python as a project requirement.
 
-```bash
-latex2html -help
-perldoc latex2html
+### TeXpider
 
-LaTeX2HTML ledgersmb-book.tex
-
-*********** WARNINGS ***********  
-No implementation found for style `lmodern'
-No implementation found for style `url'
-No implementation found for style `palatino'
-No implementation found for style `enumitem'
-No implementation found for style `makecell'
-No implementation found for style `glossaries'
-No implementation found for style `metalogo'
-
-Substitution of arg to newlabelxx delayed.
-
-? brace missing for \oldnewlabel
-
-Unknown commands: acrshort footref printglossary setlist makecell else makeglossaries protected_at_file_at_percent LaTeXML ifdefined protected cleardoublepage fi ifpdf bullet XeLaTeX newacronym glspl newglossaryentry gls hypersetup 
-Done.
-
-```
+Commercial, does not fit open source model
