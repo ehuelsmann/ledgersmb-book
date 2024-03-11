@@ -15,9 +15,11 @@ The source for the LedgerSMB Book can be found on [github](https://github.com/eh
 The book should build with any recent LaTeX installation. The book is expected to produce both HTML and PDF and is currently tested with:
 
 * LaTeXML version 0.8.7
-* TeX Live 2022
+* TeXLive 2022
 
-All documents can be built locally by running the script `local-build.sh --use-pdf-latex`. This will create a directory called `local-build` that contains the book in PDF, single page HTML, and multi-page HTML formats.
+Note: TexLive 2023 fails to build with LaTeXML 0.8.7.  However, LaTeXML 0.8.8 will work with TexLive 2023, it just takes 25 minutes to build. The long build time is an acknowledged bug, but it is not clear if that bug is in LaTeXML or LaTeX.
+
+All documents can be built locally by running the script `local-build.sh --use-latex-mk`. This will create a directory called `local-build` that contains the book in PDF, single page HTML, and multi-page HTML formats.
 
 The Book also builds in PDF format without using the `local-build.sh` script using: 
 
