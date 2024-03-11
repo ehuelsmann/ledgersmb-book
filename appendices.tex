@@ -536,7 +536,7 @@ By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set t
 \subsubsection{[main] Section}
 \label{subsubsec-global-config-ledgersmb-conf-general}
 
-\begin{description}[style=nextline]
+\begin{description}
         \item[language] Set language for login and admin pages. 
         \item[date\_format] Set the date format for the admin pages.  The default is \texttt{yyyy-mm-dd}. Unset means detected from the browser)
         \item[log\_level] Specifies the logging level to be used. This setting is ignored when the \texttt{log\_config} setting 
@@ -567,7 +567,7 @@ By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set t
 
         Sets shell environment variables when starting up.
 
-\begin{description}[style=nextline]
+\begin{description}
         \item[PATH] If the server can't find applications, append to the path. For example:
         \texttt{PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/pgsql/bin}
         \item [PERL5LIB] On some operating systems like macOS the perl path may need to be set. For example, on macOS using Fink's Perl libs it might be set like:
@@ -578,7 +578,7 @@ By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set t
 \subsubsection{[paths] Section}
 \label{subsubsec-global-config-ledgersmb-conf-paths}
 
-\begin{description}[style=nextline]
+\begin{description}
         \item [templates] Templates base directory. Typically set to \texttt{templates}.
         \item [images] Images base directory. Typically set to \texttt{UI/images}.
         \item [localepath] Path to locale files. Defaults to \texttt{locale/po}.
@@ -600,7 +600,7 @@ Setup the various helper programs that can be used with LedgerSMB.
 \subsubsection{[mail] Section}
 \label{subsubsec-global-config-ledgersmb-conf-mail}
 
-\begin{description}[style=nextline]
+\begin{description}
         \item [smtphost] The host name of the smtp server. If provided, then do not use local sendmail. Note that one of sendmail or smtphost has to be provided for email to work.
         \item [sendmail] Path the local sendmail executable. If provided then do not use an smtp server. Note that one of sendmail or smtphost has to be provided for email to work.
         \item [smtpport] The port number of the smtp server. Note this might vary depending on whether TLS or SSL is used.
@@ -641,7 +641,7 @@ Or to an Epson Printer.
 \subsubsection{[database] Section}
 \label{subsubsec-global-config-ledgersmb-conf-database}
 
-\begin{description}[style=nextline]
+\begin{description}
         \item [host] Name of the host to connect to. See the documentation of the {\tt -h} command line option at 
         \url{https://www.postgresql.org/docs/current/static/app-psql.html}
         for more information (documentation unchanged since before 8.3, so applies to older versions as well)
