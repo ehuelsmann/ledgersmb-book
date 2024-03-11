@@ -2,8 +2,8 @@
 
 # gather-db-info.pl
 #
-# Access a running LedgerSMB database and
-# retrieve information to create include files for the LEdgerSMB Book.
+# Access a running LedgerSMB Postgres database and
+# retrieve information to create include files for the LedgerSMB Book.
 #
 # The user accessing the database requires enough privilages
 # to read all tables.
@@ -81,7 +81,7 @@ sub make_glossary_entries ($text) {
 
 # create the description begining.
 sub description_prolog {
-    return '\begin{description}[style=nextline]';
+    return '\begin{description}';
 }
 
 # create the description end.

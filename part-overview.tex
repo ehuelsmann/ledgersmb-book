@@ -306,7 +306,7 @@ lack of functionality to delete or correct incorrect invoices (See \secref{sec-b
 The purpose of an accounting system is to keep track of the company's financial status.  The following reports are used to
 present it:
 
-\begin{description}[style=nextline]
+\begin{description}
 	\item[Balance Sheet] Provides a snapshot of the financial position of a company, listing its possessions (assets), debts (liabilities) and residual value (equity).
 	\item[Income Statement] Also known as the ``Profit \& Loss Statement'', summarizes the income generated over a specific period and the expenses associated with it, resulting in ``Net Result''.
 	\item[Cashflow Statement\footnote{\label{cha-accounting-footnote-not-implemented}Not currently implemented in LedgerSMB}] Summarizes the incoming and outgoing cash flows over a specific period, resulting in ``Free Cash Flow''.
@@ -315,7 +315,7 @@ present it:
 \end{description}
 
 The accounting system is composed of these parts:
-\begin{description}[style=nextline]
+\begin{description}
         \item [Journals] Contain the company's transactions with extensive additional data; they are the first point of entry for transactions, ordered by order of entry.
         \item [Ledgers] Contain aggregated data from the journals, ordered by date.
         \item [Chart of Accounts] The categories by which financial data are classified.
@@ -324,7 +324,7 @@ The accounting system is composed of these parts:
 All accounting data ends up summarized in the \acrshort{GL}. Transactions may be entered in a different (sub)ledger before ending up in the \acrshort{GL}; e.g. the Sales Ledger. With the advent of computerized accounting, the use of journals is in decline: transactions are classified while directly being entered into ledgers.
 
 In addition to the parts mentioned above the following terms are used throughout this document:
-\begin{description}[style=nextline]
+\begin{description}
         \item [Assets] Money and anything that can be converted into money without reducing
         the net equity of the business. Assets include money owed, money held, goods
         available for sale, property, etc.
