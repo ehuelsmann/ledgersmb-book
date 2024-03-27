@@ -12,7 +12,7 @@ Description of the general operation of LedgerSMB that appears across multiple v
 \section{Reports}
 \label{sec-general-operation-user-interface-reports}
 
-At the bottom of most report views there is a '[permalink]'. The idea of a \gls{permalink} is that you get a link which you can share with your colleagues and when inserted into the browser, returns exactly the same report (or at least a search with exactly the same parameters as you used).  To copy a  \gls{permalink} the user can right-click and select "Copy link" from the drop down menu and pass it to a colleague by pasting into an email or other messaging App.
+At the bottom of most report views there is a '[permalink]'. The idea of a \gls{permalink}\index{permalink} is that you get a link which you can share with your colleagues and when inserted into the browser, returns exactly the same report (or at least a search with exactly the same parameters as you used).  To copy a  \gls{permalink} the user can right-click and select "Copy link" from the drop down menu and pass it to a colleague by pasting into an email or other messaging App.
 
 \part{Customization}
 \label{part-customization}
@@ -106,7 +106,7 @@ becoming \texttt{posted}.
 
 The actions in the workflows \texttt{order-quote}, \texttt{ar-ap} and \texttt{gl} are
 hard coded\footnote{This is not a permanent situation, but rather a consequence of
-these workflows being used in \gls{oldcode}}.  This means that the list of actions is restricted to those defined in the
+these workflows being used in \gls{oldcode}\index{old code}}.  This means that the list of actions is restricted to those defined in the
 files \texttt{order-quote.actions.xml}, \texttt{ar-ap.actions.xml} and
 \texttt{gl.actions.xml}.  It's not necessary to use all actions in the workflow, but
 additional ones cannot be created -- contrary to what is in the \texttt{Workflow}
@@ -145,10 +145,10 @@ A custom formatter needs to implement the protocol as documented at \url{https:/
 LedgerSMB comes with three bank statement importers built-in:
 
 \begin{itemize}
-	\item [CAMT.053] The \gls{ISO20022} ``Cash Management'' message 053
+	\item [CAMT.053] The \gls{ISO20022}\index{ISO20022} ``Cash Management'' message 053
 		(Bank-to-Customer account statement)
-	\item [\gls{OFX}] A standard to exchange data describing financial transactions
-	\item [CSV] 
+	\item [\gls{OFX}\index{OFX}] A standard to exchange data describing financial transactions
+	\item [CSV]  File based using \gls{csv}\index{csv}
 \end{itemize}
 
 The bank statement importer is a Perl class implementing the
@@ -220,7 +220,7 @@ import routine expects the columns as presented in (table name).
 ``E'' for Expense \\
 ``A'' for Asset \\
 ``L'' for Liability
-\item [contra] ``0'' not a \gls{contra} account \\
+\item [contra] ``0'' not a \gls{contra}\index{contra} account \\
 ``1'' is a \gls{contra} account
 \item [tax] ``0'' not a tax account \\
 ``1'' is a tax account.

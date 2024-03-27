@@ -58,7 +58,7 @@ be integrated in the base application. As of that time, the existing features
 will be frozen, meaning that the utmost will be done to prevent it from being
 changed.
 
-These separate modules - which are called \glspl{add-on} - have to be
+These separate modules - which are called \glspl{add-on}\index{add-on} - have to be
 installed separately.  After installation they become seamless parts of
 LedgerSMB with no visible difference from the base application. An
 additional benefit of having \glspl{add-on} is that they can follow different
@@ -148,11 +148,11 @@ Overall, the application consists of five layers:
 \item The web browser (as the user interface)
 \item The web server (as a network traffic handler)
 \item The Perl (web)server process (as an application - \gls{PSGI})
-\item The database (as an application - \gls{PL/SQL})
+\item The database (as an application - \gls{PL/SQL}\index{PL/SQL})
 \item The database (as storage)
 \end{itemize}
 
-In version 1.10 the user interface is a \gls{SPA} using a mixture of new (e.g. 
+In version 1.10 the user interface is a \gls{SPA}\index{SPA} using a mixture of new (e.g. 
 \href{https://vuejs.org/}{Vue 3},
 \href{https://webpack.js.org/}{webpack 5} and \href{https://developer.mozilla.org/en-US/docs/Web/Web_Components}{Web Components}) and old (e.g. \href{https://dojotoolkit.org/}{Dojo Toolkit}) technology.
 
@@ -168,7 +168,7 @@ server and the database has been abandoned with  the introduction of this additi
 (business process) layer.
 
 At the ``database as an application'' layer, \gls{PL/SQL} functions implement business
-functionality, such as creating \gls{COGS} accounting entries.
+functionality, such as creating \gls{COGS}\index{COGS} accounting entries.
 
 The ``database as storage'' layer is responsible for storing data with consistency and
 integrity; to that extent (and much more than in \acrshort{SL}) constraints and triggers
@@ -178,7 +178,7 @@ access rules; i.e. to protect data from being accessed by unauthorized users.
 The main difference between old and new coding paradigms is at the Perl application
 layer: older code generates HTML fragments while newer code delivers data through
 web services.  As part of the on-going code restructuring, there's a major effort
-to create a \gls{REST} web service based APIs.  The intent here is to facilitate
+to create a \gls{REST}\index{REST} web service based APIs.  The intent here is to facilitate
 integration with other applications used by businesses (both in the business itself
 or as provided by customers and vendors).
 
@@ -361,12 +361,12 @@ is unbalanced (i.e. contains an error), the balance sheet becomes unbalanced -- 
 
 Financial statements, such as the Income Statement and Balance Sheet can be prepared using either a cash or accrual basis.
 
-In \gls{cash basis} accounting, the income is deemed earned when the business physically
+In \gls{cash basis}\index{cash basis} accounting, the income is deemed earned when the business physically
 receives the customer payment, and the expenses are deemed incurred when the business
 physically pays them. Cash basis accounting does not require the use of purchase orders,
 invoices, or long term liabilities.
 
-In \gls{accrual basis} accounting, income is considered earned when a valid asset is
+In \gls{accrual basis}\index{accrual basis} accounting, income is considered earned when a valid asset is
 received for services or product provided. The asset is the claim on the customer,
 by way of the invoice, to collect an amount at a later date. This asset is called
 Accounts Receivable. An expenses is considered earned when a liability is created,
