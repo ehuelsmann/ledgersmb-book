@@ -2,16 +2,29 @@
 % !TeX spellcheck = en_US
 % !TeX root = ledgersmb-book.tex
 
+% Do not put index entries in the glossary (this file).
+% This causes indexes to refer to the title page in both the PDF and HTML.
+%
+% The proper way to handle having a glossary entry in the both the
+% glossary and index is to annotate the term with both gls and index.
+%
+% For example:
+%		.... accounting year\gls{accounting year}\index{accounting year} ....
+% In this case, the user can click on the index entry to get to the 'accounting year' text,
+% then click again on this text to get to the glossary entry.
+
+% There does not seem to be an easy way to put the glossary entry directly into the index.
+ 
 \newglossaryentry{accounting year}{
 	name={accounting year},
-	description={\index{accounting year}An accounting year, which may also be called fiscal year, financial year or budget year
+	description={An accounting year, which may also be called fiscal year, financial year or budget year
 		is a twelve month period used for annual financial reporting.
 		An accounting year may be the same as a calendar year, but most jurisdictions allow the accounting year to be
-		defined differently from the calendar year.}}
+		defined differently from the calendar year}}
 
 \newglossaryentry{accrual basis}{
     name={accrual basis},
-    description={\index{accrual basis}Income is deemed earned when the customer invoice is prepared and     sent, and the expenses 
+    description={Income is deemed earned when the customer invoice is prepared and     sent, and the expenses 
         are deemed incurred when the purchase order is prepared and sent}}
 
 \newglossaryentry{add-on}{
@@ -21,7 +34,7 @@
 
 \newglossaryentry{cash basis}{
     name={cash basis},
-    description={\index{cash basis}
+    description={
         Income is deemed earned when the customer pays it, and the expenses 
         are deemed incurred when the business pays them}}
 
@@ -37,14 +50,14 @@
 
 \newglossaryentry{contra}{
     name={contra},
-    description={\index{contra}
+    description={
         A contra account is used in a general ledger to reduce the value of a related account when the two are netted together. 
         A contra account's natural balance is the opposite of the associated account. 
         If a debit is the natural balance recorded in the related account, the contra account records a credit}}
 
 \newglossaryentry{counterparty}{
     name={counterparty},
-    description={\index{counterparty}A legal entity, unincorporated entity, or collection of entities to which an exposure of financial risk may exist.
+    description={A legal entity, unincorporated entity, or collection of entities to which an exposure of financial risk may exist.
         In LSMB, a counterparty, is the same as an entity, and can be either a company entity (suppliers, vendors, customers), 
         or a person entity (including an employee)},
     plural={counterparties}}
@@ -64,7 +77,7 @@
 
  \newglossaryentry{customer}{
     name=customer,
-    description={\index{customer}Is a contact initially setup as a company or person and further configured with at least one customer credit account},
+    description={Is a contact initially setup as a company or person and further configured with at least one customer credit account},
     plural=customers}
 
 \newglossaryentry{diacritic character}{
@@ -75,7 +88,7 @@
 
 \newglossaryentry{entity}{
     name={entity},
-    description={\index{entity}A legal entity, unincorporated entity, or collection of entities to which an exposure of financial risk may exist.
+    description={A legal entity, unincorporated entity, or collection of entities to which an exposure of financial risk may exist.
         In LSMB, an entity, is the same as a counterparty, and can be either a company entity (suppliers, vendors, customers) or 
         a person entity (including an employee)},
     plural={counterparties}}
@@ -91,15 +104,15 @@
 
 \newglossaryentry{gifi}{
     name={GIFI},
-    description={\index{GIFI}Stands for Generalized Index for Financial Information,
-        a system used by the Canada Revenue Agency for filing coporate
+    description={Stands for Generalized Index for Financial Information,
+        a system used by the Canada Revenue Agency for filing corporate
         tax returns (see \url{http://www.cra-arc.gc.ca/tx/bsnss/tpcs/crprtns/rtrn/wht/gifi-ogrf/menu-eng.html})}}
 
 \newglossaryentry{ISO20022}{
     name={ISO-20022},
-    description={\index{ISO-20022}ISO 20022 is a multi part International Standard prepared by ISO Technical Committee 
+    description={ISO 20022 is a multi part International Standard prepared by ISO Technical Committee 
         TC68 Financial Services. It describes a common platform for the development of messages relating to the financial 
-        services industry.\footnote{From \url{https://iso20022.org/}}}}
+        services industry\footnote{From \url{https://iso20022.org/}}}}
 
 \newglossaryentry{OFX}{
     name={OFX},
@@ -109,13 +122,13 @@
 
 \newglossaryentry{oldcode}{
     name={old code},
-    description={\index{old code}Stands for the code inherited from SQL Ledger at the time
-        of the fork.  This code stands to be replaced by ``Modern Perl''.}}
+    description={Stands for the code inherited from SQL Ledger at the time
+        of the fork.  This code stands to be replaced by ``Modern Perl''}}
  
 \newglossaryentry{payment}{
     name={payment},
     description={A transfer of cash or cash equivalents out of the company. 
-        Payments are not \glspl{expense}: e.g. payments to pay off a loan}}
+        Payments are not expenses: e.g. payments to pay off a loan}}
  
 \newglossaryentry{permalink}{
     name={permalink},
@@ -137,5 +150,5 @@
 
 \newglossaryentry{vendor}{
     name=vendor,
-    description={\index{vendor}Is a contact initially setup as a company or person and further configured with at least one vendor credit account},
+    description={Is a contact initially setup as a company or person and further configured with at least one vendor credit account},
     plural=vendors}

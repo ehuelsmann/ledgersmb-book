@@ -98,7 +98,7 @@
 % glossaries must be loaded *after* hyperref
 % Items to be added to the Glossary or Acronym list are designated with \gls{csv} for single and  \glspl{add-on} for plural form.
 % To determine Acronym or Glossary enter the key in the appropriate file; acronyms.tex or glossary.tex
-\usepackage[acronym]{glossaries}
+\usepackage[toc, acronym]{glossaries}
 \makeglossaries
 
 \ifdefined\LaTeXML
@@ -130,14 +130,14 @@
                 pdfkeywords={LedgerSMB, Accounting, Inventry, Invoicing, G/L, ERP, Software, Free, Open Source}
 }
 
-\include{acronyms}
-\include{glossary}
-
 % metalogo not available to latexml
 % so the meta forms must have \ifpdf for HTML
 \ifpdf
   \usepackage{metalogo}
 \fi
+
+\loadglsentries{acronyms.tex}
+\loadglsentries{glossary.tex}
 
 \begin{document}
 
@@ -279,13 +279,11 @@ Members of the \url{https://app.element.io/#/room/#ledgersmb:matrix.org}  chat r
 
 \clearpage
 \addcontentsline{toc}{chapter}{Definitions of terms}
-\printglossary
-
+\printglossary[title={Definition of terms}]
 
 \clearpage
 \addcontentsline{toc}{chapter}{Index}
 \printindex
-
 
 \end{document}
 

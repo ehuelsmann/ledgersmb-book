@@ -109,7 +109,7 @@ Email \index{mail} can be configured by selecting which of the three available t
     \item{\texttt{LedgerSMB::Mailer::TransportSMTP}} - Emails \index{email} are sent using a remote SMTP \index{SMTP} server.  The configuration parameters are:
     \begin{description}
         \item{\texttt{transport:\$class}} – \texttt{LedgerSMB::Mailer::TransportSMTP}
-        \item {\texttt{transport:host}} – The required host name of the smtp \index{ SMTP} server.
+        \item {\texttt{transport:host}} – The required host name of the smtp \index{SMTP} server.
         \item {\texttt{transport:port}} – The required port number of the smtp server. Note this might vary depending on whether TLS or SSL is used.
         \item {\texttt{sasl\_username:\$class}} – The required smtp server authentication method. The values can be `Authen::SASL` or `Authen::SASL::SCRAM`.
         \item {\texttt{sasl\_username:mechanism}} –  The available mechanism are defined at \url{https://metacpan.org/dist/Authen-SASL} or \url{ https://metacpan.org/dist/Authen-SASL-SCRAM} depending on the selected `\$class`.
@@ -310,7 +310,7 @@ There are currently three types of optional summary accounts:
 Each account may have zero, one or more of the following options selected.
 
 \begin{description}
-    \item[Contra] This checkmark identifies the account as a \gls{contra}\index{contra}account, which means
+    \item[Contra] This checkmark identifies the account as a \gls{contra}\index{contra} account, which means
     that the account is going to hold the opposite of an account it's associated with.
     A good example of this kind would be the depreciation account associated with a fixed
     asset account where the depreciation account contains the credit amount to be added to

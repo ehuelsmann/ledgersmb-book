@@ -527,11 +527,11 @@ These roles definitions are generated directly from a running database using  \t
 \section{ledgersmb.conf}
 \label{app-deprecated-ledgersmb-conf}
 
-The use of \texttt{ledgersmb.conf} \index{ } is deprecated as of 1 Jan 2023 in favor of \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} and only remains here for historical reasons.  
+The use of \texttt{ledgersmb.conf} \index{ledgersmb.conf} is deprecated as of 1 Jan 2023 in favor of \texttt{ledgersmb.yaml} \index{ledgersmb.yaml} and only remains here for historical reasons.  
 
-The environment variable for controlling the configuration is \texttt{LSMB\_CONFIG\_FILE}.
+The environment variable for controlling the configuration is \texttt{LSMB\_CONFIG\_FILE}\index{LSMB\_CONFIG\_FILE}.
 
-By default it pointed to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set to an alternate location.
+By default \texttt{LSMB\_CONFIG\_FILE} points to \texttt{/etc/ledgersmb/ledgersmb.conf} and can be set to an alternate location.
 
 \subsubsection{[main] Section}
 \label{subsubsec-global-config-ledgersmb-conf-general}
@@ -601,7 +601,7 @@ Setup the various helper programs that can be used with LedgerSMB.
 \label{subsubsec-global-config-ledgersmb-conf-mail}
 
 \begin{description}
-        \item [smtphost] The host name of the smtp server. If provided, then do not use local sendmail. Note that one of sendmail or smtphost has to be provided for email to work.
+        \item [smtphost] The host name of the smtp\index{smtp} server. If provided, then do not use local sendmail. Note that one of sendmail or smtphost has to be provided for email to work.
         \item [sendmail] Path the local sendmail executable. If provided then do not use an smtp server. Note that one of sendmail or smtphost has to be provided for email to work.
         \item [smtpport] The port number of the smtp server. Note this might vary depending on whether TLS or SSL is used.
         \item [smtpuser] The smpt server account name
