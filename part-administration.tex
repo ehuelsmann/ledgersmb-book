@@ -700,26 +700,30 @@ To visualize the algorithm, please consider the following examples.
 \subsection{Price matrix example: simple pricing}
 
 Consider customers A and B and a part with a generic ``Sell price'' of 110.00.
-The simplest for of a price matrix for a part, could look like:
+The simplest price matrix for a part, could look like:
 
 \begin{table}[H]
-		\caption{Price matrix configuration}
+		\caption{Customer specific price matrix}
 \begin{tabular}{|ccrrcrrr|}
 	\hline
 	\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
 	\hline
-	B & \footnote{This value is mutually exclusive with Customer} & & 99.00 & & & & \\
+	B & & & 99.00 & & & & \\
 	\hline
 \end{tabular}
 \end{table}
 
-When creating an invoice for customer A, the part will be listed at 110 while at the
+% In the above table this footnote was not being processed correctly
+% and I am not sure what ' mutually exclusive' means here.
+%  \footnote{This value is mutually exclusive with Customer} attached to Price Group
+
+When creating an invoice for customer A (not in the prices matrix), the part will be listed at generic sales price of 110.00 while at the
 same time an invoice for customer B lists it at 99.00.
 
 If customer B had been in the ``Frequenters'' price group, and the matrix had looked like this:
 
 \begin{table}[H]
-	\caption{Price matrix configuration}
+	\caption{Price group specific price matrix}
 	\begin{tabular}{|ccrrcrrr|}
 		\hline
 		\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
