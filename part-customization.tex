@@ -48,6 +48,7 @@ Customization usually means additional or modified Perl code needs to be loaded.
 @@@TODO: describe where to store this new or overriding code...
 
 \section{Workflow configuration}
+\label{sec-customization-workflow-configuration}
 
 LedgerSMB uses the concept of workflows\index{workflows} to manage the document life cycle.
 An invoice for example may be \texttt{saved}, \texttt{posted} or \texttt{reversed}.  These
@@ -94,6 +95,7 @@ documentation on MetaCPAN as well as the built-in workflows as examples of how
 to define one's own.
 
 \subsection{Workflow observers}
+\label{subsec-customization-workflow-observers}
 
 Particularly interesting is the concept of observers\index{workflow observers}:
 this functionality allows the application to be extended based a specific action
@@ -103,6 +105,7 @@ payment request when an invoice is posted: an observer could be ``listening'' to
 becoming \texttt{posted}.
 
 \subsubsection{Notes on Quote, Order, AR, AP and GL workflow customization}
+\label{subsubsec-customization-workflow-observers-notes}
 
 The actions in the workflows \texttt{order-quote}, \texttt{ar-ap} and \texttt{gl} are
 hard coded\footnote{This is not a permanent situation, but rather a consequence of
@@ -119,6 +122,7 @@ coded implementation.  Setting the action's class attribute to some other value 
 the developer to add behavior on top of what's hard coded.
 
 \section{Document formatters}
+\label{sec-customization-document-formatters}
 
 Document formatters transform templates into output documents; e.g. an HTML invoice
 template can be transformed into an HTML file with the details of the invoice filled
@@ -141,6 +145,7 @@ suitable document formatter):
 A custom formatter needs to implement the protocol as documented at \url{https://docs.ledgersmb.org/perl-api/1.11.0/LedgerSMB/Template.pm.html#FORMATS}.
 
 \section{Bank statement importers}
+\label{sec-customization-bank-importers}
 
 LedgerSMB comes with three bank statement importers built-in:
 
@@ -170,10 +175,12 @@ when the bank makes a more exotic format available, customization of the bank st
 importer may be necessary.
 
 \section{HTTP request interceptors}
+\label{sec-customization-http-requests}
 
 @@@TODO: describe how to add \texttt{Plack::Middleware} instances in the request processing
 
 \section{Outgoing mail transport}
+\label{sec-customization-outgoing-mail}
 
 The library used for sending e-mail (\texttt{Email::Sender})
 includes a wide variety of transports that can be used to configure the library to (pretend to) send
@@ -183,6 +190,7 @@ Should a different delivery method be required even considering the list of avai
 this can be achieved by implementing a custom \texttt{Email::Sender::Transport}.
 
 \section{Sales/VAT tax calculation}
+\label{sec-customization-sales-tax}
 
 Tax calculations performed for VAT and/or sales taxes have been abstracted into so-called
 ``tax modules''.  An example of a custom tax module can be found in the directory

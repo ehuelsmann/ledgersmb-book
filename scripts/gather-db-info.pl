@@ -124,10 +124,10 @@ SQL
         $role_desc = make_glossary_entries($role_desc);
 
         # Create an index for the role name
-        my $index = $ref->{rolename} =~ s/_/ /gr;
+        my $index = $ref->{rolename} =~ s/_/\\_/gr;
 
         print "Found After Processing: $role_name -> '$role_desc'\n\n";
-        push(@tex_array, "\\item [$role_name] \\htmlspacing $role_desc \\index{$index}");
+        push(@tex_array, "\\item [$role_name] \\htmlspacing $role_desc \\index{role $index}");
     }
     push(@tex_array, description_epilog());
     write_file( join ("\n", @tex_array), $file_name);
