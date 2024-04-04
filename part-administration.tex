@@ -550,7 +550,7 @@ and part settings and service settings described in \secref{subsubsec-products-p
 \section{Tax calculation examples}
 \label{sec-tax-calculation-examples}
 
-% ### TODO
+@@@ TODO
 
 \section{Tax calculation plug-ins}
 \label{sec-tax-rule-plugins}
@@ -567,7 +567,7 @@ LedgerSMB side-by-side with the simple rule.
 \section{Tax forms}
 \label{sec-tax-taxforms}
 
-The tax forms facility exists to help file sales tax forms. It's primarily modelled
+The tax forms facility exists to help file sales tax forms. It's primarily modeled
 after the 1099 US tax reporting forms functionality, which means that it's cash based.
 The fact that it's cash based means that invoices will be included in the tax report
 as soon as cash for the invoice is received. Accrual based reporting means that the
@@ -665,6 +665,7 @@ Price groups feature only a description and constitute a category. Customers can
 determining a price for an item through the price matrix.
 
 \section{Using the price matrix\index{price matrix}}
+\label{sec-pricing-price-matrix}
 
 At the lower half of the parts and services definition screen, there are two sections; one with the first
 heading being ``Vendor'' and the other with the first heading being ``Customer''.  These are the vendor and
@@ -700,26 +701,30 @@ To visualize the algorithm, please consider the following examples.
 \subsection{Price matrix example: simple pricing}
 
 Consider customers A and B and a part with a generic ``Sell price'' of 110.00.
-The simplest for of a price matrix for a part, could look like:
+The simplest price matrix for a part, could look like:
 
 \begin{table}[H]
-		\caption{Price matrix configuration}
+		\caption{Customer specific price matrix}
 \begin{tabular}{|ccrrcrrr|}
 	\hline
 	\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
 	\hline
-	B & \footnote{This value is mutually exclusive with Customer} & & 99.00 & & & & \\
+	B & & & 99.00 & & & & \\
 	\hline
 \end{tabular}
 \end{table}
 
-When creating an invoice for customer A, the part will be listed at 110 while at the
+% In the above table this footnote was not being processed correctly
+% and I am not sure what ' mutually exclusive' means here.
+%  \footnote{This value is mutually exclusive with Customer} attached to Price Group
+
+When creating an invoice for customer A (not in the prices matrix), the part will be listed at generic sales price of 110.00 while at the
 same time an invoice for customer B lists it at 99.00.
 
 If customer B had been in the ``Frequenters'' price group, and the matrix had looked like this:
 
 \begin{table}[H]
-	\caption{Price matrix configuration}
+	\caption{Price group specific price matrix}
 	\begin{tabular}{|ccrrcrrr|}
 		\hline
 		\bf Customer & \bf Price group & \bf Discount &  \bf Sell price & \bf Currency & \bf From & \bf To & \bf Min Qty \\
