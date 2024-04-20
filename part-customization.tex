@@ -23,7 +23,7 @@ At the bottom of most report views there is a '[permalink]'. The idea of a \gls{
 \section{Introduction}
 \label{sec-customization-overview-introduction}
 
-Customization\index{customization} is about adding or changing behavior of an application in ways that were not foreseen when written.  It differs from configuration\index{configuration}, because the latter can be used to select between planned behaviors.  Since the functionality or behavior to be added wasn't foreseen, this means that customization implies application code being added or changed.  Especially changing existing behavior has proven problematic (in the IT industry at large) in terms of being able to later upgrade the underlying software to newer releases.  This problem can be mitigated by creation of specific ``extension points''\index{extension points}: places in the software which are designed to expand or replace existing behaviors.
+Customization\index{customization} is about adding or changing behavior of an application in ways that were not foreseen when it was written.  This differs from configuration\index{configuration}, because the latter can be used to select between planned behaviors.  Since the functionality or behavior to be added wasn't foreseen, this means that customization implies application code being added or changed.  Especially changing existing behavior has proven problematic (in the IT industry at large) in terms of being able to later upgrade the underlying software to newer releases.  This problem can be mitigated by creation of specific ``extension points''\index{extension points}: places in the software which are designed to expand or replace existing behaviors.
 
 LedgerSMB has several such ``extension points'':
 
@@ -50,18 +50,77 @@ Customization usually means additional or modified Perl code needs to be loaded.
 \section{Workflow configuration}
 \label{sec-customization-workflow-configuration}
 
-LedgerSMB uses the concept of workflows\index{workflows} to manage the document life cycle.
-An invoice for example may be \texttt{saved}, \texttt{posted} or \texttt{reversed}.  These
-are states in the life cycle of the invoice.  Each state may have associated actions.  In
-case of the invoice an example may be to \texttt{Post} it when it's \texttt{saved} or to
-\texttt{E-mail} it when it's \texttt{posted}.
+LedgerSMB uses the concept of workflows\index{workflows} to manage object life cycle.
+An invoice, for example, may be \texttt{saved}, \texttt{posted} or \texttt{reversed}.  These
+are states in the life cycle of the invoice.  Each state may have associated actions. E.g. in
+case of the invoice there may be a \texttt{Post} action when it's \texttt{saved} or to
+\texttt{E-mail} it when it's \texttt{posted}.  Actions may cause the document to change state:
+if the \texttt{Post} action is executed on a \texttt{saved} invoice, its new state
+will be \texttt{posted}.  E-mailing an invoice does not change its state: it
+remains posted.  Instead, a new workflow is created which manages state of the e-mail.
 
-Actions associated with a state may be available or not determined by one or more conditions.
-Examples are ``is the posting date of the transaction in a closed period''
-and ``is the current user allowed to post transactions''.
+\digraph[scale=0.4]{wf1}{
+	rankdir=LR;
+	subgraph invoice {
+		graph [label="Invoice"];
+		cluster = true;
+		saved -> posted [label="post"];
+		posted -> reversed [label="reverse"];
+	};
+
+    subgraph email {
+    	graph [label="email"];
+    	cluster = true;
+    	created -> sent [label="send"];
+    };
+
+    posted -> created [label="e-mail"];
+    posted -> posted [label="e-mail"];
+
+}
+
+Actions belonging to a state may (or may not) be available. This is determined by one or
+more conditions.  Examples are ``is the posting date of the transaction in a closed period''
+and ``is the current user allowed to post transactions''.  When the condition evaluates to
+\texttt{false}, the action is not available.
+
+Workflows are configurable. Configurations list the following aspects:
+
+\begin{enumerate}
+	\item A list of states
+	\item A list of allowable actions per state
+	\item A list of conditions per action
+	\item A mapping of actions to Perl code
+	\item A mapping of conditions to Perl code
+\end{enumerate}
+
+With these ingredients, the software's behavior can be changed.  E.g. by adding a new state
+and action in the invoice, an extra reviewing pairs of eyes can be added to the posting process.
+By adding a condition on this action, it can be made required for invoices over 100.000 USD
+(but not for other invoices).
+
+\digraph[scale=0.4]{wf2}{
+	rankdir=LR;
+	subgraph invoice {
+		graph [label="Invoice"];
+		cluster=true;
+		saved -> posted [label="post (<100.000)"];
+		saved -> submitted [label="submit (>100.000)"];
+		submitted -> posted [label="post"];
+		posted -> reversed [label="reverse"]
+	}
+}
+
+By changing association of the \texttt{save} action with its code, the application will act
+differently when saving the invoice.  Customizations may associate new behaviors with existing
+actions or create new ones entirely.  The behavior does not need to be known by the application
+developers, as the association may point to code added to the local installation.  This way, a
+\texttt{remind} action can be added to posted invoices, triggering a text (SMS) message to the
+customer.
+
 
 Workflows are stored in the \texttt{./workflows/} directory.  Each workflow consists of
-several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.}):
+several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.} for 'AR/AP' workflows):
 
 \begin{enumerate}
 	\item [\texttt{actions.xml}] (optional) names the list of available transitions
@@ -70,16 +129,16 @@ several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.}):
 	in the workflow naming Perl code to evaluate
 	\item [\texttt{persisters.xml}] (optional) defines the Perl mechanism to load and store
 	workflow instances
-	\item [\texttt{workflow.xml}] (required) defines the life cycle (states, actions
-	and conditions) with the allowed transitions per state (actions).
+	\item [\texttt{workflow.xml}] (required) defines the life cycle by combining states with
+	the actions and conditions listed in the respective configuration files. Each state lists
+	the allowable actions with the conditions to enable the action and a resulting state.
 \end{enumerate}
 
 Customized versions of workflow definition files must be stored in
  \texttt{./customized\_workflows/}\footnote{See
  	\secref{subsec-global-config-ledgersmb-yaml} on how to configure
- these paths}.  Files stored in this location will be used to override the ones in
-the standard location \texttt{./workflows/}: the file
-\texttt{./custom\_workflows/ar-ap.workflow.xml} will replace the built-in workflow
+ these paths}.  Files stored in this directory will be used to override those in
+the standard location: the file \texttt{./custom\_workflows/ar-ap.workflow.xml} will replace the built-in workflow
 from \texttt{./workflows/ar-ap.workflow.xml} used for invoices and AR/AP transactions.
 No changes should be made directly to the standard files because of the risk that those
 files will be overwritten on upgrade -- loosing the changes.
