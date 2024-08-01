@@ -131,13 +131,13 @@ Workflows are stored in the \texttt{./workflows/} directory.  Each workflow cons
 several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.} for 'AR/AP' workflows):
 
 \begin{enumerate}
-	\item [\texttt{actions.xml}] (optional) names the list of available transitions
+	\item [\texttt{ar-ap.actions.xml}] (optional) names the list of available transitions
 	in the workflow naming Perl code to be executed
-	\item [\texttt{conditions.xml}] (optional) names the list of conditions to be used
+	\item [\texttt{ar-ap.conditions.xml}] (optional) names the list of conditions to be used
 	in the workflow naming Perl code to evaluate
-	\item [\texttt{persisters.xml}] (optional) defines the Perl mechanism to load and store
+	\item [\texttt{ar-ap.persisters.xml}] (optional) defines the Perl mechanism to load and store
 	workflow instances
-	\item [\texttt{workflow.xml}] (required) defines the life cycle by combining states with
+	\item [\texttt{ar-ap.workflow.xml}] (required) defines the life cycle by combining states with
 	the actions and conditions listed in the respective configuration files. Each state lists
 	the allowable actions with the conditions to enable the action and a resulting state.
 \end{enumerate}
