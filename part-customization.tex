@@ -130,7 +130,7 @@ customer.
 Workflows are stored in the \texttt{./workflows/} directory.  Each workflow consists of
 several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.} for 'AR/AP' workflows):
 
-\begin{enumerate}
+\begin{description}
 	\item [\texttt{ar-ap.actions.xml}] (optional) names the list of available transitions
 	in the workflow naming Perl code to be executed
 	\item [\texttt{ar-ap.conditions.xml}] (optional) names the list of conditions to be used
@@ -140,14 +140,14 @@ several files, prefixed with the name of the workflow (e.g. \texttt{ar-ap.} for 
 	\item [\texttt{ar-ap.workflow.xml}] (required) defines the life cycle by combining states with
 	the actions and conditions listed in the respective configuration files. Each state lists
 	the allowable actions with the conditions to enable the action and a resulting state.
-\end{enumerate}
+\end{description}
 
-Customized versions of workflow definition files must be stored in
+Customized versions of workflow definition files must be stored in \linebreak
  \texttt{./customized\_workflows/}\footnote{See
  	\secref{subsec-global-config-ledgersmb-yaml} on how to configure
  these paths}.  Files stored in this directory will be used to override those in
-the standard location: the file \texttt{./custom\_workflows/ar-ap.workflow.xml} will replace the built-in workflow
-from \texttt{./workflows/ar-ap.workflow.xml} used for invoices and AR/AP transactions.
+the standard location: the file\linebreak \texttt{./custom\_workflows/ar-ap.workflow.xml} will replace the built-in workflow
+from \texttt{./workflows/ar-ap.workflow.xml} used for invoices and \linebreak AR/AP transactions.
 No changes should be made directly to the standard files because of the risk that those
 files will be overwritten on upgrade -- loosing the changes.
 
