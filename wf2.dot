@@ -1,0 +1,11 @@
+digraph wf2 {
+rankdir=LR;
+subgraph invoice {
+graph [label="Invoice"];
+cluster=true;
+saved -> posted [label="post (<100.000)"];
+saved -> submitted [label="submit (>100.000)"];
+submitted -> posted [label="post"];
+posted -> reversed [label="reverse"]
+}
+}
