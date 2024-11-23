@@ -137,7 +137,8 @@ SQL
 # Main
 #------------
 print "Example Usage:\n";
-print "  PGHOSTADDR='172.16.1.218' PGPORT='5001' PGDATABASE='example_inc' PGUSER='postgres' PGPASSWORD='abc' perl gather-db-info.pl\n";
+print "  PGHOSTADDR='192.168.1.218' PGPORT='5001' PGDATABASE='example_inc' PGUSER='postgres' PGPASSWORD='abc' perl gather-db-info.pl\n";
+print "\n";
 
 # use environment variables for authentication
 # host         PGHOST                  local domain socket
