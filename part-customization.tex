@@ -59,29 +59,41 @@ if the \texttt{Post} action is executed on a \texttt{saved} invoice, its new sta
 will be \texttt{posted}.  E-mailing an invoice does not change its state: it
 remains posted.  Instead, a new workflow is created which manages state of the e-mail.
 
-\begin{figure}
-\digraph[scale=0.4]{wf1}{
-	rankdir=LR;
-	subgraph invoice {
-		graph [label="Invoice"];
-		cluster = true;
-		saved -> posted [label="post"];
-		posted -> reversed [label="reverse"];
-	};
-
-    subgraph email {
-    	graph [label="email"];
-    	cluster = true;
-    	created -> sent [label="send"];
-    };
-
-    posted -> created [label="e-mail"];
-    posted -> posted [label="e-mail"];
-
+ \IfFileExists{./wf1.pdf}{
+ 	\begin{figure}[H]
+		\centering
+		% \includegraphics[width=0.8\textwidth]{dmc-create-step1.png}
+		% HTML processing does not handle cropping of this image, need to figure out why?
+		% \includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-login.png}
+		\includegraphics[width=\graphicswidth]{wf1.pdf}
+		\caption{Workflow triggered from another workflow}
+		\label{fig:triggered-workflow}
+	\end{figure}
+}{
+	\begin{figure}
+	\digraph[scale=0.4]{wf1}{
+		rankdir=LR;
+		subgraph invoice {
+			graph [label="Invoice"];
+			cluster = true;
+			saved -> posted [label="post"];
+			posted -> reversed [label="reverse"];
+		};
+	
+	    subgraph email {
+	    	graph [label="email"];
+	    	cluster = true;
+	    	created -> sent [label="send"];
+	    };
+	
+	    posted -> created [label="e-mail"];
+	    posted -> posted [label="e-mail"];
+	
+	}
+	\caption{Workflow triggered from another workflow}
+	\label{fig:triggered-workflow}
+	\end{figure}
 }
-\caption{Workflow triggered from another workflow}
-\label{fig:triggered-workflow}
-\end{figure}
 
 Actions belonging to a state may (or may not) be available. This is determined by one or
 more conditions.  Examples are ``is the posting date of the transaction in a closed period''
@@ -103,21 +115,33 @@ and action in the invoice, an extra reviewing pairs of eyes can be added to the 
 By adding a condition on this action, it can be made required for invoices over 100.000 USD
 (but not for other invoices).
 
-\begin{figure}
-\digraph[scale=0.4]{wf2}{
-	rankdir=LR;
-	subgraph invoice {
-		graph [label="Invoice"];
-		cluster=true;
-		saved -> posted [label="post (<100.000)"];
-		saved -> submitted [label="submit (>100.000)"];
-		submitted -> posted [label="post"];
-		posted -> reversed [label="reverse"]
-	}
+\IfFileExists{./wf2.pdf}{
+	\begin{figure}[H]
+		\centering
+		% \includegraphics[width=0.8\textwidth]{dmc-create-step1.png}
+		% HTML processing does not handle cropping of this image, need to figure out why?
+		% \includegraphics[width=\graphicswidth,  trim={0pt 50 0 0}, clip]{\autoscreenshotdir/setup-pl-login.png}
+		\includegraphics[width=\graphicswidth]{wf2.pdf}
+		\caption{Conditional workflow actions}
+		\label{fig:conditional-workflows}
+	\end{figure}
+}{
+	\begin{figure}
+		\digraph[scale=0.4]{wf2}{
+			rankdir=LR;
+			subgraph invoice {
+				graph [label="Invoice"];
+				cluster=true;
+				saved -> posted [label="post (<100.000)"];
+				saved -> submitted [label="submit (>100.000)"];
+				submitted -> posted [label="post"];
+				posted -> reversed [label="reverse"]
+			}
+		}
+		\caption{Conditional workflow actions}
+		\label{fig:conditional-workflows}
+	\end{figure}
 }
-\caption{Conditional workflow actions}
-\label{fig:conditional-workflows}
-\end{figure}
 
 By changing association of the \texttt{save} action with its code, the application will act
 differently when saving the invoice.  Customizations may associate new behaviors with existing
