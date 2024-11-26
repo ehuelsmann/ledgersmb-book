@@ -31,7 +31,7 @@ jobs:
         with:
           root_file: ledgersmb-book.tex
       - name: Upload PDF file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: PDF
           path: ledgersmb-book.pdf
@@ -65,12 +65,12 @@ jobs:
       - name: Build site
         run: ./rebuild-site.sh
       - name: Upload split page book site
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: split-book
           path: public_html/split-book
       - name: Upload single page book site
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: full-book
           path: public_html/full-book
