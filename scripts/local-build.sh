@@ -32,9 +32,11 @@ if [[ $1 = '--use-pdf-latex' ]]; then
 elif [[ $1 = '--use-latex-mk' ]]; then
 
     # Only builds files that have changed
+    # Have to use '-shell-escape' in order to build graphviz's dot files
+    # latexmk takes 3 runs to complete as of 26 Nov 2024
     #    -diagnostics \
-    
     latexmk -dvi- \
+        -shell-escape \
         -interaction=nonstopmode \
         -pdf \
         -silent \
