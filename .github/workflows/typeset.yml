@@ -30,6 +30,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: ledgersmb-book.tex
+          extra_system_packages: "graphviz"
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
         with:
