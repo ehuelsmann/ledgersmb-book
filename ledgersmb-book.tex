@@ -65,11 +65,20 @@
 \newcommand{\graphicswidth}{0.8\textwidth}
 \newcommand{\autoscreenshotdir}{auto-screenshots}
 
+% Required to allow LaTeXML to handle graphviz
+\usepackage{ifpdf}
+
 % For use of next line in description list
 \usepackage{enumitem}
 \setlist[description]{style=nextline}
 
+\ifpdf
+% LaTeXML does not work with graphviz
+% So we have to workaround that by only generating dot files when producing
+% pdf files.  The dot files are in the repository and if they need to be regenerated
+% then they need to be deleted and regnerated by producing a new book pdf.
 \usepackage[pdf]{graphviz}
+\fi
 
 % For fixing the postition of figures using H
 \usepackage{float}
