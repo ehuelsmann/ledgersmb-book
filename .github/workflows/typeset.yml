@@ -27,9 +27,10 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
           root_file: ledgersmb-book.tex
+          texlive_version: 2022
           extra_system_packages: "graphviz"
       - name: Upload PDF file
         uses: actions/upload-artifact@v4
