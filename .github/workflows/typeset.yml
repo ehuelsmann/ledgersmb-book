@@ -34,7 +34,7 @@ jobs:
           extra_system_packages: "graphviz"
           latexmk_shell_escape: true
       - name: Upload PDF file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: PDF
           path: ledgersmb-book.pdf
@@ -68,12 +68,12 @@ jobs:
       - name: Build site
         run: ./rebuild-site.sh
       - name: Upload split page book site
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: split-book
           path: public_html/split-book
       - name: Upload single page book site
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: full-book
           path: public_html/full-book
