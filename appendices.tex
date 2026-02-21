@@ -82,194 +82,78 @@ So in this system we do *not* calculate extrinsic financial movements for docume
 \chapter{Installation}
 \label{app-installation}
 
-LedgerSMB can be installed on almost any Linux host including Raspberry Pi. The project uses Debian for its docker images and \gls{CI} testing.  
+\lsmbsp  can be installed\index{installation} on almost any Linux host including Raspberry Pi. The project uses Debian for its docker images and \gls{CI} testing.  
 
-The following installation methods are available:
-\begin{enumerate}
-    \item Docker Preview\index{install docker preview} - The recommended way to quickly run and evaluate LedgerSMB. 
-        This method is not suitable for internet facing installations.
-    \item Docker Production\index{install docker production} - A more secure installation suitable as a base for internet facing use.
-    \item Native\index{install native} - A more complex installation that requires detailed knowledge of the underlying operation system. 
-        The project does NOT recommend this installation method.
-    \item Docker Development\index{install development} - Used by developers and includes extra libraries and code. 
-        Not recommended unless developing code for LSMB.
-    \item Linux Distribution\index{install distribution} - Some distributions have old versions of LedgerSMB. With recent LSMB improvements, the LSMB project no longer fits into the distribution's guidelines.
-        The consequence is that distributions are no longer updated or maintained.
-        The project does not recommend using LSMB from any Linux distribution.
-\end{enumerate}
+The following installation methods are available.
 
-\section{Docker preview}
+\section{Quick preview using Docker}
 \label{sec-installation-docker-preview}
 
-The advantage of using docker preview is that all prerequisites are determined and loaded automatically. 
-This is the quickest way to preview LedgerSMB.
+Quick preview\index{install Docker preview} using a Docker container is the recommended way to quickly run and evaluate \lsmb. 
+This method is \underline{not} suitable for internet facing installations.
 
-This method should NOT be used to install LSMB in a manner that allows internet wide connections.
+May require an understanding of Docker container images. \\
+\url{https://www.docker.com}
 
-On Ubuntu 22.04 use the following commands:
-\begin{lstlisting}[language=bash, basicstyle=\ttfamily, breaklines=true,frame=none,backgroundcolor=\color{ghostwhite}]
-# Install docker compose
-sudo apt install docker-compose
+The authoritative installation source are located at \\ 
+\url{https://github.com/ledgersmb/LedgerSMB/blob/master/README.md}
 
-# Make sure user is in the docker group
-sudo usermod -a -G docker $USER
-
-# Get the latest version of LSMB 1.11
-wget https://raw.githubusercontent.com/ledgersmb/ledgersmb-docker/1.11/docker-compose.yml
-
-# Update the group credentials
-exec su -l $USER
-
-# Start the container not using sudo
-docker-compose up -d
-\end{lstlisting}
-
-For the authoritative installation source see \url{https://github.com/ledgersmb/LedgerSMB/blob/master/README.md}
-
-\section{Docker Production}
+\section{Production using Docker}
 \label{sec-installation-docker-production}
 
-See \url{https://github.com/ledgersmb/ledgersmb-docker?tab=readme-ov-file#docker-compose-with-reverse-proxy} for the installation instructions.
+Using a Docker production\index{install Docker production} container is a more secure installation suitable as a base for internet facing use.
 
-\section{Native}
+May require an understanding of Docker container images. \\
+\url{https://www.docker.com}
+
+The authoritative installation instructions are located at \\
+\url{https://github.com/ledgersmb/ledgersmb-docker?tab=readme-ov-file#docker-compose-with-reverse-proxy}
+
+The user should review all security settings before deploying.
+
+\section{Native installation}
 \label{sec-installation-native}
 
-LedgerSMB provides  installation tarballs for installing LSMB into the native file system.
-This installation method requires experience and detailed knowledge of both the Linux operating system and LedgerSMB.
-Experience has shown that getting prerequisites and security correct is sometimes a significant challenge.
+A native\index{install native} installation is suitable for previewing, production and testing, but without the complexity of containers.
 
-The following commands were tested on a clean, default, server install with no snaps using \texttt{ubuntu-22.04.3-live-server-amd64.iso}.
+With the recent creation of the installation script, this installation method is very easy to use.
+The native install is tested on Debian, Fedora and OpenSUSE. 
 
-The steps were extracted from the docker install at \url{https://github.com/ledgersmb/ledgersmb-docker/blob/1.11/Dockerfile}. 
-This docker file should be considered the authoritative source.
+The user should review all security settings before deploying in an internet facing installation.
 
-\vspace{5mm}
-\begin{center}
-    \large{Warning}
-    
-    \large{The following commands need to be modified for proper security, which is the responsibility of the installer.}
-\end{center}
-\vspace{5mm}
+The authoritative install instructions are located at \\
+\url{https://get.ledgersmb.org}\textbf{}.  
 
-Make sure Ubuntu is up to date:
-\begin{lstlisting}[language=sh, basicstyle=\small\ttfamily, breaklines=true,frame=none,backgroundcolor=\color{ghostwhite}]
-sudo apt update
-sudo apt -y upgrade
-sudo reboot
-\end{lstlisting}
+Any problems found during installation should have Github issues created at \\
+\url{https://github.com/ledgersmb/ledgersmb-installer}. 
 
-Install the prerequisites:
-\begin{lstlisting}[language=bash, basicstyle=\small\ttfamily, breaklines=true,frame=none,backgroundcolor=\color{ghostwhite},showstringspaces=false]
-#!/bin/bash
-#
-# The following commands show an example of the commands
-# that may be used for a native install.
-#
-# They have a number of shortcomings that an experienced 
-# Linux administrator should recognize and correct.
-#
-# For example, PostgreSQL is, by default, installed 
-# and running as a superuser and should not be.
-#
+To verify which Linux systems are tested see \\
+\url{https://github.com/ledgersmb/ledgersmb-installer/blob/main/.github/workflows/ci.yaml}
 
-set -e   # stop on error
-set -x   # echo commands
-
-sudo apt-get -y install \
-  cpanminus \
-  make \
-  gcc \
-  libperl-dev \
-  wget ca-certificates \
-  gnupg \
-  iproute2 \
-  libclass-c3-xs-perl \
-  texlive-plain-generic \
-  texlive-latex-recommended \
-  texlive-fonts-recommended \
-  texlive-xetex fonts-liberation \
-  lsb-release \
-  dh-make-perl \
-  libmodule-cpanfile-perl \
-  git \
-  wget
-
-sudo apt-file update
-
-# Another viable location is /usr/local/ledgersmb/
-export INSTALL_LOCATION="/srv"
-export LSMB_VERSION="1.11.8"
-export LSMB_DL_DIR="Releases"
-export ARTIFACT_LOCATION="https://download.ledgersmb.org/f/$LSMB_DL_DIR/$LSMB_VERSION/ledgersmb-$LSMB_VERSION.tar.gz"
-
-wget --quiet -O /tmp/ledgersmb-$LSMB_VERSION.tar.gz \
-    "$ARTIFACT_LOCATION"
-sudo tar -xzf /tmp/ledgersmb-$LSMB_VERSION.tar.gz \
-    --directory "$INSTALL_LOCATION"
-rm -f /tmp/ledgersmb-$LSMB_VERSION.tar.gz
-cd ${INSTALL_LOCATION}/ledgersmb
-
-gather () {
-for lib in $(cpanfile-dump --with-all-features --recommends --no-configure --no-build --no-test)
-  do
-    if dh-make-perl locate "$lib" 2>/dev/null ;
-    then
-      :
-    else
-      echo no : $lib ;
-    fi ;
-  done
-}
-
-gather | grep -v dh-make-perl | \
-    grep -v 'not found' | \
-    grep -vi 'is in Perl ' | \
-    cut -d' ' -f4 | \
-    sort | \
-    uniq | \
-    sudo tee ${INSTALL_LOCATION}/derived-deps
-
-sudo apt-get -y install $(cat ${INSTALL_LOCATION}/derived-deps)
-
-sudo cpanm --quiet --notest \
-    --with-feature=starman \
-    --with-feature=latex-pdf-ps \
-    --installdeps ${INSTALL_LOCATION}/ledgersmb/
-
-# Postgres
-# From https://www.postgresql.org/download/linux/ubuntu/
-sudo sh \
-    -c 'echo "deb https://apt.postgresql.org/pub/repos/apt \
-    $(lsb_release -cs)-pgdg main" \
-    > /etc/apt/sources.list.d/pgdg.list'
-wget --quiet -O \
-    - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-    sudo apt-key add -
-
-sudo apt-get -y update
-
-# Warning: Actually using the default PG install is NOT best practice.
-sudo apt-get -y install postgresql
-
-# Optional clean up
-# sudo apt-get purge -y git cpanminus \
-#     make gcc libperl-dev
-# sudo apt-get autoremove -y
-# sudo apt-get clean
-\end{lstlisting}
-
-Once all of the prerequisites have been installed the user can proceed by following the install instructions on the web site.
-For example, \url{https://ledgersmb.org/content/installing-ledgersmb-111}, starting at "Configuring the PostgreSQL server"
-
-\section{Docker Development}
+\section{Development using Docker}
 \label{sec-installation-docker-development}
 
-See \url{https://github.com/ledgersmb/ledgersmb-dev-docker/blob/master/README.md} for the installation instructions.
+Most of the developers use a Docker development\index{install Docker development} container. 
+This installation method installs extra libraries and code specifically for development. 
 
-\section{Linux Distribution}
+This installation method is \underline{not} recommended unless developing code for \lsmb. 
+
+This installation method should be considered \underline{not} secure and \underline{not} to be used for internet facing installations.
+
+The authoritative installation instructions are located at \\
+\url{https://github.com/ledgersmb/ledgersmb-dev-docker/blob/master/README.md}
+    
+\section{Linux distribution}
 \label{sec-installation-linux-distribution}
 
-This method of installation is not recommended. These old distributions only exist to support existing users that have not yet upgraded.
+Installing from a Linux distribution\index{install from distribution} is \underline{not} recommended in any case.
+
+Some distributions have very old versions of \lsmb. 
+These old distributions only exist to support existing users that have not yet upgraded to a more recent version of \lsmb.
+
+With recent \lsmbsp improvements, the \lsmbsp code structure no longer adheres to the distribution's guidelines.
+The consequence is that \lsmbsp distributions are no longer updated or maintained.
+
 
 \chapter{Migration}
 \label{app-migration}
