@@ -16,7 +16,7 @@ sudo apt update
 sudo apt -y upgrade
 
 # From the book github action, which should always be consulted for changes.
-# https://github.com/ehuelsmann/ledgersmb-book/blob/master/.github/workflows/typeset.yml
+# https://github.com/ledgersmb/ledgersmb-book/blob/master/.github/workflows/typeset.yml
 sudo apt-get install -y gcc make cpanminus libxslt1-dev libxml-libxml-perl 
 sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended libxml-perl latexml
 sudo cpanm --notest LaTeXML

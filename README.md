@@ -8,7 +8,7 @@ The LedgerSMB Book is the documentation for the open source [LedgerSMB](https://
 
 The source for the LedgerSMB accounting system can be found on [github](https://github.com/ledgersmb/LedgerSMB).
 
-The source for the LedgerSMB Book can be found on [github](https://github.com/ehuelsmann/ledgersmb-book).
+The source for the LedgerSMB Book can be found on [github](https://github.com/ledgersmb/ledgersmb-book).
 
 ## Build Requirements
 
