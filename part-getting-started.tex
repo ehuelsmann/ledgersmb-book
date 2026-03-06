@@ -79,8 +79,15 @@ implementation.\index{setup.pl}
 The login screen shows three fields: (a) a user, (b) a password and (c) a database name.
 
 The user name you use with setup.pl needs to be a PostgreSQL user. The user needs at least the
-right to create databases and other users; the \texttt{postgres} super user has these rights
+right to create databases and other users; the \texttt{postgres}\index{postgres}\index{user postgres} super user has these rights
 and more, so it's generally convenient (but not very secure) to use it.
+
+You might also see the user name \texttt{lsmb\_dbadmin}\index{lsmb\_dbadmin}\index{user lsmb\_dbadmin}.
+This user is hard-coded as an alternate to 
+\texttt{postgres} because setup.pl can't connect to the database before it receives a valid
+user name and password. To use this user name it has to be setup during the installation
+process. This is not done by default, but is mentioned in some installation instructions as a more 
+secure alternative and should be used if available. Also see \secref{sec-users-management-initial}.
 
 The password must be the same as that used to log in from the command line using the
 \texttt{psql} \index{psql} tool or the password you assigned on user creation 
