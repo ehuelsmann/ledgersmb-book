@@ -323,5 +323,31 @@ All lines after the first one are considered to be data lines.
 \chapter{Add-ons and plug-ins}
 \label{cha-customization-add-ons}
 
-\chapter{Company creation}
-\label{cha-customization-company-creation}
+\chapter{Web service APIs}
+\label{cha-customization-web-service-api}
+
+LedgerSMB comes with a web service\index{web service API} \gls{API}\index{API}. 
+The version number assigned follows the rules of \href{https://semver.org/}{semantic versioning}. 
+
+The current major version is 0 (zero), meaning that it's not considered to have stabilized
+yet. The main reason is that not all functions have been ironed out yet:
+filtering, sorting and pagination are to be specified and implemented.
+
+The API is hosted on \texttt{erp/api/v0}, on the same root as \texttt{login.pl}. 
+
+That is to say that if \lsmb's login screen is hosted at
+
+\texttt{https://example.org/login.pl} \\
+
+then the API can be found at
+
+\texttt{https://example.org/erp/api/v0}.  \\
+
+The definitive API definition is in the source code located at
+\texttt{doc/openapi/API.yaml}.
+
+There is also a web reference version at \\
+\url{https://docs.ledgersmb.org/openapi/1.13.0/LedgerSMB-api.html}
+
+Note that the above URL is \lsmbsp version dependent. There may be newer versions available and
+you should refer to the version that matches your installation.
