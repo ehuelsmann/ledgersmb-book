@@ -103,11 +103,11 @@ The authoritative installation source are located at \\
 
 Using a Docker production\index{install Docker production} container is a more secure installation suitable as a base for internet facing use.
 
-May require an understanding of Docker container images. \\
-\url{https://www.docker.com}
+May require an understanding of Docker container images which is available at \\
+\url{https://www.docker.com}.
 
 The authoritative installation instructions are located at \\
-\url{https://github.com/ledgersmb/ledgersmb-docker?tab=readme-ov-file#docker-compose-with-reverse-proxy}
+\url{https://github.com/ledgersmb/ledgersmb-docker?tab=readme-ov-file#docker-compose-with-reverse-proxy}.
 
 The user should review all security settings before deploying.
 
@@ -122,13 +122,25 @@ The native install is tested on Debian, Fedora and OpenSUSE.
 The user should review all security settings before deploying in an internet facing installation.
 
 The authoritative install instructions are located at \\
-\url{https://get.ledgersmb.org}\textbf{}.  
+\url{https://get.ledgersmb.org}.
 
 Any problems found during installation should have Github issues created at \\
 \url{https://github.com/ledgersmb/ledgersmb-installer}. 
 
-To verify which Linux systems are tested see \\
-\url{https://github.com/ledgersmb/ledgersmb-installer/blob/main/.github/workflows/ci.yaml}
+To verify which Linux systems are tested by the project see \\
+\url{https://github.com/ledgersmb/ledgersmb-installer/blob/main/.github/workflows/ci.yaml}.
+
+\section{Manual installation}
+\label{sec-installation-manual}
+
+Manual installation\index{install manual} is complex but offers the most flexibility for the experienced installer.  
+This installation method is not recommended for anyone that does not have Linux web server, database and security experience.
+
+See the following for the recommended manual installation instructions based on \lsmbsp versions. 
+For example, the URL ending in "113" applies to \lsmbsp version 1.13.
+
+\input{manual-install}
+
 
 \section{Development using Docker}
 \label{sec-installation-docker-development}
@@ -141,7 +153,7 @@ This installation method is \underline{not} recommended unless developing code f
 This installation method should be considered \underline{not} secure and \underline{not} to be used for internet facing installations.
 
 The authoritative installation instructions are located at \\
-\url{https://github.com/ledgersmb/ledgersmb-dev-docker/blob/master/README.md}
+\url{https://github.com/ledgersmb/ledgersmb-dev-docker/blob/master/README.md}.
     
 \section{Linux distribution}
 \label{sec-installation-linux-distribution}
