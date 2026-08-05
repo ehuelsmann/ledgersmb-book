@@ -911,8 +911,65 @@ AP over payments, replacing ``customer'' with ``vendor'', ``AR'' with ``AP'', ``
 ``Expense'' and ``debit'' with ``credit''.
 \end{quote}
 
-\section{Receipts and payments in foreign currencies}
+\section{Receipts and payments in foreign currencies\index{foreign currency}}
 \label{sec-business-processes-payment-processing-fx-payments}
+
+LedgerSMB supports foreign currency in both Accounts Receivable (AR) and Accounts Payable (AP) by storing the transaction currency, the exchange rate, and the resulting base (functional) currency amounts used in the general ledger. 
+
+LedgerSMB assumes:
+\begin{itemize}
+\item A company has one functional base currency\index{functional base currency}.
+\item Customers and vendors may transact in different currencies.
+\item The foreign currency amount remains associated with the document so open invoices can be settled in their original currency.
+\item Each AR or AP document records:
+\begin{itemize}
+\item the transaction currency (EUR, GBP, CAD, etc.)
+\item the exchange rate used
+\item base-currency values posted to the GL
+\end{itemize}
+\end{itemize}
+
+\subsection{Exchange rates\index{Exchange rates}}
+
+Exchange rates are maintained separately from invoices.
+
+Current releases support:
+
+\begin{itemize}
+\item multiple currencies
+\item multiple exchange-rate classes
+\item validity periods for rates
+\item multiple rates on the same day (introduced in 1.7)
+\end{itemize}
+
+Beginning with 1.7, each transaction carries its own exchange rate instead of relying on a single daily buy/sell rate. This makes it possible to record the actual bank or negotiated rate used on an individual invoice or payment.
+
+\subsection{Exchange rate classes\index{Exchange rate classes}}
+
+LedgerSMB also supports exchange-rate classes, allowing organizations to maintain different sets of rates for purposes such as:
+\begin{itemize}
+\item operational transaction entry
+\item revaluation
+\item translation
+\item other accounting requirements
+\end{itemize}
+
+The default installation includes a standard exchange-rate class, and additional classes can be defined if needed.
+
+\subsection{User workflow}
+
+For AR and AP, LedgerSMB's foreign currency workflow\index{foreign currency workflow} is:
+\begin{enumerate}
+\item Enter the invoice in the customer's or vendor's currency.
+\item Record the exchange rate for that specific transaction.
+\item Post the GL in the company's functional currency.
+\item Retain the original foreign amount on the open document.
+\item When payment is recorded, compare the original and settlement exchange rates.
+\item Automatically recognize any realized foreign exchange gain or loss.
+\item Support different exchange rates for different transactions on the same day, reflecting actual bank or negotiated rates.
+\end{enumerate}
+
+This design closely follows standard accounting practice for foreign-currency AR and AP while giving users the flexibility to use transaction-specific exchange rates instead of a single daily rate.
 
 \chapter{Accounting}
 \label{cha-business-processes-accounting}
