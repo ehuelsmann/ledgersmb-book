@@ -676,7 +676,6 @@ that it is used to track which vendors have been asked for quotes.
 \item [Part number] All parts, services and assemblies are identified by a unique number.
 When an item is created and no number is entered by the user, a number is generated
 from this sequence.
-\item [Job/project number] Used when creating new projects.
 \item [Employee number ] Same as the sales invoice number, used by new employee entry.
 \item [Customer number] @@@ is this the control code number? or is this
 meta\_number?? -- Meta-number (CT) 
@@ -718,18 +717,20 @@ Warehouses are stocking locations. They don't have any properties (in the system
 other than that they have a name. Warehouses can be added, modified and deleted from
 the \menupath{Goods \& Services \ma Warehouses} menu item.
 
-\subsection{Departments}
-\label{subsec-company-config-departments}
+\subsection{Reporting units}
+\label{subsec-company-config-reporting-units}
 
-Departments can be used to divide a company in smaller pieces. LedgerSMB distinguishes two
-types of departments:
+There are a number of ways to divide customer, vendor or entity data into smaller pieces for reporting and analysis. \lsmbsp calls these divisions \gls{reporting units}.
 
-\begin{description}
-\item [Profit centers] which can be associated with any type of transaction, including AR transactions.
-\item [Cost centers] which can be associated with all types of transactions, except AR transactions.
-\end{description}
+Reporting units\index{reporting units} can be created (added), modified or deleted through the \menupath{System \ma Reporting Units} menu item.
 
-Departments can be created (added), modified or deleted through the \menupath{System \ma Departments} menu item.
+The default install includes department\index{department reporting units}, project\index{project reporting units}, job\index{job reporting units}, fund\index{fund reporting units}, customer\index{customer reporting units}, vendor\index{vendor reporting units}, and lot\index{lot reporting units}.
+However, these are all marked inactive in the default install. 
+
+Each reporting unit can be assigned to show on Sales, Purchases, GL, Entity, Manufacturing, Fixed Assets, or Time Card views.
+
+Once the overall reporting unit is defined using the ``Reporting Unit'' view, it has to be assigned to a specific entity.
+This is done by clicking on the ``Add Unit'' button, which defines and makes the specific department, job, etc. available to \lsmb.
 
 \subsection{Type of business}
 \label{subsec-company-config-business-types}
