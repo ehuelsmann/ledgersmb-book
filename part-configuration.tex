@@ -721,10 +721,12 @@ the \menupath{Goods \& Services \ma Warehouses} menu item.
 \label{subsec-company-config-reporting-units}
 
 There are a number of ways to divide customer and vendor data into smaller pieces for reporting and analysis. \lsmbsp calls these divisions \gls{reporting units}.  Every reporting unit\index{reporting unit} belongs to a reporting unit class\index{reporting unit class}.
-
 For example, in the reporting unit class called ``project'', there might be reporting units for ``Project 1'', ``Project 2'', etc.
 
-Reporting unit classes can be created (added), modified or deleted through the \menupath{System \ma Reporting Units} menu item. Reporting units can be created and modified using the same menu item.  Reporting units have start and end dates, but may not be deleted to insure financial integrity.
+Reporting units can be structured hierarchically. 
+For example, "Project 1" could be the parent of "Assessment", "Planning", "Execution", and "Finalize".  This allows tracking of project phases or sub-components.
+
+Reporting unit classes can be created (added), modified or deleted through the \menupath{System \ma Reporting Units} menu item. Reporting units can be created and modified using the same menu item.  Reporting units have start and end dates, but may not be deleted to ensure financial integrity.
 
 The default install includes reporting unit classes for department\index{department reporting unit class}, project\index{project reporting unit class}, job\index{job reporting unit class}, fund\index{fund reporting unit class}, customer\index{customer reporting unit class}, vendor\index{vendor reporting unit class}, and lot\index{lot reporting unit class}.
 However, these are all marked inactive in the default install and they have no defined reporting units. The result is that reporting unit class selections do not show anyplace in the user interface by default.
@@ -764,8 +766,8 @@ clicking on the ``Add Unit'' button. This will allow the entry of the following 
 	\endhead
 	Control Code & The data entry short code, must be unique for all reporting units\\
 	Parent & A previously entered reporting unit\\
-	Start Date &  The active transaction start date\\
-	End Date &  the active transaction end date\\
+	Start Date &  The optional active transaction start date\\
+	End Date &  The optional active transaction end date\\
 	Description & The name of the department, job, etc. \\
 	Customer &  Not used, will be removed \\
 	\\
@@ -774,6 +776,8 @@ clicking on the ``Add Unit'' button. This will allow the entry of the following 
 \end{longtable}
 
 The start and end dates determine if the reporting unit is shown in the user interface drop-downs based on the transaction date.
+If the start date is omitted then the start date is assumed to be the far past.
+If the end date is omitted then the end date is assumed to be the far future.
 
 Clicking ``Save'' makes the specific department, job, etc. available to \lsmb.
 
