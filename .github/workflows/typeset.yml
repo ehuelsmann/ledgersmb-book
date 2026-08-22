@@ -6,13 +6,13 @@ name: Build LedgerSMB Book
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "1.13" ]
+    branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 env:
-  BOOK_VERSION: '1.13'
+  BOOK_VERSION: 'dev'
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel

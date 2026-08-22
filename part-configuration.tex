@@ -721,15 +721,20 @@ the \menupath{Goods \& Services \ma Warehouses} menu item.
 \label{subsec-company-config-reporting-units}
 
 There are a number of ways to divide customer and vendor data into smaller pieces for reporting and analysis. \lsmbsp calls these divisions \gls{reporting units}.  Every reporting unit\index{reporting unit} belongs to a reporting unit class\index{reporting unit class}.
-For example, in the reporting unit class called ``project'', there might be reporting units for ``Project 1'', ``Project 2'', etc.
+For example, in the reporting unit class called ``Project'', there might be reporting units for ``Project 1'', ``Project 2'', etc.
 
 Reporting units can be structured hierarchically. 
-For example, "Project 1" could be the parent of "Assessment", "Planning", "Execution", and "Finalize".  This allows tracking of project phases or sub-components.
+For example, "Project 1" could be the parent of "Assessment", "Planning", "Execution", and "Finalize".  This allows tracking of project phases or sub-components. There is no code limit to the depth of the hierarchy, but practically it is probably smart to limit the hierarchy to less than 5 levels.
 
-Reporting unit classes can be created (added), modified or deleted through the \menupath{System \ma Reporting Units} menu item. Reporting units can be created and modified using the same menu item.  Reporting units have start and end dates, but may not be deleted to ensure financial integrity.
+Reporting unit classes can be created (added), modified or deleted through the \menupath{System \ma Reporting Units} menu item. Reporting units can be created and modified using the same menu item.  Reporting units have start and end dates, but may not be deleted. This is to maintain data integrity.
 
-The default install includes reporting unit classes for department\index{department reporting unit class}, project\index{project reporting unit class}, job\index{job reporting unit class}, fund\index{fund reporting unit class}, customer\index{customer reporting unit class}, vendor\index{vendor reporting unit class}, and lot\index{lot reporting unit class}.
-However, these are all marked inactive in the default install and they have no defined reporting units. The result is that reporting unit class selections do not show anyplace in the user interface by default.
+The default install includes reporting unit classes for ``Department''\index{department reporting unit class}, ``Project''\index{project reporting unit class}, ``Job''\index{job reporting unit class}, ``Fund''\index{fund reporting unit class}, ``Customer''\index{customer reporting unit class}, ``Vendor''\index{vendor reporting unit class}, and ``Lot''\index{lot reporting unit class}.
+
+In the default install these are all marked inactive and they have no defined reporting units. The result is that reporting unit class selections do not show or show with empty drop-downs in the user interface by default.
+
+{\color{red}WARNING:} The ``Department'' reporting unit class is currently hard-coded in some views and should not be renamed or removed. 
+It is perfectly acceptable to add company specific reporting units like ``Accounting'', ``Sales'', etc.
+There are planned enhancements to remove the hard-coding in future versions.
 
 The reporting unit class configuration has the following fields. 
 
@@ -740,36 +745,39 @@ The reporting unit class configuration has the following fields.
 	Label & The label shown on screen\\
 	Active & Determines if the drop-down appears\\
 	Ordering & The order in which multiple Reporting Unit Classes appear\\
-	 & and should be a unique integer\\
-	AR & Shows in AR Transaction, Sales Invoice, Credit Note,  \\
-         & Credit Invoice, Customer Return, Aging Report screens\\
-	AP & Shows in AP Transaction, Vendor Invoice, Debit Note, \\
-	 &  Debit Invoice, Aging Report screens\\
+		 & and should be a unique integer\\
+	Sales & Shows in AR Transaction, Sales Invoice, Credit Note,  \\
+         & Credit Invoice, Customer Return, Aging Report, Sales Order,\\
+         & and Quotation screens\\
+	Purchases & Shows in AP Transaction, Vendor Invoice, Debit Note, \\
+		 &  Debit Invoice, and Aging Report, Purchase Order, and\\
+		 & Request for Quotation screens\\
 	GL &  Shows in General Ledger Transaction, Trial Balance, \\
-	 & Add budget, Income Statement screens\\
-	Entity &  Not currently available\\
-	Manufacturing & Not currently available \\
+		 &  Income Statement, and Add budget screens\\
+	Entity &  Not currently used\\
+	Manufacturing & Not currently used \\
 	Fixed Assets &  Add Assets screen, Is hard-coded to show "Department" \\
-	 & reporting unit class only\\
+		 & reporting unit class only\\
 	Timecards &  Time and Materials Entry screen, is hard-coded to show  \\
-	 & "Department" reporting unit class only for Report In \\
-	\\
+		 & "Department" reporting unit class only for ``Report In''\\
+		 & drop-down \\
+		 \\
 	\caption{Reporting Unit Class Fields}
 	\label{fig:subsec-company-config-reporting-class-fields}
 \end{longtable}
 
+ \newpage % Only because the following table spills across pages right now, probably a better way to do this
 Once the reporting unit class is defined, marked active and saved, the reporting unit is defined by
 clicking on the ``Add Unit'' button. This will allow the entry of the following data.
- 
 \begin{longtable}{ llp{6cm} }
 	Field  & Description \\ \hline
 	\endhead
-	Control Code & The data entry short code, must be unique for all reporting units\\
+	Control Code & The data entry short code, must be unique for all\\
+		 & reporting units\\
+	Description & The name of the department, job, etc. \\
 	Parent & A previously entered reporting unit\\
 	Start Date &  The optional active transaction start date\\
 	End Date &  The optional active transaction end date\\
-	Description & The name of the department, job, etc. \\
-	Customer &  Not used, will be removed \\
 	\\
 	\caption{Reporting Unit Fields}
 	\label{fig:subsec-company-config-reporting-unit-fields}
